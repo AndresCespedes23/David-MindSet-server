@@ -1,5 +1,5 @@
 const express = require('express');
-const sessions = require('./controllers/sessions');
+const candidates = require('./controllers/candidates');
 
 const app = express();
 const port = 8000;
@@ -7,21 +7,21 @@ const port = 8000;
 app.get('/', (req, res) => {
     let html = '<h1>MindeSet</h1>';
     html += '<ul>';
-    html += '  <li>sessions:';
+    html += '  <li>Candidates:';
     html += '    <ul>';
-    html += '      <li><a href="/sessions">getAll</a></li>';
+    html += '      <li><a href="/candidates">getAll</a></li>';
     html += '    </ul>';
     html += '  </li>';
     html += '</ul>';
     res.send();
 });
 
-app.get('/sessions', sessions.getAll);
-app.get('/sessions/:id', sessions.getById);
-app.get('/sessions/byName/:name', sessions.getByName);
-app.get('/sessions/add', sessions.add);
-app.get('/sessions/edit', sessions.edit);
-app.get('/sessions/remove', sessions.remove);
+app.get('/candidates', candidates.getAll);
+app.get('/candidate/:id', candidates.getById);
+app.get('/candidate/byName/:name', candidates.getByName);
+app.get('/candidate/add', candidates.add);
+app.get('/candidate/edit', candidates.edit);
+app.get('/candidate/remove', candidates.remove);
 
 app.listen(port, () => {
   console.log(`Open your browser in http://localhost:${port}`);
