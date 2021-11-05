@@ -1,5 +1,7 @@
+const candidates = require('../data/candidates.json');
+
 const getAll = (req, res) => {
-    // your code here
+    res.json(candidates)
 };
 
 const getById = (req, res) => {
