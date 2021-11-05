@@ -9,14 +9,21 @@ const getById = (req, res) => {
     if(!foundCandidate){
         res.status(400).json({
             ok:false,
-            msg:'Candidate not found'
+            msg:'Candidate not found by ID'
         });
     }
     res.json(candidates.list.filter(candidate => candidate.id === parseInt(req.params.id)))
 };
 
 const getByName = (req, res) => {
-    // your code here
+    const foundCandidate = candidates.list.some(candidate => candidate.firstName.toLowerCase() === req.params.name.toLowerCase());
+    if(!foundCandidate){
+        res.status(400).json({
+            ok:false,
+            msg:'Candidate not found by FirstName'
+        });
+    }
+    res.json(candidates.list.filter(candidate => candidate.firstName.toLowerCase() === req.params.name.toLowerCase()))
 };
 
 const add = (req, res) => {
