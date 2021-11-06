@@ -17,9 +17,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/candidates', candidates.getAll);
+app.get('/candidate/add', candidates.add);
 app.get('/candidate/:id', candidates.getById);
 app.get('/candidate/byName/:name', candidates.getByName);
-app.get('/candidate/add', candidates.add);
 app.get('/candidate/edit', candidates.edit);
 app.get('/candidate/remove', candidates.remove);
 
