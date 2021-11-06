@@ -1,6 +1,6 @@
 const express = require('express');
 const candidates = require('./controllers/candidates');
-const profileTypes = require('./controllers/profile-types');
+const profileTypes = require('./controllers/profiles-types');
 const app = express();
 const port = 8000;
 
@@ -23,12 +23,12 @@ app.get('/candidate/add', candidates.add);
 app.get('/candidate/edit', candidates.edit);
 app.get('/candidate/remove', candidates.remove);
 
-app.get('/profile-types', profileTypes.getAll);
-app.get('/profile-types/:id', profileTypes.getById);
-app.get('/profile-types/byName/:name', profileTypes.getByName);
-app.get('/profile-types/add', profileTypes.add);
-app.get('/profile-types/edit', profileTypes.edit);
-app.get('/profile-types/remove', profileTypes.remove);
+app.get('/profiles-types', profileTypes.getAll);
+app.get('/profiles-types/:id', profileTypes.getById);
+app.get('/profiles-types/byName/:name', profileTypes.getByName);
+app.get('/profiles-types/add', profileTypes.add);
+app.get('/profiles-types/edit', profileTypes.edit);
+app.get('/profiles-types/remove', profileTypes.remove);
 
 app.listen(port, () => {
   console.log(`Open your browser in http://localhost:${port}`);
