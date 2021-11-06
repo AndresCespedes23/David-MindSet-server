@@ -26,3 +26,8 @@ app.get('/candidate/remove', candidates.remove);
 app.listen(port, () => {
   console.log(`Open your browser in http://localhost:${port}`);
 });
+
+
+
+let sofi = "1st commit"
+console.log(sofi)
