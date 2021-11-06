@@ -1,6 +1,8 @@
+const profileTypes = require('../data/profiles-types.json')
 const getAll = (req, res) => {
     // your code here
-    console.log('prueba');
+    res.json(profileTypes);
+
 };
 
 const getById = (req, res) => {
