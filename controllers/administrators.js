@@ -1,5 +1,7 @@
+const adminData = require('../data/administrators.json')
+
 const getAll = (req, res) => {
-    // your code here
+    res.json(adminData)
 };
 
 const getById = (req, res) => {

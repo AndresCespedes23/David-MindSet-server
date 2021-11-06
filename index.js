@@ -2,6 +2,7 @@ const express = require('express');
 const candidates = require('./controllers/candidates');
 const administrators = require('./controllers/administrators');
 
+
 const app = express();
 const port = 8000;
 
