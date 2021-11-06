@@ -1,7 +1,6 @@
 const express = require("express");
 const candidates = require("./controllers/candidates");
 const companies = require("./controllers/companies");
-const compdata = require("./data/companies.json");
 
 const app = express();
 const port = 8000;
@@ -15,7 +14,7 @@ app.get("/", (req, res) => {
   html += "    </ul>";
   html += "  </li>";
   html += "</ul>";
-  res.send("MindSet");
+  res.send(html);
 });
 
 app.get("/candidates", candidates.getAll);
@@ -29,8 +28,8 @@ app.get("/companies", companies.getAll);
 app.get("/company/:id", companies.getById);
 app.get("/company/byName/:name", companies.getByName);
 app.get("/company/add", companies.add);
-app.get("/company/edit", companies.edit);
-app.get("/company/remove", companies.remove);
+app.get("/company/edit/:id", companies.edit);
+app.get("/company/remove/:id", companies.remove);
 
 app.listen(port, () => {
   console.log(`Open your browser in http://localhost:${port}`);
