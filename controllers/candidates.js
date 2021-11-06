@@ -159,12 +159,22 @@ const edit = (req, res) => {
             foundCandidate.mainSkills = req.query.mainSkills !== undefined ? req.query.mainSkills : foundCandidate.mainSkills;
             foundCandidate.profileTypes = req.query.profileTypes !== undefined ? req.query.profileTypes : foundCandidate.profileTypes;
             foundCandidate.isOpenToWork = req.query.isOpenToWork !== undefined ? req.query.isOpenToWork : foundCandidate.isOpenToWork;
-            foundCandidate.isActive = req.query.isActive !== undefined ? req.query.isActive : foundCandidate.isActive;
     }
+    //FALTA PERSISTIR LOS DATOS
 };
 
 const remove = (req, res) => {
-    // your code here
+    const foundCandidate = candidates.list.some(candidate => candidate.id === parseInt(req.params.id));
+    if(!foundCandidate){
+        res.status(400).json({
+            ok:false,
+            msg:'Candidate not found by ID'
+        });
+    }
+    else{
+        foundCandidate.isActive = false;
+    }
+    //FALTA PERSISTIR LOS DATOS
 };
 
 module.exports = {
