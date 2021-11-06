@@ -1,0 +1,12 @@
+[{"id":1,"profile_types_name":"Administrative","isActive":true},
+{"id":2,"profile_types_name":"Experienced administrative","isActive":false},
+{"id":3,"profile_types_name":"Building","isActive":false},
+{"id":4,"profile_types_name":"Experienced building","isActive":false},
+{"id":5,"profile_types_name":"Logistics","isActive":true},
+{"id":6,"profile_types_name":"Experienced logistic","isActive":true},
+{"id":7,"profile_types_name":"Industrial assembly","isActive":true},
+{"id":8,"profile_types_name":"Experienced industrial assembly","isActive":true},
+{"id":9,"profile_types_name":"Treasury","isActive":true},
+{"id":10,"profile_types_name":"Experienced treasury","isActive":true},
+{"id":11,"profile_types_name":"Customer support","isActive":true},
+{"id":12,"profile_types_name":"Experienced customer support","isActive":true}]
