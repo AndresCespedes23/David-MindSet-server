@@ -38,8 +38,8 @@ app.get('/candidate/edit', candidates.edit);
 app.get('/candidate/remove', candidates.remove);
 
 app.get('/administrators', administrators.getAll);
-app.get('/administrators/:id', administrators.getById);
-app.get('/administrators/byName/:name', administrators.getByName);
+app.get('/administrator/:id', administrators.getById);
+app.get('/administrator/byName/:name', administrators.getByName);
 app.get('/administrators/add', administrators.add);
 app.get('/administrators/edit', administrators.edit);
 app.get('/administrators/remove', administrators.remove);
