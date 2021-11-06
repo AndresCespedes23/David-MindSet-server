@@ -30,8 +30,8 @@ app.get("/candidate/remove", candidates.remove);
 app.get("/companies", companies.getAll);
 app.get("/company/:id", companies.getById);
 app.get("/company/byName/:name", companies.getByName);
-app.post("/company/add", companies.add);
-app.put("/company/edit/:id", companies.edit);
+app.get("/companies/add", companies.add);
+app.get("/company/edit/:id", companies.edit);
 app.get("/company/remove/:id", companies.remove);
 
 app.listen(port, () => {
