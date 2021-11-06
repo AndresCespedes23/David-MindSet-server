@@ -132,7 +132,35 @@ const add = (req, res) => {
 };
 
 const edit = (req, res) => {
-    // your code here
+    const foundCandidate = candidates.list.some(candidate => candidate.id === parseInt(req.params.id));
+    if(!foundCandidate){
+        res.status(400).json({
+            ok:false,
+            msg:'Candidate not found by ID'
+        });
+    }
+    else{
+            foundCandidate.firstName = req.query.firstName !== undefined ? req.query.firstName : foundCandidate.firstName;
+            foundCandidate.lastName = req.query.lastName !== undefined ? req.query.lastName : foundCandidate.lastName;
+            foundCandidate.email = req.query.email !== undefined ? req.query.email : foundCandidate.email;
+            foundCandidate.password = req.query.password !== undefined ? req.query.password : foundCandidate.password;
+            foundCandidate.pictureUrl = req.query.pictureUrl !== undefined ? req.query.pictureUrl : foundCandidate.pictureUrl;
+            foundCandidate.phone = req.query.phone !== undefined ? req.query.phone : foundCandidate.phone;
+            foundCandidate.address = req.query.address !== undefined ? req.query.address : foundCandidate.address;
+            foundCandidate.city = req.query.city !== undefined ? req.query.city : foundCandidate.city;
+            foundCandidate.province = req.query.province !== undefined ? req.query.province : foundCandidate.province;
+            foundCandidate.country = req.query.country !== undefined ? req.query.country : foundCandidate.country;
+            foundCandidate.postalCode = req.query.postalCode !== undefined ? req.query.postalCode : foundCandidate.postalCode;
+            foundCandidate.birthday = req.query.birthday !== undefined ? req.query.birthday : foundCandidate.birthday;
+            foundCandidate.education = req.query.education !== undefined ? req.query.education : foundCandidate.education;
+            foundCandidate.experiences = req.query.experiences !== undefined ? req.query.experiences : foundCandidate.experiences;
+            foundCandidate.courses = req.query.courses !== undefined ? req.query.courses : foundCandidate.courses;
+            foundCandidate.hobbies = req.query.hobbies !== undefined ? req.query.hobbies : foundCandidate.hobbies;
+            foundCandidate.mainSkills = req.query.mainSkills !== undefined ? req.query.mainSkills : foundCandidate.mainSkills;
+            foundCandidate.profileTypes = req.query.profileTypes !== undefined ? req.query.profileTypes : foundCandidate.profileTypes;
+            foundCandidate.isOpenToWork = req.query.isOpenToWork !== undefined ? req.query.isOpenToWork : foundCandidate.isOpenToWork;
+            foundCandidate.isActive = req.query.isActive !== undefined ? req.query.isActive : foundCandidate.isActive;
+    }
 };
 
 const remove = (req, res) => {
