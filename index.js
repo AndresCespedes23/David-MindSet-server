@@ -16,6 +16,11 @@ app.get('/', (req, res) => {
   html += '      <li><a href="/candidates">getAll</a></li>';
   html += '    </ul>';
   html += '  </li>';
+  html += '  <li>Companies:';
+  html += '    <ul>';
+  html += '      <li><a href="/companies">getAll</a></li>';
+  html += '    </ul>';
+  html += '  </li>';
   html += '</ul>';
   res.send(html);
 });
