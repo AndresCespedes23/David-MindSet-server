@@ -26,15 +26,26 @@ const getByName = (req, res) => {
 };
 
 const add = (req, res) => {
-  //agregar validaciones  
+  //agregar validaciones
   const newCompany = {
     id: companies.length + 1,
     name: req.query.name,
+    address: req.query.address,
+    city: req.query.city,
+    country: req.query.country,
+    zipCode: req.query.zipCode,
+    phone: req.query.phone,
+    email: req.query.email,
+    pictureUrl: req.query.pictureUrl,
+    contactFullName: req.query.contactFullName,
+    contactPhone: req.query.contactPhone,
+    isActive: req.query.isActive,
   };
+  
   companies.push(newCompany);
   fs.writeFile("./data/companies.json", JSON.stringify(companies), (err) => {
     if (err) {
-      console.log(err)
+      console.log(err);
       res.status(500).json({ message: "Error adding company" });
     }
   });
