@@ -1,4 +1,5 @@
-const adminData = require('../data/administrators.json')
+const adminData = require('../data/administrators.json');
+const fs = require('fs');
 
 const getAll = (req, res) => {
     res.json(adminData)
@@ -23,7 +24,20 @@ const getByName = (req, res) => {
 };
 
 const add = (req, res) => {
-    // your code here
+    const newAdmin = {
+        id: req.query.id,
+        firstName: req.query.firstName,
+        lastName: req.query.lastName,
+        email: req.query.email,
+        password: req.query.password,
+        isActive: req.query.isActive
+    }
+
+    adminData.push(newAdmin)
+    fs.writeFile("./data/administrators.json", JSON.stringify(adminData), err => {
+        if (err) { res.status(500) }
+      })
+    res.json(newAdmin)
 };
 
 const edit = (req, res) => {

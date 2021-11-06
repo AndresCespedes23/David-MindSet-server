@@ -1,3 +1,1 @@
-[{"id":1,"firstName":"Alberik","lastName":"de Lloyd","email":"adelloyd0@hubpages.com","password":"p4IDgQCpDB","isActive":false},
-{"id":2,"firstName":"Minerva","lastName":"Toffoletto","email":"mtoffoletto1@slate.com","password":"TXCGJgIF1SY","isActive":false},
-{"id":3,"firstName":"Dory","lastName":"Verissimo","email":"dverissimo2@seattletimes.com","password":"vuJgYIGpmr0","isActive":false}]
+[{"id":1,"firstName":"Alberik","lastName":"de Lloyd","email":"adelloyd0@hubpages.com","password":"p4IDgQCpDB","isActive":false},{"id":2,"firstName":"Minerva","lastName":"Toffoletto","email":"mtoffoletto1@slate.com","password":"TXCGJgIF1SY","isActive":false},{"id":3,"firstName":"Dory","lastName":"Verissimo","email":"dverissimo2@seattletimes.com","password":"vuJgYIGpmr0","isActive":false},{"id":"4","firstName":"Agustin","lastName":"Schiaffino","email":"agu@gmail.com","password":"12345678","isActive":"true"}]
