@@ -57,17 +57,9 @@ const edit = (req, res) => {
   const id = parseInt(req.params.id);
   const company = companies.find((company) => company.id === id);
   if (company) {
-    company.name = req.query.name ? req.query.name : company.name;
-    company.address = req.query.address ? req.query.address : company.address;
-    company.city = req.query.city ? req.query.city : company.city;
-    company.country = req.query.country ? req.query.country : company.country;
-    company.zipCode = req.query.zipCode ? req.query.zipCode : company.zipCode;
-    company.phone = req.query.phone ? req.query.phone : company.phone;
-    company.email = req.query.email ? req.query.email : company.email;
-    company.pictureUrl = req.query.pictureUrl ? req.query.pictureUrl : company.pictureUrl;
-    company.contactFullName = req.query.contactFullName ? req.query.contactFullName : company.contactFullName;
-    company.contactPhone = req.query.contactPhone ? req.query.contactPhone : company.contactPhone;
-    company.isActive = req.query.isActive ? req.query.isActive : company.isActive;
+    for (let key in company) {
+      company[key] = req.query[key] ? req.query[key] : company[key];
+    }
 
     fs.writeFile("./data/companies.json", JSON.stringify(companies), (err) => {
       if (err) {
