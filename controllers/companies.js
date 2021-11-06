@@ -1,5 +1,5 @@
-const fs = require("fs");
-const companies = require("../data/companies.json");
+const fs = require('fs');
+const companies = require('../data/companies.json');
 
 const getAll = (req, res) => {
   res.json(companies);
@@ -11,7 +11,7 @@ const getById = (req, res) => {
   if (company) {
     res.json(company);
   } else {
-    res.status(404).json({ message: `Company not found with id: ${id}`});
+    res.status(404).json({ message: `Company not found with id: ${id}` });
   }
 };
 
@@ -21,7 +21,7 @@ const getByName = (req, res) => {
   if (company) {
     res.json(company);
   } else {
-    res.status(404).json({ message: "Company not found with name: ${name}" });
+    res.status(404).json({ message: 'Company not found with name: ${name}' });
   }
 };
 
@@ -42,13 +42,13 @@ const add = (req, res) => {
     isActive: req.query.isActive,
   };
   companies.push(newCompany);
-  fs.writeFile("./data/companies.json", JSON.stringify(companies), (err) => {
+  fs.writeFile('./data/companies.json', JSON.stringify(companies), (err) => {
     if (err) {
       console.log(err);
-      res.status(500).json({ message: "Error adding company" });
+      res.status(500).json({ message: 'Error adding company' });
     }
   });
-  res.json({ message: "Company added successfully", newCompany });
+  res.json({ message: 'Company added successfully', newCompany });
 };
 
 const edit = (req, res) => {
@@ -58,15 +58,15 @@ const edit = (req, res) => {
     for (let key in company) {
       company[key] = req.query[key] ? req.query[key] : company[key];
     }
-    fs.writeFile("./data/companies.json", JSON.stringify(companies), (err) => {
+    fs.writeFile('./data/companies.json', JSON.stringify(companies), (err) => {
       if (err) {
         console.log(err);
-        res.status(500).json({ message: "Error editing company" });
+        res.status(500).json({ message: 'Error editing company' });
       }
     });
-    res.json({ message: "Company edited successfully", company });
+    res.json({ message: 'Company edited successfully', company });
   } else {
-    res.status(404).json({ message: "Company not found with id: ${id}" });
+    res.status(404).json({ message: 'Company not found with id: ${id}' });
   }
 };
 
