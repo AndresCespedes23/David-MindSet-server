@@ -5,6 +5,9 @@ const companies = require("./controllers/companies");
 const app = express();
 const port = 8000;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.get("/", (req, res) => {
   let html = "<h1>MindeSet</h1>";
   html += "<ul>";
@@ -27,8 +30,8 @@ app.get("/candidate/remove", candidates.remove);
 app.get("/companies", companies.getAll);
 app.get("/company/:id", companies.getById);
 app.get("/company/byName/:name", companies.getByName);
-app.get("/company/add", companies.add);
-app.get("/company/edit/:id", companies.edit);
+app.post("/company/add", companies.add);
+app.put("/company/edit/:id", companies.edit);
 app.get("/company/remove/:id", companies.remove);
 
 app.listen(port, () => {
