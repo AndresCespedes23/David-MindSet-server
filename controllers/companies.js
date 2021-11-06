@@ -41,8 +41,9 @@ const add = (req, res) => {
     contactPhone: req.query.contactPhone,
     isActive: req.query.isActive,
   };
-  
+
   companies.push(newCompany);
+
   fs.writeFile("./data/companies.json", JSON.stringify(companies), (err) => {
     if (err) {
       console.log(err);
@@ -56,9 +57,25 @@ const edit = (req, res) => {
   const id = parseInt(req.params.id);
   const company = companies.find((company) => company.id === id);
   if (company) {
-    const updateCompany = req.body;
-    company.name = updateCompany.name ? updateCompany.name : company.name;
-    res.json({ message: "Company updated successfully", company });
+    company.name = req.query.name ? req.query.name : company.name;
+    company.address = req.query.address ? req.query.address : company.address;
+    company.city = req.query.city ? req.query.city : company.city;
+    company.country = req.query.country ? req.query.country : company.country;
+    company.zipCode = req.query.zipCode ? req.query.zipCode : company.zipCode;
+    company.phone = req.query.phone ? req.query.phone : company.phone;
+    company.email = req.query.email ? req.query.email : company.email;
+    company.pictureUrl = req.query.pictureUrl ? req.query.pictureUrl : company.pictureUrl;
+    company.contactFullName = req.query.contactFullName ? req.query.contactFullName : company.contactFullName;
+    company.contactPhone = req.query.contactPhone ? req.query.contactPhone : company.contactPhone;
+    company.isActive = req.query.isActive ? req.query.isActive : company.isActive;
+
+    fs.writeFile("./data/companies.json", JSON.stringify(companies), (err) => {
+      if (err) {
+        console.log(err);
+        res.status(500).json({ message: "Error editing company" });
+      }
+    });
+    res.json({ message: "Company edited successfully", company });
   } else {
     res.status(404).json({ message: "Company not found" });
   }
