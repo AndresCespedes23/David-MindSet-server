@@ -1,3 +1,4 @@
+const fs = require("fs");
 const companies = require("../data/companies.json");
 
 const getAll = (req, res) => {
@@ -25,15 +26,26 @@ const getByName = (req, res) => {
 };
 
 const add = (req, res) => {
-  // your code here
+  //agregar validaciones  
+  const newCompany = {
+    id: companies.length + 1,
+    name: req.query.name,
+  };
+  companies.push(newCompany);
+  fs.writeFile("./data/companies.json", JSON.stringify(companies), (err) => {
+    if (err) {
+      console.log(err)
+      res.status(500).json({ message: "Error adding company" });
+    }
+  });
+  res.json({ message: "Company added successfully", newCompany });
 };
 
 const edit = (req, res) => {
   const id = parseInt(req.params.id);
   const company = companies.find((company) => company.id === id);
   if (company) {
-    const updateCompany = req.body
-    console.log(updateCompany)
+    const updateCompany = req.body;
     company.name = updateCompany.name ? updateCompany.name : company.name;
     res.json({ message: "Company updated successfully", company });
   } else {
