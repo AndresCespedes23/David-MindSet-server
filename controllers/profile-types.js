@@ -29,21 +29,20 @@ const getByName = (req, res) => {
 
 const add = (req, res) => {
     // your code here
-   newProfile = {
-
-    id: req.query.id,
+   const newProfile = {
+    id: profileTypes.length + 1,
     name: req.query.name,
     isActive: req.query.isActive
 
   }
- if(profileTypes.id != newProfile.id && profileTypes.name != newProfile.name){
+ if(profileTypes.id !== null && profileTypes.name !== null && profileTypes.isActive !== null ){
   profileTypes.push(newProfile)}
 
   fs.writeFile('./data/profile-types.json', JSON.stringify(profileTypes), error =>{
     if(error){res.status(500)}
   })
 
-  res.JSON(newProfile)
+  res.json(newProfile)
 };
 
 const edit = (req, res) => {

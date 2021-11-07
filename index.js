@@ -24,11 +24,11 @@ app.get('/candidate/edit', candidates.edit);
 app.get('/candidate/remove', candidates.remove);
 
 app.get('/profile-types', profileTypes.getAll);
-app.get('/profile-types/:id', profileTypes.getById);
 app.get('/profile-types/byName/:name', profileTypes.getByName);
 app.get('/profile-types/add', profileTypes.add);
 app.get('/profile-types/edit', profileTypes.edit);
 app.get('/profile-types/remove', profileTypes.remove);
+app.get('/profile-types/:id', profileTypes.getById);
 
 app.listen(port, () => {
   console.log(`Open your browser in http://localhost:${port}`);
