@@ -1,5 +1,6 @@
 const express = require('express');
 const candidates = require('./controllers/candidates');
+const interviews = require('./controllers/interviews');
 
 const app = express();
 const port = 8000;
@@ -23,11 +24,13 @@ app.get('/candidate/add', candidates.add);
 app.get('/candidate/edit', candidates.edit);
 app.get('/candidate/remove', candidates.remove);
 
+app.get('/interviews', interviews.getAll);
+app.get('/interviews/:id', interviews.getById);
+app.get('/interviews/byName/:name', interviews.getByName);
+app.get('/interviews/add', interviews.add);
+app.get('/interviews/edit', interviews.edit);
+app.get('/interviews/remove', interviews.remove);
+
 app.listen(port, () => {
   console.log(`Open your browser in http://localhost:${port}`);
 });
-
-
-
-let sofi = "1st commit"
-console.log(sofi)
