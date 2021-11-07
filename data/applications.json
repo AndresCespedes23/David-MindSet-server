@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "idOpenPosition": 1,
+        "idCandidate": 1,
+        "isActive": true
+    },
+    {
+        "id": 2,
+        "idOpenPosition": 2,
+        "idCandidate": 2,
+        "isActive": true
+    },
+    {
+        "id": 3,
+        "idOpenPosition": 3,
+        "idCandidate": 3,
+        "isActive": false
+    }
+]

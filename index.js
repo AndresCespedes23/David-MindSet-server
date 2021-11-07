@@ -1,4 +1,6 @@
 const express = require('express');
+
+const postulants = require('./controllers/postulants');
 const applications = require('./controllers/applications');
 
 const app = express();
@@ -16,12 +18,21 @@ app.get('/', (req, res) => {
     res.send();
 });
 
+
+app.get('/postulants', postulants.getAll);
+app.get('/postulants/byName/:name', postulants.getByName);
+app.get('/postulants/add', postulants.add);
+app.get('/postulants/edit', postulants.edit);
+app.get('/postulants/remove', postulants.remove);
+app.get('/postulants/:id', postulants.getById);
+
+
 app.get('/applications', applications.getAll);
-app.get('/applications/:id', applications.getById);
 app.get('/applications/byName/:name', applications.getByName);
 app.get('/applications/add', applications.add);
 app.get('/applications/edit', applications.edit);
 app.get('/applications/remove', applications.remove);
+app.get('/applications/:id', applications.getById);
 
 app.listen(port, () => {
   console.log(`Open your browser in http://localhost:${port}`);

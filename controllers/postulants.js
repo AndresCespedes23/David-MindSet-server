@@ -1,6 +1,3 @@
-const applications = require('../data/applications.json');
-
-
 const getAll = (req, res) => {
     res.json(applications);
 };
