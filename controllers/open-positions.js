@@ -1,7 +1,6 @@
 const fs = require('fs');
 const openPositions = require('../data/open-positions.json');
 
-
 const getAll = (req, res) => {
     if(openPositions.length > 0) {
         res.json(openPositions);
@@ -11,7 +10,6 @@ const getAll = (req, res) => {
 };
 
 const add = (req, res) => {
-    // Add new open position
     const newOpenPosition = {
         id: openPositions.length + 1,
         idCompany: req.query.idCompany,
@@ -53,7 +51,24 @@ const getByIdCompany = (req, res) => {
 };
 
 const edit = (req, res) => {
-    // your code here
+    let openPosition = openPositions.find(openPositions => openPositions.id === parseInt(req.query.id));
+    if (openPosition) {
+        console.log(req.query)
+        openPosition.idCompany = req.query.idCompany ? req.query.idCompany : openPosition.idCompany;
+        openPosition.startDate = req.query.startDate ? req.query.startDate : openPosition.startDate;
+        openPosition.endDate = req.query.endDate ? req.query.endDate : openPosition.endDate;
+        openPosition.jobDescription = req.query.jobDescription ? req.query.jobDescription : openPosition.jobDescription;
+        openPosition.isActive = req.query.isActive ? req.query.isActive : openPosition.isActive;
+        fs.writeFile('./data/open-positions.json', JSON.stringify(openPositions), (err) => {
+            if (err) {
+                console.log(err);
+                res.status(500).json({ message: 'Error trying to edit the open position' });
+            }
+        });
+        res.json({ message: 'Success! Position edited', openPosition });
+    } else {
+        res.status(404).json({ message: `The open position wasn't found with id: ${req.query.id}` });
+    }
 };
 
 const remove = (req, res) => {
