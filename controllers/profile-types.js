@@ -1,10 +1,9 @@
 const fs = require('fs');
-const profileTypes = require('../data/profile-types.json');
+let profileTypes = require('../data/profile-types.json');
 
 const getAll = (req, res) => {
     // your code here
     res.json(profileTypes);
-
 };
 
 const getById = (req, res) => {
@@ -30,6 +29,21 @@ const getByName = (req, res) => {
 
 const add = (req, res) => {
     // your code here
+   newProfile = {
+
+    id: req.query.id,
+    name: req.query.name,
+    isActive: req.query.isActive
+
+  }
+ if(profileTypes.id != newProfile.id && profileTypes.name != newProfile.name){
+  profileTypes.push(newProfile)}
+
+  fs.writeFile('./data/profile-types.json', JSON.stringify(profileTypes), error =>{
+    if(error){res.status(500)}
+  })
+
+  res.JSON(newProfile)
 };
 
 const edit = (req, res) => {
