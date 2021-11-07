@@ -165,6 +165,7 @@ const edit = (req, res) => {
 
 const remove = (req, res) => {
     const foundCandidate = candidates.list.some(candidate => candidate.id === parseInt(req.params.id));
+    // console.log(candidates.list.findIndex(obj => obj.id === '3'))
     if(!foundCandidate){
         res.status(400).json({
             ok:false,
