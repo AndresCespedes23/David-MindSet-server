@@ -46,14 +46,28 @@ const add = (req, res) => {
     contactPhone: req.query.contactPhone,
     isActive: req.query.isActive,
   };
-  companies.push(newCompany);
-  fs.writeFile('./data/companies.json', JSON.stringify(companies), (err) => {
-    if (err) {
-      console.log(err);
-      res.status(500).json({ message: 'Error adding company' });
+
+  const hasAllFieldsComplete = () => {
+    for (let key in newCompany) {
+      if (newCompany[key] === undefined) {
+        return false;
+      }
     }
-  });
-  res.json({ message: 'Company added successfully', newCompany });
+    return true;
+  };
+  
+  if (hasAllFieldsComplete()) {
+    companies.push(newCompany);
+    fs.writeFile('./data/companies.json', JSON.stringify(companies), (err) => {
+      if (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Error adding company' });
+      }
+    });
+    res.json({ message: 'Company added successfully', company: newCompany });
+  } else {
+    res.status(400).json({ message: 'Missing parameters' });
+  }
 };
 
 const edit = (req, res) => {
