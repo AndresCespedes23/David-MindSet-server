@@ -1,5 +1,5 @@
-const adminData = require('../data/administrators.json');
 const fs = require('fs');
+const adminData = require('../data/administrators.json');
 
 const getAll = (req, res) => {
     if (adminData.length > 0) {
@@ -46,7 +46,30 @@ const add = (req, res) => {
 };
 
 const edit = (req, res) => {
-    // your code here
+    const editAdmin = adminData.some(administrator => administrator.id === parseInt(req.params.id));
+
+    if (editAdmin) {
+        const updAdmin = req.query;
+        adminData.forEach(administrator => {
+            if (administrator.id === parseInt(req.params.id)) {
+                administrator.firstName = updAdmin.firstName ? updAdmin.firstName : administrator.firstName;
+                administrator.lastName = updAdmin.lastName ? updAdmin.lastName : administrator.lastName;
+                administrator.email = updAdmin.email ? updAdmin.email : administrator.email;
+                administrator.password = updAdmin.password ? updAdmin.password : administrator.password;
+                administrator.isActive = updAdmin.isActive ? updAdmin.isActive : administrator.isActive;
+
+                fs.writeFile('./data/administrators.json', JSON.stringify(adminData), (err) => {
+                    if (err) {
+                      res.status(500).json({ message: "Error editing administrator" });
+                    }
+                  });
+
+                res.json({ msg: "Administrator updated", administrator })
+            }
+        })
+    } else {
+        res.status(404).json({ msg: `No administrator with the id of ${req.params.id} founded` })
+    }
 };
 
 const remove = (req, res) => {

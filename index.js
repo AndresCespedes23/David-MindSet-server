@@ -40,8 +40,8 @@ app.get('/candidate/remove', candidates.remove);
 app.get('/administrators', administrators.getAll);
 app.get('/administrator/byName/:name', administrators.getByName);
 app.get('/administrator/add', administrators.add);
-app.get('/administrator/edit', administrators.edit);
-app.get('/administrator/remove', administrators.remove);
+app.get('/administrator/edit/:id', administrators.edit);
+app.get('/administrator/remove/:id', administrators.remove);
 app.get('/administrator/:id', administrators.getById);
 
 app.listen(port, () => {
