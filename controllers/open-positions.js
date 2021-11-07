@@ -3,7 +3,7 @@ const openPositions = require('../data/open-positions.json');
 
 const getAll = (req, res) => res.json(openPositions);
 
-let biggerId = (openPositions) => {
+let getBiggerId = (openPositions) => {
     let biggerId = 0;
     openPositions.forEach(openPosition => {
         if(openPosition.id > biggerId) {
@@ -15,7 +15,7 @@ let biggerId = (openPositions) => {
 
 const add = (req, res) => {
     const newOpenPosition = {
-        id: biggerId(openPositions) + 1,
+        id: getBiggerId(openPositions) + 1,
         idCompany: req.query.idCompany,
         startDate: req.query.startDate,
         endDate: req.query.endDate,
