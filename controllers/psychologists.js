@@ -21,10 +21,7 @@ const getByName = (req, res) => {
 
 const add = (req, res) => {
   const newPsychologist = {};
-  newPsychologist.id = 0;
-  psyList.forEach((psy) => {
-    if (psy.id >= newPsychologist.id) newPsychologist.id = psy.id + 1;
-  });
+  newPsychologist.id = psyList[psyList.length - 1].id + 1;
   if (req.body.first_name) newPsychologist.first_name = req.body.first_name;
   else newPsychologist.first_name = null;
   if (req.body.last_name) newPsychologist.last_name = req.body.last_name;
