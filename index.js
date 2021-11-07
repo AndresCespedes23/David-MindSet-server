@@ -39,9 +39,9 @@ app.get('/candidate/remove', candidates.remove);
 
 //----INTERVIEWS----
 app.get('/interviews', interviews.getAll);
+app.get('/interviews/add', interviews.add);
 app.get('/interviews/:id', interviews.getById);
 // app.get('/interviews/byName/:name', interviews.getByName);
-app.get('/interviews/add', interviews.add);
 app.get('/interviews/edit', interviews.edit);
 app.get('/interviews/remove', interviews.remove);
 
