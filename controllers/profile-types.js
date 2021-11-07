@@ -69,6 +69,14 @@ const edit = (req, res) => {
 
 const remove = (req, res) => {
     // your code here
+    const searchProfile = profileTypes.find((profile) => profile.id === parseInt(req.params.id));
+    if(searchProfile){
+      const profileRemove = profileTypes.filter((profile)=> profile.id !== parseInt(req.params.id));
+      fs.writeFile('./data/profile-types.json', JSON.stringify(profileRemove), error =>{
+        if(error){res.status(500)}
+      })
+      res.json({message: 'Profile removed'})
+    }
 };
 
 module.exports = {

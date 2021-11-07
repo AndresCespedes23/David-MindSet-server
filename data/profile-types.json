@@ -1,14 +1,1 @@
-[
-  { "id": 1, "name": "administrative", "isActive": "true" },
-  { "id": 2, "name": "experienced administrative", "isActive": false },
-  { "id": 3, "name": "building", "isActive": false },
-  { "id": 4, "name": "experienced building", "isActive": false },
-  { "id": 5, "name": "logistics", "isActive": true },
-  { "id": 6, "name": "experienced logistic", "isActive": true },
-  { "id": 7, "name": "industrial assembly", "isActive": true },
-  { "id": 8, "name": "experienced industrial assembly", "isActive": true },
-  { "id": 9, "name": "treasury", "isActive": true },
-  { "id": 10, "name": "experienced treasury", "isActive": true },
-  { "id": 11, "name": "customer support", "isActive": true },
-  { "id": 12, "name": "experienced customer support", "isActive": true }
-]
+[{"id":1,"name":"administrative","isActive":"true"},{"id":2,"name":"experienced administrative","isActive":false},{"id":3,"name":"building","isActive":false},{"id":4,"name":"experienced building","isActive":false},{"id":5,"name":"logistics","isActive":true},{"id":6,"name":"experienced logistic","isActive":true},{"id":7,"name":"industrial assembly","isActive":true},{"id":8,"name":"experienced industrial assembly","isActive":true},{"id":9,"name":"treasury","isActive":true},{"id":10,"name":"experienced treasury","isActive":true},{"id":11,"name":"customer support","isActive":true},{"id":12,"name":"experienced customer support","isActive":true}]
