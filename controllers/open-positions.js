@@ -1,13 +1,7 @@
 const fs = require('fs');
 const openPositions = require('../data/open-positions.json');
 
-const getAll = (req, res) => {
-    if(openPositions.length > 0) {
-        res.json(openPositions);
-    } else {
-        res.json({});
-    }
-};
+const getAll = (req, res) => res.json(openPositions);
 
 let biggerId = (openPositions) => {
     let biggerId = 0;
