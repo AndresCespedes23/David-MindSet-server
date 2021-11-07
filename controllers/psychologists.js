@@ -47,7 +47,28 @@ const add = (req, res) => {
   res.status(200).send(newPsychologist);
 };
 
-const edit = (req, res) => {};
+const edit = (req, res) => {
+  let updatedPsy;
+  const found = psyList.some((psychologist) => psychologist.id === parseInt(req.params.id));
+  if (found) {
+    psyList.map((psychologist) => {
+      if (psychologist.id === parseInt(req.params.id)) {
+        if (req.body.first_name) psychologist.first_name = req.body.first_name;
+        if (req.body.last_name) psychologist.last_name = req.body.last_name;
+        if (req.body.email) psychologist.email = req.body.email;
+        if (req.body.pictureUrl) psychologist.pictureUrl = req.body.pictureUrl;
+        if (req.body.password) psychologist.password = req.body.password;
+        if (req.body.isActive) psychologist.isActive = req.body.isActive;
+        if (req.body.turns) psychologist.turns = req.body.turns;
+        updatedPsy = psychologist;
+      }
+    });
+    fs.writeFile(path.join(__dirname, '../data/psychologists.json'), JSON.stringify(psyList), (err) => {
+      if (err) throw err;
+    });
+    res.status(200).send(updatedPsy);
+  } else res.status(404).send('The request could not be processed');
+};
 
 const remove = (req, res) => {};
 
