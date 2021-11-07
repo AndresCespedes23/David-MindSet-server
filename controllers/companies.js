@@ -30,7 +30,6 @@ const getByName = (req, res) => {
 };
 
 const add = (req, res) => {
-  //agregar validaciones
   const newCompany = {
     id: companies.length + 1,
     name: req.query.name,
@@ -55,7 +54,7 @@ const add = (req, res) => {
     }
     return true;
   };
-  
+
   if (hasAllFieldsComplete()) {
     companies.push(newCompany);
     fs.writeFile('./data/companies.json', JSON.stringify(companies), (err) => {
