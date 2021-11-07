@@ -9,7 +9,7 @@ const getById = (req, res) => {
     const id = parseInt(req.params.id);
     const application = applications.find((applications) => applications.id === id);
     if(application === undefined){
-        res.status(404).json({message : `no application with id ${id}`});
+        res.status(404).json({message : `no application with id: ${id}`});
     }
     else{
         res.json(application);
@@ -17,12 +17,27 @@ const getById = (req, res) => {
 };
 
 const getByIdPos = (req, res) => {
-
-    // your code here
+    const id = parseInt(req.params.id);
+    console.log(id);
+    const application = applications.find((applications) => applications.idOpenPosition === id);
+    if(application === undefined){
+        res.status(404).json({message : `no application with open position id: ${id}`});
+    }
+    else{
+        res.json(application);
+    }
 };
 
 const getByIdCan = (req, res) => {
-    //seguir aca
+    const id = parseInt(req.params.id);
+    console.log(id);
+    const application = applications.find((applications) => applications.idCandidate === id);
+    if(application === undefined){
+        res.status(404).json({message : `no application with candidate id: ${id}`});
+    }
+    else{
+        res.json(application);
+    }
 };
 
 const add = (req, res) => {
@@ -41,6 +56,7 @@ module.exports = {
   getAll: getAll,
   getById: getById,
   getByIdPos: getByIdPos,
+  getByIdCan: getByIdCan,
   add: add,
   edit: edit,
   remove: remove

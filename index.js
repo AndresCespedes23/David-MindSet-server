@@ -29,6 +29,7 @@ app.get('/postulants/:id', postulants.getById);
 
 app.get('/applications', applications.getAll);
 app.get('/applications/byPos/:id', applications.getByIdPos);
+app.get('/applications/byCan/:id', applications.getByIdCan);
 app.get('/applications/add', applications.add);
 app.get('/applications/edit', applications.edit);
 app.get('/applications/remove', applications.remove);

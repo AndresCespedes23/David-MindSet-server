@@ -6,7 +6,7 @@
         "isActive": true
     },
     {
-        "id": 2,
+        "id": 3,
         "idOpenPosition": 2,
         "idCandidate": 2,
         "isActive": true
@@ -14,7 +14,7 @@
     {
         "id": 3,
         "idOpenPosition": 3,
-        "idCandidate": 3,
+        "idCandidate": 7,
         "isActive": false
     }
 ]
