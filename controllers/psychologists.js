@@ -70,7 +70,21 @@ const edit = (req, res) => {
   } else res.status(404).send('The request could not be processed');
 };
 
-const remove = (req, res) => {};
+const remove = (req, res) => {
+  let foundPsy = psyList.filter((psy) => psy.id === parseInt(req.params.id));
+  if (psyList.findIndex((psy) => psy.id === parseInt(req.params.id)) !== -1) {
+    psyList.splice(
+      psyList.findIndex((psy) => psy.id === parseInt(req.params.id)),
+      1
+    );
+    fs.writeFile(path.join(__dirname, '../data/psychologists.json'), JSON.stringify(psyList), (err) => {
+      if (err) throw err;
+    });
+    return res.status(200).send(`Element with ID = ${foundPsy.id} deleted`);
+  } else {
+    return res.status(404).send('Element with provided ID not found');
+  }
+};
 
 const removeWithAnyParam = (req, res) => {};
 
