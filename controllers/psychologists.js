@@ -72,7 +72,7 @@ const edit = (req, res) => {
 
 const remove = (req, res) => {
   let foundPsy = psyList.filter((psy) => psy.id === parseInt(req.params.id));
-  if (psyList.findIndex((psy) => psy.id === parseInt(req.params.id)) !== -1) {
+  if (foundPsy[0] !== undefined) {
     psyList.splice(
       psyList.findIndex((psy) => psy.id === parseInt(req.params.id)),
       1
