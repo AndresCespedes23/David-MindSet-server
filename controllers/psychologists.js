@@ -19,7 +19,33 @@ const getByName = (req, res) => {
   else res.status(404).send([]);
 };
 
-const add = (req, res) => {};
+const add = (req, res) => {
+  const newPsychologist = {};
+  newPsychologist.id = 0;
+  psyList.forEach((psy) => {
+    if (psy.id >= newPsychologist.id) newPsychologist.id = psy.id + 1;
+  });
+  if (req.body.first_name) newPsychologist.first_name = req.body.first_name;
+  else newPsychologist.first_name = null;
+  if (req.body.last_name) newPsychologist.last_name = req.body.last_name;
+  else newPsychologist.last_name = null;
+  if (req.body.email) newPsychologist.email = req.body.email;
+  else newPsychologist.email_name = null;
+  if (req.body.pictureUrl) newPsychologist.pictureUrl = req.body.pictureUrl;
+  else newPsychologist.pictureUrl = null;
+  if (req.body.password) newPsychologist.password = req.body.password;
+  else newPsychologist.password = null;
+  if (req.body.isActive) newPsychologist.isActive = req.body.isActive;
+  else newPsychologist.isActive = true;
+  if (req.body.turns) newPsychologist.turns = req.body.turns;
+  else newPsychologist.turns = [];
+
+  psyList.push(newPsychologist);
+  fs.writeFile(path.join(__dirname, '../data/psychologists.json'), JSON.stringify(psyList), (err) => {
+    if (err) throw err;
+  });
+  res.status(200).send(newPsychologist);
+};
 
 const edit = (req, res) => {};
 
