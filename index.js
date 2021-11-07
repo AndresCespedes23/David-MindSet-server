@@ -38,11 +38,11 @@ app.get('/candidate/edit', candidates.edit);
 app.get('/candidate/remove', candidates.remove);
 
 app.get('/administrators', administrators.getAll);
-app.get('/administrator/:id', administrators.getById);
 app.get('/administrator/byName/:name', administrators.getByName);
-app.get('/administrators/add', administrators.add);
-app.get('/administrators/edit', administrators.edit);
-app.get('/administrators/remove', administrators.remove);
+app.get('/administrator/add', administrators.add);
+app.get('/administrator/edit', administrators.edit);
+app.get('/administrator/remove', administrators.remove);
+app.get('/administrator/:id', administrators.getById);
 
 app.listen(port, () => {
   console.log(`Open your browser in http://localhost:${port}`);

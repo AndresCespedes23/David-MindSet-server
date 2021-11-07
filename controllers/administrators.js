@@ -10,7 +10,7 @@ const getById = (req, res) => {
     if (foundId) {
         res.json(adminData.filter(administrator => administrator.id === parseInt(req.params.id)))
     }   else {
-        res.status(400).json({ msg: `No administrator with the id of ${req.params.id}` })
+        res.status(404).json({ msg: `No administrator with the id of ${req.params.id} founded` })
     }
 };
 
@@ -19,7 +19,7 @@ const getByName = (req, res) => {
     if (foundName) {
         res.json(adminData.filter(administrator => administrator.firstName === (req.params.name)))
     }   else {
-        res.status(400).json({ msg: `No administrator with the first name of ${req.params.name}` })
+        res.status(404).json({ msg: `No administrator with the first name of ${req.params.name} founded` })
     }
 };
 
