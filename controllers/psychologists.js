@@ -6,7 +6,12 @@ const getAll = (req, res) => {
   res.json(psyList);
 };
 
-const getById = (req, res) => {};
+const getById = (req, res) => {
+  const found = psyList.some((psychologist) => psychologist.id === parseInt(req.params.id));
+  if (found) res.send(psyList.filter((psychologist) => psychologist.id === parseInt(req.params.id)));
+  //query params are ALWAYS strings
+  else res.status(404).send('User does not exist');
+};
 
 const getByName = (req, res) => {};
 
