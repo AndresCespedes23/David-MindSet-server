@@ -1,5 +1,5 @@
 const fs = require('fs');
-const adminData = require('../data/administrators.json');
+let adminData = require('../data/administrators.json');
 
 const getAll = (req, res) => {
     if (adminData.length > 0) {
