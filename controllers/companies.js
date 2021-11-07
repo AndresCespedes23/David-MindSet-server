@@ -82,9 +82,18 @@ const edit = (req, res) => {
   if (companyFound) {
     companies = companies.map((company) => {
       if (company.id === id) {
-        for (let key in req.query) {
-          company[key] = req.query[key] ? req.query[key] : company[key];
-        }
+        company.name = req.query.name || company.name;
+        company.address = req.query.address || company.address;
+        company.city = req.query.city || company.city;
+        company.province = req.query.province || company.province;
+        company.country = req.query.country || company.country;
+        company.zipCode = req.query.zipCode || company.zipCode;
+        company.phone = req.query.phone || company.phone;
+        company.email = req.query.email || company.email;
+        company.pictureUrl = req.query.pictureUrl || company.pictureUrl;
+        company.contactFullName = req.query.contactFullName || company.contactFullName;
+        company.contactPhone = req.query.contactPhone || company.contactPhone;
+        company.isActive = req.query.isActive || company.isActive;
         return company;
       }
       return company;
