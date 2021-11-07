@@ -92,23 +92,25 @@ const removeWithAnyParam = (req, res) => {
   let foundPsys = [];
   let matchedPropertiesAmount = 0;
   let psyIndex = 0;
-  let matchedObjectsAmount;
+  let psyMatchedIndex;
   psyList.forEach((psyListElement) => {
     psyIndex++;
     for (let property in req.body) {
       if (req.body.hasOwnProperty(property)) {
         if (req.body[property] !== psyListElement[property]) break;
         matchedPropertiesAmount++;
-        matchedObjectsAmount = psyIndex - 1;
       }
     }
-    if (matchedPropertiesAmount === Object.keys(req.body).length) foundPsys.push(psyListElement);
+    if (matchedPropertiesAmount === Object.keys(req.body).length) {
+      foundPsys.push(psyListElement);
+      psyMatchedIndex = psyIndex - 1;
+    }
     matchedPropertiesAmount = 0;
   });
   if (foundPsys.length > 1) {
     return res.status(200).send(foundPsys);
   } else if (foundPsys.length === 1) {
-    psyList.splice(matchedObjectsAmount, 1);
+    psyList.splice(psyMatchedIndex, 1);
     fs.writeFile(path.join(__dirname, '../data/psychologists.json'), JSON.stringify(psyList), (err) => {
       if (err) throw err;
     });
