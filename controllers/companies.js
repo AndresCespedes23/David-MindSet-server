@@ -46,16 +46,7 @@ const add = (req, res) => {
     isActive: req.query.isActive,
   };
 
-  const hasAllFieldsComplete = () => {
-    for (let key in newCompany) {
-      if (newCompany[key] === undefined) {
-        return false;
-      }
-    }
-    return true;
-  };
-
-  if (hasAllFieldsComplete()) {
+  if (haveAllFieldsComplete(newCompany)) {
     companies.push(newCompany);
     fs.writeFile('./data/companies.json', JSON.stringify(companies), (err) => {
       if (err) {
@@ -103,6 +94,15 @@ const remove = (req, res) => {
   } else {
     res.status(404).json({ message: `Company not found with id ${id}` });
   }
+};
+
+const haveAllFieldsComplete = (object) => {
+  for (let key in object) {
+    if (object[key] === undefined) {
+      return false;
+    }
+  }
+  return true;
 };
 
 module.exports = {
