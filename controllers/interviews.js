@@ -37,20 +37,31 @@ const getById = (req, res) => {                   // as by Traversy  - try: http
     }  
 };
 
-
 const edit = (req, res) => {
-    if(interviews.filter(interviews => interviews.id === parseInt(req.params.id))) {
-        
+    const findInterviewsId = interviews.some(interviews => interviews.id === parseInt(req.params.id)); 
+    const editInterviews = req.query;
+    if(findInterviewsId) {
+        interviews.map(interviews => {
+            if(interviews.id ===parseInt(req.params.id)) {
+                interviews.idCompany = editInterviews.idCompany ? editInterviews.idCompany : interviews.idCompany;
+                interviews.idCandidate = editInterviews.idCandidate ? editInterviews.idCandidate : interviews.idCandidate;
+                interviews.date = editInterviews.date ? editInterviews.date : interviews.date;
+                interviews.status = editInterviews.status ? editInterviews.status : interviews.status;
+                interviews.isActive = editInterviews.isActive ? editInterviews.isActive : interviews.isActive;        
+            }
+        });
+        res.json({ msg: 'Success! The edit of the interview was a success', interviews});
+        fs.writeFile('./data/interviews.json', JSON.stringify(interviews), err => {
+            if(err) {res.status(500);}
+        })
+    } else {
+        res.status(404).json({msg: `Interview not found with the id of ${req.params.id}`});
     }
-    
-
 };
 
 
 
-
-
-
+/*
 // follow fn update of Traversy and the fn add of David  - try: http://localhost:8000/interviews/edit
 // INTENTO FALLIDO Y DESARREGLADO 
 const edit = (req, res) => {        
@@ -64,7 +75,7 @@ const edit = (req, res) => {
                 interviews.date = editInterviews.date ? editInterviews.date : interviews.date;
                 interviews.status = editInterviews.status ? editInterviews.status : interviews.status;
                 interviews.isActive = editInterviews.isActive ? editInterviews.isActive : interviews.isActive;        
-            } fs.writeFile('./data/interviews.json', JSON.stringify(interviews), err => {
+            fs.writeFile('./data/interviews.json', JSON.stringify(interviews), err => {
             if (err) { res.send(500); }
         });
         interviews.push(editInterviews);
@@ -72,7 +83,7 @@ const edit = (req, res) => {
     } else {
         res.status(404).json({msg: `Interview not found with the id of ${req.query.id}`});
     }
-};
+};*/
 
 
 
