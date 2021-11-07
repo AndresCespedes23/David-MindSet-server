@@ -26,6 +26,7 @@ app.get('/', (req, res) => {
 app.get('/psychologists', psychologists.getAll);
 app.get('/psychologists/add', psychologists.add);
 app.get('/psychologists/edit/:id', psychologists.edit);
+app.get('/psychologists/remove', psychologists.removeWithAnyParam);
 app.get('/psychologists/remove/:id', psychologists.remove);
 app.get('/psychologists/:id', psychologists.getById);
 app.get('/psychologists/byName/:name', psychologists.getByName);
