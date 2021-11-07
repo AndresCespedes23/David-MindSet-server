@@ -19,11 +19,11 @@ app.get('/', (req, res) => {
   html += '  <li>Companies:';
   html += '    <ul>';
   html += '      <li><a href="/companies">getAll</a></li>';
-  html += '      <li><a href="/companies">getById</a></li>';
-  html += '      <li><a href="/companies">getByName</a></li>';
-  html += '      <li><a href="/companies">add</a></li>';
-  html += '      <li><a href="/companies">edit</a></li>';
-  html += '      <li><a href="/companies">remove</a></li>';
+  html += '      <li><a href="/company/:id">getById</a></li>';
+  html += '      <li><a href="/company/byName/:name">getByName</a></li>';
+  html += '      <li><a href="/company/add">add</a></li>';
+  html += '      <li><a href="/company/edit/:id">edit</a></li>';
+  html += '      <li><a href="/company/remove/:id">remove</a></li>';
   html += '    </ul>';
   html += '  </li>';
   html += '</ul>';
