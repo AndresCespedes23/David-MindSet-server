@@ -14,8 +14,16 @@ const getById = (req, res) => {
 };
 
 const getByName = (req, res) => {
-  const found = psyList.some((psychologist) => psychologist.first_name === req.params.name);
-  if (found) res.send(psyList.filter((psychologist) => psychologist.first_name === req.params.name));
+  const found = psyList.some(
+    (psychologist) => psychologist.first_name === req.query.first_name && psychologist.last_name === req.query.last_name
+  );
+  if (found)
+    res.send(
+      psyList.filter(
+        (psychologist) =>
+          psychologist.first_name === req.query.first_name && psychologist.last_name === req.query.last_name
+      )
+    );
   else res.status(404).send([]);
 };
 

@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
   html += '    <ul>';
   html += '      <li><a href="/psychologists">getAll</a></li>';
   html += '      <li><a href="/psychologists/1">getById</a></li>';
-  html += '      <li><a href="/psychologists/Guido">getByName</a></li>';
+  html += '      <li><a href="/psychologists/byName?first_name=Farlie&last_name=Debrett">getByName</a></li>';
   html += '      <li><a href="/psychologists/add">add</a></li>';
   html += '      <li><a href="/psychologists/edit">edit</a></li>';
   html += '      <li><a href="/psychologists/remove">remove</a></li>';
@@ -28,8 +28,8 @@ app.get('/psychologists/add', psychologists.add);
 app.get('/psychologists/edit/:id', psychologists.edit);
 app.get('/psychologists/remove', psychologists.removeWithAnyParam);
 app.get('/psychologists/remove/:id', psychologists.remove);
+app.get('/psychologists/byName', psychologists.getByName);
 app.get('/psychologists/:id', psychologists.getById);
-app.get('/psychologists/byName/:name', psychologists.getByName);
 
 app.listen(port, () => {
   console.log(`Open your browser in http://localhost:${port}`);
