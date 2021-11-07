@@ -10,16 +10,15 @@ const validate = (object) => {
   return true;
 };
 
-const calculateLarger = collection => {
+const calculateLarger = (collection) => {
   let larger = 0;
-  collection.forEach(element => {
+  collection.forEach((element) => {
     if (element.id > larger) {
       larger = element.id;
     }
   });
   return larger;
 };
-
 
 const getAll = (req, res) => {
   res.json(companies);
