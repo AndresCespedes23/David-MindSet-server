@@ -13,7 +13,11 @@ const getById = (req, res) => {
   else res.status(404).send('User does not exist');
 };
 
-const getByName = (req, res) => {};
+const getByName = (req, res) => {
+  const found = psyList.some((psychologist) => psychologist.first_name === req.params.name);
+  if (found) res.send(psyList.filter((psychologist) => psychologist.first_name === req.params.name));
+  else res.status(404).send([]);
+};
 
 const add = (req, res) => {};
 
