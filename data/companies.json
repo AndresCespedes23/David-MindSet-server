@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Dabtype",
+    "name": "pepsi",
     "address": "1 Mesta Place",
     "country": "United States",
     "province": "California",
@@ -253,5 +253,6 @@
     "contactFullName": "Nisse Kyle",
     "contactPhone": "290-465-2109",
     "isActive": false
-  }
+  },
+  { "id": 18, "name": "coca" }
 ]

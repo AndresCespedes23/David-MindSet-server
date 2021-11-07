@@ -76,7 +76,20 @@ const edit = (req, res) => {
 };
 
 const remove = (req, res) => {
-  // your code here
+  const id = parseInt(req.params.id);
+  const company = companies.find((company) => company.id === id);
+  if (company) {
+    const newListOfCompanies = companies.filter((company) => company.id !== id);
+    fs.writeFile('./data/companies.json', JSON.stringify(newListOfCompanies), (err) => {
+      if (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Error editing company' });
+      }
+    });
+    res.json({ msg: 'Company deleted' });
+  } else {
+    res.status(404).json({ message: `Company not found with id ${id}` });
+  }
 };
 
 module.exports = {
