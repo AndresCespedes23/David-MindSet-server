@@ -36,6 +36,7 @@ const add = (req, res) => {
     name: req.query.name,
     address: req.query.address,
     city: req.query.city,
+    province: req.query.province,
     country: req.query.country,
     zipCode: req.query.zipCode,
     phone: req.query.phone,
