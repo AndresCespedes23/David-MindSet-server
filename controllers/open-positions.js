@@ -9,15 +9,19 @@ const getAll = (req, res) => {
     }
 };
 
-const add = (req, res) => {
-    let biggerID = 0;
+let biggerId = (openPositions) => {
+    let biggerId = 0;
     openPositions.forEach(openPosition => {
-        if(openPosition.id > biggerID) {
-            biggerID = openPosition.id;
+        if(openPosition.id > biggerId) {
+            biggerId = openPosition.id;
         }
     });
+    return biggerId;
+};
+
+const add = (req, res) => {
     const newOpenPosition = {
-        id: biggerID + 1,
+        id: biggerId(openPositions) + 1,
         idCompany: req.query.idCompany,
         startDate: req.query.startDate,
         endDate: req.query.endDate,
