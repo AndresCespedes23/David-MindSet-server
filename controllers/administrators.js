@@ -70,13 +70,13 @@ const edit = (req, res) => {
 
     if (editAdmin) {
         const updAdmin = req.query;
-        adminData.forEach(administrator => {
+        adminData.map(administrator => {
             if (administrator.id === parseInt(req.params.id)) {
-                administrator.firstName = updAdmin.firstName ? updAdmin.firstName : administrator.firstName;
-                administrator.lastName = updAdmin.lastName ? updAdmin.lastName : administrator.lastName;
-                administrator.email = updAdmin.email ? updAdmin.email : administrator.email;
-                administrator.password = updAdmin.password ? updAdmin.password : administrator.password;
-                administrator.isActive = updAdmin.isActive ? updAdmin.isActive : administrator.isActive;
+                administrator.firstName = updAdmin.firstName || administrator.firstName;
+                administrator.lastName = updAdmin.lastName || administrator.lastName;
+                administrator.email = updAdmin.email || administrator.email;
+                administrator.password = updAdmin.password || administrator.password;
+                administrator.isActive = updAdmin.isActive || administrator.isActive;
 
                 fs.writeFile('./data/administrators.json', JSON.stringify(adminData), (err) => {
                     if (err) {
