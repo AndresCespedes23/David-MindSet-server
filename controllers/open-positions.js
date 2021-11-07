@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { open } = require('inspector');
 const openPositions = require('../data/open-positions.json');
 
 const getAll = (req, res) => {
