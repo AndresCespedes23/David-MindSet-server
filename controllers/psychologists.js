@@ -86,7 +86,37 @@ const remove = (req, res) => {
   }
 };
 
-const removeWithAnyParam = (req, res) => {};
+const removeWithAnyParam = (req, res) => {
+  //removes using any property
+  //by inputting through the body, the content type is always matched
+  let foundPsys = [];
+  let matchedPropertiesAmount = 0;
+  let psyIndex = 0;
+  let matchedObjectsAmount;
+  psyList.forEach((psyListElement) => {
+    psyIndex++;
+    for (let property in req.body) {
+      if (req.body.hasOwnProperty(property)) {
+        if (req.body[property] !== psyListElement[property]) break;
+        matchedPropertiesAmount++;
+        matchedObjectsAmount = psyIndex - 1;
+      }
+    }
+    if (matchedPropertiesAmount === Object.keys(req.body).length) foundPsys.push(psyListElement);
+    matchedPropertiesAmount = 0;
+  });
+  if (foundPsys.length > 1) {
+    return res.status(200).send(foundPsys);
+  } else if (foundPsys.length === 1) {
+    psyList.splice(matchedObjectsAmount, 1);
+    fs.writeFile(path.join(__dirname, '../data/psychologists.json'), JSON.stringify(psyList), (err) => {
+      if (err) throw err;
+    });
+    return res.status(200).send(foundPsys);
+  } else {
+    return res.status(404).send([]);
+  }
+};
 
 module.exports = {
   getAll: getAll,
