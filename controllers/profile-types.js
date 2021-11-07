@@ -1,3 +1,4 @@
+const { profile } = require('console');
 const fs = require('fs');
 let profileTypes = require('../data/profile-types.json');
 
@@ -47,6 +48,23 @@ const add = (req, res) => {
 
 const edit = (req, res) => {
     // your code here
+    
+    const searchProfile = profileTypes.find((profile)=> profile.id === parseInt(req.params.id));
+  if (searchProfile){
+    profileTypes.map((profile) => {
+
+      if(profile.id === parseInt(req.params.id)){
+        if(req.query.name) profile.name = req.query.name;
+        if(req.query.isActive) profile.isActive = req.query.isActive;
+        return profile;
+      }
+      return profile;
+    }
+    )}
+    res.json(searchProfile);
+    fs.writeFile('./data/profile-types.json', JSON.stringify(profileTypes), error =>{
+      if(error){res.status(500)}
+    })
 };
 
 const remove = (req, res) => {
