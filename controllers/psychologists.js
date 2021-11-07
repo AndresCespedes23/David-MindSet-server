@@ -90,10 +90,10 @@ const removeWithAnyParam = (req, res) => {
   //removes using any property
   //by inputting through the body, the content type is always matched
   let foundPsys = [];
-  let matchedPropertiesAmount = 0;
   let psyIndex = 0;
   let psyMatchedIndex;
   psyList.forEach((psyListElement) => {
+    let matchedPropertiesAmount = 0;
     psyIndex++;
     for (let property in req.body) {
       if (req.body.hasOwnProperty(property)) {
@@ -105,7 +105,6 @@ const removeWithAnyParam = (req, res) => {
       foundPsys.push(psyListElement);
       psyMatchedIndex = psyIndex - 1;
     }
-    matchedPropertiesAmount = 0;
   });
   if (foundPsys.length > 1) {
     return res.status(200).send(foundPsys);
@@ -116,7 +115,7 @@ const removeWithAnyParam = (req, res) => {
     });
     return res.status(200).send(foundPsys);
   } else {
-    return res.status(404).send([]);
+    return res.status(404).send(foundPsys);
   }
 };
 
