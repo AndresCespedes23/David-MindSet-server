@@ -2,7 +2,12 @@ const adminData = require('../data/administrators.json');
 const fs = require('fs');
 
 const getAll = (req, res) => {
-    res.json(adminData)
+    if (adminData.length > 0) {
+        res.json(adminData)
+    } else {
+        res.json({})
+    }
+    
 };
 
 const getById = (req, res) => {
