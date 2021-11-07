@@ -1,5 +1,5 @@
 const fs = require('fs');
-const profileTypes = require('../data/profiles-types.json');
+const profileTypes = require('../data/profile-types.json');
 
 const getAll = (req, res) => {
     // your code here
