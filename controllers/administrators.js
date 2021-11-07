@@ -73,7 +73,20 @@ const edit = (req, res) => {
 };
 
 const remove = (req, res) => {
-    // your code here
+    const foundIdDeleted = adminData.some(administrator => administrator.id === parseInt(req.params.id));
+
+    if (foundIdDeleted) {
+        const newAdmins = adminData.filter((administrator) => administrator.id !== parseInt(req.params.id));
+        fs.writeFile('./data/administrators.json', JSON.stringify(newAdmins), (err) => {
+            if (err) {
+              console.log(err);
+              res.status(500).json({ msg: "Error removing administrator" });
+            }
+        });
+        res.json({ msg: "Administrator removed" });
+    }   else {
+        res.status(404).json({ msg: `No administrator with the id of ${req.params.id} founded` })
+    }
 };
 
 module.exports = {
