@@ -1,6 +1,25 @@
 const fs = require('fs');
 let adminData = require('../data/administrators.json');
 
+const calculateLarge = group => {
+    let large = 0;
+    group.forEach(element => {
+      if (element.id > large) {
+        large = element.id;
+      }
+    });
+    return large;
+};
+
+const validate = (entity) => {
+    for (let key in entity) {
+      if (entity[key] === undefined) {
+        return false;
+      }
+    }
+    return true;
+};
+
 const getAll = (req, res) => {
     res.json(adminData) 
 };
@@ -25,7 +44,7 @@ const getByName = (req, res) => {
 
 const add = (req, res) => {
     const newAdmin = {
-        id: req.query.id,
+        id: calculateLarge(adminData) +1,
         firstName: req.query.firstName,
         lastName: req.query.lastName,
         email: req.query.email,
@@ -33,11 +52,17 @@ const add = (req, res) => {
         isActive: req.query.isActive
     }
 
-    adminData.push(newAdmin)
-    fs.writeFile("./data/administrators.json", JSON.stringify(adminData), err => {
-        if (err) { res.status(500) }
-      })
-    res.json(newAdmin)
+    if (validate(newAdmin)) {
+        adminData.push(newAdmin)
+        fs.writeFile("./data/administrators.json", JSON.stringify(adminData), err => {
+            if (err) { 
+                res.status(500).json({ msg: "Error adding administrator" }) 
+            }
+        });
+        res.json({ msg: "Administrator succesfully added", newAdmin })
+    } else {
+        res.status(400).json({ msg: "Some parameters are missing" })
+    }
 };
 
 const edit = (req, res) => {
