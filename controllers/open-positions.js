@@ -10,8 +10,14 @@ const getAll = (req, res) => {
 };
 
 const add = (req, res) => {
+    let biggerID = 0;
+    openPositions.forEach(openPosition => {
+        if(openPosition.id > biggerID) {
+            biggerID = openPosition.id;
+        }
+    });
     const newOpenPosition = {
-        id: openPositions.length + 1,
+        id: biggerID + 1,
         idCompany: req.query.idCompany,
         startDate: req.query.startDate,
         endDate: req.query.endDate,
@@ -31,7 +37,7 @@ const add = (req, res) => {
 };
 
 // Test case:
-// add?id=1&idCompany=13&startDate=11/23/2019&endDate=11/25/2020&jobDescription=LoremIpsus&isActive=true
+// add?idCompany=13&startDate=11/23/2019&endDate=11/25/2020&jobDescription=LoremIpsus&isActive=true
 
 const getById = (req, res) => {
     const id = parseInt(req.params.id);
