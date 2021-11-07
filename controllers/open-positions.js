@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { open } = require('inspector');
 const openPositions = require('../data/open-positions.json');
 
 const getAll = (req, res) => {
@@ -30,8 +31,11 @@ const add = (req, res) => {
     res.json(newOpenPosition);
 };
 
+// Test case:
+// add?id=1&idCompany=13&startDate=11/23/2019&endDate=11/25/2020&jobDescription=LoremIpsus&isActive=true
+
 const getById = (req, res) => {
-    const id = parseInt(req.query.id);
+    const id = parseInt(req.params.id);
     const openPosition = openPositions.find((openPosition) => openPosition.id === id);
     if (openPosition) {
       res.json(openPosition);
@@ -71,8 +75,20 @@ const edit = (req, res) => {
     }
 };
 
+// Test case:
+// edit?id=1&idCompany=13&startDate=11/23/2019&endDate=11/25/2020&jobDescription=LoremIpsus&isActive=true
+
 const remove = (req, res) => {
-    // your code here
+    const id = parseInt(req.params.id);
+    let openPositionSelected = openPositions.find(openPosition => {
+        return openPosition.id === id;
+    });
+    if(openPositionSelected) {
+        openPositions.splice(openPositionSelected, 1);
+        res.json({ message: `Open position id ${id} deleted`});
+    } else {
+        res.json(404, `Open position wasn't found with id ${id}`);
+    }
 };
 
 module.exports = {
