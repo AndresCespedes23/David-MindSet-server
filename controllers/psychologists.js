@@ -29,6 +29,7 @@ const getByName = (req, res) => {
 
 const add = (req, res) => {
   const newPsychologist = {};
+  psyList.sort((a, b) => a.id - b.id);
   newPsychologist.id = psyList[psyList.length - 1].id + 1;
   if (req.body.first_name) newPsychologist.first_name = req.body.first_name;
   else newPsychologist.first_name = null;
