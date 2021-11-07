@@ -10,9 +10,20 @@ const getAll = (req, res) => {
     }
 };
 
+// const getById = (req, res) => {
+//     var filtererPositions = openPositions.filter(item => item.id.includes(req.param.id));
+//     res.json(filtererPositions);
+// };
+
 const getById = (req, res) => {
-    // your code here
-};
+    const id = parseInt(req.params.id);
+    const openPosition = openPositions.find((openPosition) => openPosition.id === id);
+    if (openPosition) {
+      res.json(openPosition);
+    } else {
+      res.status(404).json({ message: `Open position not found with id: ${id}` });
+    }
+  };
 
 const getByName = (req, res) => {
     // your code here
