@@ -2,7 +2,11 @@ const fs = require('fs');
 const companies = require('../data/companies.json');
 
 const getAll = (req, res) => {
-  res.json(companies);
+  if (companies.length > 0) {
+    res.json(companies);
+  } else {
+    res.json({});
+  }
 };
 
 const getById = (req, res) => {
@@ -21,7 +25,7 @@ const getByName = (req, res) => {
   if (company) {
     res.json(company);
   } else {
-    res.status(404).json({ message: 'Company not found with name: ${name}' });
+    res.status(404).json({ message: `Company not found with name: ${name}` });
   }
 };
 
