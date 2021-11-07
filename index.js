@@ -6,7 +6,7 @@ const administrators = require('./controllers/administrators');
 const app = express();
 const port = 8000;
 
-app.get('/', (req, res) => {
+/*app.get('/', (req, res) => {
     let html = '<h1>MindeSet</h1>';
     html += '<ul>';
     html += '  <li>Candidates:';
@@ -15,8 +15,8 @@ app.get('/', (req, res) => {
     html += '    </ul>';
     html += '  </li>';
     html += '</ul>';
-    res.send();
-});
+    res.send(html);
+});*/
 
 app.get('/', (req, res) => {
   let html = '<h1>MindeSet</h1>';
@@ -24,10 +24,15 @@ app.get('/', (req, res) => {
   html += '  <li>Administrators:';
   html += '    <ul>';
   html += '      <li><a href="/administrators">getAll</a></li>';
+  html += '      <li><a href="/administrator/byName/:name">getByName</a></li>';
+  html += '      <li><a href="/administrator/:id">getById</a></li>';
+  html += '      <li><a href="/administrator/add">add</a></li>';
+  html += '      <li><a href="/administrator/edit/:id">edit</a></li>';
+  html += '      <li><a href="/administrator/remove/:id">remove</a></li>';
   html += '    </ul>';
   html += '  </li>';
   html += '</ul>';
-  res.send();
+  res.send(html);
 });
 
 app.get('/candidates', candidates.getAll);
