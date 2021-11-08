@@ -3,7 +3,7 @@ const path = require('path');
 let interviews = require('../data/interviews.json');
 
 // ---- FUNCTIONS ----
-const calculateLarger = (collection) => {  // Julián fn
+const getLastId = (collection) => {  // Julián fn
     let larger = 0;
     collection.forEach((element) => {
       if (element.id > larger) {
@@ -50,7 +50,7 @@ const getByIdCompany = (req, res) => {
 
 const add = (req, res) => { 
     const newInterviews = {
-        id: calculateLarger(interviews) + 1,
+        id: getLastId(interviews) + 1,
         idCompany: req.query.idCompany,
         idCandidate: req.query.idCandidate,
         date: req.query.date,
