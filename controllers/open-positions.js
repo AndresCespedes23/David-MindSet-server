@@ -82,18 +82,18 @@ const edit = (req, res) => {
 const remove = (req, res) => {
     const id = parseInt(req.params.id);
     let openPositionSelected = openPositions.find( openPosition => openPosition.id === id );
-    if(openPositionSelected) {
-        openPositions = openPositions.filter( openPosition => openPosition.id !== id );
-        res.json({ message: `Open position id ${id} deleted` });
-        fs.writeFile(path.join(__dirname, '../data/open-positions.json'), JSON.stringify(openPositions), (err) => {
-            if (err) {
-                console.log(err);
-                res.status(500).json({ message: 'Error trying to delete the open position' });
-            }
-        });
-    } else {
+    if(!openPositionSelected) {
         res.status(404).json({ message: `Open position wasn't found with id ${id}` });
     }
+    openPositions = openPositions.filter( openPosition => openPosition.id !== id );
+    fs.writeFile(path.join(__dirname, '../data/open-positions.json'), JSON.stringify(openPositions), (err) => {
+        if (err) {
+            console.log(err);
+            res.status(500).json({ message: `Error trying to delete the open position` });
+            return;
+        }
+        res.json({ message: `Open position id ${id} deleted` });
+    });
 };
 
 module.exports = {
