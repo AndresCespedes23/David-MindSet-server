@@ -1,4 +1,4 @@
-const applications = require('../data/applications.json');
+let applications = require('../data/applications.json');
 
 
 const getAll = (req, res) => {
@@ -19,9 +19,9 @@ const getById = (req, res) => {
 const getByIdPos = (req, res) => {
     const id = parseInt(req.params.id);
     console.log(id);
-    const application = applications.find((applications) => applications.idOpenPosition === id);
+    const application = applications.filter((applications) => applications.idOpenPosition === id);
     if(application === undefined){
-        res.status(404).json({message : `no application with open position id: ${id}`});
+        res.status(404).json({message : `no applications with open position id: ${id}`});
     }
     else{
         res.json(application);
@@ -31,7 +31,7 @@ const getByIdPos = (req, res) => {
 const getByIdCan = (req, res) => {
     const id = parseInt(req.params.id);
     console.log(id);
-    const application = applications.find((applications) => applications.idCandidate === id);
+    const application = applications.filter((applications) => applications.idCandidate === id);
     if(application === undefined){
         res.status(404).json({message : `no application with candidate id: ${id}`});
     }
@@ -41,11 +41,25 @@ const getByIdCan = (req, res) => {
 };
 
 const add = (req, res) => {
-    // your code here
+    let valid = req.query.idOpenPosition === undefined ? undefined : req.query.idCandidate === undefined ? undefined : true;
+    let newId = applications[applications.length - 1].id + 1;
+    let newItem ={
+        id : newId,
+        idCandidate : req.query.idCandidate,
+        idOpenPosition : req.query.idOpenPosition,
+        isActive : true
+    }
+    if(valid){
+        applications.push(newItem);
+        console.log(newItem);
+    }
+    else{
+        console.log("error");
+    }
 };
 
 const edit = (req, res) => {
-    // your code here
+    
 };
 
 const remove = (req, res) => {
