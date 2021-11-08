@@ -46,7 +46,7 @@ const add = (req, res) => {
         res.send(400)
     }
     openPositions.push(newOpenPosition);
-    fs.writeFile('./data/open-positions.json', JSON.stringify(openPositions), err => {
+    fs.writeFile(path.join(__dirname, '../data/open-positions.json'), JSON.stringify(openPositions), (err) => {
         if (err) {
             res.send(500, 'Error trying to save new data');
         }
@@ -68,7 +68,7 @@ const edit = (req, res) => {
             }
             return openPosition;
         });
-        fs.writeFile('./data/open-positions.json', JSON.stringify(openPositions), (err) => {
+        fs.writeFile(path.join(__dirname, '../data/open-positions.json'), JSON.stringify(openPositions), (err) => {
             if (err) {
                 console.log(err);
                 res.status(500).json({ message: 'Error trying to edit the open position' });
@@ -86,7 +86,7 @@ const remove = (req, res) => {
     if(openPositionSelected) {
         openPositions = openPositions.filter( openPosition => openPosition.id !== id );
         res.json({ message: `Open position id ${id} deleted` });
-        fs.writeFile('./data/open-positions.json', JSON.stringify(openPositions), (err) => {
+        fs.writeFile(path.join(__dirname, '../data/open-positions.json'), JSON.stringify(openPositions), (err) => {
             if (err) {
                 console.log(err);
                 res.status(500).json({ message: 'Error trying to delete the open position' });
