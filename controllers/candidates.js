@@ -10,12 +10,14 @@ const getLastId = (collection) => {
     });
     return larger;
 };
-const validateField = (field, key, errorArray) => {
-    if (field === undefined){
-        errorArray.push(`${key} is required`)
+const validate = (object) => {
+    for (let key in object) {
+      if (object[key] === undefined) {
+        return false;
+      }
     }
-    return errorArray;
-}
+    return true;
+};
 const getAll = (req, res) => {
     res.json( candidates.list);
 };
@@ -47,63 +49,47 @@ const getByName = (req, res) => {
 };
 
 const add = (req, res) => {
-    let errorMsg = [];
-    errorMsg = validateField(req.query.firstName,'firstName',errorMsg);
-    errorMsg = validateField(req.query.lastName,'lastName',errorMsg);
-    errorMsg = validateField(req.query.email,'email',errorMsg);
-    errorMsg = validateField(req.query.password,'password',errorMsg);
-    errorMsg = validateField(req.query.phone,'phone',errorMsg);
-    errorMsg = validateField(req.query.address,'address',errorMsg);
-    errorMsg = validateField(req.query.city,'city',errorMsg);
-    errorMsg = validateField(req.query.province,'province',errorMsg);
-    errorMsg = validateField(req.query.country,'country',errorMsg);
-    errorMsg = validateField(req.query.postalCode,'postalCode',errorMsg);
-    errorMsg = validateField(req.query.birthday,'birthday',errorMsg);
-    if(errorMsg.length !== 0){
-        res.status(400).json({
-            message: errorMsg
-        })
+    let lastID = getLastId(candidates.list);
+    const newCandidate = {
+        id: lastID + 1,
+        firstName: req.query.firstName,
+        lastName: req.query.lastName,
+        email: req.query.email,
+        password: req.query.password,
+        pictureUrl: req.query.pictureUrl,
+        phone: req.query.phone,
+        address: req.query.address,
+        city: req.query.city,
+        province: req.query.province,
+        country: req.query.country,
+        postalCode: req.query.postalCode,
+        birthday: req.query.birthday,
+        education: req.query.education === undefined ? [] : [req.query.education],
+        experiences: req.query.experiences === undefined ? [] : [req.query.experiences],
+        courses: req.query.courses === undefined ? [] : [req.query.courses] ,
+        hobbies: req.query.hobbies === undefined ? [] : [req.query.hobbies] ,
+        mainSkills: req.query.mainSkills === undefined ? [] : [req.query.mainSkills] ,
+        profileTypes: req.query.profileTypes === undefined ? [] : [req.query.profileTypes] ,
+        isOpenToWork: true,
+        isActive: true
     }
-    else{
-        let lastID = getLastId(candidates);
-        const newCandidate = {
-            id: lastID + 1,
-            firstName: req.query.firstName,
-            lastName: req.query.lastName,
-            email: req.query.email,
-            password: req.query.password,
-            pictureUrl: req.query.pictureUrl,
-            phone: req.query.phone,
-            address: req.query.address,
-            city: req.query.city,
-            province: req.query.province,
-            country: req.query.country,
-            postalCode: req.query.postalCode,
-            birthday: req.query.birthday,
-            education: req.query.education === undefined ? [] : [req.query.education],
-            experiences: req.query.experiences === undefined ? [] : [req.query.experiences],
-            courses: req.query.courses === undefined ? [] : [req.query.courses] ,
-            hobbies: req.query.hobbies === undefined ? [] : [req.query.hobbies] ,
-            mainSkills: req.query.mainSkills === undefined ? [] : [req.query.mainSkills] ,
-            profileTypes: req.query.profileTypes === undefined ? [] : [req.query.profileTypes] ,
-            isOpenToWork: true,
-            isActive: true
+    if (!validate(newCandidate)) {
+        return res.status(400).json({ message: 'Missing parameters' });
+    }
+    candidates.list.push(newCandidate);
+    fs.writeFile(path.join(__dirname, '../data/candidates.json'), JSON.stringify(candidates),err =>{
+        if(err){
+            res.status(500).json({
+                message:'Error while saving data'
+            })
         }
-        candidates.list.push(newCandidate);
-        fs.writeFile(path.join(__dirname, '../data/candidates.json'), JSON.stringify(candidates),err =>{
-            if(err){
-                res.status(500).json({
-                    message:'Error while saving data'
-                })
-            }
-            else{
-                res.json({
-                    message:'Candidate created',
-                    candidate: newCandidate
-                })
-            }
-        })
-    }
+        else{
+            res.json({
+                message:'Candidate created',
+                candidate: newCandidate
+            })
+        }
+    })
 };
 
 const edit = (req, res) => {
