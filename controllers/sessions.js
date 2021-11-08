@@ -63,7 +63,7 @@ const edit = (req, res) => {
 const remove = (req, res) => {
    const findSessions = sessions.list.some(sessions => sessions.id === parseInt(req.params.id));
    if(findSessions) {
-       sessions = sessions.list.filter(sessions => sessions.id !== parseInt(req.params.id));
+       sessions.list.filter(sessions => sessions.id !== parseInt(req.params.id));
        fs.writeFile('../data/sessions.json', JSON.stringify(sessions), (err) => {
           if (err) {
               res.status(500).json({ msg: 'Error removing the session'});
