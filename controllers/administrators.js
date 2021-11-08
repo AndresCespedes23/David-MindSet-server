@@ -69,20 +69,19 @@ const edit = (req, res) => {
     const editAdmin = adminData.some(administrator => administrator.id === parseInt(req.params.id));
 
     if (editAdmin) {
-        const updAdmin = req.query;
-        adminData.map(administrator => {
+        adminData = adminData.map(administrator => {
             if (administrator.id === parseInt(req.params.id)) {
-                administrator.firstName = updAdmin.firstName || administrator.firstName;
-                administrator.lastName = updAdmin.lastName || administrator.lastName;
-                administrator.email = updAdmin.email || administrator.email;
-                administrator.password = updAdmin.password || administrator.password;
-                administrator.isActive = updAdmin.isActive || administrator.isActive;
+                administrator.firstName = req.query.firstName || administrator.firstName;
+                administrator.lastName = req.query.lastName || administrator.lastName;
+                administrator.email = req.query.email || administrator.email;
+                administrator.password = req.query.password || administrator.password;
+                administrator.isActive = req.query.isActive || administrator.isActive;
 
                 fs.writeFile('./data/administrators.json', JSON.stringify(adminData), (err) => {
                     if (err) {
                       res.status(500).json({ message: "Error editing administrator" });
                     }
-                  });
+                });
 
                 res.json({ msg: "Administrator updated", administrator })
             }
@@ -96,8 +95,8 @@ const remove = (req, res) => {
     const foundIdDeleted = adminData.some(administrator => administrator.id === parseInt(req.params.id));
 
     if (foundIdDeleted) {
-        const newAdmins = adminData.filter((administrator) => administrator.id !== parseInt(req.params.id));
-        fs.writeFile('./data/administrators.json', JSON.stringify(newAdmins), (err) => {
+        adminData = adminData.filter((administrator) => administrator.id !== parseInt(req.params.id))
+        fs.writeFile('./data/administrators.json', JSON.stringify(adminData), (err) => {
             if (err) {
               console.log(err);
               res.status(500).json({ msg: "Error removing administrator" });
