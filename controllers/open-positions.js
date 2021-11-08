@@ -13,6 +13,26 @@ let getLastId = (openPositions) => {
 
 const getAll = (req, res) => res.json(openPositions);
 
+const getById = (req, res) => {
+    const id = parseInt(req.params.id);
+    const openPosition = openPositions.find((openPosition) => openPosition.id === id);
+    if (openPosition) {
+      res.json(openPosition);
+    } else {
+      res.status(404).json({ message: `Open position not found with id: ${id}` });
+    }
+};
+
+const getByIdCompany = (req, res) => {
+    const idCompany = parseInt(req.params.idCompany);
+    const openPosition = openPositions.filter((openPosition) => openPosition.idCompany === idCompany);
+    if (openPosition) {
+      res.json(openPosition);
+    } else {
+      res.status(404).json({ message: `Open positions not found for company id: ${idCompany}` });
+    }
+};
+
 const add = (req, res) => {
     const newOpenPosition = {
         id: getLastId(openPositions) + 1,
@@ -36,26 +56,6 @@ const add = (req, res) => {
 
 // Test case:
 // add?idCompany=13&startDate=11/23/2019&endDate=11/25/2020&jobDescription=LoremIpsus&isActive=true
-
-const getById = (req, res) => {
-    const id = parseInt(req.params.id);
-    const openPosition = openPositions.find((openPosition) => openPosition.id === id);
-    if (openPosition) {
-      res.json(openPosition);
-    } else {
-      res.status(404).json({ message: `Open position not found with id: ${id}` });
-    }
-};
-
-const getByIdCompany = (req, res) => {
-    const idCompany = parseInt(req.params.idCompany);
-    const openPosition = openPositions.filter((openPosition) => openPosition.idCompany === idCompany);
-    if (openPosition) {
-      res.json(openPosition);
-    } else {
-      res.status(404).json({ message: `Open positions not found for company id: ${idCompany}` });
-    }
-};
 
 const edit = (req, res) => {
     let openPosition = openPositions.find(openPositions => openPositions.id === parseInt(req.params.id));
