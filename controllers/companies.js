@@ -101,7 +101,7 @@ const edit = (req, res) => {
   fs.writeFile(path.join(__dirname, '../data/companies.json'), JSON.stringify(companies), (err) => {
     if (err) {
       console.log(err);
-      res.status(500).json({ message: 'Error deleting company' });
+      res.status(500).json({ message: 'Error edting company' });
     } else {
       res.json({ message: 'Company edited successfully', companyFound });
     }
@@ -119,7 +119,7 @@ const remove = (req, res) => {
   fs.writeFile(path.join(__dirname, '../data/companies.json'), JSON.stringify(companies), (err) => {
     if (err) {
       console.log(err);
-      res.status(500).json({ message: 'Error editing company' });
+      res.status(500).json({ message: 'Error deleting company' });
     } else {
       res.json({ message: 'Company deleted' });
     }
