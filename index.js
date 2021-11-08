@@ -6,15 +6,25 @@ const app = express();
 const port = 8000;
 
 app.get('/', (req, res) => {
-    let html = '<h1>MindeSet</h1>';
-    html += '<ul>';
-    html += '  <li>Open Positions:';
-    html += '    <ul>';
-    html += '      <li><a href="/open-positions">getAll</a></li>';
-    html += '    </ul>';
-    html += '  </li>';
-    html += '</ul>';
-    res.send();
+  let html = '<h1>MindeSet</h1>';
+  html += '<ul>';
+  html += '  <li>Candidates:';
+  html += '    <ul>';
+  html += '      <li><a href="/candidates">getAll</a></li>';
+  html += '    </ul>';
+  html += '  </li>';
+  html += '  <li>Open positions:';
+  html += '    <ul>';
+  html += '      <li><a href="/open-positions">getAll</a></li>';
+  html += '      <li><a href="/open-positions/5">getById</a></li>';
+  html += '      <li><a href="/open-positions/getByIdCompany/12">getByIdCompany</a></li>';
+  html += '      <li><a href="/open-positions/add">add</a></li>';
+  html += '      <li><a href="/open-positions/edit/6">edit</a></li>';
+  html += '      <li><a href="/open-positions/remove/4">remove</a></li>';
+  html += '    </ul>';
+  html += '  </li>';
+  html += '</ul>';
+  res.send(html);
 });
 
 app.get('/candidates', candidates.getAll);
