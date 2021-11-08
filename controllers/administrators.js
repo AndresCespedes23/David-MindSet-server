@@ -1,7 +1,7 @@
 const fs = require('fs');
 let adminData = require('../data/administrators.json');
 
-const calculateLarge = group => {
+const getLastId = group => {
     let large = 0;
     group.forEach(element => {
       if (element.id > large) {
@@ -44,7 +44,7 @@ const getByName = (req, res) => {
 
 const add = (req, res) => {
     const newAdmin = {
-        id: calculateLarge(adminData) +1,
+        id: getLastId(adminData) +1,
         firstName: req.query.firstName,
         lastName: req.query.lastName,
         email: req.query.email,
