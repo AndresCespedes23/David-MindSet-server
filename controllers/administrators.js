@@ -25,20 +25,19 @@ const getAll = (req, res) => {
 };
 
 const getById = (req, res) => {
-    const foundId = adminData.some(administrator => administrator.id === parseInt(req.params.id));
-    if (foundId) {
-        res.json(adminData.filter(administrator => administrator.id === parseInt(req.params.id)));
-    }   else {
-        res.status(404).json({ msg: `No administrator with the id of ${req.params.id} founded` });
+    const foundId = adminData.find(administrator => administrator.id === parseInt(req.params.id));
+    if (!foundId) {
+        return res.status(404).json({ message: `No administrator with the id of ${req.params.id} founded` });
     }
+    res.json(foundId);
 };
 
 const getByName = (req, res) => {
-    const foundName = adminData.some(administrator => administrator.firstName === (req.params.name));
-    if (foundName) {
-        res.json(adminData.filter(administrator => administrator.firstName === (req.params.name)));
-    }   else {
-        res.status(404).json({ msg: `No administrator with the first name of ${req.params.name} founded` });
+    const foundName = adminData.filter(administrator => administrator.firstName === (req.params.name));
+    if (foundName.length > 0) {
+        res.json(foundName);
+    } else {
+        res.status(404).json({ message: `No administrator with the first name of ${req.params.name} founded` });
     }
 };
 
