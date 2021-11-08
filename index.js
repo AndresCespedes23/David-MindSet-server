@@ -20,8 +20,8 @@ app.get('/candidates', candidates.getAll);
 app.get('/candidate/add', candidates.add);
 app.get('/candidate/:id', candidates.getById);
 app.get('/candidate/byName/:name', candidates.getByName);
-app.get('/candidate/edit', candidates.edit);
-app.get('/candidate/remove', candidates.remove);
+app.get('/candidate/edit/:id', candidates.edit);
+app.get('/candidate/remove/:id', candidates.remove);
 
 app.listen(port, () => {
   console.log(`Open your browser in http://localhost:${port}`);
