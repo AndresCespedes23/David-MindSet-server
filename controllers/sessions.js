@@ -56,7 +56,18 @@ const edit = (req, res) => {
 };
 
 const remove = (req, res) => {
-     // your code here
+   const findSessions = sessions.some(sessions => sessions.id === parseInt(req.params.id));
+   if(findSessions) {
+       sessions = sessions.filter(sessions => sessions.id !== parseInt(req.params.id));
+       fs.writeFile('../data/sessions.json', JSON.stringify(sessions), (err) => {
+          if (err) {
+              res.status(500).json({ msg: 'Error removing the session'});
+          }
+       });
+       res.json({ msg: 'Session removed'});
+   } else {
+       res.status(404).json({ msg: `Session not found with the id of ${req.params.id}`});
+   } 
 };
 
 module.exports = {
