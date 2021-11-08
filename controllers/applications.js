@@ -45,7 +45,6 @@ const getById = (req, res) => {
 
 const getByIdPos = (req, res) => {
     const id = parseInt(req.params.id);
-    console.log(id);
     const application = applications.filter((applications) => applications.idOpenPosition === id);
     if (application === undefined) {
         res.status(404).json({ message: `no applications with open position id: ${id}` });
@@ -57,7 +56,6 @@ const getByIdPos = (req, res) => {
 
 const getByIdCan = (req, res) => {
     const id = parseInt(req.params.id);
-    console.log(id);
     const application = applications.filter((applications) => applications.idCandidate === id);
     if (application === undefined) {
         res.status(404).json({ message: `no application with candidate id: ${id}` });
@@ -86,7 +84,6 @@ const add = (req, res) => {
     else {
         res.status(400).json({ message: 'no data in query' });
     }
-
 };
 
 const edit = (req, res) => {
@@ -108,13 +105,10 @@ const edit = (req, res) => {
             fs.writeFile(path.join(__dirname, '../data/applications.json'), JSON.stringify(applications), error => {
                 if (error) { res.status(500) }
             })
-            
         }
         if(editObj == null){
             res.status(404).json({ message: `no application with id: ${id}` });
         }
-
-        
     }
 };
 
@@ -141,4 +135,3 @@ module.exports = {
     edit: edit,
     remove: remove
 };
-
