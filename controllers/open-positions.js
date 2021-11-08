@@ -1,8 +1,6 @@
 const fs = require('fs');
 let openPositions = require('../data/open-positions.json');
 
-const getAll = (req, res) => res.json(openPositions);
-
 let getBiggerId = (openPositions) => {
     let biggerId = 0;
     openPositions.forEach(openPosition => {
@@ -12,6 +10,8 @@ let getBiggerId = (openPositions) => {
     });
     return biggerId;
 };
+
+const getAll = (req, res) => res.json(openPositions);
 
 const add = (req, res) => {
     const newOpenPosition = {
@@ -48,10 +48,10 @@ const getById = (req, res) => {
 };
 
 const getByIdCompany = (req, res) => {
-    const idCompany = parseInt(req.query.idCompany);
-    const openPositions = openPositions.find((openPosition) => openPosition.idCompany === idCompany);
-    if (openPositions) {
-      res.json(openPositions);
+    const idCompany = parseInt(req.params.idCompany);
+    const openPosition = openPositions.filter((openPosition) => openPosition.idCompany === idCompany);
+    if (openPosition) {
+      res.json(openPosition);
     } else {
       res.status(404).json({ message: `Open positions not found for company id: ${idCompany}` });
     }
@@ -88,14 +88,18 @@ const edit = (req, res) => {
 
 const remove = (req, res) => {
     const id = parseInt(req.params.id);
-    let openPositionSelected = openPositions.find(openPosition => {
-        return openPosition.id === id;
-    });
+    let openPositionSelected = openPositions.find( openPosition => openPosition.id === id );
     if(openPositionSelected) {
-        openPositions.splice(openPositionSelected, 1);
-        res.json({ message: `Open position id ${id} deleted`});
+        openPositions = openPositions.filter( openPosition => openPosition.id !== id );
+        res.json({ message: `Open position id ${id} deleted` });
+        fs.writeFile('./data/open-positions.json', JSON.stringify(openPositions), (err) => {
+            if (err) {
+                console.log(err);
+                res.status(500).json({ message: 'Error trying to delete the open position' });
+            }
+        });
     } else {
-        res.json(404, `Open position wasn't found with id ${id}`);
+        res.status(404).json({ message: `Open position wasn't found with id ${id}` });
     }
 };
 
