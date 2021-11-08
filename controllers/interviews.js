@@ -24,12 +24,12 @@ const getLastId = (collection) => {  // Julián fn
 };
 
 // ---- PATHS ----
-
+// try:  http://localhost:8000/interviews
 const getAll = (req, res) => {
     res.json(interviews);
 };
-// try:  http://localhost:8000/interviews
 
+// as by Traversy  - try: http://localhost:8000/interviews/150
 const getById = (req, res) => { 
     const findId = interviews.some(interviews => interviews.id === parseInt(req.params.id)); 
     if(findId) {
@@ -38,7 +38,7 @@ const getById = (req, res) => {
         res.status(404).json({msg: `Interview not found with the id of ${req.params.id}`});
     }  
 };
-// as by Traversy  - try: http://localhost:8000/interviews/150
+
 
 const getByIdCompany = (req, res) => {
     const findId = interviews.some(interviews => interviews.idCompany === parseInt(req.params.idCompany)); 
@@ -48,7 +48,7 @@ const getByIdCompany = (req, res) => {
         res.status(404).json({ msg: `Interview not found with the idCompany of ${req.params.idCompany}`});
     }
 };
-
+// as by David C. - try: http://localhost:8000/interviews/add?id=215&idCompany=215&idCandidate=215&date=11/23/2021&status=true&isActive=true
 const add = (req, res) => { 
     const newInterviews = {
         id: getLastId(interviews) + 1,
@@ -70,8 +70,8 @@ const add = (req, res) => {
         res.status(400).json({ msg: 'Some parameters are missing' });
     }
 };
-// as by David C. - try: http://localhost:8000/interviews/add?id=215&idCompany=215&idCandidate=215&date=11/23/2021&status=true&isActive=true
 
+// as by Traversy  - test: http://localhost:8000/interviews/edit/1?idCandidate=4
 const edit = (req, res) => {
     const findId = interviews.some(interviews => interviews.id === parseInt(req.params.id)); 
     const editInterviews = req.query;
@@ -95,8 +95,8 @@ const edit = (req, res) => {
         res.status(404).json({msg: `Interview not found with the id of ${req.params.id}`});
     }
 };
-// as by Traversy  - test: http://localhost:8000/interviews/edit/1?idCandidate=4
 
+// as by Traversy 
 const remove = (req, res) => {
     const findId = interviews.some(interviews => interviews.id === parseInt(req.params.id));
     if(findId) {
@@ -111,7 +111,7 @@ const remove = (req, res) => {
         res.status(404).json({ msg: `Interview not found with the id of ${req.params.id}`});
     } 
 };
-// as by Traversy 
+
 
 module.exports = {
   getAll: getAll,
