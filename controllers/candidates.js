@@ -1,96 +1,71 @@
 const fs = require('fs');
 let candidates = require('../data/candidates.json');
 
-function getLastID(){
-    let lastID = 0;
-    candidates.list.forEach(candidate => {
-        if (candidate.id > lastID) {
-            lastID = candidate.id;
-        }
+const getLastId = (collection) => {
+    let larger = 0;
+    collection.forEach((element) => {
+      if (element.id > larger) {
+        larger = element.id;
+      }
     });
-    return lastID;
+    return larger;
+};
+const validateField = (field, key, errorArray) => {
+    if (field === undefined){
+        errorArray.push(`${key} is required`)
+    }
+    return errorArray;
 }
 const getAll = (req, res) => {
-    res.json({
-        message: 'Candidates found',
-        candidates: candidates.list
-    });
+    res.json( candidates.list);
 };
 
 const getById = (req, res) => {
     const candidateID = parseInt(req.params.id);
-    const foundCandidate = candidates.list.filter(candidate => candidate.id === candidateID);
+    const foundCandidate = candidates.list.find(candidate => candidate.id === candidateID);
     if(!foundCandidate){
-        res.status(400).json({
+        res.status(404).json({
             message:'Candidate not found by ID'
         });
     }
     else{
-        res.json({
-            message: 'Candidate found',
-            candidate: foundCandidate
-        })
+        res.json(foundCandidate)
     }
 };
 
 const getByName = (req, res) => {
     const foundCandidates = candidates.list.filter(candidate => candidate.firstName.toLowerCase() === req.params.name.toLowerCase())
     if(foundCandidates.length === 0){
-        res.status(400).json({
+        res.status(404).json({
             message:'Candidate not found by FirstName',
             candidates: foundCandidates
         });
     }
     else{
-        res.json({
-            message: 'Candidate found',
-            candidate: foundCandidates
-        })
+        res.json(foundCandidates)
     }
 };
 
 const add = (req, res) => {
     let errorMsg = [];
-    if (req.query.firstName === undefined){
-        errorMsg.push('First Name is required');
-    }
-    if (req.query.lastName === undefined){
-        errorMsg.push('Last Name is required');
-    }
-    if (req.query.email === undefined){
-        errorMsg.push('Email is required');
-    }
-    if (req.query.password === undefined){
-        errorMsg.push('Password is required');
-    }
-    if (req.query.phone === undefined){
-        errorMsg.push('Phone is required');
-    }
-    if(req.query.address === undefined){
-        errorMsg.push('Address is required');
-    }
-    if(req.query.city === undefined){
-        errorMsg.push('City is required');
-    }
-    if(req.query.province === undefined){
-        errorMsg.push('Province is required');
-    }
-    if(req.query.country === undefined){
-        errorMsg.push('Country is required');
-    }
-    if(req.query.postalCode === undefined){
-        errorMsg.push('Postal Code is required');
-    }
-    if(req.query.birthday === undefined){
-        errorMsg.push('Birthday is required');
-    }
+    errorMsg = validateField(req.query.firstName,'firstName',errorMsg);
+    errorMsg = validateField(req.query.lastName,'lastName',errorMsg);
+    errorMsg = validateField(req.query.email,'email',errorMsg);
+    errorMsg = validateField(req.query.password,'password',errorMsg);
+    errorMsg = validateField(req.query.phone,'phone',errorMsg);
+    errorMsg = validateField(req.query.address,'address',errorMsg);
+    errorMsg = validateField(req.query.city,'city',errorMsg);
+    errorMsg = validateField(req.query.province,'province',errorMsg);
+    errorMsg = validateField(req.query.country,'country',errorMsg);
+    errorMsg = validateField(req.query.postalCode,'postalCode',errorMsg);
+    errorMsg = validateField(req.query.birthday,'birthday',errorMsg);
     if(errorMsg.length !== 0){
-        res.status(404).json({
+        res.status(400).json({
             message: errorMsg
         })
     }
     else{
-        let lastID = getLastID();
+        let lastID = getLastId(candidates);
         const newCandidate = {
             id: lastID + 1,
             firstName: req.query.firstName,
@@ -134,38 +109,37 @@ const add = (req, res) => {
 const edit = (req, res) => {
     const candidateID = parseInt(req.params.id)
     const foundCandidate = candidates.list.find(candidate => candidate.id === candidateID);
+    const updatedCandidate = {};
     if(!foundCandidate){
-        res.status(400).json({
+        res.status(404).json({
             message:'Candidate not found by ID'
         });
     }
     else{
         candidates = candidates.list.map((candidate) => {
             if(candidate.id === candidateID){
-                candidate.firstName = req.query.firstName !== undefined ? req.query.firstName : candidate.firstName;
-                candidate.lastName = req.query.lastName !== undefined ? req.query.lastName : candidate.lastName;
-                candidate.email = req.query.email !== undefined ? req.query.email : candidate.email;
-                candidate.password = req.query.password !== undefined ? req.query.password : candidate.password;
-                candidate.pictureUrl = req.query.pictureUrl !== undefined ? req.query.pictureUrl : candidate.pictureUrl;
-                candidate.phone = req.query.phone !== undefined ? req.query.phone : candidate.phone;
-                candidate.address = req.query.address !== undefined ? req.query.address : candidate.address;
-                candidate.city = req.query.city !== undefined ? req.query.city : candidate.city;
-                candidate.province = req.query.province !== undefined ? req.query.province : candidate.province;
-                candidate.country = req.query.country !== undefined ? req.query.country : candidate.country;
-                candidate.postalCode = req.query.postalCode !== undefined ? req.query.postalCode : candidate.postalCode;
-                candidate.birthday = req.query.birthday !== undefined ? req.query.birthday : candidate.birthday;
+                candidate.firstName =  req.query.firstName || candidate.firstName;
+                candidate.lastName =  req.query.lastName || candidate.lastName;
+                candidate.email =  req.query.email || candidate.email;
+                candidate.password =  req.query.password || candidate.password;
+                candidate.pictureUrl =  req.query.pictureUrl || candidate.pictureUrl;
+                candidate.phone =  req.query.phone || candidate.phone;
+                candidate.address =  req.query.address || candidate.address;
+                candidate.city =  req.query.city || candidate.city;
+                candidate.province =  req.query.province || candidate.province;
+                candidate.country =  req.query.country || candidate.country;
+                candidate.postalCode =  req.query.postalCode || candidate.postalCode;
+                candidate.birthday =  req.query.birthday || candidate.birthday;
                 candidate.education = req.query.education !== undefined ? [req.query.education] : candidate.education;
                 candidate.experiences = req.query.experiences !== undefined ? [req.query.experiences] : candidate.experiences;
                 candidate.courses = req.query.courses !== undefined ? [req.query.courses] : candidate.courses;
                 candidate.hobbies = req.query.hobbies !== undefined ? [req.query.hobbies] : candidate.hobbies;
                 candidate.mainSkills = req.query.mainSkills !== undefined ? [req.query.mainSkills] : candidate.mainSkills;
                 candidate.profileTypes = req.query.profileTypes !== undefined ? [req.query.profileTypes] : candidate.profileTypes;
-                candidate.isOpenToWork = req.query.isOpenToWork !== undefined ? req.query.isOpenToWork : candidate.isOpenToWork;
-                return candidate;
+                candidate.isOpenToWork = req.query.isOpenToWork || candidate.isOpenToWork;
+                updatedCandidate = candidate;
             }
-            else{
-                return candidate;
-            }
+            return candidate;
         })
         fs.writeFile('./data/candidates.json', JSON.stringify({list:candidates}),err =>{
             if(err){
@@ -175,7 +149,8 @@ const edit = (req, res) => {
             }
             else{
                 res.json({
-                    message: 'Updated Candidate'
+                    message: 'Updated Candidate',
+                    candidate: updatedCandidate
                 })
             }
         })
@@ -186,7 +161,7 @@ const remove = (req, res) => {
     const candidateID = parseInt(req.params.id);
     const foundCandidate = candidates.list.filter(candidate => candidate.id === candidateID);
     if(!foundCandidate){
-        res.status(400).json({
+        res.status(404).json({
             message:'Candidate not found by ID'
         });
     }
