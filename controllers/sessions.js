@@ -13,18 +13,18 @@ const getById = (req, res) => {
     }
 };
 
-const getByName = (req, res) => {
+const getByIdCandidate = (req, res) => {
     // your code here
 };
 
 const add = (req, res) => { 
     let newSession = {
-        id: req.params.id,
-        idPsychologists: req.params.idPsychologists,
-        idCandidate: req.params.idCandidate,
-        date: req.params.date,
-        time: req.params.time,
-        isActive: req.params.isActive
+        id: req.query.id,
+        idPsychologists: req.query.idPsychologists,
+        idCandidate: req.query.idCandidate,
+        date: req.query.date,
+        time: req.query.time,
+        isActive: req.query.isActive
     }
     sessions.list.push(newSession);
     fs.writeFile('../data/sessions.json', JSON.stringify(sessions), err => {
@@ -34,11 +34,11 @@ const add = (req, res) => {
 }
 
 const edit = (req, res) => {
-    const findSessions = sessions.some(sessions => sessions.id === parseInt(req.params.id)); 
+    const findSessions = sessions.list.some(sessions => sessions.id === parseInt(req.params.id)); 
     const editSessions = req.query;
     if(findSessions) {
-        sessions.map(sessions => {
-            if(sessions.id ===parseInt(req.params.id)) {
+        sessions.list.map(sessions => {
+            if(sessions.id === parseInt(req.params.id)) {
                 sessions.idPsychologists = editSessions.idPsychologists ? editSessions.idPsychologists : sessions.idPsychologists;
                 sessions.idCandidate = editSessions.idCandidate ? editSessions.idCandidate : sessions.idCandidate;
                 sessions.date = editSessions.date ? editSessions.date : sessions.date;
@@ -56,9 +56,9 @@ const edit = (req, res) => {
 };
 
 const remove = (req, res) => {
-   const findSessions = sessions.some(sessions => sessions.id === parseInt(req.params.id));
+   const findSessions = sessions.list.some(sessions => sessions.id === parseInt(req.params.id));
    if(findSessions) {
-       sessions = sessions.filter(sessions => sessions.id !== parseInt(req.params.id));
+       sessions = sessions.list.filter(sessions => sessions.id !== parseInt(req.params.id));
        fs.writeFile('../data/sessions.json', JSON.stringify(sessions), (err) => {
           if (err) {
               res.status(500).json({ msg: 'Error removing the session'});
@@ -74,7 +74,7 @@ module.exports = {
   getAll: getAll,
   add: add,
   getById: getById,
-  getByName: getByName,
+  getByIdCandidate: getByIdCandidate,
   edit: edit,
   remove: remove
 };

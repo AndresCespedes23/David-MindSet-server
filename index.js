@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 app.get('/sessions', sessions.getAll);
 app.get('/session/add', sessions.add);
 app.get('/session/:id', sessions.getById);
-app.get('/session/byName/:name', sessions.getByName);
+app.get('/session/byIdCandidate/:candidate', sessions.getByIdCandidate);
 app.get('/session/edit/:id', sessions.edit);
 app.get('/session/remove/:id', sessions.remove);
 
