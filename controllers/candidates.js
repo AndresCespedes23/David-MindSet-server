@@ -90,7 +90,7 @@ const add = (req, res) => {
             isActive: true
         }
         candidates.list.push(newCandidate);
-        fs.writeFile('./data/candidates.json', JSON.stringify(candidates),err =>{
+        fs.writeFile(path.join(__dirname, '../data/candidates.json'), JSON.stringify(candidates),err =>{
             if(err){
                 res.status(500).json({
                     message:'Error while saving data'
@@ -141,7 +141,7 @@ const edit = (req, res) => {
             }
             return candidate;
         })
-        fs.writeFile('./data/candidates.json', JSON.stringify({list:candidates}),err =>{
+        fs.writeFile(path.join(__dirname, '../data/candidates.json'), JSON.stringify({list:candidates}),err =>{
             if(err){
                 res.status(500).json({
                     message:'Error while saving data'
@@ -167,7 +167,7 @@ const remove = (req, res) => {
     }
     else{
         candidates = candidates.list.filter((candidate) => candidate.id !== candidateID);
-        fs.writeFile('./data/candidates.json', JSON.stringify({list:candidates}),err =>{
+        fs.writeFile(path.join(__dirname, '../data/candidates.json'), JSON.stringify({list:candidates}),err =>{
             if(err){
                 console.log(err)
                 res.status(500).json({
