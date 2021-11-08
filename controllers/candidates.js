@@ -150,12 +150,12 @@ const edit = (req, res) => {
                 candidate.country = req.query.country !== undefined ? req.query.country : candidate.country;
                 candidate.postalCode = req.query.postalCode !== undefined ? req.query.postalCode : candidate.postalCode;
                 candidate.birthday = req.query.birthday !== undefined ? req.query.birthday : candidate.birthday;
-                candidate.education = req.query.education !== undefined ? req.query.education : candidate.education;
-                candidate.experiences = req.query.experiences !== undefined ? req.query.experiences : candidate.experiences;
-                candidate.courses = req.query.courses !== undefined ? req.query.courses : candidate.courses;
-                candidate.hobbies = req.query.hobbies !== undefined ? req.query.hobbies : candidate.hobbies;
-                candidate.mainSkills = req.query.mainSkills !== undefined ? req.query.mainSkills : candidate.mainSkills;
-                candidate.profileTypes = req.query.profileTypes !== undefined ? req.query.profileTypes : candidate.profileTypes;
+                candidate.education = req.query.education !== undefined ? [req.query.education] : candidate.education;
+                candidate.experiences = req.query.experiences !== undefined ? [req.query.experiences] : candidate.experiences;
+                candidate.courses = req.query.courses !== undefined ? [req.query.courses] : candidate.courses;
+                candidate.hobbies = req.query.hobbies !== undefined ? [req.query.hobbies] : candidate.hobbies;
+                candidate.mainSkills = req.query.mainSkills !== undefined ? [req.query.mainSkills] : candidate.mainSkills;
+                candidate.profileTypes = req.query.profileTypes !== undefined ? [req.query.profileTypes] : candidate.profileTypes;
                 candidate.isOpenToWork = req.query.isOpenToWork !== undefined ? req.query.isOpenToWork : candidate.isOpenToWork;
                 return candidate;
             }
