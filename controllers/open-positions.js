@@ -47,9 +47,8 @@ const add = (req, res) => {
     fs.writeFile(path.join(__dirname, '../data/open-positions.json'), JSON.stringify(openPositions), (err) => {
         if (err) {
             res.status(500).json({ message: 'Error adding open position' });
-        } else {
-            res.json(newOpenPosition);
         }
+        res.json(newOpenPosition);
     });
 };
 
