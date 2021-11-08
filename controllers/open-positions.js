@@ -18,17 +18,18 @@ const getById = (req, res) => {
     const openPosition = openPositions.find((openPosition) => openPosition.id === id);
     if (!openPosition) {
         return res.status(404).json({ message: `Open position not found with id: ${id}` });
+    } else {
+        res.json(openPosition);
     }
 };
 
 const getByIdCompany = (req, res) => {
     const idCompany = parseInt(req.params.idCompany);
     const openPosition = openPositions.filter((openPosition) => openPosition.idCompany === idCompany);
-    if (openPosition) {
-      res.json(openPosition);
-    } else {
-      res.status(404).json({ message: `Open positions not found for company id: ${idCompany}` });
+    if (!openPosition) {
+        return res.status(404).json({ message: `Open positions not found for company id: ${idCompany}` });
     }
+    res.json(openPosition);
 };
 
 const add = (req, res) => {
