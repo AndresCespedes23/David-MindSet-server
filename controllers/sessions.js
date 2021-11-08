@@ -18,8 +18,7 @@ const getByIdCandidate = (req, res) => {
     if(findIdCandidate) {
     res.json(sessions.list.filter(sessions => sessions.idCandidate === parseInt(req.params.idCandidate)));
     } else {
-        res.status(400);
-        res.json({msg: `Candidate ID not found ${req.params.idCandidate}`});
+        res.status(400).res.json({msg: `Candidate ID not found ${req.params.idCandidate}`});
     }
 };
 
@@ -78,9 +77,9 @@ const remove = (req, res) => {
 
 module.exports = {
   getAll: getAll,
+  getByIdCandidate: getByIdCandidate,
   add: add,
   getById: getById,
-  getByIdCandidate: getByIdCandidate,
   edit: edit,
   remove: remove
 };
