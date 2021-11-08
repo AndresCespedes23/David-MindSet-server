@@ -1,9 +1,9 @@
 [
     {
         "id": 1,
-        "idOpenPosition": 4,
-        "idCandidate": 65,
-        "isActive": false
+        "idCandidate": "5",
+        "idOpenPosition": "60",
+        "isActive": true
     },
     {
         "id": 2,
@@ -1797,6 +1797,18 @@
         "id": 300,
         "idOpenPosition": 16,
         "idCandidate": 8,
+        "isActive": true
+    },
+    {
+        "id": 300,
+        "idCandidate": "5",
+        "idOpenPosition": "60",
+        "isActive": true
+    },
+    {
+        "id": 301,
+        "idCandidate": "5",
+        "idOpenPosition": "60",
         "isActive": true
     }
 ]

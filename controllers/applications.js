@@ -1,5 +1,15 @@
 let applications = require('../data/applications.json');
-applications.sort((a, b) => a.id - b.id);
+let fs = require('fs');
+
+const calculateLarger = (collection) => {
+    let larger = 0;
+    collection.forEach((element) => {
+        if (element.id > larger) {
+            larger = element.id;
+        }
+    });
+    return larger;
+};
 
 const getAll = (req, res) => {
     res.json(applications);
@@ -42,7 +52,7 @@ const getByIdCan = (req, res) => {
 
 const add = (req, res) => {
     let valid = req.query.idOpenPosition === undefined ? undefined : req.query.idCandidate === undefined ? undefined : true;
-    let newId = applications[applications.length - 1].id + 1;
+    let newId = calculateLarger(applications) + 1;
     let newItem = {
         id: newId,
         idCandidate: req.query.idCandidate,
@@ -64,16 +74,15 @@ const edit = (req, res) => {
     const id = parseInt(req.query.id);
     let editObj = applications.find((applications) => applications.id === id);
     if (editObj) {
-        applications.map((editObj) => {
+        applications.map((obj) => {
             if (applications.id === id) {
-                editObj.idCandidate = req.query.idCandidate === undefined ? editObj.idCandidate : parseInt(req.query.idCandidate);
-                editObj.idOpenPosition = req.query.idOpenPosition === undefined ? editObj.idOpenPosition : parseInt(req.query.idOpenPosition);
-                editObj.isActive = req.query.isActive === undefined ? editObj.isActive : editObj.isActive == req.query.isActive ? editObj.isActive : !editObj.isActive;
+                req.query.idCandidate === undefined ? editObj.idCandidate = editObj.idCandidate : editObj.idCandidate = parseInt(req.query.idCandidate);
+                req.query.idOpenPosition === undefined ? editObj.idOpenPosition = editObj.idOpenPosition : editObj.idOpenPosition = parseInt(req.query.idOpenPosition);
+               req.query.isActive === undefined ?  editObj.isActive =  editObj.isActive : editObj.isActive == req.query.isActive ?  editObj.isActive = editObj.isActive : editObj.isActive =  !editObj.isActive;
                 return editObj;
             }
             return editObj;
         })
-
     }
     res.json(editObj);
     fs.writeFile('./data/applications.json', JSON.stringify(applications), error => {
@@ -82,15 +91,23 @@ const edit = (req, res) => {
 };
 
 const remove = (req, res) => {
+    const id = parseInt(req.query.id);
+    let remObj = applications.find((applications) => applications.id === id);
+    console.log(remObj);
+    if (remObj) {
+        const newList = applications.filter((applications) => applications.id !== id);
+        fs.writeFile('./data/applications.json', JSON.stringify(newList), error => {
+            if (error) { res.status(500) }
+        })
+    }
+}
 
-};
-
-module.exports = {
-    getAll: getAll,
-    getById: getById,
-    getByIdPos: getByIdPos,
-    getByIdCan: getByIdCan,
-    add: add,
-    edit: edit,
-    remove: remove
-};
+    module.exports = {
+        getAll: getAll,
+        getById: getById,
+        getByIdPos: getByIdPos,
+        getByIdCan: getByIdCan,
+        add: add,
+        edit: edit,
+        remove: remove
+    };
