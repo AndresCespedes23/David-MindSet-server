@@ -16,10 +16,8 @@ const getAll = (req, res) => res.json(openPositions);
 const getById = (req, res) => {
     const id = parseInt(req.params.id);
     const openPosition = openPositions.find((openPosition) => openPosition.id === id);
-    if (openPosition) {
-      res.json(openPosition);
-    } else {
-      res.status(404).json({ message: `Open position not found with id: ${id}` });
+    if (!openPosition) {
+        return gres.status(404).json({ message: `Open position not found with id: ${id}` });
     }
 };
 
