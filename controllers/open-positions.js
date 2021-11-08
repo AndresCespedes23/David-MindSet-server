@@ -55,28 +55,28 @@ const add = (req, res) => {
 
 const edit = (req, res) => {
     let openPosition = openPositions.find(openPositions => openPositions.id === parseInt(req.params.id));
-    if (openPosition) {
-        openPositions = openPositions.map(openPosition => {
-            if(openPosition.id === parseInt(req.params.id)) {
-                openPosition.idCompany = req.query.idCompany || openPosition.idCompany;
-                openPosition.startDate = req.query.startDate || openPosition.startDate;
-                openPosition.endDate = req.query.endDate || openPosition.endDate;
-                openPosition.jobDescription = req.query.jobDescription || openPosition.jobDescription;
-                openPosition.isActive = req.query.isActive || openPosition.isActive;
-                return openPosition;
-            }
-            return openPosition;
-        });
-        fs.writeFile(path.join(__dirname, '../data/open-positions.json'), JSON.stringify(openPositions), (err) => {
-            if (err) {
-                console.log(err);
-                res.status(500).json({ message: 'Error editing open position' });
-            }
-        });
-        res.json({ message: 'Success! Position edited', openPosition });
-    } else {
+    if (!openPosition) {
         res.status(404).json({ message: `The open position wasn't found with id: ${req.params.id}` });
     }
+    openPositions = openPositions.map(openPosition => {
+        if(openPosition.id === parseInt(req.params.id)) {
+            openPosition.idCompany = req.query.idCompany || openPosition.idCompany;
+            openPosition.startDate = req.query.startDate || openPosition.startDate;
+            openPosition.endDate = req.query.endDate || openPosition.endDate;
+            openPosition.jobDescription = req.query.jobDescription || openPosition.jobDescription;
+            openPosition.isActive = req.query.isActive || openPosition.isActive;
+            return openPosition;
+        }
+        return openPosition;
+    });
+    fs.writeFile(path.join(__dirname, '../data/open-positions.json'), JSON.stringify(openPositions), (err) => {
+        if (err) {
+            console.log(err);
+            res.status(500).json({ message: 'Error editing open position' });
+            return;
+        }
+        res.json({ message: 'Success! Position edited', openPosition });
+    });
 };
 
 const remove = (req, res) => {
