@@ -70,7 +70,7 @@ const add = (req, res) => {
     });
 };
 
-// as by Traversy  - test: http://localhost:8000/interviews/edit/1?idCandidate=4
+// follow Julián example (before as Traversy) - test: http://localhost:8000/interviews/edit/1?idCandidate=4
 const edit = (req, res) => {
     const findId = interviews.find(interviews => interviews.id === parseInt(req.params.id));
     if(!findId) {
@@ -95,21 +95,20 @@ const edit = (req, res) => {
         });
 };
 
-// as by Traversy 
+// follow Julián example (before as Traversy)
 const remove = (req, res) => {
-    const findId = interviews.some(interviews => interviews.id === parseInt(req.params.id));
-    if(findId) {
-        interviews = interviews.filter(interview => interview.id !== parseInt(req.params.id));
-        fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), (err) => {
-           if (err) {
-               res.status(500).json({ message: 'Error removing Interview'});
-           } else {
-               res.json({ message: 'Success: Interview removed'});
-           }
-        });
-    } else {
-        res.status(404).json({ message: `Interview not found with the id of ${req.params.id}`});
-    } 
+    const findId = interviews.find(interviews => interviews.id === parseInt(req.params.id));
+    if(!findId) {
+        return res.status(404).json({ message: `Interview not found with the id of ${req.params.id}`});
+    }
+    interviews = interviews.filter(interview => interview.id !== parseInt(req.params.id));
+    fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), (err) => {
+        if (err) {
+            res.status(500).json({ message: 'Error removing Interview'});
+            return;
+        }
+        res.json({ message: 'Success: Interview removed'});
+    });
 };
 
 
