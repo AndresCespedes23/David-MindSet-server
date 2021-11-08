@@ -37,7 +37,7 @@ const getById = (req, res) => {
     if(findId) {
         res.json(interviews.dinf(interviews => interviews.id === parseInt(req.params.id))); //change .filte for .dinf 
     } else {
-        res.status(404).json({msg: `Interview not found with the id of ${req.params.id}`});
+        res.status(404).json({message: `Interview not found with the id of ${req.params.id}`});
     }  
 };
 
@@ -47,7 +47,7 @@ const getByIdCompany = (req, res) => {
     if(findId) {
         res.json(interviews.filter(interviews => interviews.idCompany === parseInt(req.params.idCompany)));
     } else {
-        res.status(404).json({ msg: `Interview not found with the idCompany of ${req.params.idCompany}`});
+        res.status(404).json({ message: `Interview not found with the idCompany of ${req.params.idCompany}`});
     }
 };
 // as by David C. - try: http://localhost:8000/interviews/add?id=215&idCompany=215&idCandidate=215&date=11/23/2021&status=true&isActive=true
@@ -60,18 +60,17 @@ const add = (req, res) => {
         status: req.query.status,
         isActive: req.query.isActive
     };
-    if (validate(interviews)) {
-        interviews.push(newInterviews)
-        fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), err => {
-            if (err) {
-                res.send(500).json({ msg: 'Error adding new interview' });
-            } else {
-                res.json({ msg: 'New interview successfully added', newInterviews });
-            }
-        });
-    } else {
-        res.status(400).json({ msg: 'Some parameters are missing' });
+    if (!validate(interviews)) {
+        res.status(400).json({ message: 'Some parameters are missing' });
     }
+    interviews.push(newInterviews)
+    fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), err => {
+        if (err) {
+            res.send(500).json({ message: 'Error adding new interview' });
+        } else {
+            res.json({ message: 'New interview successfully added', newInterviews });
+        }
+    });
 };
 
 // as by Traversy  - test: http://localhost:8000/interviews/edit/1?idCandidate=4
@@ -81,22 +80,22 @@ const edit = (req, res) => {
     if(findId) {
         interviews.map(interviews => {
             if(interviews.id ===parseInt(req.params.id)) {
-                interviews.idCompany = editInterviews.idCompany ? editInterviews.idCompany : interviews.idCompany;
-                interviews.idCandidate = editInterviews.idCandidate ? editInterviews.idCandidate : interviews.idCandidate;
-                interviews.date = editInterviews.date ? editInterviews.date : interviews.date;
-                interviews.status = editInterviews.status ? editInterviews.status : interviews.status;
-                interviews.isActive = editInterviews.isActive ? editInterviews.isActive : interviews.isActive;        
+                interviews.idCompany = editInterviews.idCompany || interviews.idCompany;
+                interviews.idCandidate = editInterviews.idCandidate || interviews.idCandidate;
+                interviews.date = editInterviews.date || interviews.date;
+                interviews.status = editInterviews.status || interviews.status;
+                interviews.isActive = editInterviews.isActive || interviews.isActive;
             }
         });
         fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), err => {
             if(err) {
-                res.status(500).json({ msg: 'Error editing interview'});
+                res.status(500).json({ message: 'Error editing interview'});
             } else {
-                res.json({ msg: 'Success! The edit of the interview was a success', interviews});
+                res.json({ message: 'Success! The edit of the interview was a success', interviews});
             }
         });
     } else {
-        res.status(404).json({msg: `Interview not found with the id of ${req.params.id}`});
+        res.status(404).json({message: `Interview not found with the id of ${req.params.id}`});
     }
 };
 
@@ -107,13 +106,13 @@ const remove = (req, res) => {
         interviews = interviews.filter(interview => interview.id !== parseInt(req.params.id));
         fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), (err) => {
            if (err) {
-               res.status(500).json({ msg: 'Error removing Interview'});
+               res.status(500).json({ message: 'Error removing Interview'});
            } else {
-               res.json({ msg: 'Success: Interview removed'});
+               res.json({ message: 'Success: Interview removed'});
            }
         });
     } else {
-        res.status(404).json({ msg: `Interview not found with the id of ${req.params.id}`});
+        res.status(404).json({ message: `Interview not found with the id of ${req.params.id}`});
     } 
 };
 
