@@ -3,15 +3,6 @@ const path = require('path');
 let interviews = require('../data/interviews.json');
 
 // ---- FUNCTIONS ----
-const getLastId = (collection) => {  // Julián fn
-    let larger = 0;
-    collection.forEach((element) => {
-      if (element.id > larger) {
-        larger = element.id;
-      }
-    });
-    return larger;
-};
 
 const validate = (entity) => {      // Julián fn
     for (let key in entity) {
@@ -22,6 +13,16 @@ const validate = (entity) => {      // Julián fn
     return true;
 };
 
+const getLastId = (collection) => {  // Julián fn
+    let larger = 0;
+    collection.forEach((element) => {
+      if (element.id > larger) {
+        larger = element.id;
+      }
+    });
+    return larger;
+};
+
 // ---- PATHS ----
 
 const getAll = (req, res) => {
@@ -30,8 +31,8 @@ const getAll = (req, res) => {
 // try:  http://localhost:8000/interviews
 
 const getById = (req, res) => { 
-    const findInterviewsId = interviews.some(interviews => interviews.id === parseInt(req.params.id)); 
-    if(findInterviewsId) {
+    const findId = interviews.some(interviews => interviews.id === parseInt(req.params.id)); 
+    if(findId) {
         res.json(interviews.filter(interviews => interviews.id === parseInt(req.params.id)));
     } else {
         res.status(404).json({msg: `Interview not found with the id of ${req.params.id}`});
@@ -40,8 +41,8 @@ const getById = (req, res) => {
 // as by Traversy  - try: http://localhost:8000/interviews/150
 
 const getByIdCompany = (req, res) => {
-    const findIdCompany = interviews.some(interviews => interviews.idCompany === parseInt(req.params.idCompany)); 
-    if(findIdCompany) {
+    const findId = interviews.some(interviews => interviews.idCompany === parseInt(req.params.idCompany)); 
+    if(findId) {
         res.json(interviews.filter(interviews => interviews.idCompany === parseInt(req.params.idCompany)));
     } else {
         res.status(404).json({ msg: `Interview not found with the idCompany of ${req.params.idCompany}`});
@@ -72,9 +73,9 @@ const add = (req, res) => {
 // as by David C. - try: http://localhost:8000/interviews/add?id=215&idCompany=215&idCandidate=215&date=11/23/2021&status=true&isActive=true
 
 const edit = (req, res) => {
-    const findInterviewsId = interviews.some(interviews => interviews.id === parseInt(req.params.id)); 
+    const findId = interviews.some(interviews => interviews.id === parseInt(req.params.id)); 
     const editInterviews = req.query;
-    if(findInterviewsId) {
+    if(findId) {
         interviews.map(interviews => {
             if(interviews.id ===parseInt(req.params.id)) {
                 interviews.idCompany = editInterviews.idCompany ? editInterviews.idCompany : interviews.idCompany;
@@ -97,8 +98,8 @@ const edit = (req, res) => {
 // as by Traversy  - test: http://localhost:8000/interviews/edit/1?idCandidate=4
 
 const remove = (req, res) => {
-    const findInterviewsId = interviews.some(interviews => interviews.id === parseInt(req.params.id));
-    if(findInterviewsId) {
+    const findId = interviews.some(interviews => interviews.id === parseInt(req.params.id));
+    if(findId) {
         interviews = interviews.filter(interview => interview.id !== parseInt(req.params.id));
         fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), (err) => {
            if (err) {
