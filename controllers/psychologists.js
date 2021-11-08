@@ -28,9 +28,9 @@ const getAll = (req, res) => {
 };
 
 const getById = (req, res) => {
-  const found = psyList.find((psychologist) => psychologist.id === parseInt(req.params.id));
-  if (!found) return res.status(404).send('User does not exist');
-  res.json(found);
+  const foundPsy = psyList.find((psychologist) => psychologist.id === parseInt(req.params.id));
+  if (!foundPsy) return res.status(404).send({ message: `Psychologist not found with id: ${req.params.id}` });
+  res.json(foundPsy);
   //query params are ALWAYS strings
 };
 
@@ -38,7 +38,10 @@ const getByName = (req, res) => {
   const foundPsy = psyList.find(
     (psychologist) => psychologist.firstName === req.query.firstName && psychologist.lastName === req.query.lastName
   );
-  if (!foundPsy) return res.status(404).send([]);
+  if (!foundPsy)
+    return res
+      .status(404)
+      .send({ message: `Psychologist not found with name: ${req.query.firstName} ${req.query.lastName}` });
   res.json(foundPsy);
 };
 
@@ -52,7 +55,7 @@ const add = (req, res) => {
   newPsychologist.password = req.body.password || undefined;
   newPsychologist.isActive = req.body.isActive || true;
   newPsychologist.turns = req.body.turns || [];
-  if (!validate(newPsychologist)) return res.status(400).send('Fill all parameters');
+  if (!validate(newPsychologist)) return res.status(400).json({ message: 'Missing parameters' });
   psyList.push(newPsychologist);
   fs.writeFile(path.join(__dirname, '../data/psychologists.json'), JSON.stringify(psyList), (err) => {
     if (err) throw err;
@@ -62,7 +65,7 @@ const add = (req, res) => {
 
 const edit = (req, res) => {
   const foundPsy = psyList.find((psychologist) => psychologist.id === parseInt(req.params.id));
-  if (!foundPsy) return res.status(404).send('The request could not be processed');
+  if (!foundPsy) return res.status(404).send({ message: 'Error editing psychologist' });
   psyList = psyList.map((psy) => {
     if (psy.id === parseInt(req.params.id)) {
       if (req.body.firstName) psy.firstName = req.body.firstName;
@@ -79,7 +82,7 @@ const edit = (req, res) => {
   fs.writeFile(path.join(__dirname, '../data/psychologists.json'), JSON.stringify(psyList), (err) => {
     if (err) throw err;
   });
-  res.json(foundPsy);
+  res.json({ message: 'Psychologist edited successfully', companyFound });
 };
 
 const remove = (req, res) => {
@@ -89,46 +92,14 @@ const remove = (req, res) => {
     foundPsyIndex = psyList.indexOf(psy);
     return false;
   });
-  if (foundPsyIndex === undefined) return res.status(404).send('Element with provided ID not found');
+  if (foundPsyIndex === undefined)
+    return res.status(404).send({ message: `Psychologist not found with id ${req.params.id}` });
   fs.writeFile(path.join(__dirname, '../data/psychologists.json'), JSON.stringify(psyList), (err) => {
     if (err) throw err;
   });
   return res.json(`Element with ID = ${req.params.id} deleted`);
 };
 
-/* const removeWithAnyParam = (req, res) => {
-  //removes using any property
-  //by inputting through the body, the content type is always matched
-  let foundPsys = [];
-  let psyIndex = 0;
-  let psyMatchedIndex;
-  psyList.forEach((psyListElement) => {
-    let matchedPropertiesAmount = 0;
-    psyIndex++;
-    for (let property in req.body) {
-      if (req.body.hasOwnProperty(property)) {
-        if (req.body[property] !== psyListElement[property]) break;
-        matchedPropertiesAmount++;
-      }
-    }
-    if (matchedPropertiesAmount === Object.keys(req.body).length) {
-      foundPsys.push(psyListElement);
-      psyMatchedIndex = psyIndex - 1;
-    }
-  });
-  if (foundPsys.length > 1) {
-    return res.json(foundPsys);
-  } else if (foundPsys.length === 1) {
-    psyList.splice(psyMatchedIndex, 1);
-    fs.writeFile('./data/psychologists.json', JSON.stringify(psyList), (err) => {
-      if (err) throw err;
-    });
-    return res.json(foundPsys);
-  } else {
-    return res.status(404).json(foundPsys);
-  }
-};
- */
 module.exports = {
   getAll: getAll,
   getById: getById,
@@ -136,6 +107,4 @@ module.exports = {
   add: add,
   edit: edit,
   remove: remove,
-  /*   removeWithAnyParam: removeWithAnyParam,
-   */
 };

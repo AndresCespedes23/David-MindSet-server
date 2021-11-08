@@ -16,8 +16,7 @@ app.get('/', (req, res) => {
   html += '      <li><a href="/psychologists/add">add</a></li>';
   html += '      <li><a href="/psychologists/edit">edit</a></li>';
   html += '      <li><a href="/psychologists/remove">remove</a></li>';
-  /*   html += '      <li><a href="/psychologists/removeWithAnyParam">removeWithAnyParam</a></li>';
-   */ html += '    </ul>';
+  html += '    </ul>';
   html += '  </li>';
   html += '</ul>';
   res.send(html);
@@ -26,8 +25,7 @@ app.get('/', (req, res) => {
 app.get('/psychologists', psychologists.getAll);
 app.get('/psychologists/add', psychologists.add);
 app.get('/psychologists/edit/:id', psychologists.edit);
-/* app.get('/psychologists/remove', psychologists.removeWithAnyParam);
- */ app.get('/psychologists/remove/:id', psychologists.remove);
+app.get('/psychologists/remove/:id', psychologists.remove);
 app.get('/psychologists/byName', psychologists.getByName);
 app.get('/psychologists/:id', psychologists.getById);
 
