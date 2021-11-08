@@ -79,10 +79,12 @@ const edit = (req, res) => {
                 interviews.isActive = editInterviews.isActive ? editInterviews.isActive : interviews.isActive;        
             }
         });
-        res.json({ msg: 'Success! The edit of the interview was a success', interviews});
         fs.writeFile('./data/interviews.json', JSON.stringify(interviews), err => {
-            if(err) {res.status(500);}
-        })
+            if(err) {
+                res.status(500).json({ msg: 'Error editing interview'});
+            }
+        });
+        res.json({ msg: 'Success! The edit of the interview was a success', interviews});
     } else {
         res.status(404).json({msg: `Interview not found with the id of ${req.params.id}`});
     }
