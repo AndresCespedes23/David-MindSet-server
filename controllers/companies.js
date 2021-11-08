@@ -10,7 +10,7 @@ const validate = (object) => {
   return true;
 };
 
-const calculateLarger = (collection) => {
+const getLastId = (collection) => {
   let larger = 0;
   collection.forEach((element) => {
     if (element.id > larger) {
@@ -26,12 +26,11 @@ const getAll = (req, res) => {
 
 const getById = (req, res) => {
   const id = parseInt(req.params.id);
-  const companyFound = companies.filter((company) => company.id === id);
-  if (companyFound.length > 0) {
-    res.json(companyFound);
-  } else {
-    res.status(404).json({ message: `Company not found with id: ${id}` });
-  }
+  const companyFound = companies.find((company) => company.id === id);
+  if (!companyFound) {
+    return res.status(404).json({ message: `Company not found with id: ${id}` });
+  } 
+  res.json(companyFound);
 };
 
 const getByName = (req, res) => {
@@ -46,7 +45,7 @@ const getByName = (req, res) => {
 
 const add = (req, res) => {
   const newCompany = {
-    id: calculateLarger(companies) + 1,
+    id: getLastId(companies) + 1,
     name: req.query.name,
     address: req.query.address,
     city: req.query.city,
@@ -78,52 +77,55 @@ const add = (req, res) => {
 const edit = (req, res) => {
   const id = parseInt(req.params.id);
   const companyFound = companies.find((company) => company.id === id);
-  if (companyFound) {
-    companies = companies.map((company) => {
-      if (company.id === id) {
-        company.name = req.query.name || company.name;
-        company.address = req.query.address || company.address;
-        company.city = req.query.city || company.city;
-        company.province = req.query.province || company.province;
-        company.country = req.query.country || company.country;
-        company.zipCode = req.query.zipCode || company.zipCode;
-        company.phone = req.query.phone || company.phone;
-        company.email = req.query.email || company.email;
-        company.pictureUrl = req.query.pictureUrl || company.pictureUrl;
-        company.contactFullName = req.query.contactFullName || company.contactFullName;
-        company.contactPhone = req.query.contactPhone || company.contactPhone;
-        company.isActive = req.query.isActive || company.isActive;
-        return company;
-      }
-      return company;
-    });
-    fs.writeFile('./data/companies.json', JSON.stringify(companies), (err) => {
-      if (err) {
-        console.log(err);
-        res.status(500).json({ message: 'Error editing company' });
-      }
-    });
-    res.json({ message: 'Company edited successfully', companyFound });
-  } else {
+  if (!companyFound) {
     res.status(404).json({ message: `Company not found with id ${id}` });
+    return;
   }
+
+  companies = companies.map((company) => {
+    if (company.id === id) {
+      company.name = req.query.name || company.name;
+      company.address = req.query.address || company.address;
+      company.city = req.query.city || company.city;
+      company.province = req.query.province || company.province;
+      company.country = req.query.country || company.country;
+      company.zipCode = req.query.zipCode || company.zipCode;
+      company.phone = req.query.phone || company.phone;
+      company.email = req.query.email || company.email;
+      company.pictureUrl = req.query.pictureUrl || company.pictureUrl;
+      company.contactFullName = req.query.contactFullName || company.contactFullName;
+      company.contactPhone = req.query.contactPhone || company.contactPhone;
+      company.isActive = req.query.isActive || company.isActive;
+    }
+    return company;
+  });
+
+  fs.writeFile('./data/companies.json', JSON.stringify(companies), (err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ message: 'Error editing company' });
+    }
+  });
+
+  res.json({ message: 'Company edited successfully', companyFound });
 };
 
 const remove = (req, res) => {
   const id = parseInt(req.params.id);
   const companyFound = companies.find((company) => company.id === id);
-  if (companyFound) {
-    companies = companies.filter((company) => company.id !== id);
-    fs.writeFile('./data/companies.json', JSON.stringify(companies), (err) => {
-      if (err) {
-        console.log(err);
-        res.status(500).json({ message: 'Error editing company' });
-      }
-    });
-    res.json({ msg: 'Company deleted' });
-  } else {
+  if (!companyFound) {
     res.status(404).json({ message: `Company not found with id ${id}` });
+    return;
   }
+
+  companies = companies.filter((company) => company.id !== id);
+  fs.writeFile('./data/companies.json', JSON.stringify(companies), (err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ message: 'Error editing company' });
+    }
+  });
+  res.json({ msg: 'Company deleted' });
 };
 
 module.exports = {
