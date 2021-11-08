@@ -3,8 +3,7 @@ let candidates = require('../data/candidates.json');
 
 const getAll = (req, res) => {
     res.json({
-        ok: true,
-        msg: 'Candidates found',
+        message: 'Candidates found',
         candidates: candidates.list
     });
 };
@@ -14,14 +13,12 @@ const getById = (req, res) => {
     const foundCandidate = candidates.list.filter(candidate => candidate.id === candidateID);
     if(!foundCandidate){
         res.status(400).json({
-            ok:false,
-            msg:'Candidate not found by ID'
+            message:'Candidate not found by ID'
         });
     }
     else{
         res.json({
-            ok: true,
-            msg: 'Candidate found',
+            message: 'Candidate found',
             candidate: foundCandidate
         })
     }
@@ -31,15 +28,13 @@ const getByName = (req, res) => {
     const foundCandidates = candidates.list.filter(candidate => candidate.firstName.toLowerCase() === req.params.name.toLowerCase())
     if(foundCandidates.length === 0){
         res.status(400).json({
-            ok:false,
-            msg:'Candidate not found by FirstName',
+            message:'Candidate not found by FirstName',
             candidates: foundCandidates
         });
     }
     else{
         res.json({
-            ok: true,
-            msg: 'Candidate found',
+            message: 'Candidate found',
             candidate: foundCandidates
         })
     }
@@ -82,8 +77,7 @@ const add = (req, res) => {
     }
     if(errorMsg.length !== 0){
         res.status(404).json({
-            ok: false,
-            msg: errorMsg
+            message: errorMsg
         })
     }
     else{
@@ -120,14 +114,12 @@ const add = (req, res) => {
         fs.writeFile('./data/candidates.json', JSON.stringify(candidates),err =>{
             if(err){
                 res.status(500).json({
-                    ok:false,
-                    msg:'Error while saving data'
+                    message:'Error while saving data'
                 })
             }
             else{
                 res.json({
-                    ok: true,
-                    msg:'Candidate created',
+                    message:'Candidate created',
                     candidate: newCandidate
                 })
             }
@@ -140,8 +132,7 @@ const edit = (req, res) => {
     const foundCandidate = candidates.list.find(candidate => candidate.id === candidateID);
     if(!foundCandidate){
         res.status(400).json({
-            ok:false,
-            msg:'Candidate not found by ID'
+            message:'Candidate not found by ID'
         });
     }
     else{
@@ -175,14 +166,12 @@ const edit = (req, res) => {
         fs.writeFile('./data/candidates.json', JSON.stringify({list:candidates}),err =>{
             if(err){
                 res.status(500).json({
-                    ok:false,
-                    msg:'Error while saving data'
+                    message:'Error while saving data'
                 })
             }
             else{
                 res.json({
-                    ok:true,
-                    msg: 'Updated Candidate'
+                    message: 'Updated Candidate'
                 })
             }
         })
@@ -194,8 +183,7 @@ const remove = (req, res) => {
     const foundCandidate = candidates.list.filter(candidate => candidate.id === candidateID);
     if(!foundCandidate){
         res.status(400).json({
-            ok:false,
-            msg:'Candidate not found by ID'
+            message:'Candidate not found by ID'
         });
     }
     else{
@@ -204,14 +192,12 @@ const remove = (req, res) => {
             if(err){
                 console.log(err)
                 res.status(500).json({
-                    ok:false,
-                    msg:'Error while saving data'
+                    message:'Error while saving data'
                 })
             }
             else{
                 res.json({
-                    ok: true,
-                    msg: 'Deleted Candidate'
+                    message: 'Deleted Candidate'
                 })
             }
         })
