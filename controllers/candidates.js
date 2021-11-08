@@ -107,12 +107,12 @@ const add = (req, res) => {
             country: req.query.country,
             postalCode: req.query.postalCode,
             birthday: req.query.birthday,
-            education: req.query.education === undefined ? [] : req.query.education,
-            experiences: req.query.experiences === undefined ? [] : req.query.experiences,
-            courses: req.query.courses === undefined ? [] : req.query.courses ,
-            hobbies: req.query.hobbies === undefined ? [] : req.query.hobbies ,
-            mainSkills: req.query.mainSkills === undefined ? [] : req.query.mainSkills ,
-            profileTypes: req.query.profileTypes === undefined ? [] : req.query.profileTypes ,
+            education: req.query.education === undefined ? [] : [req.query.education],
+            experiences: req.query.experiences === undefined ? [] : [req.query.experiences],
+            courses: req.query.courses === undefined ? [] : [req.query.courses] ,
+            hobbies: req.query.hobbies === undefined ? [] : [req.query.hobbies] ,
+            mainSkills: req.query.mainSkills === undefined ? [] : [req.query.mainSkills] ,
+            profileTypes: req.query.profileTypes === undefined ? [] : [req.query.profileTypes] ,
             isOpenToWork: true,
             isActive: true
         }
