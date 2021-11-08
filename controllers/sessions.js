@@ -32,7 +32,7 @@ const add = (req, res) => {
         isActive: req.query.isActive
     }
     sessions.list.push(newSession);
-    fs.writeFile('../data/sessions.json', JSON.stringify(sessions), err => {
+    fs.writeFile('./data/sessions.json', JSON.stringify(sessions), err => {
         if (err) { res.send(500) }
     });
     res.json(newSession);
@@ -52,7 +52,7 @@ const edit = (req, res) => {
             }
         });
         res.json({ msg: 'Success! You have change the content of the session', sessions});
-        fs.writeFile('../data/sessions.json', JSON.stringify(sessions), err => {
+        fs.writeFile('./data/sessions.json', JSON.stringify(sessions), err => {
             if(err) {res.status(500)}
         })
     } else {
@@ -64,7 +64,7 @@ const remove = (req, res) => {
    const findSessions = sessions.list.some(sessions => sessions.id === parseInt(req.params.id));
    if(findSessions) {
        sessions.list.filter(sessions => sessions.id !== parseInt(req.params.id));
-       fs.writeFile('../data/sessions.json', JSON.stringify(sessions), (err) => {
+       fs.writeFile('./data/sessions.json', JSON.stringify(sessions), (err) => {
           if (err) {
               res.status(500).json({ msg: 'Error removing the session'});
           }
