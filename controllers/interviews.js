@@ -33,12 +33,11 @@ const getAll = (req, res) => {
 
 // as by Traversy  - try: http://localhost:8000/interviews/150
 const getById = (req, res) => { 
-    const findId = interviews.some(interviews => interviews.id === parseInt(req.params.id)); 
-    if(findId) {
-        res.json(interviews.dinf(interviews => interviews.id === parseInt(req.params.id))); //change .filte for .dinf 
-    } else {
-        res.status(404).json({message: `Interview not found with the id of ${req.params.id}`});
-    }  
+    const findId = interviews.find(interviews => interviews.id === parseInt(req.params.id)); 
+    if(!findId) {
+        return res.status(404).json({ message: `Interview not found with the id of ${req.params.id}`});
+    }
+    res.json(interviews.dinf(interviews => interviews.id === parseInt(req.params.id))); //change .filter for .dinf 
 };
 
 
