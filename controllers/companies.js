@@ -37,7 +37,7 @@ const getById = (req, res) => {
 const getByName = (req, res) => {
   const name = req.params.name;
   const companyFound = companies.filter((company) => company.name === name);
-  if (!companyFound.length > 0) {
+  if (companyFound.length <= 0) {
     return res.status(404).json({ message: `Company not found with name: ${name}` });
   }
   res.json(companyFound);
