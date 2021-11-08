@@ -2,6 +2,15 @@ const fs = require('fs');
 const path = require('path');
 let adminData = require('../data/administrators.json');
 
+const validate = (entity) => {
+    for (let key in entity) {
+      if (entity[key] === undefined) {
+        return false;
+      }
+    }
+    return true;
+};
+
 const getLastId = group => {
     let large = 0;
     group.forEach(element => {
@@ -12,17 +21,8 @@ const getLastId = group => {
     return large;
 };
 
-const validate = (entity) => {
-    for (let key in entity) {
-      if (entity[key] === undefined) {
-        return false;
-      }
-    }
-    return true;
-};
-
 const getAll = (req, res) => {
-    res.json(adminData) 
+    res.json(adminData);
 };
 
 const getById = (req, res) => {
@@ -53,20 +53,21 @@ const add = (req, res) => {
     if (!validate(newAdmin)) {
         return res.status(400).json({ message: 'Some parameters are missing' });
     }
-    adminData.push(newAdmin)
-        fs.writeFile(path.join(__dirname, '../data/administrators.json'), JSON.stringify(adminData), err => {
-            if (err) { 
-                res.status(500).json({ message: 'Error adding administrator' });
-                return;
-            }
-            res.json({ message: 'Administrator successfully added', administrator: newAdmin });
-        });
+    adminData.push(newAdmin);
+    fs.writeFile(path.join(__dirname, '../data/administrators.json'), JSON.stringify(adminData), err => {
+        if (err) { 
+            console.log(err);
+            res.status(500).json({ message: 'Error adding administrator' });
+            return;
+        }
+        res.json({ message: 'Administrator successfully added', administrator: newAdmin });
+    });
 };
 
 const edit = (req, res) => {
     const editAdmin = adminData.find(administrator => administrator.id === parseInt(req.params.id));
     if (!editAdmin) {
-        res.status(404).json({ message: `No administrator with the id of ${req.params.id} founded` });
+        return res.status(404).json({ message: `No administrator with the id of ${req.params.id} founded` });
     }
     adminData = adminData.map(administrator => {
         if (administrator.id === parseInt(req.params.id)) {
@@ -80,6 +81,7 @@ const edit = (req, res) => {
     });
     fs.writeFile(path.join(__dirname, '../data/administrators.json'), JSON.stringify(adminData), (err) => {
         if (err) {
+            console.log(err);
             res.status(500).json({ message: 'Error editing administrator' });
             return;
         }
@@ -88,19 +90,19 @@ const edit = (req, res) => {
 };
 
 const remove = (req, res) => {
-    const foundIdDeleted = adminData.some(administrator => administrator.id === parseInt(req.params.id));
-    if (foundIdDeleted) {
-        adminData = adminData.filter((administrator) => administrator.id !== parseInt(req.params.id));
-        fs.writeFile(path.join(__dirname, '../data/administrators.json'), JSON.stringify(adminData), (err) => {
-            if (err) {
-              console.log(err);
-              res.status(500).json({ message: 'Error removing administrator' });
-            }
-        });
-        res.json({ message: 'Administrator removed' });
-    }   else {
-        res.status(404).json({ message: `No administrator with the id of ${req.params.id} founded` });
+    const foundIdDeleted = adminData.find(administrator => administrator.id === parseInt(req.params.id));
+    if (!foundIdDeleted) {
+        return res.status(404).json({ message: `No administrator with the id of ${req.params.id} founded` });
     }
+    adminData = adminData.filter(administrator => administrator.id !== parseInt(req.params.id));
+    fs.writeFile(path.join(__dirname, '../data/administrators.json'), JSON.stringify(adminData), (err) => {
+        if (err) {
+            console.log(err);
+            res.status(500).json({ message: 'Error removing administrator' });
+            return;
+        }
+        res.json({ message: 'Administrator removed' });
+    });
 };
 
 module.exports = {
@@ -109,6 +111,5 @@ module.exports = {
   getByName: getByName,
   add: add,
   edit: edit,
-  remove: remove
+  remove: remove,
 };
-
