@@ -1,14 +1,24 @@
-const psyList = require('../data/psychologists');
+let psyList = require('../data/psychologists');
 const fs = require('fs');
 const path = require('path');
+
+const calculateLarger = (collection) => {
+  let larger = 0;
+  collection.forEach((element) => {
+    if (element.id > larger) {
+      larger = element.id;
+    }
+  });
+  return larger;
+};
 
 const getAll = (req, res) => {
   res.json(psyList);
 };
 
 const getById = (req, res) => {
-  const found = psyList.some((psychologist) => psychologist.id === parseInt(req.params.id));
-  if (found) res.send(psyList.filter((psychologist) => psychologist.id === parseInt(req.params.id)));
+  const found = psyList.find((psychologist) => psychologist.id === parseInt(req.params.id));
+  if (found) res.send(found);
   //query params are ALWAYS strings
   else res.status(404).send('User does not exist');
 };
@@ -29,8 +39,7 @@ const getByName = (req, res) => {
 
 const add = (req, res) => {
   const newPsychologist = {};
-  psyList.sort((a, b) => a.id - b.id);
-  newPsychologist.id = psyList[psyList.length - 1].id + 1;
+  newPsychologist.id = calculateLarger(psyList) + 1;
   if (req.body.first_name) newPsychologist.first_name = req.body.first_name;
   else newPsychologist.first_name = null;
   if (req.body.last_name) newPsychologist.last_name = req.body.last_name;
@@ -54,39 +63,36 @@ const add = (req, res) => {
 };
 
 const edit = (req, res) => {
-  let updatedPsy;
-  const found = psyList.some((psychologist) => psychologist.id === parseInt(req.params.id));
-  if (found) {
-    psyList.map((psychologist) => {
-      if (psychologist.id === parseInt(req.params.id)) {
-        if (req.body.first_name) psychologist.first_name = req.body.first_name;
-        if (req.body.last_name) psychologist.last_name = req.body.last_name;
-        if (req.body.email) psychologist.email = req.body.email;
-        if (req.body.pictureUrl) psychologist.pictureUrl = req.body.pictureUrl;
-        if (req.body.password) psychologist.password = req.body.password;
-        if (req.body.isActive) psychologist.isActive = req.body.isActive;
-        if (req.body.turns) psychologist.turns = req.body.turns;
-        updatedPsy = psychologist;
+  const foundPsy = psyList.find((psychologist) => psychologist.id === parseInt(req.params.id));
+  if (foundPsy) {
+    psyList = psyList.map((psy) => {
+      if (psy.id === parseInt(req.params.id)) {
+        if (req.body.first_name) psy.first_name = req.body.first_name;
+        if (req.body.last_name) psy.last_name = req.body.last_name;
+        if (req.body.email) psy.email = req.body.email;
+        if (req.body.pictureUrl) psy.pictureUrl = req.body.pictureUrl;
+        if (req.body.password) psy.password = req.body.password;
+        if (req.body.isActive) psy.isActive = req.body.isActive;
+        if (req.body.turns) psy.turns = req.body.turns;
+        return psy;
       }
+      return psy;
     });
     fs.writeFile(path.join(__dirname, '../data/psychologists.json'), JSON.stringify(psyList), (err) => {
       if (err) throw err;
     });
-    res.status(200).send(updatedPsy);
+    res.status(200).send(foundPsy);
   } else res.status(404).send('The request could not be processed');
 };
 
 const remove = (req, res) => {
-  let foundPsy = psyList.filter((psy) => psy.id === parseInt(req.params.id));
-  if (foundPsy[0] !== undefined) {
-    psyList.splice(
-      psyList.findIndex((psy) => psy.id === parseInt(req.params.id)),
-      1
-    );
+  let foundPsyIndex = psyList.findIndex((psy) => psy.id === parseInt(req.params.id));
+  if (foundPsyIndex !== -1) {
+    psyList.splice(foundPsyIndex, 1);
     fs.writeFile(path.join(__dirname, '../data/psychologists.json'), JSON.stringify(psyList), (err) => {
       if (err) throw err;
     });
-    return res.status(200).send(`Element with ID = ${foundPsy.id} deleted`);
+    return res.status(200).send(`Element with ID = ${req.params.id} deleted`);
   } else {
     return res.status(404).send('Element with provided ID not found');
   }
