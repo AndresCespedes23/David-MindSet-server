@@ -14,7 +14,13 @@ const getById = (req, res) => {
 };
 
 const getByIdCandidate = (req, res) => {
-    // your code here
+    const findIdCandidate = sessions.list.some(sessions => sessions.id === parseInt(req.params.id)); 
+    if(findIdCandidate) {
+    res.json(sessions.list.filter(sessions => sessions.id === parseInt(req.params.id)));
+    } else {
+        res.status(400);
+        res.json({msg: `Candidate ID not found ${req.params.id}`});
+    }
 };
 
 const add = (req, res) => { 
@@ -48,7 +54,7 @@ const edit = (req, res) => {
         });
         res.json({ msg: 'Success! You have change the content of the session', sessions});
         fs.writeFile('../data/sessions.json', JSON.stringify(sessions), err => {
-            if(err) {res.status(500);}
+            if(err) {res.status(500)}
         })
     } else {
         res.status(404).json({msg: `Session with the id of ${req.params.id} not found`});
