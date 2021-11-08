@@ -1,6 +1,15 @@
 const fs = require('fs');
 let candidates = require('../data/candidates.json');
 
+function getLastID(){
+    let lastID = 0;
+    candidates.list.forEach(candidate => {
+        if (candidate.id > lastID) {
+            lastID = candidate.id;
+        }
+    });
+    return lastID;
+}
 const getAll = (req, res) => {
     res.json({
         message: 'Candidates found',
@@ -81,12 +90,7 @@ const add = (req, res) => {
         })
     }
     else{
-        let lastID = 0;
-        candidates.list.forEach(candidate => {
-            if (candidate.id > lastID) {
-                lastID = candidate.id;
-            }
-        });
+        let lastID = getLastID();
         const newCandidate = {
             id: lastID + 1,
             firstName: req.query.firstName,
