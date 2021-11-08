@@ -1,6 +1,5 @@
 const getAll = (req, res) => {
     // your code here
-    console.log('prueba');
 };
 
 const getById = (req, res) => {
