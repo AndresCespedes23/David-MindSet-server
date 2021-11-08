@@ -1,6 +1,15 @@
 const fs = require('fs');                // to step on json
 let interviews = require('../data/interviews.json');
-//git push origin ft-interviews-controller
+
+let getBiggerId = (data) => {  // Pablo Balbo fn
+    let biggerId = 0;
+    data.forEach(data => {
+        if(data.id > biggerId) {
+            biggerId = data.id;
+        }
+    });
+    return biggerId;
+};
 
 const getAll = (req, res) => {          // try:  http://localhost:8000/interviews
     res.json(interviews);
@@ -9,7 +18,7 @@ const getAll = (req, res) => {          // try:  http://localhost:8000/interview
 // try: http://localhost:8000/interviews/add?id=215&idCompany=215&idCandidate=215&date=11/23/2021&status=true&isActive=true
 const add = (req, res) => { 
     const newInterviews = {
-        id: req.query.id,
+        id: getBiggerId(interviews) + 1,
         idCompany: req.query.idCompany,
         idCandidate: req.query.idCandidate,
         date: req.query.date,
