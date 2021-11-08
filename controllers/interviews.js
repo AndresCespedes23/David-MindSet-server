@@ -29,11 +29,13 @@ const getAll = (req, res) => {
     res.json(interviews);
 };
 
+// COMENTARIO DAVID: No es necesario que valides con Some, dado que find o filter ya hacen el trabajo de validar por si mismos. Sino estas validando dos veces.(outdated)
+
 // as by Traversy  - try: http://localhost:8000/interviews/150
 const getById = (req, res) => { 
     const findId = interviews.some(interviews => interviews.id === parseInt(req.params.id)); 
     if(findId) {
-        res.json(interviews.filter(interviews => interviews.id === parseInt(req.params.id)));
+        res.json(interviews.dinf(interviews => interviews.id === parseInt(req.params.id))); //change .filte for .dinf 
     } else {
         res.status(404).json({msg: `Interview not found with the id of ${req.params.id}`});
     }  
@@ -62,10 +64,11 @@ const add = (req, res) => {
         interviews.push(newInterviews)
         fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), err => {
             if (err) {
-            res.send(500).json({ msg: 'Error adding new interview' });
+                res.send(500).json({ msg: 'Error adding new interview' });
+            } else {
+                res.json({ msg: 'New interview successfully added', newInterviews });
             }
-    });
-    res.json({ msg: 'New interview successfully added', newInterviews });
+        });
     } else {
         res.status(400).json({ msg: 'Some parameters are missing' });
     }
@@ -88,9 +91,10 @@ const edit = (req, res) => {
         fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), err => {
             if(err) {
                 res.status(500).json({ msg: 'Error editing interview'});
+            } else {
+                res.json({ msg: 'Success! The edit of the interview was a success', interviews});
             }
         });
-        res.json({ msg: 'Success! The edit of the interview was a success', interviews});
     } else {
         res.status(404).json({msg: `Interview not found with the id of ${req.params.id}`});
     }
@@ -104,9 +108,10 @@ const remove = (req, res) => {
         fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), (err) => {
            if (err) {
                res.status(500).json({ msg: 'Error removing Interview'});
+           } else {
+               res.json({ msg: 'Success: Interview removed'});
            }
         });
-        res.json({ msg: 'Success: Interview removed'});
     } else {
         res.status(404).json({ msg: `Interview not found with the id of ${req.params.id}`});
     } 
