@@ -54,9 +54,6 @@ const add = (req, res) => {
     res.json(newOpenPosition);
 };
 
-// Test case:
-// add?idCompany=13&startDate=11/23/2019&endDate=11/25/2020&jobDescription=LoremIpsus&isActive=true
-
 const edit = (req, res) => {
     let openPosition = openPositions.find(openPositions => openPositions.id === parseInt(req.params.id));
     if (openPosition) {
@@ -82,9 +79,6 @@ const edit = (req, res) => {
         res.status(404).json({ message: `The open position wasn't found with id: ${req.params.id}` });
     }
 };
-
-// Test case:
-// /edit/5?idCompany=13&startDate=11/23/2019&endDate=11/25/2020&jobDescription=LoremIpsus&isActive=true
 
 const remove = (req, res) => {
     const id = parseInt(req.params.id);
