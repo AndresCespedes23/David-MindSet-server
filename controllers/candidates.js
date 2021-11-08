@@ -27,28 +27,24 @@ const getById = (req, res) => {
     const candidateID = parseInt(req.params.id);
     const foundCandidate = candidates.list.find(candidate => candidate.id === candidateID);
     if(!foundCandidate){
-        res.status(404).json({
-            message:'Candidate not found by ID'
+        return res.status(404).json({
+            message:`Candidate not found with id: ${candidateID}`
         });
     }
-    else{
-        res.json(foundCandidate)
-    }
+    res.json(foundCandidate);
 };
 
 const getByName = (req, res) => {
-    const foundCandidates = candidates.list.filter(candidate => candidate.firstName.toLowerCase() === req.params.name.toLowerCase())
+    const name = req.params.name;
+    const foundCandidates = candidates.list.filter(candidate => candidate.firstName.toLowerCase() === name.toLowerCase())
     if(foundCandidates.length === 0){
-        res.status(404).json({
-            message:'Candidate not found by FirstName',
+        return res.status(404).json({
+            message:`Candidate not found with name: ${name}`,
             candidates: foundCandidates
         });
     }
-    else{
-        res.json(foundCandidates)
-    }
+    res.json(foundCandidates);
 };
-
 const add = (req, res) => {
     let lastID = getLastId(candidates.list);
     const newCandidate = {
@@ -96,10 +92,10 @@ const add = (req, res) => {
 const edit = (req, res) => {
     const candidateID = parseInt(req.params.id)
     const foundCandidate = candidates.list.find(candidate => candidate.id === candidateID);
-    const updatedCandidate = {};
+    let updatedCandidate;
     if(!foundCandidate){
         res.status(404).json({
-            message:'Candidate not found by ID'
+            message:`Candidate not found with id: ${candidateID}`
         });
     }
     else{
@@ -127,18 +123,18 @@ const edit = (req, res) => {
                 updatedCandidate = candidate;
             }
             return candidate;
-        })
+        });
         fs.writeFile(path.join(__dirname, '../data/candidates.json'), JSON.stringify({list:candidates}),err =>{
             if(err){
                 res.status(500).json({
                     message:'Error while saving data'
-                })
+                });
             }
             else{
                 res.json({
                     message: 'Updated Candidate',
                     candidate: updatedCandidate
-                })
+                });
             }
         })
     }
@@ -148,26 +144,23 @@ const remove = (req, res) => {
     const candidateID = parseInt(req.params.id);
     const foundCandidate = candidates.list.filter(candidate => candidate.id === candidateID);
     if(!foundCandidate){
-        res.status(404).json({
-            message:'Candidate not found by ID'
+        return res.status(404).json({
+            message:`Candidate not found with id: ${candidateID}`
         });
     }
-    else{
-        candidates = candidates.list.filter((candidate) => candidate.id !== candidateID);
-        fs.writeFile(path.join(__dirname, '../data/candidates.json'), JSON.stringify({list:candidates}),err =>{
-            if(err){
-                console.log(err)
-                res.status(500).json({
-                    message:'Error while saving data'
-                })
-            }
-            else{
-                res.json({
-                    message: 'Deleted Candidate'
-                })
-            }
-        })
-    }
+    candidates = candidates.list.filter((candidate) => candidate.id !== candidateID);
+    fs.writeFile(path.join(__dirname, '../data/candidates.json'), JSON.stringify({list:candidates}),err =>{
+        if(err){
+            res.status(500).json({
+                message:'Error while saving data'
+            })
+        }
+        else{
+            res.json({
+                message: 'Deleted Candidate'
+            })
+        }
+    })
 };
 
 module.exports = {
