@@ -1,6 +1,7 @@
-const fs = require('fs');                // to step on json
+const fs = require('fs');
 let interviews = require('../data/interviews.json');
 
+// ---- FUNCTIONS ----
 const calculateLarger = (collection) => {  // Julián fn
     let larger = 0;
     collection.forEach((element) => {
@@ -20,11 +21,14 @@ const validate = (entity) => {      // Julián fn
     return true;
 };
 
-const getAll = (req, res) => {          // try:  http://localhost:8000/interviews
+// ---- PATHS ----
+
+const getAll = (req, res) => {
     res.json(interviews);
 };
+// try:  http://localhost:8000/interviews
 
-const getById = (req, res) => {                   // as by Traversy  - try: http://localhost:8000/interviews/150
+const getById = (req, res) => { 
     const findInterviewsId = interviews.some(interviews => interviews.id === parseInt(req.params.id)); 
     if(findInterviewsId) {
         res.json(interviews.filter(interviews => interviews.id === parseInt(req.params.id)));
@@ -32,6 +36,7 @@ const getById = (req, res) => {                   // as by Traversy  - try: http
         res.status(404).json({msg: `Interview not found with the id of ${req.params.id}`});
     }  
 };
+// as by Traversy  - try: http://localhost:8000/interviews/150
 
 const getByIdCompany = (req, res) => {
     const findIdCompany = interviews.some(interviews => interviews.idCompany === parseInt(req.params.idCompany)); 
@@ -42,7 +47,6 @@ const getByIdCompany = (req, res) => {
     }
 };
 
-// try: http://localhost:8000/interviews/add?id=215&idCompany=215&idCandidate=215&date=11/23/2021&status=true&isActive=true
 const add = (req, res) => { 
     const newInterviews = {
         id: calculateLarger(interviews) + 1,
@@ -64,8 +68,8 @@ const add = (req, res) => {
         res.status(400).json({ msg: 'Some parameters are missing' });
     }
 };
+// as by David C. - try: http://localhost:8000/interviews/add?id=215&idCompany=215&idCandidate=215&date=11/23/2021&status=true&isActive=true
 
-// test: http://localhost:8000/interviews/edit/1?idCandidate=4
 const edit = (req, res) => {
     const findInterviewsId = interviews.some(interviews => interviews.id === parseInt(req.params.id)); 
     const editInterviews = req.query;
@@ -89,6 +93,7 @@ const edit = (req, res) => {
         res.status(404).json({msg: `Interview not found with the id of ${req.params.id}`});
     }
 };
+// as by Traversy  - test: http://localhost:8000/interviews/edit/1?idCandidate=4
 
 const remove = (req, res) => {
     const findInterviewsId = interviews.some(interviews => interviews.id === parseInt(req.params.id));
@@ -104,12 +109,13 @@ const remove = (req, res) => {
         res.status(404).json({ msg: `Interview not found with the id of ${req.params.id}`});
     } 
 };
+// as by Traversy 
 
 module.exports = {
   getAll: getAll,
+  getById: getById,
   getByIdCompany: getByIdCompany,
   add: add,
-  getById: getById,
   edit: edit,
   remove: remove
 };
