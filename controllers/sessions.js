@@ -1,5 +1,29 @@
 const fs = require('fs'); 
+const path = require('path');
 const sessions = require('../data/sessions.json');
+
+// VALIDATION FUNCTIONS
+
+const validate = (entity) => {      
+    for (let key in entity) {
+      if (entity[key] === undefined) {
+        return false;
+      }
+    }
+    return true;
+};
+
+const getLastId = (collection) => {  
+    let larger = 0;
+    collection.forEach((element) => {
+      if (element.id > larger) {
+        larger = element.id;
+      }
+    });
+    return larger;
+};
+
+// PATH FUNCTIONS
 
 const getAll = (req, res) => res.json(sessions);
 
