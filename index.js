@@ -7,13 +7,18 @@ const port = 8000;
 app.get('/', (req, res) => {
     let html = '<h1>MindeSet</h1>';
     html += '<ul>';
-    html += '  <li>Candidates:';
+    html += '  <li><h2>Candidates:</h2></li>';
     html += '    <ul>';
     html += '      <li><a href="/candidates">getAll</a></li>';
+    html += '      <li><a href="/candidates/1">getById</a></li>';
+    html += '      <li><a href="/candidates/name/john">getByName</a></li>';
+    html += '      <li><a href="/candidates/add">add</a></li>';
+    html += '      <li><a href="/candidates/edit/1">edit</a></li>';
+    html += '      <li><a href="/candidates/remove/100">remove</a></li>';
     html += '    </ul>';
     html += '  </li>';
     html += '</ul>';
-    res.send();
+    res.send(html);
 });
 
 app.get('/candidates', candidates.getAll);
