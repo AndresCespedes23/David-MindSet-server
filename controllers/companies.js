@@ -117,9 +117,9 @@ const remove = (req, res) => {
     if (err) {
       console.log(err);
       res.status(500).json({ message: 'Error deleting company' });
-    } else {
-      res.json({ message: 'Company deleted' });
+      return;
     }
+    res.json({ message: 'Company deleted' });
   });
 };
 
