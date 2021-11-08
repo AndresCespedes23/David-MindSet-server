@@ -17,7 +17,7 @@ const getById = (req, res) => {
     const id = parseInt(req.params.id);
     const openPosition = openPositions.find((openPosition) => openPosition.id === id);
     if (!openPosition) {
-        return gres.status(404).json({ message: `Open position not found with id: ${id}` });
+        return res.status(404).json({ message: `Open position not found with id: ${id}` });
     }
 };
 
@@ -46,10 +46,11 @@ const add = (req, res) => {
     openPositions.push(newOpenPosition);
     fs.writeFile(path.join(__dirname, '../data/open-positions.json'), JSON.stringify(openPositions), (err) => {
         if (err) {
-            res.send(500, 'Error trying to save new data');
+            res.status(500).json({ message: 'Error adding open position' });
+        } else {
+            res.json(newOpenPosition);
         }
     });
-    res.json(newOpenPosition);
 };
 
 const edit = (req, res) => {
@@ -69,7 +70,7 @@ const edit = (req, res) => {
         fs.writeFile(path.join(__dirname, '../data/open-positions.json'), JSON.stringify(openPositions), (err) => {
             if (err) {
                 console.log(err);
-                res.status(500).json({ message: 'Error trying to edit the open position' });
+                res.status(500).json({ message: 'Error editing open position' });
             }
         });
         res.json({ message: 'Success! Position edited', openPosition });
