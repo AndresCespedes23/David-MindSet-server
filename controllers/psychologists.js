@@ -58,7 +58,11 @@ const add = (req, res) => {
   if (!validate(newPsychologist)) return res.status(400).json({ message: 'Missing parameters' });
   psyList.push(newPsychologist);
   fs.writeFile(path.join(__dirname, '../data/psychologists.json'), JSON.stringify(psyList), (err) => {
-    if (err) throw err;
+    if (err) {
+      console.log(err);
+      res.status(500).json({ message: 'Error adding psychologist' });
+      return;
+    }
   });
   res.json(newPsychologist);
 };
@@ -80,7 +84,11 @@ const edit = (req, res) => {
     return psy;
   });
   fs.writeFile(path.join(__dirname, '../data/psychologists.json'), JSON.stringify(psyList), (err) => {
-    if (err) throw err;
+    if (err) {
+      console.log(err);
+      res.status(500).json({ message: 'Error editing psychologist' });
+      return;
+    }
   });
   res.json({ message: 'Psychologist edited successfully', companyFound });
 };
@@ -95,7 +103,11 @@ const remove = (req, res) => {
   if (foundPsyIndex === undefined)
     return res.status(404).send({ message: `Psychologist not found with id ${req.params.id}` });
   fs.writeFile(path.join(__dirname, '../data/psychologists.json'), JSON.stringify(psyList), (err) => {
-    if (err) throw err;
+    if (err) {
+      console.log(err);
+      res.status(500).json({ message: 'Error deleting psychologist' });
+      return;
+    }
   });
   return res.json(`Element with ID = ${req.params.id} deleted`);
 };
