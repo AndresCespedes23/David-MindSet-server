@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 let interviews = require('../data/interviews.json');
 
 // ---- FUNCTIONS ----
@@ -58,8 +59,8 @@ const add = (req, res) => {
     };
     if (validate(interviews)) {
         interviews.push(newInterviews)
-        fs.writeFile('./data/interviews.json', JSON.stringify(interviews), err => {
-            if (err) { 
+        fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), err => {
+            if (err) {
             res.send(500).json({ msg: 'Error adding new interview' });
             }
     });
@@ -83,7 +84,7 @@ const edit = (req, res) => {
                 interviews.isActive = editInterviews.isActive ? editInterviews.isActive : interviews.isActive;        
             }
         });
-        fs.writeFile('./data/interviews.json', JSON.stringify(interviews), err => {
+        fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), err => {
             if(err) {
                 res.status(500).json({ msg: 'Error editing interview'});
             }
@@ -99,7 +100,7 @@ const remove = (req, res) => {
     const findInterviewsId = interviews.some(interviews => interviews.id === parseInt(req.params.id));
     if(findInterviewsId) {
         interviews = interviews.filter(interview => interview.id !== parseInt(req.params.id));
-        fs.writeFile('./data/interviews.json', JSON.stringify(interviews), (err) => {
+        fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), (err) => {
            if (err) {
                res.status(500).json({ msg: 'Error removing Interview'});
            }
