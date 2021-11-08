@@ -18,9 +18,8 @@ const getById = (req, res) => {
     const openPosition = openPositions.find((openPosition) => openPosition.id === id);
     if (!openPosition) {
         return res.status(404).json({ message: `Open position not found with id: ${id}` });
-    } else {
-        res.json(openPosition);
     }
+    res.json(openPosition);
 };
 
 const getByIdCompany = (req, res) => {
