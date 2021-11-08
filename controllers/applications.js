@@ -12,7 +12,13 @@ const calculateLarger = (collection) => {
 };
 
 const getAll = (req, res) => {
-    res.json(applications);
+    if(res.json(applications) !== null){
+        res.json(applications);
+    }
+    else{
+        const empty = {};
+        res.json(empty);
+    }
 };
 
 const getById = (req, res) => {
@@ -71,14 +77,15 @@ const add = (req, res) => {
 };
 
 const edit = (req, res) => {
-    const id = parseInt(req.query.id);
+    const id = parseInt(req.param.id);console.log(id);
     let editObj = applications.find((applications) => applications.id === id);
+    
     if (editObj) {
         applications.map((obj) => {
             if (applications.id === id) {
                 req.query.idCandidate === undefined ? editObj.idCandidate = editObj.idCandidate : editObj.idCandidate = parseInt(req.query.idCandidate);
                 req.query.idOpenPosition === undefined ? editObj.idOpenPosition = editObj.idOpenPosition : editObj.idOpenPosition = parseInt(req.query.idOpenPosition);
-               req.query.isActive === undefined ?  editObj.isActive =  editObj.isActive : editObj.isActive == req.query.isActive ?  editObj.isActive = editObj.isActive : editObj.isActive =  !editObj.isActive;
+                req.query.isActive === undefined ?  editObj.isActive =  editObj.isActive : editObj.isActive == req.query.isActive ?  editObj.isActive = editObj.isActive : editObj.isActive =  !editObj.isActive;
                 return editObj;
             }
             return editObj;

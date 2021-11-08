@@ -1,6 +1,6 @@
 const express = require('express');
 
-const postulants = require('./controllers/postulants');
+const candidates = require('./controllers/candidates');
 const applications = require('./controllers/applications');
 
 const app = express();
@@ -12,27 +12,33 @@ app.get('/', (req, res) => {
     html += '  <li>applications:';
     html += '    <ul>';
     html += '      <li><a href="/applications">getAll</a></li>';
+    html += '      <li><a href="/applications/byPos/7">getByOpenPosition</a></li>';
+    html += '      <li><a href="/applications/byCan/8">getByCandidate</a></li>';
+    html += '      <li><a href="/applications/add">add</a></li>';
+    html += '      <li><a href="/applications/edit/7">edit</a></li>';
+    html += '      <li><a href="/applications/remove/5">remove</a></li>';
+    html += '      <li><a href="/applications/1">getById</a></li>';
     html += '    </ul>';
     html += '  </li>';
     html += '</ul>';
-    res.send();
+    res.send(html);
 });
 
 
-app.get('/postulants', postulants.getAll);
-app.get('/postulants/byName/:name', postulants.getByName);
-app.get('/postulants/add', postulants.add);
-app.get('/postulants/edit', postulants.edit);
-app.get('/postulants/remove', postulants.remove);
-app.get('/postulants/:id', postulants.getById);
+app.get('/candidates', candidates.getAll);
+app.get('/candidates/byName/:name', candidates.getByName);
+app.get('/candidates/add', candidates.add);
+app.get('/candidates/edit', candidates.edit);
+app.get('/candidates/remove', candidates.remove);
+app.get('/candidates/:id', candidates.getById);
 
 
 app.get('/applications', applications.getAll);
 app.get('/applications/byPos/:id', applications.getByIdPos);
 app.get('/applications/byCan/:id', applications.getByIdCan);
 app.get('/applications/add', applications.add);
-app.get('/applications/edit', applications.edit);
-app.get('/applications/remove', applications.remove);
+app.get('/applications/edit/:id', applications.edit);
+app.get('/applications/remove/:id', applications.remove);
 app.get('/applications/:id', applications.getById);
 
 app.listen(port, () => {
