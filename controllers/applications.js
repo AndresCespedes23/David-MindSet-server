@@ -66,15 +66,14 @@ const getByIdCan = (req, res) => {
 };
 
 const add = (req, res) => {
-    let valid = req.query.idOpenPosition === undefined ? undefined : req.query.idCandidate === undefined ? undefined : true;
     let newId = calculateLarger(applications) + 1;
-    if (valid) {
         let newItem = {
             id: newId,
             idCandidate: req.query.idCandidate,
             idOpenPosition: req.query.idOpenPosition,
             isActive: true
         }
+        if(validate(newItem)){
         applications.push(newItem);
         res.json(newItem);
         fs.writeFile(path.join(__dirname, '../data/applications.json'), JSON.stringify(applications), error => {
