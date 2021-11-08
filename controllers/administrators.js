@@ -48,19 +48,19 @@ const add = (req, res) => {
         lastName: req.query.lastName,
         email: req.query.email,
         password: req.query.password,
-        isActive: req.query.isActive
+        isActive: req.query.isActive,
+    };
+    if (!validate(newAdmin)) {
+        return res.status(400).json({ message: 'Some parameters are missing' });
     }
-    if (validate(newAdmin)) {
-        adminData.push(newAdmin)
-        fs.writeFile('./data/administrators.json', JSON.stringify(adminData), err => {
+    adminData.push(newAdmin)
+        fs.writeFile(path.join(__dirname, '../data/administrators.json'), JSON.stringify(adminData), err => {
             if (err) { 
-                res.status(500).json({ msg: 'Error adding administrator' });
+                res.status(500).json({ message: 'Error adding administrator' });
+                return;
             }
+            res.json({ message: 'Administrator successfully added', administrator: newAdmin });
         });
-        res.json({ msg: 'Administrator successfully added', newAdmin });
-    } else {
-        res.status(400).json({ msg: 'Some parameters are missing' });
-    }
 };
 
 const edit = (req, res) => {
@@ -78,11 +78,11 @@ const edit = (req, res) => {
                       res.status(500).json({ message: 'Error editing administrator' });
                     }
                 });
-                res.json({ msg: 'Administrator updated', administrator });
+                res.json({ message: 'Administrator updated', administrator });
             }
         })
     } else {
-        res.status(404).json({ msg: `No administrator with the id of ${req.params.id} founded` });
+        res.status(404).json({ message: `No administrator with the id of ${req.params.id} founded` });
     }
 };
 
@@ -93,12 +93,12 @@ const remove = (req, res) => {
         fs.writeFile('./data/administrators.json', JSON.stringify(adminData), (err) => {
             if (err) {
               console.log(err);
-              res.status(500).json({ msg: 'Error removing administrator' });
+              res.status(500).json({ message: 'Error removing administrator' });
             }
         });
-        res.json({ msg: 'Administrator removed' });
+        res.json({ message: 'Administrator removed' });
     }   else {
-        res.status(404).json({ msg: `No administrator with the id of ${req.params.id} founded` });
+        res.status(404).json({ message: `No administrator with the id of ${req.params.id} founded` });
     }
 };
 
@@ -110,3 +110,4 @@ module.exports = {
   edit: edit,
   remove: remove
 };
+
