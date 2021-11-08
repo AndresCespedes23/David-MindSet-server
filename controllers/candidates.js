@@ -1,5 +1,5 @@
 const fs = require('fs');
-const candidates = require('../data/candidates.json');
+let candidates = require('../data/candidates.json');
 
 const getAll = (req, res) => {
     res.json({
@@ -138,7 +138,6 @@ const add = (req, res) => {
 const edit = (req, res) => {
     const candidateID = parseInt(req.params.id)
     const foundCandidate = candidates.list.find(candidate => candidate.id === candidateID);
-    let newCandidates = [];
     if(!foundCandidate){
         res.status(400).json({
             ok:false,
@@ -146,7 +145,7 @@ const edit = (req, res) => {
         });
     }
     else{
-        newCandidates = candidates.list.map((candidate) => {
+        candidates = candidates.list.map((candidate) => {
             if(candidate.id === candidateID){
                 candidate.firstName = req.query.firstName !== undefined ? req.query.firstName : candidate.firstName;
                 candidate.lastName = req.query.lastName !== undefined ? req.query.lastName : candidate.lastName;
@@ -173,7 +172,7 @@ const edit = (req, res) => {
                 return candidate;
             }
         })
-        fs.writeFile('./data/candidates.json', JSON.stringify({list:newCandidates}),err =>{
+        fs.writeFile('./data/candidates.json', JSON.stringify({list:candidates}),err =>{
             if(err){
                 res.status(500).json({
                     ok:false,
@@ -193,7 +192,6 @@ const edit = (req, res) => {
 const remove = (req, res) => {
     const candidateID = parseInt(req.params.id);
     const foundCandidate = candidates.list.filter(candidate => candidate.id === candidateID);
-    let newCandidates = [];
     if(!foundCandidate){
         res.status(400).json({
             ok:false,
@@ -201,8 +199,8 @@ const remove = (req, res) => {
         });
     }
     else{
-        newCandidates = candidates.list.filter((candidate) => candidate.id !== candidateID);
-        fs.writeFile('./data/candidates.json', JSON.stringify({list:newCandidates}),err =>{
+        candidates = candidates.list.filter((candidate) => candidate.id !== candidateID);
+        fs.writeFile('./data/candidates.json', JSON.stringify({list:candidates}),err =>{
             if(err){
                 console.log(err)
                 res.status(500).json({
