@@ -1,5 +1,6 @@
 let applications = require('../data/applications.json');
 let fs = require('fs');
+const path = require('path');
 
 const calculateLarger = (collection) => {
     let larger = 0;
@@ -78,7 +79,7 @@ const add = (req, res) => {
         }
         applications.push(newItem);
         res.json(newItem);
-        fs.writeFile('./data/applications.json', JSON.stringify(applications), error => {
+        fs.writeFile(path.join(__dirname, '../data/applications.json'), JSON.stringify(applications), error => {
             if (error) { res.status(500) }
         })
     }
@@ -104,7 +105,7 @@ const edit = (req, res) => {
                 }
             })
             res.json(editObj);
-            fs.writeFile('./data/applications.json', JSON.stringify(applications), error => {
+            fs.writeFile(path.join(__dirname, '../data/applications.json'), JSON.stringify(applications), error => {
                 if (error) { res.status(500) }
             })
             
@@ -125,7 +126,7 @@ const remove = (req, res) => {
     }
     else {
         const newList = applications.filter((applications) => applications.id !== id);
-        fs.writeFile('./data/applications.json', JSON.stringify(newList), error => {
+        fs.writeFile(path.join(__dirname, '../data/applications.json'), JSON.stringify(newList), error => {
             if (error) { res.status(500) }
         })
     }
@@ -140,3 +141,4 @@ module.exports = {
     edit: edit,
     remove: remove
 };
+
