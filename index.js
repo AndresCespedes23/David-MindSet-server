@@ -24,10 +24,12 @@ app.get('/', (req, res) => {
   html += '  <li>Interviews:';
   html += '    <ul>';
   html += '      <li><a href="/interviews">getAll</a></li>';
+  html += '      <li><a href="/interviews">getById</a></li>';
+        // completar
   html += '    </ul>';
   html += '  </li>';
   html += '</ul>';
-  res.send();
+  res.send(html);
 });
 
 app.get('/candidates', candidates.getAll);
@@ -41,18 +43,9 @@ app.get('/candidate/remove', candidates.remove);
 app.get('/interviews', interviews.getAll);
 app.get('/interviews/add', interviews.add);
 app.get('/interviews/:id', interviews.getById);
-// app.get('/interviews/byName/:name', interviews.getByName);
+app.get('/interviews/byIdCompany/:idCompany', interviews.getByIdCompany);    // change it from getByName
 app.get('/interviews/edit/:id', interviews.edit);
 app.get('/interviews/remove/:id', interviews.remove);
-
-
-// id 
-// idCompany
-// idCandidate
-// date
-// status ¿done, to-do?
-// isActive
-
 
 app.listen(port, () => {
   console.log(`Open your browser in http://localhost:${port}`);

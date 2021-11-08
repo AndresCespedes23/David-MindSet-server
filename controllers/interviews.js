@@ -37,6 +37,15 @@ const getById = (req, res) => {                   // as by Traversy  - try: http
     }  
 };
 
+const getByIdCompany = (req, res) => {
+    const findInterviewsByIdCompany = interviews.some(interviews => interviews.idCompany === parseInt(req.params.idCompany)); 
+    if(findInterviewsByIdCompany) {
+    res.json(interviews.filter(interviews => interviews.idCompany === parseInt(req.params.idCompany)));
+    } else {
+        res.status(400).json({msg: `Interview not found with the idCompany of ${req.params.idCompany}`});
+    }
+};
+
 // test: http://localhost:8000/interviews/edit/1?idCandidate=4
 const edit = (req, res) => {
     const findInterviewsId = interviews.some(interviews => interviews.id === parseInt(req.params.id)); 
@@ -77,14 +86,9 @@ const remove = (req, res) => {
 
 module.exports = {
   getAll: getAll,
+  getByIdCompany: getByIdCompany,
   add: add,
   getById: getById,
   edit: edit,
   remove: remove
-  //getByName: getByName,
 };
-
-
-//const getByName = (req, res) => {
-    // your code here
-//};
