@@ -2,6 +2,16 @@ const { profile } = require('console');
 const fs = require('fs');
 let profileTypes = require('../data/profile-types.json');
 
+const calculateLarger = (collection) => {
+  let larger = 0;
+  collection.forEach((element) => {
+    if (element.id > larger) {
+      larger = element.id;
+    }
+  });
+  return larger;
+};
+
 const getAll = (req, res) => {
     // your code here
     res.json(profileTypes);
@@ -32,8 +42,8 @@ const getByName = (req, res) => {
 
 const add = (req, res) => {
     // your code here
-   const newProfile = {
-    id: profileTypes.length + 1,
+   const newProfile = { 
+    id: calculateLarger(profileTypes) + 1 ,
     name: req.query.name,
     isActive: req.query.isActive
   }
