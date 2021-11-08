@@ -9,10 +9,37 @@ const calculateLarger = (collection) => {  // Julián fn
       }
     });
     return larger;
-  };
+};
+
+const validate = (entity) => {      // Julián fn
+    for (let key in entity) {
+      if (entity[key] === undefined) {
+        return false;
+      }
+    }
+    return true;
+};
 
 const getAll = (req, res) => {          // try:  http://localhost:8000/interviews
     res.json(interviews);
+};
+
+const getById = (req, res) => {                   // as by Traversy  - try: http://localhost:8000/interviews/150
+    const findInterviewsId = interviews.some(interviews => interviews.id === parseInt(req.params.id)); 
+    if(findInterviewsId) {
+        res.json(interviews.filter(interviews => interviews.id === parseInt(req.params.id)));
+    } else {
+        res.status(404).json({msg: `Interview not found with the id of ${req.params.id}`});
+    }  
+};
+
+const getByIdCompany = (req, res) => {
+    const findIdCompany = interviews.some(interviews => interviews.idCompany === parseInt(req.params.idCompany)); 
+    if(findIdCompany) {
+        res.json(interviews.filter(interviews => interviews.idCompany === parseInt(req.params.idCompany)));
+    } else {
+        res.status(404).json({ msg: `Interview not found with the idCompany of ${req.params.idCompany}`});
+    }
 };
 
 // try: http://localhost:8000/interviews/add?id=215&idCompany=215&idCandidate=215&date=11/23/2021&status=true&isActive=true
@@ -25,33 +52,16 @@ const add = (req, res) => {
         status: req.query.status,
         isActive: req.query.isActive
     };
-    // if validation 
-    interviews.push(newInterviews);
-    fs.writeFile('./data/interviews.json', JSON.stringify(interviews), err => {
-        if (err) { res.send(500); }
-});
-    res.json(newInterviews);
-    console.log(req.query); // to check if i'm doing it rigth
-
-}
-
-
-const getById = (req, res) => {                   // as by Traversy  - try: http://localhost:8000/interviews/150
-    const findInterviewsId = interviews.some(interviews => interviews.id ===
-        parseInt(req.params.id)); 
-    if(findInterviewsId) {
-    res.json(interviews.filter(interviews => interviews.id === parseInt(req.params.id)));
+    if (validate(interviews)) {
+        interviews.push(newInterviews)
+        fs.writeFile('./data/interviews.json', JSON.stringify(interviews), err => {
+            if (err) { 
+            res.send(500).json({ msg: 'Error adding new interview' });
+            }
+    });
+    res.json({ msg: 'New interview successfully added', newInterviews });
     } else {
-        res.status(400).json({msg: `Interview not found with the id of ${req.params.id}`});
-    }  
-};
-
-const getByIdCompany = (req, res) => {
-    const findInterviewsByIdCompany = interviews.some(interviews => interviews.idCompany === parseInt(req.params.idCompany)); 
-    if(findInterviewsByIdCompany) {
-    res.json(interviews.filter(interviews => interviews.idCompany === parseInt(req.params.idCompany)));
-    } else {
-        res.status(400).json({msg: `Interview not found with the idCompany of ${req.params.idCompany}`});
+        res.status(400).json({ msg: 'Some parameters are missing' });
     }
 };
 
