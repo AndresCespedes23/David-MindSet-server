@@ -1,7 +1,7 @@
 const fs = require('fs'); 
 const sessions = require('../data/sessions.json');
 
-const getAll = (req, res) => res.json(sessionsData);
+const getAll = (req, res) => res.json(sessions);
 
 const getById = (req, res) => {
     const foundSessions = sessions.list.some(sessions => sessions.id === parseInt(req.params.id));
