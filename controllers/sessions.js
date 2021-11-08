@@ -13,6 +13,7 @@ const validate = (entity) => {
     return true;
 };
 
+// PATH FUNCTIONS based on julianv97
 const getLastId = (collection) => {  
     let larger = 0;
     collection.forEach((element) => {
@@ -22,8 +23,6 @@ const getLastId = (collection) => {
     });
     return larger;
 };
-
-// PATH FUNCTIONS based on julianv97
 
 const getAll = (req, res) => res.json(sessions);
 
@@ -37,14 +36,13 @@ const getById = (req, res) => {
 };
 
 const getByIdCandidate = (req, res) => {
-    const findIdCandidate = sessions.list.some(sessions => sessions.idCandidate === parseInt(req.params.idCandidate)); 
-    if(findIdCandidate) {
-    res.json(sessions.list.filter(sessions => sessions.idCandidate === parseInt(req.params.idCandidate)));
-    } else {
-        res.status(400).res.json({msg: `Candidate ID not found ${req.params.idCandidate}`});
-    }
+  const idCandidate = req.params.idCandidate;
+  const sessionFound = sessions.filter((session) => session.idCandidate === idCandidate);
+  if (sessionFound.length <= 0) {
+    return res.status(404).json({ message: `Session not found with the ID: ${idCandidate}` });
+  }
+  res.json(sessionFound);
 };
-
 
 const add = (req, res) => {
     const newSession = {
@@ -94,7 +92,6 @@ const add = (req, res) => {
     });
   };
   
-
 const remove = (req, res) => {
     const id = parseInt(req.params.id);
     const sessionFound = sessions.list.find((session) => session.id === id);
