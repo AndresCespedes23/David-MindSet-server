@@ -9,6 +9,18 @@ const port = 8000;
 app.get('/', (req, res) => {
     let html = '<h1>MindeSet</h1>';
     html += '<ul>';
+    html += '  <li>Candidates:';
+    html += '    <ul>';
+    html += '      <li><a href="/candidates">getAll</a></li>';
+    html += '      <li><a href="/candidate/:id">getById</a></li>';
+    html += '      <li><a href="/candidate/byName/:name">getByName</a></li>';
+    html += '      <li><a href="/candidate/add">add</a></li>';
+    html += '      <li><a href="/candidate/edit/:id">edit</a></li>';
+    html += '      <li><a href="/candidate/remove/:id">remove</a></li>';
+    html += '    </ul>';
+    html += '  </li>';
+    html += '</ul>';
+    html += '<ul>';
     html += '  <li>applications:';
     html += '    <ul>';
     html += '      <li><a href="/applications">getAll</a></li>';
@@ -34,8 +46,8 @@ app.get('/candidates/:id', candidates.getById);
 
 
 app.get('/applications', applications.getAll);
-app.get('/applications/byPos/:id', applications.getByIdPos);
-app.get('/applications/byCan/:id', applications.getByIdCan);
+app.get('/applications/byPos/:id', applications.getByPosition);
+app.get('/applications/byCan/:id', applications.getByCandidate);
 app.get('/applications/add', applications.add);
 app.get('/applications/edit/:id', applications.edit);
 app.get('/applications/remove/:id', applications.remove);
