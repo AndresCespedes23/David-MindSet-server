@@ -14,12 +14,12 @@ const getById = (req, res) => {
 };
 
 const getByIdCandidate = (req, res) => {
-    const findIdCandidate = sessions.list.some(sessions => sessions.id === parseInt(req.params.id)); 
+    const findIdCandidate = sessions.list.some(sessions => sessions.idCandidate === parseInt(req.params.idCandidate)); 
     if(findIdCandidate) {
-    res.json(sessions.list.filter(sessions => sessions.id === parseInt(req.params.id)));
+    res.json(sessions.list.filter(sessions => sessions.idCandidate === parseInt(req.params.idCandidate)));
     } else {
         res.status(400);
-        res.json({msg: `Candidate ID not found ${req.params.id}`});
+        res.json({msg: `Candidate ID not found ${req.params.idCandidate}`});
     }
 };
 
