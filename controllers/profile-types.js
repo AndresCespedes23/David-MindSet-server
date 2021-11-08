@@ -37,11 +37,11 @@ const add = (req, res) => {
     name: req.query.name,
     isActive: req.query.isActive
   }
- if(profileTypes.id !== null && profileTypes.name !== null && profileTypes.isActive !== null ){
-  profileTypes.push(newProfile)}
-  fs.writeFile('./data/profile-types.json', JSON.stringify(profileTypes), error =>{
-    if(error){res.status(500)}
-  })
+    if(profileTypes.id !== null && profileTypes.name !== null && profileTypes.isActive !== null ){
+      profileTypes.push(newProfile)}
+      fs.writeFile('./data/profile-types.json', JSON.stringify(profileTypes), error =>{
+        if(error){res.status(500)}
+    })
   res.json(newProfile)
 };
 
