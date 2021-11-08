@@ -4,9 +4,9 @@ let interviews = require('../data/interviews.json');
 
 // ---- FUNCTIONS ----
 
-const validate = (entity) => {      // Julián fn
-    for (let key in entity) {
-      if (entity[key] === undefined) {
+const validate = (object) => {      // Julián fn
+    for (let key in object) {
+      if (object[key] === undefined) {
         return false;
       }
     }
@@ -32,19 +32,21 @@ const getAll = (req, res) => {
 
 // as by Traversy  - try: http://localhost:8000/interviews/150
 const getById = (req, res) => { 
-    const findId = interviews.dinf(interviews => interviews.id === parseInt(req.params.id)); 
-    if(!findId) {
-        return res.status(404).json({ message: `Interview not found with the id of ${req.params.id}`});
+    const id = parseInt(req.params.id);
+    const interviewFound  = interviews.find(interviews => interviews.id === id); 
+    if(!interviewFound) {
+        return res.status(404).json({ message: `Interview not found with the id of ${id}`});
     }
-    res.json(findId);
+    res.json(interviewFound);
 };
 
 const getByCompany = (req, res) => {
-    const findId = interviews.filter(interviews => interviews.idCompany === parseInt(req.params.idCompany)); 
-    if(findId.length <= 0) {
-        return res.status(404).json({ message: `Interview not found with the idCompany of ${req.params.idCompany}`});
+    const idCompany = req.params.idCompany;
+    const interviewFound = interviews.filter(interviews => interviews.idCompany === idCompany); 
+    if(interviewFound.length <= 0) {
+        return res.status(404).json({ message: `Interview not found with the idCompany of ${idCompany}`});
     }
-    res.json(findId);
+    res.json(interviewFound);
 };
 
 // as by David C. - try: http://localhost:8000/interviews/add?id=215&idCompany=215&idCandidate=215&date=11/23/2021&status=true&isActive=true
@@ -57,27 +59,29 @@ const add = (req, res) => {
         status: req.query.status,
         isActive: req.query.isActive
     };
-    if (!validate(interviews)) {
-        return res.status(400).json({ message: 'Some parameters are missing' });
+    if (!validate(newInterviews)) {
+        return res.status(400).json({ message: 'Missing parameters' });
     }
     interviews.push(newInterviews)
     fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), err => {
         if (err) {
+            console.log(err);
             res.send(500).json({ message: 'Error adding new interview' });
             return;
         }
-        res.json({ message: 'New interview successfully added', newInterviews });
+        res.json({ message: 'New interview added successfully', interview: newInterviews });
     });
 };
 
 // follow Julián example (before as Traversy) - test: http://localhost:8000/interviews/edit/1?idCandidate=4
 const edit = (req, res) => {
-    const findId = interviews.find(interviews => interviews.id === parseInt(req.params.id));
-    if(!findId) {
-        res.status(404).json({message: `Interview not found with the id of ${req.params.id}`});
+    const id = parseInt(req.params.id);
+    const interviewFound = interviews.find(interviews => interviews.id === id);
+    if(!interviewFound) {
+        return res.status(404).json({ message: `Interview not found with the id of ${id}` });
     }
     interviews = interviews.map(interview => {
-        if(interview.id === parseInt(req.params.id)) {
+        if(interview.id === id) {
             interview.idCompany = req.query.idCompany || interview.idCompany;
             interview.idCandidate = req.query.idCandidate || interview.idCandidate;
             interview.date = req.query.date || interview.date;
@@ -88,26 +92,29 @@ const edit = (req, res) => {
     });
     fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), err => {
         if(err) {
+            console.log(err);
             res.status(500).json({ message: 'Error editing interview'});
             return;
         }
-        res.json({ message: 'Success! The edit of the interview was a success', interviews});
+        res.json({ message: 'Interview edited successfully', interviewFound });
         });
 };
 
 // follow Julián example (before as Traversy)
 const remove = (req, res) => {
-    const findId = interviews.find(interviews => interviews.id === parseInt(req.params.id));
-    if(!findId) {
-        return res.status(404).json({ message: `Interview not found with the id of ${req.params.id}`});
+    const id = parseInt(req.params.id);
+    const interviewFound = interviews.find(interviews => interviews.id === id);
+    if(!interviewFound) {
+        return res.status(404).json({ message: `Interview not found with the id of ${id}` });
     }
-    interviews = interviews.filter(interview => interview.id !== parseInt(req.params.id));
+    interviews = interviews.filter(interview => interview.id !== id);
     fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), (err) => {
         if (err) {
-            res.status(500).json({ message: 'Error removing Interview'});
+            console.log(err);
+            res.status(500).json({ message: 'Error deleting interview' });
             return;
         }
-        res.json({ message: 'Success: Interview removed'});
+        res.json({ message: 'Interview deleted' });
     });
 };
 
