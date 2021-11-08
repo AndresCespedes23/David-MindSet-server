@@ -10,10 +10,15 @@ app.get('/', (req, res) => {
     html += '  <li>Candidates:';
     html += '    <ul>';
     html += '      <li><a href="/candidates">getAll</a></li>';
+    html += '      <li><a href="/candidate/:id">getById</a></li>';
+    html += '      <li><a href="/candidate/byName/:name">getByName</a></li>';
+    html += '      <li><a href="/candidate/add">add</a></li>';
+    html += '      <li><a href="/candidate/edit/:id">edit</a></li>';
+    html += '      <li><a href="/candidate/remove/:id">remove</a></li>';
     html += '    </ul>';
     html += '  </li>';
     html += '</ul>';
-    res.send();
+    res.send(html);
 });
 
 app.get('/candidates', candidates.getAll);

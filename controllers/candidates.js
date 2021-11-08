@@ -33,19 +33,19 @@ const getByName = (req, res) => {
         res.status(400).json({
             ok:false,
             msg:'Candidate not found by FirstName',
-            candidates: candidates
+            candidates: foundCandidates
         });
     }
-    res.json({
-        ok: true,
-        msg: 'Candidate found',
-        candidate: candidates
-    })
+    else{
+        res.json({
+            ok: true,
+            msg: 'Candidate found',
+            candidate: foundCandidates
+        })
+    }
 };
 
 const add = (req, res) => {
-    //VER COMO ASIGNAR LOS BOOLEANO
-    //VER COMO ASIGNAR LOS ARREGLOS
     let errorMsg = [];
     if (req.query.firstName === undefined){
         errorMsg.push('First Name is required');
@@ -107,14 +107,14 @@ const add = (req, res) => {
             country: req.query.country,
             postalCode: req.query.postalCode,
             birthday: req.query.birthday,
-            education: req.query.education,
-            experiences: req.query.experiences,
-            courses: req.query.courses,
-            hobbies: req.query.hobbies,
-            mainSkills: req.query.mainSkills,
-            profileTypes: req.query.profileTypes,
-            isOpenToWork: req.query.isOpenToWork,
-            isActive: req.query.isActive
+            education: req.query.education === undefined ? [] : req.query.education,
+            experiences: req.query.experiences === undefined ? [] : req.query.experiences,
+            courses: req.query.courses === undefined ? [] : req.query.courses ,
+            hobbies: req.query.hobbies === undefined ? [] : req.query.hobbies ,
+            mainSkills: req.query.mainSkills === undefined ? [] : req.query.mainSkills ,
+            profileTypes: req.query.profileTypes === undefined ? [] : req.query.profileTypes ,
+            isOpenToWork: true,
+            isActive: true
         }
         candidates.list.push(newCandidate);
         fs.writeFile('./data/candidates.json', JSON.stringify(candidates),err =>{
