@@ -58,42 +58,41 @@ const add = (req, res) => {
         isActive: req.query.isActive
     };
     if (!validate(interviews)) {
-        res.status(400).json({ message: 'Some parameters are missing' });
+        return res.status(400).json({ message: 'Some parameters are missing' });
     }
     interviews.push(newInterviews)
     fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), err => {
         if (err) {
             res.send(500).json({ message: 'Error adding new interview' });
-        } else {
-            res.json({ message: 'New interview successfully added', newInterviews });
+            return;
         }
+        res.json({ message: 'New interview successfully added', newInterviews });
     });
 };
 
 // as by Traversy  - test: http://localhost:8000/interviews/edit/1?idCandidate=4
 const edit = (req, res) => {
-    const findId = interviews.some(interviews => interviews.id === parseInt(req.params.id)); 
-    const editInterviews = req.query;
-    if(findId) {
-        interviews.map(interviews => {
-            if(interviews.id ===parseInt(req.params.id)) {
-                interviews.idCompany = editInterviews.idCompany || interviews.idCompany;
-                interviews.idCandidate = editInterviews.idCandidate || interviews.idCandidate;
-                interviews.date = editInterviews.date || interviews.date;
-                interviews.status = editInterviews.status || interviews.status;
-                interviews.isActive = editInterviews.isActive || interviews.isActive;
-            }
-        });
-        fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), err => {
-            if(err) {
-                res.status(500).json({ message: 'Error editing interview'});
-            } else {
-                res.json({ message: 'Success! The edit of the interview was a success', interviews});
-            }
-        });
-    } else {
+    const findId = interviews.find(interviews => interviews.id === parseInt(req.params.id));
+    if(!findId) {
         res.status(404).json({message: `Interview not found with the id of ${req.params.id}`});
     }
+    interviews = interviews.map(interview => {
+        if(interview.id === parseInt(req.params.id)) {
+            interview.idCompany = req.query.idCompany || interview.idCompany;
+            interview.idCandidate = req.query.idCandidate || interview.idCandidate;
+            interview.date = req.query.date || interview.date;
+            interview.status = req.query.status || interview.status;
+            interview.isActive = req.query.isActive || interview.isActive;
+        }
+        return interview;
+    });
+    fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), err => {
+        if(err) {
+            res.status(500).json({ message: 'Error editing interview'});
+            return;
+        }
+        res.json({ message: 'Success! The edit of the interview was a success', interviews});
+        });
 };
 
 // as by Traversy 
