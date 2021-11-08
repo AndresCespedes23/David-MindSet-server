@@ -78,8 +78,7 @@ const edit = (req, res) => {
   const id = parseInt(req.params.id);
   const companyFound = companies.find((company) => company.id === id);
   if (!companyFound) {
-    res.status(404).json({ message: `Company not found with id ${id}` });
-    return;
+    return res.status(404).json({ message: `Company not found with id ${id}` });
   }
   companies = companies.map((company) => {
     if (company.id === id) {
@@ -112,8 +111,7 @@ const remove = (req, res) => {
   const id = parseInt(req.params.id);
   const companyFound = companies.find((company) => company.id === id);
   if (!companyFound) {
-    res.status(404).json({ message: `Company not found with id ${id}` });
-    return;
+    return res.status(404).json({ message: `Company not found with id ${id}` });
   }
   companies = companies.filter((company) => company.id !== id);
   fs.writeFile(path.join(__dirname, '../data/companies.json'), JSON.stringify(companies), (err) => {
