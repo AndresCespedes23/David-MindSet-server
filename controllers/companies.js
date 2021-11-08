@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 let companies = require('../data/companies.json');
 
 const validate = (object) => {
@@ -29,7 +30,7 @@ const getById = (req, res) => {
   const companyFound = companies.find((company) => company.id === id);
   if (!companyFound) {
     return res.status(404).json({ message: `Company not found with id: ${id}` });
-  } 
+  }
   res.json(companyFound);
 };
 
@@ -59,19 +60,18 @@ const add = (req, res) => {
     contactPhone: req.query.contactPhone,
     isActive: req.query.isActive,
   };
-
-  if (validate(newCompany)) {
-    companies.push(newCompany);
-    fs.writeFile('./data/companies.json', JSON.stringify(companies), (err) => {
-      if (err) {
-        console.log(err);
-        res.status(500).json({ message: 'Error adding company' });
-      }
-    });
-    res.json({ message: 'Company added successfully', company: newCompany });
-  } else {
-    res.status(400).json({ message: 'Missing parameters' });
+  if (!validate(newCompany)) {
+    return res.status(400).json({ message: 'Missing parameters' });
   }
+  companies.push(newCompany);
+  fs.writeFile(path.join(__dirname, '../data/companies.json'), JSON.stringify(companies), (err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ message: 'Error adding company' });
+    } else {
+      res.json({ message: 'Company added successfully', company: newCompany });
+    }
+  });
 };
 
 const edit = (req, res) => {
@@ -81,7 +81,6 @@ const edit = (req, res) => {
     res.status(404).json({ message: `Company not found with id ${id}` });
     return;
   }
-
   companies = companies.map((company) => {
     if (company.id === id) {
       company.name = req.query.name || company.name;
@@ -99,15 +98,14 @@ const edit = (req, res) => {
     }
     return company;
   });
-
-  fs.writeFile('./data/companies.json', JSON.stringify(companies), (err) => {
+  fs.writeFile(path.join(__dirname, '../data/companies.json'), JSON.stringify(companies), (err) => {
     if (err) {
       console.log(err);
-      res.status(500).json({ message: 'Error editing company' });
+      res.status(500).json({ message: 'Error deleting company' });
+    } else {
+      res.json({ message: 'Company edited successfully', companyFound });
     }
   });
-
-  res.json({ message: 'Company edited successfully', companyFound });
 };
 
 const remove = (req, res) => {
@@ -117,15 +115,15 @@ const remove = (req, res) => {
     res.status(404).json({ message: `Company not found with id ${id}` });
     return;
   }
-
   companies = companies.filter((company) => company.id !== id);
-  fs.writeFile('./data/companies.json', JSON.stringify(companies), (err) => {
+  fs.writeFile(path.join(__dirname, '../data/companies.json'), JSON.stringify(companies), (err) => {
     if (err) {
       console.log(err);
       res.status(500).json({ message: 'Error editing company' });
+    } else {
+      res.json({ message: 'Company deleted' });
     }
   });
-  res.json({ msg: 'Company deleted' });
 };
 
 module.exports = {
