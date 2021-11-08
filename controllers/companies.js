@@ -37,11 +37,10 @@ const getById = (req, res) => {
 const getByName = (req, res) => {
   const name = req.params.name;
   const companyFound = companies.filter((company) => company.name === name);
-  if (companyFound.length > 0) {
-    res.json(companyFound);
-  } else {
-    res.status(404).json({ message: `Company not found with name: ${name}` });
+  if (!companyFound.length > 0) {
+    return res.status(404).json({ message: `Company not found with name: ${name}` });
   }
+  res.json(companyFound);
 };
 
 const add = (req, res) => {
@@ -68,9 +67,9 @@ const add = (req, res) => {
     if (err) {
       console.log(err);
       res.status(500).json({ message: 'Error adding company' });
-    } else {
-      res.json({ message: 'Company added successfully', company: newCompany });
+      return;
     }
+    res.json({ message: 'Company added successfully', company: newCompany });
   });
 };
 
@@ -101,9 +100,9 @@ const edit = (req, res) => {
     if (err) {
       console.log(err);
       res.status(500).json({ message: 'Error edting company' });
-    } else {
-      res.json({ message: 'Company edited successfully', companyFound });
+      return;
     }
+    res.json({ message: 'Company edited successfully', companyFound });
   });
 };
 
