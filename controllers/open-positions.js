@@ -1,5 +1,5 @@
 const fs = require('fs');
-const openPositions = require('../data/open-positions.json');
+let openPositions = require('../data/open-positions.json');
 
 const getAll = (req, res) => res.json(openPositions);
 
@@ -58,14 +58,19 @@ const getByIdCompany = (req, res) => {
 };
 
 const edit = (req, res) => {
-    let openPosition = openPositions.find(openPositions => openPositions.id === parseInt(req.query.id));
+    let openPosition = openPositions.find(openPositions => openPositions.id === parseInt(req.params.id));
     if (openPosition) {
-        console.log(req.query)
-        openPosition.idCompany = req.query.idCompany ? req.query.idCompany : openPosition.idCompany;
-        openPosition.startDate = req.query.startDate ? req.query.startDate : openPosition.startDate;
-        openPosition.endDate = req.query.endDate ? req.query.endDate : openPosition.endDate;
-        openPosition.jobDescription = req.query.jobDescription ? req.query.jobDescription : openPosition.jobDescription;
-        openPosition.isActive = req.query.isActive ? req.query.isActive : openPosition.isActive;
+        openPositions = openPositions.map(openPosition => {
+            if(openPosition.id === parseInt(req.params.id)) {
+                openPosition.idCompany = req.query.idCompany ? req.query.idCompany : openPosition.idCompany;
+                openPosition.startDate = req.query.startDate ? req.query.startDate : openPosition.startDate;
+                openPosition.endDate = req.query.endDate ? req.query.endDate : openPosition.endDate;
+                openPosition.jobDescription = req.query.jobDescription ? req.query.jobDescription : openPosition.jobDescription;
+                openPosition.isActive = req.query.isActive ? req.query.isActive : openPosition.isActive;
+                return openPosition;
+            }
+            return openPosition;
+        });
         fs.writeFile('./data/open-positions.json', JSON.stringify(openPositions), (err) => {
             if (err) {
                 console.log(err);
@@ -74,12 +79,12 @@ const edit = (req, res) => {
         });
         res.json({ message: 'Success! Position edited', openPosition });
     } else {
-        res.status(404).json({ message: `The open position wasn't found with id: ${req.query.id}` });
+        res.status(404).json({ message: `The open position wasn't found with id: ${req.params.id}` });
     }
 };
 
 // Test case:
-// edit?id=1&idCompany=13&startDate=11/23/2019&endDate=11/25/2020&jobDescription=LoremIpsus&isActive=true
+// /edit/5?idCompany=13&startDate=11/23/2019&endDate=11/25/2020&jobDescription=LoremIpsus&isActive=true
 
 const remove = (req, res) => {
     const id = parseInt(req.params.id);
