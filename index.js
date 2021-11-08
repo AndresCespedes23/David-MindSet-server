@@ -16,11 +16,11 @@ app.get('/', (req, res) => {
   html += '  <li>Companies:';
   html += '    <ul>';
   html += '      <li><a href="/companies">getAll</a></li>';
-  html += '      <li><a href="/company/:id">getById</a></li>';
-  html += '      <li><a href="/company/byName/:name">getByName</a></li>';
+  html += '      <li><a href="/company/1">getById</a></li>';
+  html += '      <li><a href="/company/byName/pepsi">getByName</a></li>';
   html += '      <li><a href="/company/add">add</a></li>';
-  html += '      <li><a href="/company/edit/:id">edit</a></li>';
-  html += '      <li><a href="/company/remove/:id">remove</a></li>';
+  html += '      <li><a href="/company/edit/1">edit</a></li>';
+  html += '      <li><a href="/company/remove/100">remove</a></li>';
   html += '    </ul>';
   html += '  </li>';
   html += '</ul>';
