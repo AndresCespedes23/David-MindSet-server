@@ -23,18 +23,17 @@ const getLastId = (collection) => {
     return larger;
 };
 
-// PATH FUNCTIONS 
+// PATH FUNCTIONS based on julianv97
 
 const getAll = (req, res) => res.json(sessions);
 
 const getById = (req, res) => {
-    const foundSessions = sessions.list.some(sessions => sessions.id === parseInt(req.params.id));
-
-    if(foundSessions){
-        res.json(sessions.list.filter(sessions => sessions.id === parseInt(req.params.id)));
-    } else {
-        res.status(400).json({msg: `No session with the id of ${req.params.id}`});
-    }
+  const id = parseInt(req.params.id);
+  const sessionFound = sessions.find((session) => session.id === id);
+  if (!sessionFound) {
+    return res.status(404).json({ message: `Session not found with id: ${id}` });
+  }
+  res.json(sessionFound);
 };
 
 const getByIdCandidate = (req, res) => {
@@ -46,7 +45,6 @@ const getByIdCandidate = (req, res) => {
     }
 };
 
-// Based on julianv97
 
 const add = (req, res) => {
     const newSession = {
