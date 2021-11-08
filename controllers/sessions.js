@@ -34,7 +34,25 @@ const add = (req, res) => {
 }
 
 const edit = (req, res) => {
-    // your code here
+    const findSessions = sessions.some(sessions => sessions.id === parseInt(req.params.id)); 
+    const editSessions = req.query;
+    if(findSessions) {
+        sessions.map(sessions => {
+            if(sessions.id ===parseInt(req.params.id)) {
+                sessions.idPsychologists = editSessions.idPsychologists ? editSessions.idPsychologists : sessions.idPsychologists;
+                sessions.idCandidate = editSessions.idCandidate ? editSessions.idCandidate : sessions.idCandidate;
+                sessions.date = editSessions.date ? editSessions.date : sessions.date;
+                sessions.time = editSessions.time ? editSessions.time : sessions.time;
+                sessions.isActive = editSessions.isActive ? editSessions.isActive : sessions.isActive;        
+            }
+        });
+        res.json({ msg: 'Success! You have change the content of the session', sessions});
+        fs.writeFile('../data/sessions.json', JSON.stringify(sessions), err => {
+            if(err) {res.status(500);}
+        })
+    } else {
+        res.status(404).json({msg: `Session with the id of ${req.params.id} not found`});
+    }
 };
 
 const remove = (req, res) => {
