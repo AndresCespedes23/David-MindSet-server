@@ -1,7 +1,7 @@
 const fs = require('fs');
 let openPositions = require('../data/open-positions.json');
 
-let getLastId = (openPositions) => {
+const getLastId = (openPositions) => {
     let biggerId = 0;
     openPositions.forEach(openPosition => {
         if(openPosition.id > biggerId) {
