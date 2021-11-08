@@ -58,11 +58,11 @@ const edit = (req, res) => {
     if (openPosition) {
         openPositions = openPositions.map(openPosition => {
             if(openPosition.id === parseInt(req.params.id)) {
-                openPosition.idCompany = req.query.idCompany ? req.query.idCompany : openPosition.idCompany;
-                openPosition.startDate = req.query.startDate ? req.query.startDate : openPosition.startDate;
-                openPosition.endDate = req.query.endDate ? req.query.endDate : openPosition.endDate;
-                openPosition.jobDescription = req.query.jobDescription ? req.query.jobDescription : openPosition.jobDescription;
-                openPosition.isActive = req.query.isActive ? req.query.isActive : openPosition.isActive;
+                openPosition.idCompany = req.query.idCompany || openPosition.idCompany;
+                openPosition.startDate = req.query.startDate || openPosition.startDate;
+                openPosition.endDate = req.query.endDate || openPosition.endDate;
+                openPosition.jobDescription = req.query.jobDescription || openPosition.jobDescription;
+                openPosition.isActive = req.query.isActive || openPosition.isActive;
                 return openPosition;
             }
             return openPosition;
