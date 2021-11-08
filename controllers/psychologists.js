@@ -12,6 +12,17 @@ const getLastId = (collection) => {
   return larger;
 };
 
+const validate = (object) => {
+  for (let key in object) {
+    if (object.hasOwnProperty(key)) {
+      if (object[key] === undefined) {
+        return false;
+      }
+    }
+  }
+  return true;
+};
+
 const getAll = (req, res) => {
   res.json(psyList);
 };
@@ -34,13 +45,14 @@ const getByName = (req, res) => {
 const add = (req, res) => {
   const newPsychologist = {};
   newPsychologist.id = getLastId(psyList) + 1;
-  newPsychologist.firstName = req.body.firstName || null;
-  newPsychologist.lastName = req.body.lastName || null;
-  newPsychologist.email = req.body.email || null;
-  newPsychologist.pictureUrl = req.body.pictureUrl || null;
-  newPsychologist.password = req.body.password || null;
+  newPsychologist.firstName = req.body.firstName || undefined;
+  newPsychologist.lastName = req.body.lastName || undefined;
+  newPsychologist.email = req.body.email || undefined;
+  newPsychologist.pictureUrl = req.body.pictureUrl || undefined;
+  newPsychologist.password = req.body.password || undefined;
   newPsychologist.isActive = req.body.isActive || true;
   newPsychologist.turns = req.body.turns || [];
+  if (!validate(newPsychologist)) return res.status(400).send('Fill all parameters');
   psyList.push(newPsychologist);
   fs.writeFile(path.join(__dirname, '../data/psychologists.json'), JSON.stringify(psyList), (err) => {
     if (err) throw err;
