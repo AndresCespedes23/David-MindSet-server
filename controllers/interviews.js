@@ -42,7 +42,7 @@ const getById = (req, res) => {
 };
 
 
-const getByIdCompany = (req, res) => {
+const getByCompany = (req, res) => {
     const findId = interviews.some(interviews => interviews.idCompany === parseInt(req.params.idCompany)); 
     if(findId) {
         res.json(interviews.filter(interviews => interviews.idCompany === parseInt(req.params.idCompany)));
@@ -120,7 +120,7 @@ const remove = (req, res) => {
 module.exports = {
   getAll: getAll,
   getById: getById,
-  getByIdCompany: getByIdCompany,
+  getByCompany: getByCompany,
   add: add,
   edit: edit,
   remove: remove

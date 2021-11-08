@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
     html += '    <ul>';
     html += '      <li><a href="/interviews">getAll</a></li>';
     html += '      <li><a href="/interviews">getById</a></li>';
-    html += '      <li><a href="/interviews">getByIdCompany</a></li>';  // change it from getByName
+    html += '      <li><a href="/interviews">getByCompany</a></li>';  // change it from getByName
     html += '      <li><a href="/interviews">add</a></li>';
     html += '      <li><a href="/interviews">edit</a></li>';
     html += '      <li><a href="/interviews">remove</a></li>';
@@ -39,7 +39,7 @@ app.get('/candidate/remove', candidates.remove);
 app.get('/interviews', interviews.getAll);
 app.get('/interviews/add', interviews.add);
 app.get('/interviews/:id', interviews.getById);
-app.get('/interviews/byIdCompany/:idCompany', interviews.getByIdCompany);    // change it from getByName
+app.get('/interviews/byCompany/:idCompany', interviews.getByCompany);    // change it from getByName
 app.get('/interviews/edit/:id', interviews.edit);         // add path /:id
 app.get('/interviews/remove/:id', interviews.remove);      // add path /:id
 
