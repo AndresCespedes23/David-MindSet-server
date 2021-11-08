@@ -23,32 +23,30 @@ const getLastId = (collection) => {  // Julián fn
     return larger;
 };
 
-// ---- PATHS ----
+// ---- PATHS FN ----
+
 // try:  http://localhost:8000/interviews
 const getAll = (req, res) => {
     res.json(interviews);
 };
 
-// COMENTARIO DAVID: No es necesario que valides con Some, dado que find o filter ya hacen el trabajo de validar por si mismos. Sino estas validando dos veces.(outdated)
-
 // as by Traversy  - try: http://localhost:8000/interviews/150
 const getById = (req, res) => { 
-    const findId = interviews.find(interviews => interviews.id === parseInt(req.params.id)); 
+    const findId = interviews.dinf(interviews => interviews.id === parseInt(req.params.id)); 
     if(!findId) {
         return res.status(404).json({ message: `Interview not found with the id of ${req.params.id}`});
     }
-    res.json(interviews.dinf(interviews => interviews.id === parseInt(req.params.id))); //change .filter for .dinf 
+    res.json(findId);
 };
-
 
 const getByCompany = (req, res) => {
-    const findId = interviews.some(interviews => interviews.idCompany === parseInt(req.params.idCompany)); 
-    if(findId) {
-        res.json(interviews.filter(interviews => interviews.idCompany === parseInt(req.params.idCompany)));
-    } else {
-        res.status(404).json({ message: `Interview not found with the idCompany of ${req.params.idCompany}`});
+    const findId = interviews.filter(interviews => interviews.idCompany === parseInt(req.params.idCompany)); 
+    if(findId.length <= 0) {
+        return res.status(404).json({ message: `Interview not found with the idCompany of ${req.params.idCompany}`});
     }
+    res.json(findId);
 };
+
 // as by David C. - try: http://localhost:8000/interviews/add?id=215&idCompany=215&idCandidate=215&date=11/23/2021&status=true&isActive=true
 const add = (req, res) => { 
     const newInterviews = {
