@@ -81,7 +81,7 @@ const edit = (req, res) => {
         return res.status(400).json({ message: 'no id provided' }); //this line will never run
     }
     let editObj = applications.find((applications) => applications.id === id);
-    if (editObj == null) {
+    if (editObj === null) {
         return res.status(404).json({ message: `no application with id: ${id}` });
     }
     applications.map((obj) => {
