@@ -11,6 +11,15 @@ const getLastId = (openPositions) => {
     return biggerId;
 };
 
+const validate = (object) => {
+    for (let key in object) {
+      if (object[key] === undefined) {
+        return false;
+      }
+    }
+    return true;
+};
+
 const getAll = (req, res) => res.json(openPositions);
 
 const getById = (req, res) => {
@@ -40,8 +49,8 @@ const add = (req, res) => {
         jobDescription: req.query.jobDescription,
         isActive: req.query.isActive
     };
-    if(!newOpenPosition.id || !newOpenPosition.idCompany || !newOpenPosition.startDate || !newOpenPosition.endDate || !newOpenPosition.jobDescription || !newOpenPosition.isActive) {
-        res.send(400)
+    if(!validate(newOpenPosition)) {
+        return res.status(400).json({ message: 'Missing parameters' });
     }
     openPositions.push(newOpenPosition);
     fs.writeFile(path.join(__dirname, '../data/open-positions.json'), JSON.stringify(openPositions), (err) => {
@@ -88,7 +97,7 @@ const remove = (req, res) => {
     fs.writeFile(path.join(__dirname, '../data/open-positions.json'), JSON.stringify(openPositions), (err) => {
         if (err) {
             console.log(err);
-            res.status(500).json({ message: `Error trying to delete the open position` });
+            res.status(500).json({ message: 'Error trying to delete the open position' });
             return;
         }
         res.json({ message: `Open position id ${id} deleted` });
