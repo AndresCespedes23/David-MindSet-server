@@ -48,7 +48,7 @@ const add = (req, res) => {
         lastName: req.query.lastName,
         email: req.query.email,
         password: req.query.password,
-        isActive: req.query.isActive,
+        isActive: req.query.isActive
     };
     if (!validate(newAdmin)) {
         return res.status(400).json({ message: 'Some parameters are missing' });
