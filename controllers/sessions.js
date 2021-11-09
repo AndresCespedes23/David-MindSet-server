@@ -29,7 +29,7 @@ const getAll = (req, res) => res.json(sessions);
 
 const getById = (req, res) => {
   const id = parseInt(req.params.id);
-  const sessionFound = sessions.find((session) => session.id === id);
+  const sessionFound = sessions.list.find((session) => session.id === id);
   if (!sessionFound) {
     return res.status(404).json({ message: `Session not found with id: ${id}` });
   }
@@ -38,7 +38,7 @@ const getById = (req, res) => {
 
 const getByIdCandidate = (req, res) => {
   const idCandidate = req.params.idCandidate;
-  const sessionFound = sessions.filter((session) => session.idCandidate === idCandidate);
+  const sessionFound = sessions.list.filter((session) => session.idCandidate === idCandidate);
   if (sessionFound.length <= 0) {
     return res.status(404).json({ message: `Session not found with the ID: ${idCandidate}` });
   }
@@ -57,7 +57,7 @@ const add = (req, res) => {
   if (!validate(newSession)) {
     return res.status(400).json({ message: 'Missing parameters' });
   }
-  sessions.push(newSession);
+  sessions.list.push(newSession);
   fs.writeFile(path.join(__dirname, '../data/sessions.json'), JSON.stringify(sessions), (err) => {
     if (err) {
       res.status(500).json({ message: 'Error adding a session' });
@@ -98,7 +98,7 @@ const remove = (req, res) => {
   if (!sessionFound) {
     return res.status(404).json({ message: `Session not found with id ${id}` });
   }
-  sessions = sessions.filter((session) => session.id !== id);
+  sessions = sessions.list.filter((session) => session.id !== id);
   fs.writeFile(path.join(__dirname, '../data/sessions.json'), JSON.stringify(sessions), (err) => {
     if (err) {
       res.status(500).json({ message: 'Error deleting the session' });
