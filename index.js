@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
   html += '      <li><a href="/interviews/130">getById</a></li>';
   html += '      <li><a href="/interviews/byCompany/4">getByCompany</a></li>';  // change it from getByName
   html += '      <li><a href="/interviews/add">add</a></li>';
-  html += '      <li><a href="/interviews/eddit/130">edit</a></li>';
+  html += '      <li><a href="/interviews/edit/130">edit</a></li>';
   html += '      <li><a href="/interviews/remove/130">remove</a></li>';
   html += '    </ul>';
   html += '  </li>';
