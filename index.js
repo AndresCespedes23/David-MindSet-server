@@ -1,6 +1,7 @@
 const express = require('express');
 
 const candidates = require('./controllers/candidates');
+const administrators = require('./controllers/administrators');
 const applications = require('./controllers/applications');
 const companies = require('./controllers/companies');
 
@@ -30,7 +31,7 @@ app.get('/', (req, res) => {
   html += '      <li><a href="/candidate/remove/100">remove</a></li>';
   html += '    </ul>';
   html += '  </li>';
-  html += '  <li><h2>applications:</h2>';
+  html += '  <li><h2>Applications:</h2>';
   html += '    <ul>';
   html += '      <li><a href="/applications">getAll</a></li>';
   html += '      <li><a href="/applications/byPos/7">getByOpenPosition</a></li>';
@@ -40,6 +41,15 @@ app.get('/', (req, res) => {
   html += '      <li><a href="/applications/remove/5">remove</a></li>';
   html += '      <li><a href="/applications/1">getById</a></li>';
   html += '    </ul>';
+  html += '  </li>';
+  html += '  <li><h2>Administrators:</h2>';
+  html += '    <ul>';
+  html += '      <li><a href="/administrators">getAll</a></li>';
+  html += '      <li><a href="/administrator/1">getById</a></li>';
+  html += '      <li><a href="/administrator/byName/Minerva">getByName</a></li>';
+  html += '      <li><a href="/administrator/add">add</a></li>';
+  html += '      <li><a href="/administrator/edit/2">edit</a></li>';
+  html += '      <li><a href="/administrator/remove/3">remove</a></li>';
   html += '  </li>';
   html += '</ul>';
   res.send(html);
@@ -67,6 +77,13 @@ app.get('/applications/add', applications.add);
 app.get('/applications/edit/:id', applications.edit);
 app.get('/applications/remove/:id', applications.remove);
 app.get('/applications/:id', applications.getById);
+
+app.get('/administrators', administrators.getAll);
+app.get('/administrator/byName/:name', administrators.getByName);
+app.get('/administrator/add', administrators.add);
+app.get('/administrator/edit/:id', administrators.edit);
+app.get('/administrator/remove/:id', administrators.remove);
+app.get('/administrator/:id', administrators.getById);
 
 app.listen(port, () => {
   console.log(`Open your browser in http://localhost:${port}`);
