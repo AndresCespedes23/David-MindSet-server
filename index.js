@@ -34,7 +34,7 @@ app.get('/candidate/remove', candidates.remove);
 app.get('/sessions', sessions.getAll);
 app.get('/session/add', sessions.add);
 app.get('/session/:id', sessions.getById);
-app.get('/session/byIdCandidate/:idCandidate', sessions.getByIdCandidate);
+app.get('/session/byIdCandidate/:id', sessions.getByIdCandidate);
 app.get('/session/edit/:id', sessions.edit);
 app.get('/session/remove/:id', sessions.remove);
 
