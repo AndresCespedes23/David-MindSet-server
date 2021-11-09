@@ -66,8 +66,7 @@ const add = (req, res) => {
   fs.writeFile(path.join(__dirname, '../data/companies.json'), JSON.stringify(companies), (err) => {
     if (err) {
       console.log(err);
-      res.status(500).json({ message: 'Error adding company' });
-      return;
+      return res.status(500).json({ message: 'Error adding company' });
     }
     res.json({ message: 'Company added successfully', company: newCompany });
   });
@@ -99,8 +98,7 @@ const edit = (req, res) => {
   fs.writeFile(path.join(__dirname, '../data/companies.json'), JSON.stringify(companies), (err) => {
     if (err) {
       console.log(err);
-      res.status(500).json({ message: 'Error edting company' });
-      return;
+      return res.status(500).json({ message: 'Error edting company' });
     }
     res.json({ message: 'Company edited successfully', companyFound });
   });
