@@ -5,12 +5,12 @@ const sessions = require('../data/sessions.json');
 // VALIDATION FUNCTIONS
 
 const validate = (entity) => {      
-    for (let key in entity) {
-      if (entity[key] === undefined) {
-        return false;
-      }
+  for (let key in entity) {
+    if (entity[key] === undefined) {
+      return false;
     }
-    return true;
+  }
+  return true;
 };
 
 const getLastId = (collection) => {  
@@ -85,7 +85,6 @@ const edit = (req, res) => {
   });
   fs.writeFile(path.join(__dirname, '../data/session.json'), JSON.stringify(sessions), (err) => {
     if (err) {
-      console.log(err);
       res.status(500).json({ message: 'Error editing session' });
       return;
     }
@@ -102,8 +101,8 @@ const remove = (req, res) => {
   sessions = sessions.filter((session) => session.id !== id);
   fs.writeFile(path.join(__dirname, '../data/sessions.json'), JSON.stringify(sessions), (err) => {
     if (err) {
-      console.log(err);
-      return res.status(500).json({ message: 'Error deleting the session' });
+      res.status(500).json({ message: 'Error deleting the session' });
+      return;
     }
     res.json({ message: 'Session deleted' });
   });
