@@ -48,12 +48,14 @@ const add = (req, res) => {
     isActive: req.query.isActive
   };
     if(!validate(newProfile)) {
-      return res.status(400).json({ message: 'Missing parameters' })};
+      return res.status(400).json({ message: 'Missing parameters' })
+    };
       profileTypes.push(newProfile);
       fs.writeFile(path.join(__dirname, './data/profile-types.json'), JSON.stringify(profileTypes), err => {
       if(err) {
         console.log(err);
-        res.status(500).json({ message: 'Error adding profile' })};
+        res.status(500).json({ message: 'Error adding profile' })
+      };
         return;
       })
   res.json(newProfile);

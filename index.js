@@ -18,11 +18,11 @@ app.get('/', (req, res) => {
   html += '  <li>Profile-Types:';
   html += '    <ul>';
   html += '      <li><a href="/profile-types">getAll</a></li>';
-  html += '      <li><a href="/profile-types/byName/:name">getByName</a></li>';
+  html += '      <li><a href="/profile-types/byName/administrative">getByName</a></li>';
   html += '      <li><a href="/profile-types/add">add</a></li>';
-  html += '      <li><a href="/profile-types/edit/:id">edit</a></li>';
-  html += '      <li><a href="/profile-types/remove/:id">remove</a></li>';
-  html += '      <li><a href="/profile-types/:id">getById</a></li>';
+  html += '      <li><a href="/profile-types/edit/1">edit</a></li>';
+  html += '      <li><a href="/profile-types/remove/2">remove</a></li>';
+  html += '      <li><a href="/profile-types/1">getById</a></li>';
   html += '    </ul>';
   html += '  </li>';
   html += '</ul>';
