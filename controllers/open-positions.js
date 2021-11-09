@@ -91,7 +91,7 @@ const remove = (req, res) => {
     const id = parseInt(req.params.id);
     let openPositionSelected = openPositions.find( openPosition => openPosition.id === id );
     if(!openPositionSelected) {
-        res.status(404).json({ message: `Open position wasn't found with id ${id}` });
+        return res.status(404).json({ message: `Open position wasn't found with id ${id}` });
     }
     openPositions = openPositions.filter( openPosition => openPosition.id !== id );
     fs.writeFile(path.join(__dirname, '../data/open-positions.json'), JSON.stringify(openPositions), (err) => {
