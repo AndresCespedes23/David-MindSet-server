@@ -106,7 +106,7 @@ const remove = (req, res) => {
     }
     const newList = applications.filter((applications) => applications.id !== id);
     fs.writeFile(path.join(__dirname, '../data/applications.json'), JSON.stringify(applications), (err) => {
-        if (error) { return res.status(500).json({ message: `error deleting application` }) };
+        if (error) { return res.status(500).json({ message: 'error deleting application' }) };
         res.json({ message: 'Application deleted' });
     });
 };
