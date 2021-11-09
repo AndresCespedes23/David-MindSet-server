@@ -38,7 +38,7 @@ const getByName = (req, res) => {
     if (foundName.length <= 0) {
         return res.status(404).json({ message: `No administrator with the first name of ${req.params.name} founded` });
     }
-    res.json(foundName);       
+    res.json(foundName);
 };
 
 const add = (req, res) => {
