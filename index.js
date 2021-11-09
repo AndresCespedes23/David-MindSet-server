@@ -4,10 +4,10 @@ const candidates = require("./controllers/candidates");
 const administrators = require("./controllers/administrators");
 const applications = require("./controllers/applications");
 const companies = require("./controllers/companies");
+const sessions = require('./controllers/sessions');
 
 const app = express();
 const port = 8000;
-app.use(express.json());
 
 app.get("/", (req, res) => {
 	let html = "<h1>MindSet</h1>";
@@ -63,6 +63,16 @@ app.get("/", (req, res) => {
 	html += '      <li><a href="/psychologists/remove/2">remove</a></li>';
 	html += "    </ul>";
 	html += "  </li>";
+  html += '  <li><h2>Sessions:</h2>';
+  html += '    <ul>';
+  html += '      <li><a href="/sessions">getAll</a></li>';
+  html += '      <li><a href="/session/1">getById</a></li>';
+  html += '      <li><a href="/session/byIdCandidate/15">getByIdCandidate</a></li>';
+  html += '      <li><a href="/session/add?id=215&idPsychologists=215&idCandidate=215&date=11/23/2021&time=14:30&isActive=true">add</a></li>';
+  html += '      <li><a href="/session/edit/50">edit</a></li>';
+  html += '      <li><a href="/session/remove/40">remove</a></li>';
+  html += '    </ul>';
+  html += '  </li>';
 	html += "</ul>";
 	res.send(html);
 });
@@ -102,6 +112,13 @@ app.get("/psychologists/edit/:id", psychologists.edit);
 app.get("/psychologists/remove/:id", psychologists.remove);
 app.get("/psychologists/byName", psychologists.getByName);
 app.get("/psychologists/:id", psychologists.getById);
+
+app.get('/sessions', sessions.getAll);
+app.get('/session/add', sessions.add);
+app.get('/session/:id', sessions.getById);
+app.get('/session/byIdCandidate/:id', sessions.getByIdCandidate);
+app.get('/session/edit/:id', sessions.edit);
+app.get('/session/remove/:id', sessions.remove);
 
 app.listen(port, () => {
 	console.log(`Open your browser in http://localhost:${port}`);
