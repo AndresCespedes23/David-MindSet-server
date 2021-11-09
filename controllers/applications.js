@@ -63,7 +63,9 @@ const add = (req, res) => {
     }
     applications.push(newItem);
     fs.writeFile(path.join(__dirname, '../data/applications.json'), JSON.stringify(applications), (err) => {
-        if (error) { return res.status(500).json({ message: 'error adding application' }) };
+        if (error) {
+            return res.status(500).json({ message: 'error adding application' })
+        };
         res.json({ message: 'Application added' });
     })
 };
@@ -82,11 +84,13 @@ const edit = (req, res) => {
             editObj.idCandidate = editObj.idCandidate || parseInt(req.query.idCandidate);
             editObj.idOpenPosition = editObj.idOpenPosition || parseInt(req.query.idOpenPosition);
             editObj.isActive = editObj.isActive || req.query.isActive;
-            return editObj;
         }
+        return editObj;
     });
     fs.writeFile(path.join(__dirname, '../data/applications.json'), JSON.stringify(applications), (err) => {
-        if (error) { return res.status(500).json({ message: 'error editing application' }) };
+        if (error) {
+            return res.status(500).json({ message: 'error editing application' })
+        };
         res.json({ message: 'Application added' });
     });
 };
@@ -99,7 +103,9 @@ const remove = (req, res) => {
     }
     const newList = applications.filter((applications) => applications.id !== id);
     fs.writeFile(path.join(__dirname, '../data/applications.json'), JSON.stringify(applications), (err) => {
-        if (error) { return res.status(500).json({ message: 'error deleting application' }) };
+        if (error) {
+            return res.status(500).json({ message: 'error deleting application' }) 
+        };
         res.json({ message: 'Application deleted' });
     });
 };
