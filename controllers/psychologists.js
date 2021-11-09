@@ -63,8 +63,7 @@ const add = (req, res) => {
 	psyList.push(newPsy);
 	fs.writeFile(path.join(__dirname, "../data/psychologists.json"), JSON.stringify(psyList), (err) => {
 		if (err) {
-			res.status(500).json({ message: "Error adding Psy" });
-			return;
+			return res.status(500).json({ message: "Error adding Psy" });
 		}
 		res.json({ message: "Psychologist added successfully", psy: newPsy });
 	});
