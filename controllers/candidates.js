@@ -150,5 +150,5 @@ module.exports = {
   getByName: getByName,
   add: add,
   edit: edit,
-  remove: remove
+  remove: remove,
 };
