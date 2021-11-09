@@ -114,8 +114,7 @@ const remove = (req, res) => {
   fs.writeFile(path.join(__dirname, '../data/companies.json'), JSON.stringify(companies), (err) => {
     if (err) {
       console.log(err);
-      res.status(500).json({ message: 'Error deleting company' });
-      return;
+      return res.status(500).json({ message: 'Error deleting company' });
     }
     res.json({ message: 'Company deleted' });
   });
