@@ -64,7 +64,7 @@ const add = (req, res) => {
 const edit = (req, res) => {
     let openPosition = openPositions.find(openPositions => openPositions.id === parseInt(req.params.id));
     if (!openPosition) {
-        res.status(404).json({ message: `The open position wasn't found with id: ${req.params.id}` });
+        return res.status(404).json({ message: `The open position wasn't found with id: ${req.params.id}` });
     }
     openPositions = openPositions.map(openPosition => {
         if(openPosition.id === parseInt(req.params.id)) {
@@ -73,7 +73,6 @@ const edit = (req, res) => {
             openPosition.endDate = req.query.endDate || openPosition.endDate;
             openPosition.jobDescription = req.query.jobDescription || openPosition.jobDescription;
             openPosition.isActive = req.query.isActive || openPosition.isActive;
-            return openPosition;
         }
         return openPosition;
     });
