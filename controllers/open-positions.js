@@ -62,7 +62,7 @@ const add = (req, res) => {
 };
 
 const edit = (req, res) => {
-    let openPosition = openPositions.find(openPositions => openPositions.id === parseInt(req.params.id));
+    const openPosition = openPositions.find(openPositions => openPositions.id === parseInt(req.params.id));
     if (!openPosition) {
         return res.status(404).json({ message: `The open position wasn't found with id: ${req.params.id}` });
     }
@@ -88,7 +88,7 @@ const edit = (req, res) => {
 
 const remove = (req, res) => {
     const id = parseInt(req.params.id);
-    let openPositionSelected = openPositions.find( openPosition => openPosition.id === id );
+    const openPositionSelected = openPositions.find( openPosition => openPosition.id === id );
     if(!openPositionSelected) {
         return res.status(404).json({ message: `Open position wasn't found with id ${id}` });
     }
