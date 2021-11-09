@@ -13,9 +13,9 @@ app.get('/', (req, res) => {
   html += '      <li><a href="/sessions">getAll</a></li>';
   html += '      <li><a href="/session/1">getById</a></li>';
   html += '      <li><a href="/session/byIdCandidate/15">getByIdCandidate</a></li>';
-  html += '      <li><a href="/session/add?id=90">add</a></li>';
-  html += '      <li><a href="/session/edit/1">edit</a></li>';
-  html += '      <li><a href="/session/remove/90">remove</a></li>';
+  html += '      <li><a href="/session/add?id=215&idPsychologists=215&idCandidate=215&date=11/23/2021&time=14:30&isActive=true">add</a></li>';
+  html += '      <li><a href="/session/edit/50">edit</a></li>';
+  html += '      <li><a href="/session/remove/40">remove</a></li>';
   html += '    </ul>';
   html += '  </li>';
   html += '  <li>Candidates:';
