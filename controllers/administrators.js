@@ -57,8 +57,7 @@ const add = (req, res) => {
     fs.writeFile(path.join(__dirname, '../data/administrators.json'), JSON.stringify(adminData), err => {
         if (err) { 
             console.log(err);
-            res.status(500).json({ message: 'Error adding administrator' });
-            return;
+            return res.status(500).json({ message: 'Error adding administrator' });
         }
         res.json({ message: 'Administrator successfully added', administrator: newAdmin });
     });
@@ -82,8 +81,7 @@ const edit = (req, res) => {
     fs.writeFile(path.join(__dirname, '../data/administrators.json'), JSON.stringify(adminData), (err) => {
         if (err) {
             console.log(err);
-            res.status(500).json({ message: 'Error editing administrator' });
-            return;
+            return res.status(500).json({ message: 'Error editing administrator' });
         }
         res.json({ message: 'Administrator updated', editAdmin });
     });
@@ -98,8 +96,7 @@ const remove = (req, res) => {
     fs.writeFile(path.join(__dirname, '../data/administrators.json'), JSON.stringify(adminData), (err) => {
         if (err) {
             console.log(err);
-            res.status(500).json({ message: 'Error removing administrator' });
-            return;
+            return res.status(500).json({ message: 'Error removing administrator' });
         }
         res.json({ message: 'Administrator removed' });
     });
