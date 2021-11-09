@@ -60,8 +60,7 @@ const add = (req, res) => {
   sessions.push(newSession);
   fs.writeFile(path.join(__dirname, '../data/sessions.json'), JSON.stringify(sessions), (err) => {
     if (err) {
-      res.status(500).json({ message: 'Error adding a session' });
-      return;
+      return res.status(500).json({ message: 'Error adding a session' });
     }
     res.json({ message: 'Session added successfully', session: newSession });
   });
@@ -85,8 +84,7 @@ const edit = (req, res) => {
   });
   fs.writeFile(path.join(__dirname, '../data/session.json'), JSON.stringify(sessions), (err) => {
     if (err) {
-      res.status(500).json({ message: 'Error editing session' });
-      return;
+      return res.status(500).json({ message: 'Error editing session' });
     }
     res.json({ message: 'Session edited successfully', sessionFound });
   });
@@ -101,8 +99,7 @@ const remove = (req, res) => {
   sessions.filter((session) => session.id !== id);
   fs.writeFile(path.join(__dirname, '../data/sessions.json'), JSON.stringify(sessions), (err) => {
     if (err) {
-      res.status(500).json({ message: 'Error deleting the session' });
-      return;
+      return res.status(500).json({ message: 'Error deleting the session' });
     }
     res.json({ message: 'Session deleted' });
   });
