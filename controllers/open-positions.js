@@ -4,7 +4,7 @@ let openPositions = require('../data/open-positions.json');
 const getLastId = (openPositions) => {
     let biggerId = 0;
     openPositions.forEach(openPosition => {
-        if(openPosition.id > biggerId) {
+        if (openPosition.id > biggerId) {
             biggerId = openPosition.id;
         }
     });
@@ -49,7 +49,7 @@ const add = (req, res) => {
         jobDescription: req.query.jobDescription,
         isActive: req.query.isActive
     };
-    if(!validate(newOpenPosition)) {
+    if (!validate(newOpenPosition)) {
         return res.status(400).json({ message: 'Missing parameters' });
     }
     openPositions.push(newOpenPosition);
@@ -67,7 +67,7 @@ const edit = (req, res) => {
         return res.status(404).json({ message: `The open position wasn't found with id: ${req.params.id}` });
     }
     openPositions = openPositions.map(openPosition => {
-        if(openPosition.id === parseInt(req.params.id)) {
+        if (openPosition.id === parseInt(req.params.id)) {
             openPosition.idCompany = req.query.idCompany || openPosition.idCompany;
             openPosition.startDate = req.query.startDate || openPosition.startDate;
             openPosition.endDate = req.query.endDate || openPosition.endDate;
@@ -78,9 +78,7 @@ const edit = (req, res) => {
     });
     fs.writeFile(path.join(__dirname, '../data/open-positions.json'), JSON.stringify(openPositions), (err) => {
         if (err) {
-            console.log(err);
-            res.status(500).json({ message: 'Error editing open position' });
-            return;
+            return res.status(500).json({ message: 'Error editing open position' });
         }
         res.json({ message: 'Success! Position edited', openPosition });
     });
@@ -89,15 +87,13 @@ const edit = (req, res) => {
 const remove = (req, res) => {
     const id = parseInt(req.params.id);
     const openPositionSelected = openPositions.find( openPosition => openPosition.id === id );
-    if(!openPositionSelected) {
+    if (!openPositionSelected) {
         return res.status(404).json({ message: `Open position wasn't found with id ${id}` });
     }
     openPositions = openPositions.filter( openPosition => openPosition.id !== id );
     fs.writeFile(path.join(__dirname, '../data/open-positions.json'), JSON.stringify(openPositions), (err) => {
         if (err) {
-            console.log(err);
-            res.status(500).json({ message: 'Error trying to delete the open position' });
-            return;
+            return res.status(500).json({ message: 'Error trying to delete the open position' });
         }
         res.json({ message: `Open position id ${id} deleted` });
     });
