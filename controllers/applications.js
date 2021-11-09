@@ -21,14 +21,7 @@ const validate = (object) => {
     return true;
 };
 
-const getAll = (req, res) => {
-    if (res.json(applications) !== null) {
-        res.json(applications);
-    }
-    else {
-        res.json([]);
-    }
-};
+const getAll = (req, res) => res.json(applications);
 
 const getById = (req, res) => {
     const id = parseInt(req.params.id);
