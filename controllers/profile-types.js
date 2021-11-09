@@ -56,7 +56,7 @@ const add = (req, res) => {
     console.log(err);
     return  res.status(500).json({ message: 'Error adding profile' })
   };
-  res.json({ 'Profile successfuly added' (newProfile) });
+  res.json({ message: 'Profile successfuly added' });
   })
 };
 
