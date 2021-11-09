@@ -1,25 +1,25 @@
 const getAll = (req, res) => {
-    // your code here
+  // your code here
 };
 
 const getById = (req, res) => {
-    // your code here
+  // your code here
 };
 
 const getByName = (req, res) => {
-    // your code here
+  // your code here
 };
 
 const add = (req, res) => {
-    // your code here
+  // your code here
 };
 
 const edit = (req, res) => {
-    // your code here
+  // your code here
 };
 
 const remove = (req, res) => {
-    // your code here
+  // your code here
 };
 
 module.exports = {
@@ -28,5 +28,5 @@ module.exports = {
   getByName: getByName,
   add: add,
   edit: edit,
-  remove: remove
+  remove: remove,
 };
