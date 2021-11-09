@@ -21,11 +21,11 @@ app.get('/', (req, res) => {
   html += '  <li><h2>Candidates:</h2>';
   html += '    <ul>';
   html += '      <li><a href="/candidates">getAll</a></li>';
-  html += '      <li><a href="/candidates/1">getById</a></li>';
-  html += '      <li><a href="/candidates/name/john">getByName</a></li>';
-  html += '      <li><a href="/candidates/add">add</a></li>';
-  html += '      <li><a href="/candidates/edit/1">edit</a></li>';
-  html += '      <li><a href="/candidates/remove/100">remove</a></li>';
+  html += '      <li><a href="/candidate/1">getById</a></li>';
+  html += '      <li><a href="/candidate/name/john">getByName</a></li>';
+  html += '      <li><a href="/candidate/add">add</a></li>';
+  html += '      <li><a href="/candidate/edit/1">edit</a></li>';
+  html += '      <li><a href="/candidate/remove/100">remove</a></li>';
   html += '    </ul>';
   html += '  </li>';
   html += '</ul>';
@@ -33,11 +33,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/candidates', candidates.getAll);
+app.get('/candidate/add', candidates.add);
 app.get('/candidate/:id', candidates.getById);
 app.get('/candidate/byName/:name', candidates.getByName);
-app.get('/candidate/add', candidates.add);
-app.get('/candidate/edit', candidates.edit);
-app.get('/candidate/remove', candidates.remove);
+app.get('/candidate/edit/:id', candidates.edit);
+app.get('/candidate/remove/:id', candidates.remove);
 
 app.get('/companies', companies.getAll);
 app.get('/company/byName/:name', companies.getByName);
