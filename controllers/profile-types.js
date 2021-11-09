@@ -84,7 +84,7 @@ const edit = (req, res) => {
 const remove = (req, res) => {
   const searchProfile = profileTypes.find((profile) => profile.id === parseInt(req.params.id));
   if(!searchProfile) {
-      return res.status(400).json({ message:`Profile not found with id ${req.params.id}` });
+    return res.status(400).json({ message:`Profile not found with id ${req.params.id}` });
   }
   profileTypes = profileTypes.filter((profile)=> profile.id !== parseInt(req.params.id));
   fs.writeFile(path.join(__dirname, '../data/profile-types.json'), JSON.stringify(profileTypes), err => {
