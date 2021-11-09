@@ -8,9 +8,9 @@ const port = 8000;
 app.get('/', (req, res) => {
     let html = '<h1>MindeSet</h1>';
     html += '<ul>';
-    html += '  <li>sessions:';
+    html += '  <li>Candidates:';
     html += '    <ul>';
-    html += '      <li><a href="/sessions">getAll</a></li>';
+    html += '      <li><a href="/candidates">getAll</a></li>';
     html += '    <ul>';
     html += '      <li><a href="/sessions">getAll</a></li>';
     html += '      <li><a href="/session/5">getById</a></li>';
