@@ -4,7 +4,7 @@ let interviews = require('../data/interviews.json');
 
 // ---- FUNCTIONS ----
 
-const validate = (object) => {      // Julián fn
+const validate = (object) => {
     for (let key in object) {
       if (object[key] === undefined) {
         return false;
@@ -13,7 +13,7 @@ const validate = (object) => {      // Julián fn
     return true;
 };
 
-const getLastId = (collection) => {  // Julián fn
+const getLastId = (collection) => {
     let larger = 0;
     collection.forEach((element) => {
       if (element.id > larger) {
@@ -25,12 +25,12 @@ const getLastId = (collection) => {  // Julián fn
 
 // ---- PATHS FN ----
 
-// try:  http://localhost:8000/interviews
+// test: http://localhost:8000/interviews
 const getAll = (req, res) => {
     res.json(interviews);
 };
 
-// as by Traversy  - try: http://localhost:8000/interviews/150
+// test: http://localhost:8000/interviews/150
 const getById = (req, res) => { 
     const id = parseInt(req.params.id);
     const interviewFound  = interviews.find(interviews => interviews.id === id); 
@@ -49,7 +49,7 @@ const getByCompany = (req, res) => {
     res.json(interviewFound);
 };
 
-// as by David C. - try: http://localhost:8000/interviews/add?id=215&idCompany=215&idCandidate=215&date=11/23/2021&status=true&isActive=true
+// test: http://localhost:8000/interviews/add?id=215&idCompany=215&idCandidate=215&date=11/23/2021&status=true&isActive=true
 const add = (req, res) => { 
     const newInterviews = {
         id: getLastId(interviews) + 1,
@@ -73,7 +73,7 @@ const add = (req, res) => {
     });
 };
 
-// follow Julián example (before as Traversy) - test: http://localhost:8000/interviews/edit/1?idCandidate=4
+// test: http://localhost:8000/interviews/edit/1?idCandidate=4
 const edit = (req, res) => {
     const id = parseInt(req.params.id);
     const interviewFound = interviews.find(interviews => interviews.id === id);
@@ -97,10 +97,9 @@ const edit = (req, res) => {
             return;
         }
         res.json({ message: 'Interview edited successfully', interviewFound });
-        });
+    });
 };
 
-// follow Julián example (before as Traversy)
 const remove = (req, res) => {
     const id = parseInt(req.params.id);
     const interviewFound = interviews.find(interviews => interviews.id === id);
@@ -117,7 +116,6 @@ const remove = (req, res) => {
         res.json({ message: 'Interview deleted' });
     });
 };
-
 
 module.exports = {
   getAll: getAll,
