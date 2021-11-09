@@ -6,7 +6,7 @@ const getLastID = (collection) => {
   let larger = 0;
   collection.forEach((element) => {
     if (element.id > larger) {
-    larger = element.id;
+      larger = element.id;
     }
   });
   return larger;
@@ -28,7 +28,7 @@ const getAll = (req, res) => {
 const getById = (req, res) => {
     const profileTypesId  = profileTypes.find((profileTypesId) => profileTypesId.id === parseInt(req.params.id));
     if (!profileTypesId) {
-      res.status(404).json({ message: `Profile not found with id: ${parseInt(req.params.id)}` });
+      return res.status(404).json({ message: `Profile not found with id: ${parseInt(req.params.id)}` });
     }
     res.json(profileTypesId);
 };
@@ -36,7 +36,7 @@ const getById = (req, res) => {
 const getByName = (req, res) => {
   const profileTypesName  = profileTypes.filter((profileTypesName) => profileTypesName.name === (req.params.name));
   if (!profileTypesName) {
-    res.status(404).json({ message: `Profile not found with name: ${(req.params.name)}` });      
+    return res.status(404).json({ message: `Profile not found with name: ${(req.params.name)}` });      
   }
   res.json(profileTypesName); 
 };
@@ -51,12 +51,12 @@ const add = (req, res) => {
         return res.status(400).json({ message: 'Missing parameters' })
       };
       profileTypes.push(newProfile);
-      fs.writeFile(path.join(__dirname, './data/profile-types.json'), JSON.stringify(profileTypes), err => {
+      fs.writeFile(path.join(__dirname, '../data/profile-types.json'), JSON.stringify(profileTypes), (err) => {
       if(err) {
         console.log(err);
         res.status(500).json({ message: 'Error adding profile' })
-      };
         return;
+      };
       })
   res.json(newProfile);
 };
@@ -66,36 +66,35 @@ const edit = (req, res) => {
   if (!searchProfile) {
     return res.status(404).json({ message: `Profile not found with id ${id}` });
     }
-    profileTypes.map((profile) => {
+    profileTypes = profileTypes.map((profile) => {
       if(profile.id === parseInt(req.params.id)) {
         profile.name = req.query.name || profile.name;
-        profile.isActive = req.query.name || profile.isActive;
+        profile.isActive = req.query.isActive || profile.isActive;
       }
       return profile;
     });
-  fs.writeFile(path.join(__dirname, './data/profile-types.json'), JSON.stringify(profileTypes), err => {
+  fs.writeFile(path.join(__dirname, '../data/profile-types.json'), JSON.stringify(profileTypes), err => {
     if(err) {
       console.log(err);
-      res.status(500).json({ message: 'Error editing profile' });
-      return;
+     return res.status(500).json({ message: 'Error editing profile' });
     }
-    res.json({ message: 'Company edited successfully', companyFound });
+    res.json({ message: 'Profile edited successfully', searchProfile });
   });
 };
 
 const remove = (req, res) => {
   const searchProfile = profileTypes.find((profile) => profile.id === parseInt(req.params.id));
-  const profileRemove = profileTypes.filter((profile)=> profile.id !== parseInt(req.params.id));
-  fs.writeFile(path.join(__dirname, './data/profile-types.json'), JSON.stringify(profileRemove), err => {
+  if(!searchProfile) {
+   return res.status(400).json({ message:`Profile not found with id ${req.params.id}` });
+  }
+  profileTypes = profileTypes.filter((profile)=> profile.id !== parseInt(req.params.id));
+  fs.writeFile(path.join(__dirname, '../data/profile-types.json'), JSON.stringify(profileTypes), err => {
     if(err) {
       console.log(err);
-      res.status(500).json({ message: 'Error deleting profile' });
+     return res.status(500).json({ message: 'Error deleting profile' });
     }
+    res.json({ message: 'Profile deleted' });
   })
-  if(!searchProfile) {
-    res.status(400).json({ message:`Profile not found with id ${req.params.id}` });
-  }
-  res.json({ message: 'Profile deleted' });
 };
 
 module.exports = {
