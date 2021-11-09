@@ -11,6 +11,7 @@ const getLastId = (collection) => {
     });
     return larger;
 };
+
 const validate = (object) => {
     for (let key in object) {
       if (object[key] === undefined) {
@@ -19,15 +20,16 @@ const validate = (object) => {
     }
     return true;
 };
+
 const getAll = (req, res) => {
-    res.json( candidates.list);
+    res.json(candidates.list);
 };
 
 const getById = (req, res) => {
     const candidateID = parseInt(req.params.id);
     const foundCandidate = candidates.list.find(candidate => candidate.id === candidateID);
-    if(!foundCandidate){
-        return res.status(404).json({message:`Candidate not found with id: ${candidateID}`});
+    if (!foundCandidate) {
+        return res.status(404).json({ message: `Candidate not found with id: ${candidateID}` });
     }
     res.json(foundCandidate);
 };
@@ -35,14 +37,15 @@ const getById = (req, res) => {
 const getByName = (req, res) => {
     const name = req.params.name;
     const foundCandidates = candidates.list.filter(candidate => candidate.firstName.toLowerCase() === name.toLowerCase())
-    if(foundCandidates.length === 0){
+    if (foundCandidates.length === 0) {
         return res.status(404).json({
-            message:`Candidate not found with name: ${name}`,
+            message: `Candidate not found with name: ${name}`,
             candidates: foundCandidates
         });
     }
     res.json(foundCandidates);
 };
+
 const add = (req, res) => {
     let lastID = getLastId(candidates.list);
     const newCandidate = {
@@ -69,15 +72,15 @@ const add = (req, res) => {
         isActive: true
     };
     if (!validate(newCandidate)) {
-        return res.status(400).json({message: 'Missing parameters' });
+        return res.status(400).json({ message: 'Missing parameters' });
     }
     candidates.list.push(newCandidate);
-    fs.writeFile(path.join(__dirname, '../data/candidates.json'), JSON.stringify(candidates),err =>{
-        if(err){
-            return res.status(500).json({message:'Error while saving data'});
+    fs.writeFile(path.join(__dirname, '../data/candidates.json'), JSON.stringify(candidates), err => {
+        if (err) {
+            return res.status(500).json({ message:'Error while saving data' });
         }
         res.json({
-            message:'Candidate created',
+            message: 'Candidate created',
             candidate: newCandidate
         });
     });
@@ -87,23 +90,23 @@ const edit = (req, res) => {
     const candidateID = parseInt(req.params.id)
     const foundCandidate = candidates.list.find(candidate => candidate.id === candidateID);
     let updatedCandidate;
-    if(!foundCandidate){
-        return res.status(404).json({message:`Candidate not found with id: ${candidateID}`});
+    if (!foundCandidate) {
+        return res.status(404).json({ message: `Candidate not found with id: ${candidateID}` });
     }
     candidates = candidates.list.map((candidate) => {
-        if(candidate.id === candidateID){
-            candidate.firstName =  req.query.firstName || candidate.firstName;
-            candidate.lastName =  req.query.lastName || candidate.lastName;
-            candidate.email =  req.query.email || candidate.email;
-            candidate.password =  req.query.password || candidate.password;
-            candidate.pictureUrl =  req.query.pictureUrl || candidate.pictureUrl;
-            candidate.phone =  req.query.phone || candidate.phone;
-            candidate.address =  req.query.address || candidate.address;
-            candidate.city =  req.query.city || candidate.city;
-            candidate.province =  req.query.province || candidate.province;
-            candidate.country =  req.query.country || candidate.country;
-            candidate.postalCode =  req.query.postalCode || candidate.postalCode;
-            candidate.birthday =  req.query.birthday || candidate.birthday;
+        if (candidate.id === candidateID) {
+            candidate.firstName = req.query.firstName || candidate.firstName;
+            candidate.lastName = req.query.lastName || candidate.lastName;
+            candidate.email = req.query.email || candidate.email;
+            candidate.password = req.query.password || candidate.password;
+            candidate.pictureUrl = req.query.pictureUrl || candidate.pictureUrl;
+            candidate.phone = req.query.phone || candidate.phone;
+            candidate.address = req.query.address || candidate.address;
+            candidate.city = req.query.city || candidate.city;
+            candidate.province = req.query.province || candidate.province;
+            candidate.country = req.query.country || candidate.country;
+            candidate.postalCode = req.query.postalCode || candidate.postalCode;
+            candidate.birthday = req.query.birthday || candidate.birthday;
             candidate.education = req.query.education !== undefined ? [req.query.education] : candidate.education;
             candidate.experiences = req.query.experiences !== undefined ? [req.query.experiences] : candidate.experiences;
             candidate.courses = req.query.courses !== undefined ? [req.query.courses] : candidate.courses;
@@ -115,9 +118,9 @@ const edit = (req, res) => {
         }
         return candidate;
     });
-    fs.writeFile(path.join(__dirname, '../data/candidates.json'), JSON.stringify({list:candidates}),err =>{
-        if(err){
-            return res.status(500).json({message:'Error while saving data'});
+    fs.writeFile(path.join(__dirname, '../data/candidates.json'), JSON.stringify({ list: candidates }), err => {
+        if (err) {
+            return res.status(500).json({ message: 'Error while saving data' });
         }
         res.json({
             message: 'Updated Candidate',
@@ -129,15 +132,15 @@ const edit = (req, res) => {
 const remove = (req, res) => {
     const candidateID = parseInt(req.params.id);
     const foundCandidate = candidates.list.filter(candidate => candidate.id === candidateID);
-    if(!foundCandidate){
-        return res.status(404).json({message:`Candidate not found with id: ${candidateID}`});
+    if (!foundCandidate) {
+        return res.status(404).json({ message: `Candidate not found with id: ${candidateID}` });
     }
     candidates = candidates.list.filter((candidate) => candidate.id !== candidateID);
-    fs.writeFile(path.join(__dirname, '../data/candidates.json'), JSON.stringify({list:candidates}),err =>{
-        if(err){
-            return res.status(500).json({message:'Error while saving data'});
+    fs.writeFile(path.join(__dirname, '../data/candidates.json'), JSON.stringify({ list: candidates }), err => {
+        if (err) {
+            return res.status(500).json({ message: 'Error while saving data' });
         }
-        res.json({message: 'Deleted Candidate'});
+        res.json({ message: 'Deleted Candidate' });
     });
 };
 
