@@ -1,6 +1,7 @@
-const express = require("express");
+const express = require('express');
+const candidates = require('./controllers/candidates');
+const profileTypes = require('./controllers/profile-types');
 const psychologists = require("./controllers/psychologists");
-const candidates = require("./controllers/candidates");
 const administrators = require("./controllers/administrators");
 const applications = require("./controllers/applications");
 const companies = require("./controllers/companies");
@@ -73,6 +74,16 @@ app.get("/", (req, res) => {
   html += '      <li><a href="/session/remove/40">remove</a></li>';
   html += '    </ul>';
   html += '  </li>';
+  html += '  <li><h2>Profile-Types:</h2>';
+  html += '    <ul>';
+  html += '      <li><a href="/profile-types">getAll</a></li>';
+  html += '      <li><a href="/profile-types/byName/administrative">getByName</a></li>';
+  html += '      <li><a href="/profile-types/add">add</a></li>';
+  html += '      <li><a href="/profile-types/edit/1">edit</a></li>';
+  html += '      <li><a href="/profile-types/remove/2">remove</a></li>';
+  html += '      <li><a href="/profile-types/1">getById</a></li>';
+  html += '    </ul>';
+  html += '  </li>';
 	html += "</ul>";
 	res.send(html);
 });
@@ -119,6 +130,13 @@ app.get('/session/:id', sessions.getById);
 app.get('/session/byIdCandidate/:id', sessions.getByIdCandidate);
 app.get('/session/edit/:id', sessions.edit);
 app.get('/session/remove/:id', sessions.remove);
+
+app.get('/profile-types', profileTypes.getAll);
+app.get('/profile-types/byName/:name', profileTypes.getByName);
+app.get('/profile-types/add', profileTypes.add);
+app.get('/profile-types/edit/:id', profileTypes.edit);
+app.get('/profile-types/remove/:id', profileTypes.remove);
+app.get('/profile-types/:id', profileTypes.getById);
 
 app.listen(port, () => {
 	console.log(`Open your browser in http://localhost:${port}`);
