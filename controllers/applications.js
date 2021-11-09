@@ -63,7 +63,7 @@ const add = (req, res) => {
     }
     applications.push(newItem);
     fs.writeFile(path.join(__dirname, '../data/applications.json'), JSON.stringify(applications), (err) => {
-        if (error) {
+        if (err) {
             return res.status(500).json({ message: 'error adding application' })
         };
         res.json({ message: 'Application added' });
@@ -88,22 +88,22 @@ const edit = (req, res) => {
         return editObj;
     });
     fs.writeFile(path.join(__dirname, '../data/applications.json'), JSON.stringify(applications), (err) => {
-        if (error) {
+        if (err) {
             return res.status(500).json({ message: 'error editing application' })
         };
-        res.json({ message: 'Application added' });
+        res.json({ message: 'Application edited' });
     });
 };
 
 const remove = (req, res) => {
     const id = parseInt(req.params.id);
     let remObj = applications.find((applications) => applications.id === id);
-    if (remObj == null) {
+    if (remObj === null) {
         return res.status(400).json({ message: `no application with id: ${id}` });
     }
     const newList = applications.filter((applications) => applications.id !== id);
     fs.writeFile(path.join(__dirname, '../data/applications.json'), JSON.stringify(applications), (err) => {
-        if (error) {
+        if (err) {
             return res.status(500).json({ message: 'error deleting application' }) 
         };
         res.json({ message: 'Application deleted' });
