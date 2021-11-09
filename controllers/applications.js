@@ -109,7 +109,7 @@ const remove = (req, res) => {
         if (error) { return res.status(500).json({ message: `error deleting application` }) };
         res.json({ message: 'Application deleted' });
     });
-}
+};
 
 module.exports = {
     getAll: getAll,
