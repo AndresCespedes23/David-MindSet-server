@@ -1,11 +1,12 @@
 const express = require('express');
 const candidates = require('./controllers/candidates');
 const profileTypes = require('./controllers/profile-types');
-const psychologists = require("./controllers/psychologists");
-const administrators = require("./controllers/administrators");
-const applications = require("./controllers/applications");
-const companies = require("./controllers/companies");
+const psychologists = require('./controllers/psychologists');
+const administrators = require('./controllers/administrators');
+const applications = require('./controllers/applications');
+const companies = require('./controllers/companies');
 const sessions = require('./controllers/sessions');
+const interviews = require('./controllers/interviews');
 
 const app = express();
 const port = 8000;
@@ -84,6 +85,16 @@ app.get("/", (req, res) => {
   html += '      <li><a href="/profile-types/1">getById</a></li>';
   html += '    </ul>';
   html += '  </li>';
+  html += '  <li><h2>Interviews:</h2>';
+  html += '    <ul>';
+  html += '      <li><a href="/interviews">getAll</a></li>';
+  html += '      <li><a href="/interviews/130">getById</a></li>';
+  html += '      <li><a href="/interviews/byCompany/4">getByCompany</a></li>';  // change it from getByName
+  html += '      <li><a href="/interviews/add">add</a></li>';
+  html += '      <li><a href="/interviews/edit/130">edit</a></li>';
+  html += '      <li><a href="/interviews/remove/130">remove</a></li>';
+  html += '    </ul>';
+  html += '  </li>';
 	html += "</ul>";
 	res.send(html);
 });
@@ -137,6 +148,14 @@ app.get('/profile-types/add', profileTypes.add);
 app.get('/profile-types/edit/:id', profileTypes.edit);
 app.get('/profile-types/remove/:id', profileTypes.remove);
 app.get('/profile-types/:id', profileTypes.getById);
+
+//----INTERVIEWS----
+app.get('/interviews', interviews.getAll);
+app.get('/interviews/add', interviews.add);
+app.get('/interviews/:id', interviews.getById);
+app.get('/interviews/byCompany/:idCompany', interviews.getByCompany);
+app.get('/interviews/edit/:id', interviews.edit);
+app.get('/interviews/remove/:id', interviews.remove);
 
 app.listen(port, () => {
 	console.log(`Open your browser in http://localhost:${port}`);
