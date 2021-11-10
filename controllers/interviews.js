@@ -34,8 +34,8 @@ const getAll = (req, res) => {
 const getById = (req, res) => { 
     const id = parseInt(req.params.id);
     const interviewFound  = interviews.find(interviews => interviews.id === id); 
-    if(!interviewFound) {
-        return res.status(404).json({ message: `Interview not found with the id of ${id}`});
+    if (!interviewFound) {
+        return res.status(404).json({ message: `Interview not found with the id of ${id}` });
     }
     res.json(interviewFound);
 };
@@ -43,8 +43,8 @@ const getById = (req, res) => {
 const getByCompany = (req, res) => {
     const idCompany = req.params.idCompany;
     const interviewFound = interviews.filter(interviews => interviews.idCompany === idCompany); 
-    if(interviewFound.length <= 0) {
-        return res.status(404).json({ message: `Interview not found with the idCompany of ${idCompany}`});
+    if (interviewFound.length <= 0) {
+        return res.status(404).json({ message: `Interview not found with the idCompany of ${idCompany}` });
     }
     res.json(interviewFound);
 };
@@ -65,9 +65,7 @@ const add = (req, res) => {
     interviews.push(newInterviews)
     fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), err => {
         if (err) {
-            console.log(err);
-            res.send(500).json({ message: 'Error adding new interview' });
-            return;
+            return res.send(500).json({ message: 'Error adding new interview' });
         }
         res.json({ message: 'New interview added successfully', interview: newInterviews });
     });
@@ -77,11 +75,11 @@ const add = (req, res) => {
 const edit = (req, res) => {
     const id = parseInt(req.params.id);
     const interviewFound = interviews.find(interviews => interviews.id === id);
-    if(!interviewFound) {
+    if (!interviewFound) {
         return res.status(404).json({ message: `Interview not found with the id of ${id}` });
     }
     interviews = interviews.map(interview => {
-        if(interview.id === id) {
+        if (interview.id === id) {
             interview.idCompany = req.query.idCompany || interview.idCompany;
             interview.idCandidate = req.query.idCandidate || interview.idCandidate;
             interview.date = req.query.date || interview.date;
@@ -91,10 +89,8 @@ const edit = (req, res) => {
         return interview;
     });
     fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), err => {
-        if(err) {
-            console.log(err);
-            res.status(500).json({ message: 'Error editing interview'});
-            return;
+        if (err) {
+            return res.status(500).json({ message: 'Error editing interview' });
         }
         res.json({ message: 'Interview edited successfully', interviewFound });
     });
@@ -103,15 +99,13 @@ const edit = (req, res) => {
 const remove = (req, res) => {
     const id = parseInt(req.params.id);
     const interviewFound = interviews.find(interviews => interviews.id === id);
-    if(!interviewFound) {
+    if (!interviewFound) {
         return res.status(404).json({ message: `Interview not found with the id of ${id}` });
     }
     interviews = interviews.filter(interview => interview.id !== id);
     fs.writeFile(path.join(__dirname, '../data/interviews.json'), JSON.stringify(interviews), (err) => {
         if (err) {
-            console.log(err);
-            res.status(500).json({ message: 'Error deleting interview' });
-            return;
+            return res.status(500).json({ message: 'Error deleting interview' });
         }
         res.json({ message: 'Interview deleted' });
     });
