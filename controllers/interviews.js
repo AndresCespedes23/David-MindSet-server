@@ -42,7 +42,7 @@ const getById = (req, res) => {
 
 const getByCompany = (req, res) => {
     const idCompany = parseInt(req.params.idCompany);
-    const interviewFound = interviews.find(interviews => interviews.idCompany === idCompany); 
+    const interviewFound = interviews.filter(interviews => interviews.idCompany === idCompany); 
     if (!interviewFound) {
         return res.status(404).json({ message: `Interview not found with the idCompany of ${idCompany}` });
     }
