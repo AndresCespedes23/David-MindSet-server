@@ -1,8 +1,6 @@
 const express = require('express');
 const candidates = require('./controllers/candidates');
-<<<<<<< HEAD
 const openPositions = require('./controllers/open-positions');
-=======
 const profileTypes = require('./controllers/profile-types');
 const psychologists = require('./controllers/psychologists');
 const administrators = require('./controllers/administrators');
@@ -10,33 +8,10 @@ const applications = require('./controllers/applications');
 const companies = require('./controllers/companies');
 const sessions = require('./controllers/sessions');
 const interviews = require('./controllers/interviews');
->>>>>>> development
 
 const app = express();
 const port = 8000;
 
-<<<<<<< HEAD
-app.get('/', (req, res) => {
-  let html = '<h1>MindeSet</h1>';
-  html += '<ul>';
-  html += '  <li>Candidates:';
-  html += '    <ul>';
-  html += '      <li><a href="/candidates">getAll</a></li>';
-  html += '    </ul>';
-  html += '  </li>';
-  html += '  <li>Open positions:';
-  html += '    <ul>';
-  html += '      <li><a href="/open-positions">getAll</a></li>';
-  html += '      <li><a href="/open-positions/5">getById</a></li>';
-  html += '      <li><a href="/open-positions/getByIdCompany/12">getByIdCompany</a></li>';
-  html += '      <li><a href="/open-positions/add">add</a></li>';
-  html += '      <li><a href="/open-positions/edit/6">edit</a></li>';
-  html += '      <li><a href="/open-positions/remove/4">remove</a></li>';
-  html += '    </ul>';
-  html += '  </li>';
-  html += '</ul>';
-  res.send(html);
-=======
 app.get("/", (req, res) => {
 	let html = "<h1>MindSet</h1>";
 	html += "<ul>";
@@ -91,39 +66,48 @@ app.get("/", (req, res) => {
 	html += '      <li><a href="/psychologists/remove/2">remove</a></li>';
 	html += "    </ul>";
 	html += "  </li>";
-  html += '  <li><h2>Sessions:</h2>';
-  html += '    <ul>';
-  html += '      <li><a href="/sessions">getAll</a></li>';
-  html += '      <li><a href="/session/1">getById</a></li>';
-  html += '      <li><a href="/session/byIdCandidate/15">getByIdCandidate</a></li>';
-  html += '      <li><a href="/session/add?id=215&idPsychologists=215&idCandidate=215&date=11/23/2021&time=14:30&isActive=true">add</a></li>';
-  html += '      <li><a href="/session/edit/50">edit</a></li>';
-  html += '      <li><a href="/session/remove/40">remove</a></li>';
-  html += '    </ul>';
-  html += '  </li>';
-  html += '  <li><h2>Profile-Types:</h2>';
-  html += '    <ul>';
-  html += '      <li><a href="/profile-types">getAll</a></li>';
-  html += '      <li><a href="/profile-types/byName/administrative">getByName</a></li>';
-  html += '      <li><a href="/profile-types/add">add</a></li>';
-  html += '      <li><a href="/profile-types/edit/1">edit</a></li>';
-  html += '      <li><a href="/profile-types/remove/2">remove</a></li>';
-  html += '      <li><a href="/profile-types/1">getById</a></li>';
-  html += '    </ul>';
-  html += '  </li>';
-  html += '  <li><h2>Interviews:</h2>';
-  html += '    <ul>';
-  html += '      <li><a href="/interviews">getAll</a></li>';
-  html += '      <li><a href="/interviews/130">getById</a></li>';
-  html += '      <li><a href="/interviews/byCompany/4">getByCompany</a></li>';  // change it from getByName
-  html += '      <li><a href="/interviews/add">add</a></li>';
-  html += '      <li><a href="/interviews/edit/130">edit</a></li>';
-  html += '      <li><a href="/interviews/remove/130">remove</a></li>';
-  html += '    </ul>';
-  html += '  </li>';
+	html += '  <li><h2>Sessions:</h2>';
+	html += '    <ul>';
+	html += '      <li><a href="/sessions">getAll</a></li>';
+	html += '      <li><a href="/session/1">getById</a></li>';
+	html += '      <li><a href="/session/byIdCandidate/15">getByIdCandidate</a></li>';
+	html += '      <li><a href="/session/add?id=215&idPsychologists=215&idCandidate=215&date=11/23/2021&time=14:30&isActive=true">add</a></li>';
+	html += '      <li><a href="/session/edit/50">edit</a></li>';
+	html += '      <li><a href="/session/remove/40">remove</a></li>';
+	html += '    </ul>';
+	html += '  </li>';
+	html += '  <li><h2>Profile-Types:</h2>';
+	html += '    <ul>';
+	html += '      <li><a href="/profile-types">getAll</a></li>';
+	html += '      <li><a href="/profile-types/byName/administrative">getByName</a></li>';
+	html += '      <li><a href="/profile-types/add">add</a></li>';
+	html += '      <li><a href="/profile-types/edit/1">edit</a></li>';
+	html += '      <li><a href="/profile-types/remove/2">remove</a></li>';
+	html += '      <li><a href="/profile-types/1">getById</a></li>';
+	html += '    </ul>';
+	html += '  </li>';
+	html += '  <li><h2>Interviews:</h2>';
+	html += '    <ul>';
+	html += '      <li><a href="/interviews">getAll</a></li>';
+	html += '      <li><a href="/interviews/130">getById</a></li>';
+	html += '      <li><a href="/interviews/byCompany/4">getByCompany</a></li>';  // change it from getByName
+	html += '      <li><a href="/interviews/add">add</a></li>';
+	html += '      <li><a href="/interviews/edit/130">edit</a></li>';
+	html += '      <li><a href="/interviews/remove/130">remove</a></li>';
+	html += '    </ul>';
+	html += '  </li>';
+	html += '  <li><h2>Open positions:</h2>';
+	html += '    <ul>';
+	html += '      <li><a href="/open-positions">getAll</a></li>';
+	html += '      <li><a href="/open-positions/5">getById</a></li>';
+	html += '      <li><a href="/open-positions/byIdCompany/12">getByIdCompany</a></li>';
+	html += '      <li><a href="/open-positions/add">add</a></li>';
+	html += '      <li><a href="/open-positions/edit/6">edit</a></li>';
+	html += '      <li><a href="/open-positions/remove/4">remove</a></li>';
+	html += '    </ul>';
+	html += '  </li>';
 	html += "</ul>";
 	res.send(html);
->>>>>>> development
 });
 
 app.get("/candidates", candidates.getAll);
@@ -176,7 +160,6 @@ app.get('/profile-types/edit/:id', profileTypes.edit);
 app.get('/profile-types/remove/:id', profileTypes.remove);
 app.get('/profile-types/:id', profileTypes.getById);
 
-//----INTERVIEWS----
 app.get('/interviews', interviews.getAll);
 app.get('/interviews/add', interviews.add);
 app.get('/interviews/:id', interviews.getById);
@@ -188,7 +171,7 @@ app.get('/open-positions', openPositions.getAll);
 app.get('/open-positions/add', openPositions.add);
 app.get('/open-positions/edit/:id', openPositions.edit);
 app.get('/open-positions/remove/:id', openPositions.remove);
-app.get('/open-positions/idCompany/:idCompany', openPositions.getByIdCompany);
+app.get('/open-positions/byIdCompany/:idCompany', openPositions.getByIdCompany);
 app.get('/open-positions/:id', openPositions.getById); 
 
 app.listen(port, () => {
