@@ -3,17 +3,17 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const CompaniesSchema = new Schema({
   id: Schema.Types.ObjectId,
-  name: { type: String, required: true, default: 'asd' },
-  address: { type: String, required: true, default: 'asd' },
-  city: { type: String, required: true, default: 'asd' },
-  province: { type: String, required: true, default: 'asd' },
-  country: { type: String, required: true, default: 'asd' },
-  zipCode: { type: String, required: true, default: 'asd' },
-  phone: { type: String, required: true, default: 'asd' },
-  email: { type: String, required: true, default: 'asd' },
-  pictureUrl: { type: String },
-  contactFullName: { type: String, required: true, default: 'asd' },
-  contactPhone: { type: String, required: true, default: 'asd' },
+  name: { type: String, required: true, maxlength: 40 },
+  address: { type: String, required: true, maxlength: 40 },
+  city: { type: String, required: true, maxlength: 40 },
+  province: { type: String, required: true, maxlength: 40 },
+  country: { type: String, required: true, maxlength: 40 },
+  zipCode: { type: Number, required: true, max: 10000 },
+  phone: { type: Number, required: true },
+  email: { type: String, required: true, maxlength: 40 },
+  pictureUrl: { type: String, maxlength: 40 },
+  contactFullName: { type: String, required: true, maxlength: 40 },
+  contactPhone: { type: Number, required: true },
   isActive: Boolean,
 });
 
