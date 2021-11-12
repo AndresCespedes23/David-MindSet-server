@@ -17,7 +17,7 @@ const PsychologistSchema = new Schema({
     type: String, required: true, minLenght: 8, maxLength: 16,
   },
   pictureUrl: { type: String, default: null },
-  turns: [{ type: Schema.Types.ObjectId, ref: 'Session', default: null }],
+  turns: [{ type: Schema.Types.ObjectId, ref: 'Session', default: [] }],
   isActive: { type: Boolean, default: true },
 });
 
