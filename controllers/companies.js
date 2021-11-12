@@ -1,130 +1,81 @@
-const fs = require('fs');
-const path = require('path');
-/* const companies = require('../data/companies.json'); */
+/* eslint-disable consistent-return */
+const Companies = require('../models/companies');
 
-const validate = (object) => {
-  for (let key in object) {
-    if (object[key] === undefined) {
-      return false;
-    }
-  }
-  return true;
-};
+const { validate } = require('../validators/validators');
 
-const getLastId = (collection) => {
-  let larger = 0;
-  collection.forEach((element) => {
-    if (element.id > larger) {
-      larger = element.id;
-    }
-  });
-  return larger;
-};
-
-const getAll = (req, res) => {
-  res.json(companies);
+const getAll = async (req, res) => {
+  const companyFound = await Companies.find();
+  return res.json(companyFound);
 };
 
 const getById = (req, res) => {
-  const id = parseInt(req.params.id);
-  const companyFound = companies.find((company) => company.id === id);
-  if (!companyFound) {
-    return res.status(404).json({ message: `Company not found with id: ${id}` });
-  }
-  res.json(companyFound);
+  Companies.findById(req.params.id, (err, found) => {
+    if (err) {
+      return res.status(404).json({ message: `Company not found with id: ${req.params.id}` });
+    }
+    return res.json(found);
+  });
 };
 
 const getByName = (req, res) => {
-  const name = req.params.name;
-  const companyFound = companies.filter((company) => company.name === name);
-  if (companyFound.length <= 0) {
-    return res.status(404).json({ message: `Company not found with name: ${name}` });
-  }
-  res.json(companyFound);
+  Companies.find({ name: req.params.name }, (err, docs) => {
+    if (err) {
+      return res.status(404).json({
+        message: `Company not found with name: ${docs.name}s`,
+      });
+    }
+    return res.json(docs);
+  });
 };
 
-const add = (req, res) => {
-  const newCompany = {
-    id: getLastId(companies) + 1,
-    name: req.query.name,
-    address: req.query.address,
-    city: req.query.city,
-    province: req.query.province,
-    country: req.query.country,
-    zipCode: req.query.zipCode,
-    phone: req.query.phone,
-    email: req.query.email,
-    pictureUrl: req.query.pictureUrl,
-    contactFullName: req.query.contactFullName,
-    contactPhone: req.query.contactPhone,
-    isActive: req.query.isActive,
+const add = async (req, res) => {
+  console.log(req.body);
+  if (!Object.keys(req.body)[0]) return res.status(400).json({ message: 'Body empty' });
+  const loadedCompany = {
+    name: req.body.name,
+    address: req.body.address,
+    city: req.body.city,
+    province: req.body.province,
+    country: req.body.country,
+    zipCode: req.body.zipCode,
+    phone: req.body.phone,
+    email: req.body.email,
+    pictureUrl: req.body.pictureUrl,
+    contactFullName: req.body.contactFullName,
+    contactPhone: req.body.contactPhone,
+    isActive: req.body.isActive,
   };
-  if (!validate(newCompany)) {
+  if (!validate(loadedCompany)) {
     return res.status(400).json({ message: 'Missing parameters' });
   }
-  companies.push(newCompany);
-  fs.writeFile(path.join(__dirname, '../data/companies.json'), JSON.stringify(companies), (err) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).json({ message: 'Error adding company' });
-    }
-    res.json({ message: 'Company added successfully', company: newCompany });
+  const createdCompany = new Companies(loadedCompany);
+  await createdCompany.save((err) => {
+    if (err) return res.status(500).json({ message: `Error adding psychologist: ${err}` });
+    return res.json({ message: 'Psychologist added successfully', Company: loadedCompany });
   });
 };
 
 const edit = (req, res) => {
-  const id = parseInt(req.params.id);
-  const companyFound = companies.find((company) => company.id === id);
-  if (!companyFound) {
-    return res.status(404).json({ message: `Company not found with id ${id}` });
-  }
-  companies = companies.map((company) => {
-    if (company.id === id) {
-      company.name = req.query.name || company.name;
-      company.address = req.query.address || company.address;
-      company.city = req.query.city || company.city;
-      company.province = req.query.province || company.province;
-      company.country = req.query.country || company.country;
-      company.zipCode = req.query.zipCode || company.zipCode;
-      company.phone = req.query.phone || company.phone;
-      company.email = req.query.email || company.email;
-      company.pictureUrl = req.query.pictureUrl || company.pictureUrl;
-      company.contactFullName = req.query.contactFullName || company.contactFullName;
-      company.contactPhone = req.query.contactPhone || company.contactPhone;
-      company.isActive = req.query.isActive || company.isActive;
-    }
-    return company;
-  });
-  fs.writeFile(path.join(__dirname, '../data/companies.json'), JSON.stringify(companies), (err) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).json({ message: 'Error edting company' });
-    }
-    res.json({ message: 'Company edited successfully', companyFound });
+  if (!Object.keys(req.body)[0]) return res.status(400).json({ message: 'Body empty' });
+  Companies.findByIdAndUpdate(req.params.id, req.body, (err, found) => {
+    if (err) return res.status(500).json({ message: 'Error editing company' });
+    return res.json({ message: 'Company edited successfully', Company: found });
   });
 };
 
 const remove = (req, res) => {
-  const id = parseInt(req.params.id);
-  const companyFound = companies.find((company) => company.id === id);
-  if (!companyFound) {
-    return res.status(404).json({ message: `Company not found with id ${id}` });
-  }
-  companies = companies.filter((company) => company.id !== id);
-  fs.writeFile(path.join(__dirname, '../data/companies.json'), JSON.stringify(companies), (err) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).json({ message: 'Error deleting company' });
-    }
-    res.json({ message: 'Company deleted' });
+  if (!req.params.id) return res.status(400).json({ message: 'Id not set' });
+  Companies.findByIdAndDelete(req.params.id, (err) => {
+    if (err) return res.status(500).json({ message: 'Error deleting Company' });
+    return res.json({ message: 'Company deleted' });
   });
 };
 
 module.exports = {
-  getAll: getAll,
-  getById: getById,
-  getByName: getByName,
-  add: add,
-  edit: edit,
-  remove: remove,
+  getAll,
+  getById,
+  getByName,
+  add,
+  edit,
+  remove,
 };
