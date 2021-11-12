@@ -1,5 +1,10 @@
-const getAll = () => {
-  console.log('getall');
+const openPositions = require('../models/Open-position');
+
+const getAll = (req, res) => {
+  openPositions
+    .find()
+    .then((data) => res.status(200).json({ data }))
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
 const getById = () => {
