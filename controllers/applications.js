@@ -1,6 +1,6 @@
-let applications = require('../data/applications.json');
 let fs = require('fs');
 const path = require('path');
+/* const applications = require('../data/applications.json'); */
 
 const getLastId = (collection) => {
     let larger = 0;

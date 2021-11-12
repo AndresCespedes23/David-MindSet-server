@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-let openPositions = require('../data/open-positions.json');
+/* const openPositions = require('../data/open-positions.json'); */
 
 const getLastId = (openPositions) => {
     let biggerId = 0;

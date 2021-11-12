@@ -1,6 +1,6 @@
 const fs = require('fs'); 
 const path = require('path');
-const sessions = require('../data/sessions.json');
+/* const sessions = require('../data/sessions.json'); */
 
 // VALIDATION FUNCTIONS
 
