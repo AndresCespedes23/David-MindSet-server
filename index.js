@@ -23,19 +23,6 @@ app.use(cors());
 
 app.use('/api', routes);
 
-/* Copiar segun el recurso, los métodos y cambiar los get por lo que corresponda en cada route
-Para probar los métodos que no son get, se debe usar Postman
-Usar el ejemplo de psychologist */
-
-/*
-app.get('/open-positions', openPositions.getAll);
-app.get('/open-positions/add', openPositions.add);
-app.get('/open-positions/edit/:id', openPositions.edit);
-app.get('/open-positions/remove/:id', openPositions.remove);
-app.get('/open-positions/byIdCompany/:idCompany', openPositions.getByIdCompany);
-app.get('/open-positions/:id', openPositions.getById);
-*/
-
 app.listen(port, () => {
   console.log(`Open your browser in http://localhost:${port}`);
 });
