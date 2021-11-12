@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-/* let adminData = require('../data/administrators.json'); */
+/* const adminData = require('../data/administrators.json'); */
 
 const validate = (entity) => {
     for (let key in entity) {

@@ -1,6 +1,6 @@
-/* let psyList = require("../data/psychologists"); */
 const fs = require("fs");
 const path = require("path");
+/* const psyList = require("../data/psychologists"); */
 
 const validate = (object) => {
 	for (let key in object) {

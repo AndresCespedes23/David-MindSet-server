@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-/* let interviews = require('../data/interviews.json');
- */
+/* const interviews = require('../data/interviews.json'); */
 
 const validate = (object) => {
   for (let key in object) {

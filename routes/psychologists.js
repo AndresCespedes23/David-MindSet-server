@@ -1,7 +1,6 @@
 const express = require('express');
-const psychologists = require('../controllers/psychologists');
-
 const router = express.Router();
+const psychologists = require('../controllers/psychologists');
 
 router.get('/', psychologists.getAll);
 router.post('/add', psychologists.add);
