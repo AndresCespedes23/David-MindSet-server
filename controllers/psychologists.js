@@ -1,4 +1,4 @@
-let psyList = require("../data/psychologists");
+/* let psyList = require("../data/psychologists"); */
 const fs = require("fs");
 const path = require("path");
 
@@ -22,20 +22,22 @@ const getLastId = (collection) => {
 };
 
 const getAll = (req, res) => {
-	res.json(psyList);
+	/* res.json(psyList); */
+	console.log('getall')
 };
 
 const getById = (req, res) => {
-	const id = parseInt(req.params.id);
+	/* const id = parseInt(req.params.id);
 	const psyFound = psyList.find((psy) => psy.id === id);
 	if (!psyFound) {
 		return res.status(404).json({ message: `Psychologist not found with id: ${id}` });
 	}
-	res.json(psyFound);
+	res.json(psyFound); */
+	console.log('byid')
 };
 
 const getByName = (req, res) => {
-	const psyFound = psyList.filter(
+	/* const psyFound = psyList.filter(
 		(psy) => psy.firstName === req.query.firstName && psy.lastName === req.query.lastName
 	);
 	if (psyFound.length <= 0) {
@@ -43,11 +45,12 @@ const getByName = (req, res) => {
 			message: `Psychologist not found with name: ${psyFound.firstName} ${psyFound.lastName}`,
 		});
 	}
-	res.json(psyFound);
+	res.json(psyFound); */
+	console.log('byname')
 };
 
 const add = (req, res) => {
-	const newPsy = {
+	/* const newPsy = {
 		id: getLastId(psyList) + 1,
 		firstName: req.query.firstName,
 		lastName: req.query.lastName,
@@ -66,11 +69,12 @@ const add = (req, res) => {
 			return res.status(500).json({ message: "Error adding Psy" });
 		}
 		res.json({ message: "Psychologist added successfully", psy: newPsy });
-	});
+	}); */
+	console.log('add')
 };
 
 const edit = (req, res) => {
-	const id = parseInt(req.params.id);
+	/* const id = parseInt(req.params.id);
 	const psyFound = psyList.find((psy) => psy.id === id);
 	if (!psyFound) {
 		return res.status(404).json({ message: `Psychologist not found with id ${id}` });
@@ -92,11 +96,12 @@ const edit = (req, res) => {
 			return res.status(500).json({ message: "Error editing psychologist" });
 		}
 		res.json({ message: "Psychologist edited successfully", psyFound });
-	});
+	}); */
+	console.log('edit')
 };
 
 const remove = (req, res) => {
-	const id = parseInt(req.params.id);
+	/* const id = parseInt(req.params.id);
 	const psyFound = psyList.find((psy) => psy.id === id);
 	if (!psyFound) {
 		return res.status(404).json({ message: `Psychologist not found with id ${id}` });
@@ -108,7 +113,8 @@ const remove = (req, res) => {
 			return res.status(500).json({ message: "Error deleting psychologist" });
 		}
 		res.json({ message: "Psychologist deleted", psy: psyFound });
-	});
+	}); */
+	console.log('edit')
 };
 
 module.exports = {

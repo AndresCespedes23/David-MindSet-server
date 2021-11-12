@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-let candidates = require('../data/candidates.json');
+/* let candidates = require('../data/candidates.json'); */
 
 const getLastId = (collection) => {
     let larger = 0;

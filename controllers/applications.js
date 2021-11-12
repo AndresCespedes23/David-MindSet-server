@@ -1,4 +1,4 @@
-let applications = require('../data/applications.json');
+/* let applications = require('../data/applications.json'); */
 let fs = require('fs');
 const path = require('path');
 

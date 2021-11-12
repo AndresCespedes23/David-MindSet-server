@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-let profileTypes = require('../data/profile-types.json');
+/* let profileTypes = require('../data/profile-types.json'); */
 
 const getLastID = (collection) => {
   let larger = 0;
