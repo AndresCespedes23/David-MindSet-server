@@ -1,13 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-const routes = require('./routes');
 const mongoose = require('mongoose');
+const routes = require('./routes');
 
 const app = express();
 const port = 8000;
 
 /* MongoDB Atlas Connection */
-mongoose.connect('mongodb://localhost/my_database', (err) => {
+mongoose.connect('mongodb+srv://userDavid:pswDavid@radiumcluster.ffqld.mongodb.net/mindset2021?retryWrites=true&w=majority', (err) => {
   if (err) {
     console.log('error connecting database');
   } else {
@@ -22,7 +22,6 @@ app.use('/api', routes);
 /* Copiar segun el recurso, los métodos y cambiar los get por lo que corresponda en cada route
 Para probar los métodos que no son get, se debe usar Postman
 Usar el ejemplo de psychologist */
-
 
 /*
 app.get("/candidates", candidates.getAll);
@@ -80,7 +79,7 @@ app.get('/open-positions/add', openPositions.add);
 app.get('/open-positions/edit/:id', openPositions.edit);
 app.get('/open-positions/remove/:id', openPositions.remove);
 app.get('/open-positions/byIdCompany/:idCompany', openPositions.getByIdCompany);
-app.get('/open-positions/:id', openPositions.getById); 
+app.get('/open-positions/:id', openPositions.getById);
 */
 app.listen(port, () => {
   console.log(`Open your browser in http://localhost:${port}`);
