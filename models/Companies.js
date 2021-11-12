@@ -14,7 +14,7 @@ const CompaniesSchema = new Schema({
   pictureUrl: { type: String, maxlength: 40 },
   contactFullName: { type: String, required: true, maxlength: 40 },
   contactPhone: { type: Number, required: true },
-  isActive: Boolean,
+  isActive: { type: Boolean, default: true },
 });
 
 module.exports = mongoose.model('Companies', CompaniesSchema);

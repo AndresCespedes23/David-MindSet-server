@@ -21,7 +21,7 @@ const getByName = (req, res) => {
   Companies.find({ name: req.params.name }, (err, docs) => {
     if (err) {
       return res.status(404).json({
-        message: `Company not found with name: ${docs.name}s`,
+        message: `Company not found with name: ${docs.name}`,
       });
     }
     return res.json(docs);
@@ -29,7 +29,7 @@ const getByName = (req, res) => {
 };
 
 const add = async (req, res) => {
-  console.log(req.body);
+  if (!req.params.id) return res.status(400).json({ message: 'Id not set' });
   if (!Object.keys(req.body)[0]) return res.status(400).json({ message: 'Body empty' });
   const loadedCompany = {
     name: req.body.name,
@@ -40,22 +40,24 @@ const add = async (req, res) => {
     zipCode: req.body.zipCode,
     phone: req.body.phone,
     email: req.body.email,
-    pictureUrl: req.body.pictureUrl,
     contactFullName: req.body.contactFullName,
     contactPhone: req.body.contactPhone,
-    isActive: req.body.isActive,
+    isActive: req.body.isActive || true,
   };
   if (!validate(loadedCompany)) {
     return res.status(400).json({ message: 'Missing parameters' });
   }
+  loadedCompany.pictureUrl = req.body.pictureUrl || undefined;
+
   const createdCompany = new Companies(loadedCompany);
   await createdCompany.save((err) => {
-    if (err) return res.status(500).json({ message: `Error adding psychologist: ${err}` });
-    return res.json({ message: 'Psychologist added successfully', Company: loadedCompany });
+    if (err) return res.status(500).json({ message: `Error adding company: ${err}` });
+    return res.json({ message: 'Company added successfully', Company: loadedCompany });
   });
 };
 
 const edit = (req, res) => {
+  if (!req.params.id) return res.status(400).json({ message: 'Id not set' });
   if (!Object.keys(req.body)[0]) return res.status(400).json({ message: 'Body empty' });
   Companies.findByIdAndUpdate(req.params.id, req.body, (err, found) => {
     if (err) return res.status(500).json({ message: 'Error editing company' });
