@@ -18,6 +18,7 @@ mongoose.connect('mongodb+srv://radium:radium123456@cluster0.urj6t.mongodb.net/m
 });
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use('/api', routes);

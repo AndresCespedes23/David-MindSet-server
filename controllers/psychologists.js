@@ -1,4 +1,3 @@
-const Psychologists = require('../models/Psychologists');
 const Psychologist = require('../models/Psychologists');
 
 const getAll = (req, res) => {
@@ -9,12 +8,12 @@ const getAll = (req, res) => {
 
 const getById = (req, res) => {
   const { id } = req.params;
-  Psychologists.findById()
-    .then((pyschologist) => {
-      if (!pyschologist) {
+  Psychologist.findById(id)
+    .then((psychologist) => {
+      if (!psychologist) {
         return res.status(404).json({ msg: `Psychologists not found by ID: ${id}` });
       }
-      return res.json({ pyschologist });
+      return res.json({ psychologist });
     })
     .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
