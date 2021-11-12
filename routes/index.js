@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const psychologists = require('./psychologists');
+const interviews = require('./interviews');
 
 const router = express.Router();
 
@@ -13,5 +14,6 @@ router.get('/server-status', (req, res) => res.send({
 }));
 
 router.use('/psychologists', psychologists);
+router.use('/interviews', interviews);
 
 module.exports = router;
