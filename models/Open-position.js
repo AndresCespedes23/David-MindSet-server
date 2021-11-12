@@ -11,4 +11,4 @@ const OpenPositionstSchema = new Schema({
   isActive: { type: Boolean, default: true },
 });
 
-module.exports = model('Psychologist', OpenPositionstSchema);
+module.exports = model('OpenPositions', OpenPositionstSchema);
