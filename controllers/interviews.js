@@ -28,6 +28,15 @@ const add = (req, res) => {
 };
 
 const edit = (req, res) => {
+  const { id } = req.params;
+  Interviews.findByIdAndUpdate(id, req.body, { new: true })
+    .then((data) => {
+      if (!data) {
+        return res.status(404).json({ msg: `Interview not found by ID: ${id}` });
+      }
+      return res.json({ msg: 'Interview updated', data });
+    })
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
 const remove = (req, res) => {
