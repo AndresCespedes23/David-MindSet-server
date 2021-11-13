@@ -18,7 +18,7 @@ const CandidatesSchema = new Schema({
   },
   pictureUrl: { type: String, default: null },
   phone: {
-    type: Number, required: true, min: 7, max: 8,
+    type: Number, required: true, min: 1000000, max: 10000000,
   },
   address: {
     street: {
