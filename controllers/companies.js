@@ -22,7 +22,7 @@ const getByName = (req, res) => {
 
 const add = (req, res) => {
   if (Object.keys(req.body).length === 0) return res.status(400).json({ message: 'Body empty' });
-  const loadedCompany = {
+  const loadedCompany = new Companies({
     name: req.body.name,
     address: req.body.address,
     city: req.body.city,
@@ -33,19 +33,17 @@ const add = (req, res) => {
     email: req.body.email,
     contactFullName: req.body.contactFullName,
     contactPhone: req.body.contactPhone,
-  };
+  });
   if (validate(loadedCompany)) {
     return res.status(400).json({ message: `Missing parameters: ${validate(loadedCompany)}` });
   }
   loadedCompany.isActive = req.body.isActive || true;
   loadedCompany.pictureUrl = null;
-
-  const createdCompany = new Companies(loadedCompany);
-  console.log(createdCompany);
-  createdCompany
+  loadedCompany
     .save()
-    .then(() => res.json({ message: 'Company added successfully', Company: createdCompany }))
+    .then(() => res.json({ message: 'Company added successfully', Company: loadedCompany }))
     .catch((err) => {
+      console.log(err);
       if (err) return res.status(500).json({ message: `Error adding company: ${err.stack}` });
     });
 };
