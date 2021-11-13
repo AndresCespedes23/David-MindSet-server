@@ -59,8 +59,17 @@ const edit = (req, res) => {
   });
 };
 
-const remove = () => {
-  console.log('remove');
+const remove = (req, res) => {
+  const { id } = req.params;
+  OpenPosition.findByIdAndRemove(id, (err, data) => {
+    if (err) {
+      return res.status(400).json({ msg: `Error: ${err}` });
+    }
+    if (!data) {
+      return res.status(404).json({ msg: `Open Position not found by ID: ${id}` });
+    }
+    return res.status(200).json({ msg: 'Open position removed', data });
+  });
 };
 
 module.exports = {
