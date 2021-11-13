@@ -2,12 +2,20 @@ const Interviews = require('../models/Interviews.js');
 
 const getAll = (req, res) => {
   Interviews.find()
-    .then((interviews) => res.json({ interviews }))
+    .then((data) => res.json({ data }))
     .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
 const getById = (req, res) => {
-
+  const { id } = req.params;
+  Interviews.findById(id)
+    .then((data) => {
+      if (!data) {
+        return res.status(404).json({ msg: `Interview not found by ID: ${id}` });
+      }
+      return res.json({ data });
+    })
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
 const getByCompany = (req, res) => {
