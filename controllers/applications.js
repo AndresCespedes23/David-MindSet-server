@@ -24,22 +24,25 @@ const validate = (object) => {
 const getAll = (req, res) => {
     Applications.find()
         .then((applications) => {
-            return res.status().json(applications)
+            return res.json({applications})
         })
         .catch((err) => {
             return res.status(400).json(err)
         })
 };
-/*
-const getById = (req, res) => {
-    const id = parseInt(req.params.id);
-    const application = applications.find((applications) => applications.id === id);
-    if (application === undefined) {
-        return res.status(404).json({ message: `no application with id: ${id}` });
-    }
-    res.json(application);
-};
 
+const getByCandidate = (req, res) => {
+    const { id } = req.params;
+    Applications.find({ idCandidate: id })
+    .then((data) => {
+        if (data.length === 0) {
+            return res.status(404).json({ msg: `Candidate not found by Candidate ID: ${id}` });
+        }
+        return res.json ({ data });
+    })
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+};
+/*
 const getByPosition = (req, res) => {
     const id = parseInt(req.params.id);
     const application = applications.filter((applications) => applications.idOpenPosition === id);

@@ -19,15 +19,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api", routes);
-/*
-app.get("/applications", applications.getAll);
-app.get("/applications/byPos/:id", applications.getByPosition);
-app.get("/applications/byCan/:id", applications.getByCandidate);
-app.get("/applications/add", applications.add);
-app.get("/applications/edit/:id", applications.edit);
-app.get("/applications/remove/:id", applications.remove);
-app.get("/applications/:id", applications.getById);
-*/
+
 app.listen(port, () => {
   console.log(`Open your browser in http://localhost:${port}`);
 });
