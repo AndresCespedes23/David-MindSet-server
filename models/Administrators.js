@@ -6,7 +6,7 @@ const AdministratorsSchema = new Schema({
 
   id: Schema.Types.ObjectId,
   firstName: {
-    type: String, required: true, minLenght: 2, maxLength: 40,
+    type: String, required: true, minLenght: 2, maxLength: 40, // here u cant put more validations
   },
   lastName: {
     type: String, required: true, minLenght: 2, maxLength: 40,

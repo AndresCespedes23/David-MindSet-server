@@ -1,25 +1,7 @@
-const fs = require('fs');
-const path = require('path');
-/* const adminData = require('../data/administrators.json'); */
+const Administrators = require('../models/Administrators'); // insted of re-write json we reach /models/Administrators where is the conection with Moongose and it's Schema
 
-const validate = (entity) => {
-    for (let key in entity) {
-      if (entity[key] === undefined) {
-        return false;
-      }
-    }
-    return true;
-};
 
-const getLastId = group => {
-    let large = 0;
-    group.forEach(element => {
-      if (element.id > large) {
-        large = element.id;
-      }
-    });
-    return large;
-};
+/*
 
 const getAll = (req, res) => {
     res.json(adminData);
@@ -55,7 +37,7 @@ const add = (req, res) => {
     }
     adminData.push(newAdmin);
     fs.writeFile(path.join(__dirname, '../data/administrators.json'), JSON.stringify(adminData), err => {
-        if (err) { 
+        if (err) {
             console.log(err);
             return res.status(500).json({ message: 'Error adding administrator' });
         }
@@ -101,12 +83,12 @@ const remove = (req, res) => {
         res.json({ message: 'Administrator removed' });
     });
 };
-
+*/
 module.exports = {
-  getAll: getAll,
-  getById: getById,
-  getByName: getByName,
-  add: add,
-  edit: edit,
-  remove: remove,
+  getAll,
+  // getById,
+  // getByName,
+  // add,
+  // edit,
+  // remove,
 };
