@@ -21,7 +21,12 @@ const getById = (req, res) => {
 const getByName = (req, res) => {
   const { name } = req.params;
   Psychologist.find({ name: name.toLowerCase() })
-    .then((psychologists) => res.json({ psychologists }))
+    .then((psychologists) => {
+      if (psychologists.length === 0) {
+        return res.status(404).json({ msg: `Psychologists not found by Name: ${name}` });
+      }
+      return res.json({ psychologists });
+    })
     .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
@@ -45,16 +50,7 @@ const add = (req, res) => {
 
 const edit = (req, res) => {
   const { id } = req.params;
-  const changes = new Psychologist({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password,
-    pictureUrl: req.body.pictureUrl,
-    turns: [],
-    isActive: true,
-  });
-  Psychologist.findByIdAndUpdate(id, changes, { new: true }, (err, psychologist) => {
+  Psychologist.findByIdAndUpdate(id, req.body, { new: true }, (err, psychologist) => {
     if (err) {
       return res.status(400).json({ msg: `Error: ${err}` });
     }
