@@ -1,5 +1,10 @@
 const Administrators = require('../models/Administrators'); // insted of re-write json we reach /models/Administrators where is the conection with Moongose and it's Schema
 
+const getAll = (req, res) => {
+  Administrators.find() // find() is from Moongose documentation
+    .then((administrators) => res.json({ administrators }))
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+};
 
 /*
 
