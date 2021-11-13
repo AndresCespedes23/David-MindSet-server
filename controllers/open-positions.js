@@ -1,14 +1,14 @@
-const OpenPositions = require('../models/Open-position');
+const OpenPosition = require('../models/Open-position');
 
 const getAll = (req, res) => {
-  OpenPositions.find()
+  OpenPosition.find()
     .then((data) => res.status(200).json({ data }))
     .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
 const getById = (req, res) => {
   const { id } = req.params;
-  OpenPositions.findById(id)
+  OpenPosition.findById(id)
     .then((data) => {
       if (!data) {
         return res.status(404).json({ msg: `Open Position not found by ID: ${id}` });
@@ -20,7 +20,7 @@ const getById = (req, res) => {
 
 const getByIdCompany = (req, res) => {
   const { id } = req.params;
-  OpenPositions.find({ idCompany: id })
+  OpenPosition.find({ idCompany: id })
     .then((data) => {
       if (data.length === 0) {
         return res.status(404).json({ msg: `Open Position not found by Company ID: ${id}` });
@@ -30,12 +30,33 @@ const getByIdCompany = (req, res) => {
     .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
-const add = () => {
-  console.log('add');
+const add = (req, res) => {
+  const newOpenPosition = new OpenPosition({
+    idCompany: req.body.idCompany,
+    startDate: req.body.startDate,
+    endDate: req.body.endDate,
+    jobDescription: req.body.jobDescription,
+    isActive: true,
+  });
+  newOpenPosition.save((err, data) => {
+    if (err) {
+      return res.status(400).json({ msg: `Error: ${err}` });
+    }
+    return res.status(200).json({ msg: 'Open position added', data });
+  });
 };
 
-const edit = () => {
-  console.log('edit');
+const edit = (req, res) => {
+  const { id } = req.params;
+  OpenPosition.findByIdAndUpdate(id, req.body, { new: true }, (err, data) => {
+    if (err) {
+      return res.status(400).json({ msg: `Error: ${err}` });
+    }
+    if (!data) {
+      return res.status(404).json({ msg: `Open Position not found by ID: ${id}` });
+    }
+    return res.status(200).json({ msg: 'Open position updated', data });
+  });
 };
 
 const remove = () => {
