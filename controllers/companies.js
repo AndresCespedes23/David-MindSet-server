@@ -3,7 +3,11 @@ const Companies = require('../models/companies');
 
 const { validate } = require('../validators/validators');
 
-const getAll = async (req, res) => res.json(await Companies.find());
+const getAll = (req, res) => {
+  Companies.find()
+    .then((data) => res.json(data))
+    .catch((err) => res.status(500).json({ message: `Error adding company: ${err.stack}` }));
+};
 
 const getById = (req, res) => {
   Companies.findById(req.params.id)
@@ -12,12 +16,14 @@ const getById = (req, res) => {
 };
 
 const getByName = (req, res) => {
-  Companies.find({ name: req.params.name }).then((companies) => {
-    if (companies[0] === undefined) {
-      return res.status(500).json({ message: `Company not found with name: ${req.params.name}` });
-    }
-    return res.json(companies);
-  });
+  Companies.find({ name: req.params.name })
+    .then((companies) => {
+      if (companies.length === 0) {
+        return res.status(404).json({ message: `Company not found with name: ${req.params.name}` });
+      }
+      return res.json(companies);
+    })
+    .catch((err) => res.status(500).json({ message: err }));
 };
 
 const add = (req, res) => {
@@ -50,7 +56,7 @@ const add = (req, res) => {
 
 const edit = (req, res) => {
   if (Object.keys(req.body).length === 0) return res.status(400).json({ message: 'Body empty' });
-  Companies.findByIdAndUpdate(req.params.id, req.body, { strict: false })
+  Companies.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .exec()
     .then((found) => res.json({ message: 'Company edited successfully', Company: found }))
     .catch((err) => {
