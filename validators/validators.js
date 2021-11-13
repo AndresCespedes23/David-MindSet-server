@@ -1,10 +1,13 @@
 const validate = (object) => {
+  let missingParameters = [];
   for (const key in object) {
     if (object.hasOwnProperty(key)) {
       if (object[key] === undefined) {
-        return false;
+        missingParameters.push(key);
       }
     }
   }
-  return true;
+  if (missingParameters.length) return missingParameters;
+  return false;
 };
+module.exports = { validate };

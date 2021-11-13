@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
