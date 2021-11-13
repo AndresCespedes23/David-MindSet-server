@@ -6,12 +6,19 @@ const getAll = (req, res) => {
     .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
-/*
-
-const getAll = (req, res) => {
-    res.json(adminData);
+const getById = (req, res) => {
+  const { id } = req.params;
+  Administrators.findById(id)
+    .then((administrators) => {
+      if (!administrators) {
+        return res.status(404).json({ msg: `Administrators not found by ID: ${id}` });
+      }
+      return res.json({ administrators });
+    })
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
+/*
 const getById = (req, res) => {
     const foundId = adminData.find(administrator => administrator.id === parseInt(req.params.id));
     if (!foundId) {
@@ -91,7 +98,7 @@ const remove = (req, res) => {
 */
 module.exports = {
   getAll,
-  // getById,
+  getById,
   // getByName,
   // add,
   // edit,
