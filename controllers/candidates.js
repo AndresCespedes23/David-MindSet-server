@@ -65,8 +65,16 @@ const edit = (req, res) => {
     .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
-const remove = () => {
-  console.log('remove');
+const remove = (req, res) => {
+  const { id } = req.params;
+  Candidates.findByIdAndRemove(id)
+    .then((removedCandidate) => {
+      if (!removedCandidate) {
+        return res.status(404).json({ msg: `No candidate with the id of ${id} founded` });
+      }
+      return res.json({ msg: 'Candidate removed', removedCandidate });
+    })
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
 module.exports = {
