@@ -30,8 +30,29 @@ const getByName = (req, res) => {
     .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
-const add = () => {
-  console.log('add');
+const add = (req, res) => {
+  const newCandidate = new Candidates({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    password: req.body.password,
+    phone: req.body.phone,
+    address: {
+      street: req.body.address.street,
+      number: req.body.address.number,
+    },
+    city: req.body.city,
+    province: req.body.province,
+    country: req.body.country,
+    postalCode: req.body.postalCode,
+    birthday: req.body.birthday,
+  });
+  newCandidate.save((err, candidate) => {
+    if (err) {
+      return res.status(400).json({ msg: `Error: ${err}` });
+    }
+    return res.status(201).json({ msg: 'Candidate created', candidate });
+  });
 };
 
 const edit = () => {
