@@ -4,9 +4,9 @@ const router = express.Router();
 const interviews = require('../controllers/interviews');
 
 router.get('/', interviews.getAll);
-router.post('/', interviews.add);
-router.put('/:id', interviews.edit);
-router.delete('/:id', interviews.remove);
+router.post('/add', interviews.add);
+router.put('/edit/:id', interviews.edit);
+router.delete('/remove/:id', interviews.remove);
 router.get('/byCompany', interviews.getByCompany);
 router.get('/:id', interviews.getById);
 

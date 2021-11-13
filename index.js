@@ -7,7 +7,8 @@ const app = express();
 const port = 8000;
 
 /* MongoDB Atlas Connection */
-mongoose.connect('mongodb+srv://userDavid:pswDavid@radiumcluster.ffqld.mongodb.net/mindset2021?retryWrites=true&w=majority', (err) => {
+// 'mongodb+srv://userDavid:pswDavid@radiumcluster.ffqld.mongodb.net/mindset2021?retryWrites=true&w=majority
+mongoose.connect('mongodb+srv://radium:radium123456@cluster0.urj6t.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', (err) => {
   if (err) {
     console.log('error connecting database');
   } else {
@@ -32,7 +33,6 @@ app.get('/interviews/byCompany/:idCompany', interviews.getByCompany);
 app.get('/interviews/edit/:id', interviews.edit);
 app.get('/interviews/remove/:id', interviews.remove);
 */
-
 app.listen(port, () => {
   console.log(`Open your browser in http://localhost:${port}`);
 });
