@@ -47,25 +47,22 @@ const add = (req, res) => {
     postalCode: req.body.postalCode,
     birthday: req.body.birthday,
   });
-  newCandidate.save((err, candidate) => {
-    if (err) {
-      return res.status(400).json({ msg: `Error: ${err}` });
-    }
-    return res.json({ msg: 'Candidate created', candidate });
-  });
+  newCandidate
+    .save()
+    .then((candidate) => res.json({ msg: 'Candidate created', candidate }))
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
 const edit = (req, res) => {
   const { id } = req.params;
-  Candidates.findByIdAndUpdate(id, req.body, { new: true }, (err, newCandidate) => {
-    if (err) {
-      return res.status(400).json({ msg: `Error: ${err}` });
-    }
-    if (!newCandidate) {
-      return res.status(404).json({ msg: `No candidate with the id of ${id} founded` });
-    }
-    return res.json({ msg: 'Candidate updated', newCandidate });
-  });
+  Candidates.findByIdAndUpdate(id, req.body, { new: true })
+    .then((newCandidate) => {
+      if (!newCandidate) {
+        return res.status(404).json({ msg: `No candidate with the id of ${id} founded` });
+      }
+      return res.json({ msg: 'Candidate updated', newCandidate });
+    })
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
 const remove = () => {
