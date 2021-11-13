@@ -6,9 +6,9 @@ const companies = require('../controllers/companies');
 const { getAll, add, edit, remove, getByName, getById } = companies;
 
 router.get('/', getAll);
-router.post('/add', add);
-router.put('/edit/:id', edit);
-router.delete('/remove/:id', remove);
+router.post('/', add);
+router.put('/:id', edit);
+router.delete('/:id', remove);
 router.get('/byName/:name', getByName);
 router.get('/:id', getById);
 

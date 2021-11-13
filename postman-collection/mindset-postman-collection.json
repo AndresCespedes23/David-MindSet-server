@@ -289,7 +289,7 @@
                   "protocol": "http",
                   "host": ["localhost"],
                   "port": "8000",
-                  "path": ["api", "company", "edit", "{{id}}"]
+                  "path": ["api", "company", "{{id}}"]
                 }
               },
               "response": []
@@ -304,7 +304,7 @@
                   "protocol": "http",
                   "host": ["localhost"],
                   "port": "8000",
-                  "path": ["api", "company", "remove", "{{id}}"]
+                  "path": ["api", "company", "{{id}}"]
                 }
               },
               "response": []

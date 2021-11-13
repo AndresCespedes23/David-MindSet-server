@@ -6,9 +6,6 @@ const { validate } = require('../validators/validators');
 const getAll = async (req, res) => res.json(await Companies.find());
 
 const getById = (req, res) => {
-  if (req.params.id === 'byName' || req.params.id === 'edit' || req.params.id === 'remove') {
-    return res.status(400).json({ message: `Id value for ${req.params.id} method empty` });
-  }
   Companies.findById(req.params.id)
     .then((found) => res.json(found))
     .catch((err) => res.status(404).json({ message: `Company not found with id: ${req.params.id}`, err: err.stack }));
