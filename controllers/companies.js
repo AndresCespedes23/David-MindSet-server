@@ -3,33 +3,27 @@ const Companies = require('../models/companies');
 
 const { validate } = require('../validators/validators');
 
-const getAll = async (req, res) => {
-  const companyFound = await Companies.find();
-  return res.json(companyFound);
-};
+const getAll = async (req, res) => res.json(await Companies.find());
 
 const getById = (req, res) => {
-  Companies.findById(req.params.id, (err, found) => {
-    if (err) {
-      return res.status(404).json({ message: `Company not found with id: ${req.params.id}` });
-    }
-    return res.json(found);
-  });
+  if (req.params.id === 'byName' || req.params.id === 'edit' || req.params.id === 'remove') {
+    return res.status(400).json({ message: `Id value for ${req.params.id} method empty` });
+  }
+  Companies.findById(req.params.id)
+    .then((found) => res.json(found))
+    .catch((err) => res.status(404).json({ message: `Company not found with id: ${req.params.id}`, err: err.stack }));
 };
 
 const getByName = (req, res) => {
-  Companies.find({ name: req.params.name }, (err, docs) => {
-    if (err) {
-      return res.status(404).json({
-        message: `Company not found with name: ${docs.name}`,
-      });
+  Companies.find({ name: req.params.name }).then((companies) => {
+    if (companies[0] === undefined) {
+      return res.status(500).json({ message: `Company not found with name: ${req.params.name}` });
     }
-    return res.json(docs);
+    return res.json(companies);
   });
 };
 
 const add = async (req, res) => {
-  if (!req.params.id) return res.status(400).json({ message: 'Id not set' });
   if (!Object.keys(req.body)[0]) return res.status(400).json({ message: 'Body empty' });
   const loadedCompany = {
     name: req.body.name,
@@ -44,33 +38,35 @@ const add = async (req, res) => {
     contactPhone: req.body.contactPhone,
     isActive: req.body.isActive || true,
   };
-  if (!validate(loadedCompany)) {
-    return res.status(400).json({ message: 'Missing parameters' });
+  if (validate(loadedCompany)) {
+    return res.status(400).json({ message: `Missing parameters: ${validate(loadedCompany)}` });
   }
   loadedCompany.pictureUrl = req.body.pictureUrl || undefined;
 
   const createdCompany = new Companies(loadedCompany);
   await createdCompany.save((err) => {
-    if (err) return res.status(500).json({ message: `Error adding company: ${err}` });
+    if (err) return res.status(500).json({ message: `Error adding company: ${err.stack}` });
     return res.json({ message: 'Company added successfully', Company: loadedCompany });
   });
 };
 
 const edit = (req, res) => {
-  if (!req.params.id) return res.status(400).json({ message: 'Id not set' });
   if (!Object.keys(req.body)[0]) return res.status(400).json({ message: 'Body empty' });
-  Companies.findByIdAndUpdate(req.params.id, req.body, (err, found) => {
-    if (err) return res.status(500).json({ message: 'Error editing company' });
-    return res.json({ message: 'Company edited successfully', Company: found });
-  });
+  Companies.findByIdAndUpdate(req.params.id, req.body, { strict: false })
+    .exec()
+    .then((found) => res.json({ message: 'Company edited successfully', Company: found }))
+    .catch((err) => {
+      if (err) return res.status(500).json({ message: 'Error editing company', err: err.stack });
+    });
 };
 
 const remove = (req, res) => {
-  if (!req.params.id) return res.status(400).json({ message: 'Id not set' });
-  Companies.findByIdAndDelete(req.params.id, (err) => {
-    if (err) return res.status(500).json({ message: 'Error deleting Company' });
-    return res.json({ message: 'Company deleted' });
-  });
+  Companies.findByIdAndDelete(req.params.id)
+    .exec()
+    .then(() => res.json({ message: 'Company deleted' }))
+    .catch((err) => {
+      if (err) return res.status(500).json({ message: 'Error deleting Company', err: err.stack });
+    });
 };
 
 module.exports = {
