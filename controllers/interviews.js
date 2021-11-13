@@ -19,6 +19,15 @@ const getById = (req, res) => {
 };
 
 const getByCompany = (req, res) => {
+  const { id } = req.params;
+  Interviews.find({ idCompany: id })
+    .then((data) => {
+      if (data.length === 0) {
+        return res.status(404).json({ msg: `Interview not found by Company ID: ${id}` });
+      }
+      return res.json({ data });
+    })
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
 const add = (req, res) => {
