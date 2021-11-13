@@ -38,38 +38,34 @@ const add = (req, res) => {
     jobDescription: req.body.jobDescription,
     isActive: true,
   });
-  newOpenPosition.save((err, data) => {
-    if (err) {
-      return res.status(400).json({ msg: `Error: ${err}` });
-    }
-    return res.json({ msg: 'Open position added', data });
-  });
+  newOpenPosition
+    .save()
+    .then((data) => res.json({ msg: 'Open position added', data }))
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
 const edit = (req, res) => {
   const { id } = req.params;
-  OpenPosition.findByIdAndUpdate(id, req.body, { new: true }, (err, data) => {
-    if (err) {
-      return res.status(400).json({ msg: `Error: ${err}` });
-    }
-    if (!data) {
-      return res.status(404).json({ msg: `Open Position not found by ID: ${id}` });
-    }
-    return res.json({ msg: 'Open position updated', data });
-  });
+  OpenPosition.findByIdAndUpdate(id, req.body, { new: true })
+    .then((data) => {
+      if (!data) {
+        return res.status(404).json({ msg: `Open Position not found by ID: ${id}` });
+      }
+      return res.json({ msg: 'Open position updated', data });
+    })
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
 const remove = (req, res) => {
   const { id } = req.params;
-  OpenPosition.findByIdAndRemove(id, (err, data) => {
-    if (err) {
-      return res.status(400).json({ msg: `Error: ${err}` });
-    }
-    if (!data) {
-      return res.status(404).json({ msg: `Open Position not found by ID: ${id}` });
-    }
-    return res.json({ msg: 'Open position removed', data });
-  });
+  OpenPosition.findByIdAndRemove(id)
+    .then((data) => {
+      if (!data) {
+        return res.status(404).json({ msg: `Open Position not found by ID: ${id}` });
+      }
+      return res.json({ msg: 'Open position removed', data });
+    })
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
 module.exports = {
