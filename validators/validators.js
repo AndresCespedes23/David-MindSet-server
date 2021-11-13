@@ -1,5 +1,5 @@
 const validate = (object) => {
-  let missingParameters = [];
+  const missingParameters = [];
   for (const key in object) {
     if (object.hasOwnProperty(key)) {
       if (object[key] === undefined) {

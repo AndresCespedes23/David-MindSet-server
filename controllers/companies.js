@@ -23,8 +23,8 @@ const getByName = (req, res) => {
   });
 };
 
-const add = async (req, res) => {
-  if (!Object.keys(req.body)[0]) return res.status(400).json({ message: 'Body empty' });
+const add = (req, res) => {
+  if (Object.keys(req.body).length === 0) return res.status(400).json({ message: 'Body empty' });
   const loadedCompany = {
     name: req.body.name,
     address: req.body.address,
@@ -41,17 +41,20 @@ const add = async (req, res) => {
   if (validate(loadedCompany)) {
     return res.status(400).json({ message: `Missing parameters: ${validate(loadedCompany)}` });
   }
-  loadedCompany.pictureUrl = req.body.pictureUrl || undefined;
+  loadedCompany.pictureUrl = null;
 
   const createdCompany = new Companies(loadedCompany);
-  await createdCompany.save((err) => {
-    if (err) return res.status(500).json({ message: `Error adding company: ${err.stack}` });
-    return res.json({ message: 'Company added successfully', Company: loadedCompany });
-  });
+  console.log(createdCompany);
+  createdCompany
+    .save()
+    .then(() => res.json({ message: 'Company added successfully', Company: createdCompany }))
+    .catch((err) => {
+      if (err) return res.status(500).json({ message: `Error adding company: ${err.stack}` });
+    });
 };
 
 const edit = (req, res) => {
-  if (!Object.keys(req.body)[0]) return res.status(400).json({ message: 'Body empty' });
+  if (Object.keys(req.body).length === 0) return res.status(400).json({ message: 'Body empty' });
   Companies.findByIdAndUpdate(req.params.id, req.body, { strict: false })
     .exec()
     .then((found) => res.json({ message: 'Company edited successfully', Company: found }))
