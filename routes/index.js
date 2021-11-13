@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require("path");
-const psychologists = require('./psychologists');
+const applications = require('./applications');
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.get('/server-status', (req, res) =>
   })
 );
 
-router.use('/psychologists', psychologists);
+router.use('/applications', applications);
 
 module.exports = router;
 

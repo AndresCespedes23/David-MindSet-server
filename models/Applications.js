@@ -7,6 +7,6 @@ const ApplicationsSchema = new Schema({
     idCandidate: { type: Schema.Types.ObjectId, ref: 'Candidate' },
     idOpenPosition: { type: Schema.Types.ObjectId, ref: 'Open Position' },
     isActive: { type: Boolean, default: true },
-})
+});
 
 module.exports = model('Applications', ApplicationsSchema);

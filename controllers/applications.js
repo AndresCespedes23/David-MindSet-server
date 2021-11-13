@@ -1,7 +1,7 @@
 let fs = require('fs');
 const path = require('path');
-/* const applications = require('../data/applications.json'); */
-
+const Applications = require('../models/Applications');
+/*
 const getLastId = (collection) => {
     let larger = 0;
     collection.forEach((element) => {
@@ -20,9 +20,17 @@ const validate = (object) => {
     }
     return true;
 };
-
-const getAll = (req, res) => res.json(applications);
-
+*/
+const getAll = (req, res) => {
+    Applications.find()
+        .then((applications) => {
+            return res.status().json(applications)
+        })
+        .catch((err) => {
+            return res.status(400).json(err)
+        })
+};
+/*
 const getById = (req, res) => {
     const id = parseInt(req.params.id);
     const application = applications.find((applications) => applications.id === id);
@@ -108,14 +116,14 @@ const remove = (req, res) => {
         };
         res.json({ message: 'Application deleted' });
     });
-};
+};*/
 
 module.exports = {
-    getAll: getAll,
-    getById: getById,
+    getAll: getAll
+   /* getById: getById,
     getByPosition: getByPosition,
     getByCandidate: getByCandidate,
     add: add,
     edit: edit,
-    remove: remove
+    remove: remove*/
 };
