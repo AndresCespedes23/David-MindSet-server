@@ -33,11 +33,11 @@ const add = (req, res) => {
     email: req.body.email,
     contactFullName: req.body.contactFullName,
     contactPhone: req.body.contactPhone,
-    isActive: req.body.isActive || true,
   };
   if (validate(loadedCompany)) {
     return res.status(400).json({ message: `Missing parameters: ${validate(loadedCompany)}` });
   }
+  loadedCompany.isActive = req.body.isActive || true;
   loadedCompany.pictureUrl = null;
 
   const createdCompany = new Companies(loadedCompany);
