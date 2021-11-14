@@ -40,11 +40,9 @@ const isNotEmpty = (req, res, next) => {
   return next();
 };
 
-const isObjectID = (req, res, next) => {
-  const { id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    console.log(mongoose.Types.ObjectId.isValid(id));
-    return res.status(400).json({ msg: 'No MongoDB ID' });
+const validateFormat = (req, res, next) => {
+  if (req.params.id && !mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ msg: 'Invalid id' });
   }
   return next();
 };
@@ -99,6 +97,6 @@ const validateLength = (req, res, next) => {
 
 module.exports = {
   isNotEmpty,
-  isObjectID,
+  validateFormat,
   validateLength,
 };

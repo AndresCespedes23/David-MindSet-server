@@ -2,13 +2,13 @@ const express = require('express');
 
 const router = express.Router();
 const candidates = require('../controllers/candidates');
-const { isNotEmpty, isObjectID, validateLength } = require('../validators/candidates');
+const { isNotEmpty, validateFormat, validateLength } = require('../validators/candidates');
 
 router.get('/', candidates.getAll);
 router.get('/byName/:name', candidates.getByName);
-router.get('/:id', isObjectID, candidates.getById);
+router.get('/:id', validateFormat, candidates.getById);
 router.post('/', isNotEmpty, validateLength, candidates.add);
-router.put('/:id', isObjectID, candidates.edit);
-router.delete('/:id', isObjectID, candidates.remove);
+router.put('/:id', validateFormat, candidates.edit);
+router.delete('/:id', validateFormat, candidates.remove);
 
 module.exports = router;
