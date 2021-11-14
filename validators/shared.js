@@ -38,51 +38,58 @@ const checkLength = (word, minLength, maxLength) => {
   return false;
 };
 
+const checkNumberSize = (number, min, max) => {
+  if (min <= number && number <= max) {
+    return true;
+  }
+  return false;
+};
+
 const validateLength = (req, res, next) => {
-  let data;
   let max;
   let min;
-  if ((data = req.body.name) && !checkLength(req.body.name, (min = 2), (max = 40))) {
-    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  if (req.body.name && !checkLength(req.body.name, (min = 2), (max = 40))) {
+    return res.status(400).json({ msg: `name should have between ${min} and ${max} symbols` });
   }
-  if ((data = req.body.address) && !checkLength(req.body.address, (min = 2), (max = 100))) {
-    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  if (req.body.address && !checkLength(req.body.address, (min = 2), (max = 100))) {
+    return res.status(400).json({ msg: `address should have between ${min} and ${max} symbols` });
   }
-  if ((data = req.body.city) && !checkLength(req.body.city, (min = 2), (max = 40))) {
-    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  if (req.body.city && !checkLength(req.body.city, (min = 2), (max = 40))) {
+    return res.status(400).json({ msg: `city should have between ${min} and ${max} symbols` });
   }
-  if ((data = req.body.province) && !checkLength(req.body.province, (min = 2), (max = 40))) {
-    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  if (req.body.province && !checkLength(req.body.province, (min = 2), (max = 40))) {
+    return res.status(400).json({ msg: `province should have between ${min} and ${max} symbols` });
   }
-  if ((data = req.body.country) && !checkLength(req.body.country, (min = 2), (max = 40))) {
-    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  if (req.body.country && !checkLength(req.body.country, (min = 2), (max = 40))) {
+    return res.status(400).json({ msg: `country should have between ${min} and ${max} symbols` });
   }
-  if ((data = req.body.zipCode) && !checkLength(req.body.zipCode, (min = 0), (max = 10000))) {
-    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  if (req.body.zipCode && !checkNumberSize(req.body.zipCode, (min = 0), (max = 10000))) {
+    return res.status(400).json({ msg: `zipCode should be between ${min} and ${max}` });
   }
-  if ((data = req.body.phone) && !checkLength(req.body.phone, (min = 50), (max = Infinity))) {
-    return res.status(400).json({ msg: `${data} should be between ${min} and ${max}` });
+  if (req.body.phone && !checkNumberSize(req.body.phone, (min = 50), (max = Infinity))) {
+    return res.status(400).json({ msg: `phone should be between ${min} and ${max}` });
   }
-  if ((data = req.body.email) && !checkLength(req.body.email, (min = 5), (max = 40))) {
-    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  if (req.body.email && !checkLength(req.body.email, (min = 5), (max = 40))) {
+    return res.status(400).json({ msg: `email should have between ${min} and ${max} symbols` });
   }
-  if ((data = req.body.pictureUrl) && !checkLength(req.body.pictureUrl, (min = 5), (max = 200))) {
-    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  if (req.body.pictureUrl && !checkLength(req.body.pictureUrl, (min = 5), (max = 200))) {
+    return res
+      .status(400)
+      .json({ msg: `pictureUrl should have between ${min} and ${max} symbols` });
+  }
+  if (req.body.contactFullName && !checkLength(req.body.contactFullName, (min = 2), (max = 40))) {
+    return res
+      .status(400)
+      .json({ msg: `contactFullName should have between ${min} and ${max} symbols` });
   }
   if (
-    (data = req.body.contactFullName) &&
-    !checkLength(req.body.contactFullName, (min = 2), (max = 40))
+    req.body.contactPhone &&
+    !checkNumberSize(req.body.contactPhone, (min = 50), (max = Infinity))
   ) {
-    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+    return res.status(400).json({ msg: `contactPhone should be between ${min} and ${max}` });
   }
-  if (
-    (data = req.body.contactPhone) &&
-    !checkLength(req.body.contactPhone, (min = 50), (max = Infinity))
-  ) {
-    return res.status(400).json({ msg: `${data} should have be ${min} and ${max}` });
-  }
-  if ((data = req.body.isActive) && !checkLength(req.body.isActive, (min = 4), (max = 5))) {
-    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  if (req.body.isActive && !checkLength(req.body.isActive, (min = 4), (max = 5))) {
+    return res.status(400).json({ msg: `isActive should have between ${min} and ${max} symbols` });
   }
   return next();
 };
