@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 const { Schema, model } = mongoose;
 
-const PsychologistSchema = new Schema({
+const sessionsSchema = new Schema({
   id: Schema.Types.ObjectId,
-  idPsychologists: { type: mongoose.Schema.type.ObjectId, ref: 'Psychologists', required: true },
-  idCandidate: { type: mongoose.Schema.type.ObjectId, ref: 'Candidate', required: true },
+  idPsychologists: { type: Schema.Types.ObjectId, ref: 'Psychologists', required: true },
+  idCandidate: { type: Schema.Types.ObjectId, ref: 'Candidate', required: true },
   date: { type: Date, required: true },
   isActive: { type: Boolean, default: true },
-})
+});
 
-module.exports = model('Sessions', SessionsSchema);
+module.exports = model('Sessions', sessionsSchema);
