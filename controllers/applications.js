@@ -6,12 +6,24 @@ const getAll = (req, res) => {
     .catch((err) => res.status(400).json(err));
 };
 
+const getById = (req, res) => {
+  const { id } = req.params;
+  Applications.findById(id)
+    .then((data) => {
+      if (!data) {
+        return res.status(404).json({ msg: `Application not found by ID: ${id}` });
+      }
+      return res.json({ data });
+    })
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+};
+
 const getByPosition = (req, res) => {
   const { id } = req.params;
   Applications.find({ idOpenPosition: id })
     .then((data) => {
       if (data.length === 0) {
-        return res.status(404).json({ msg: `Position not found by Position ID: ${id}` });
+        return res.status(404).json({ msg: `Position not found by ID: ${id}` });
       }
       return res.json({ data });
     })
@@ -23,7 +35,7 @@ const getByCandidate = (req, res) => {
   Applications.find({ idCandidate: id })
     .then((data) => {
       if (data.length === 0) {
-        return res.status(404).json({ msg: `Candidate not found by Candidate ID: ${id}` });
+        return res.status(404).json({ msg: `Candidate not found by ID: ${id}` });
       }
       return res.json({ data });
     })
@@ -73,4 +85,5 @@ module.exports = {
   add,
   edit,
   remove,
+  getById,
 };

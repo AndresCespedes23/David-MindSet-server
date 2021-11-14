@@ -9,5 +9,5 @@ router.get('/byCan/:id', applications.getByCandidate);
 router.post('/', applications.add);
 router.put('/:id', applications.edit);
 router.delete('/:id', applications.remove);
-
+router.get('/:id', applications.getById);
 module.exports = router;
