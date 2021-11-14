@@ -1,6 +1,5 @@
+/* eslint-disable linebreak-style */
 const mongoose = require('mongoose');
-
-const checkLength = (word, minLength, maxLength) => { return minLength <= word.length && word.length <= maxLength };
 
 const isNotEmpty = (req, res, next) => {
   if (!req.body.idPsychologists) {
@@ -15,23 +14,23 @@ const isNotEmpty = (req, res, next) => {
   return next();
 };
 
-const isObjectID = (id) => { return mongoose.Types.ObjectId.isValid(id); }
+const isObjectID = (id) => mongoose.Types.ObjectId.isValid(id);
 
 const validateLength = (req, res, next) => {
-  if (!checkLength(req.body.date, 10, 10)) {
+  if (!req.body.date.lenght !== 10) {
     return res.status(400).json({ msg: 'Date should have 10 characters' });
   }
   return next();
 };
 
 const validateFormat = (req, res, next) => {
-  if (req.body.idPsychologists && !isObjectID(req.body.idPsychologists)) {
+  if (req.body.idPsychologists && !mongoose.Types.ObjectId.isValid(req.body.idCandidate)) {
     return res.status(400).json({ msg: 'Invalid psychologist id' });
   }
-  if (req.body.idCandidate && !isObjectID(req.body.idCandidate)) {
+  if (req.body.idCandidate && !mongoose.Types.ObjectId.isValid(req.body.idCandidate)) {
     return res.status(400).json({ msg: 'Invalid candidate id' });
   }
-  if (req.params.id && !isObjectID(req.params.id)) {
+  if (req.params.id && !mongoose.Types.ObjectId.isValid(req.body.idCandidate)) {
     return res.status(400).json({ msg: 'Invalid id' });
   }
   return next();
