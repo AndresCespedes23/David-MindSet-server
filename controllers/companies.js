@@ -14,7 +14,7 @@ const getById = (req, res) => {
 };
 
 const getByName = (req, res) => {
-  Companies.find({ name: req.params.name })
+  Companies.find({ name: req.query.name })
     .then((companies) => {
       if (companies.length === 0) {
         return res.status(404).json({ message: `Company not found with name: ${req.params.name}` });

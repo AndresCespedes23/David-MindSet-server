@@ -1,4 +1,6 @@
+/* eslint-disable no-cond-assign */
 /* eslint-disable no-restricted-syntax */
+const mongoose = require('mongoose');
 
 const required = (req, res, next) => {
   const missingParameters = [];
@@ -11,16 +13,89 @@ const required = (req, res, next) => {
   if (missingParameters.length === 0) return next();
   return res.status(400).json({ message: `Missing parameters: ${missingParameters}` });
 };
-function requiredUsers(req, res, next) {
-  if (req.url === 'companies') {
-    res.locals.firstName = 'firstName';
-    res.locals.lastName = 'lastName';
-    res.locals.email = 'email';
-    res.locals.password = 'password';
+
+const isObjectID = (id) => {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return false;
   }
-  next();
-}
+  return true;
+};
+
+const validateFormat = (req, res, next) => {
+  if (req.body.idCompany && !isObjectID(req.body.idCompany)) {
+    return res.status(400).json({ msg: 'Invalid company id' });
+  }
+  if (req.params.id && !isObjectID(req.params.id)) {
+    return res.status(400).json({ msg: 'Invalid id' });
+  }
+  return next();
+};
+
+const checkLength = (word, minLength, maxLength) => {
+  if (minLength <= word.length && word.length <= maxLength) {
+    return true;
+  }
+  return false;
+};
+
+const validateLength = (req, res, next) => {
+  let data;
+  let max;
+  let min;
+  if ((data = req.body.name) && !checkLength(req.body.name, (min = 2), (max = 40))) {
+    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  }
+  if ((data = req.body.address) && !checkLength(req.body.address, (min = 2), (max = 100))) {
+    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  }
+  if ((data = req.body.city) && !checkLength(req.body.city, (min = 2), (max = 40))) {
+    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  }
+  if ((data = req.body.province) && !checkLength(req.body.province, (min = 2), (max = 40))) {
+    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  }
+  if ((data = req.body.country) && !checkLength(req.body.country, (min = 2), (max = 40))) {
+    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  }
+  if ((data = req.body.zipCode) && !checkLength(req.body.zipCode, (min = 0), (max = 10000))) {
+    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  }
+  if ((data = req.body.phone) && !checkLength(req.body.phone, (min = 50), (max = Infinity))) {
+    return res.status(400).json({ msg: `${data} should be between ${min} and ${max}` });
+  }
+  if ((data = req.body.email) && !checkLength(req.body.email, (min = 5), (max = 40))) {
+    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  }
+  if ((data = req.body.pictureUrl) && !checkLength(req.body.pictureUrl, (min = 5), (max = 200))) {
+    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  }
+  if (
+    (data = req.body.contactFullName) &&
+    !checkLength(req.body.contactFullName, (min = 2), (max = 40))
+  ) {
+    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  }
+  if (
+    (data = req.body.contactPhone) &&
+    !checkLength(req.body.contactPhone, (min = 50), (max = Infinity))
+  ) {
+    return res.status(400).json({ msg: `${data} should have be ${min} and ${max}` });
+  }
+  if ((data = req.body.isActive) && !checkLength(req.body.isActive, (min = 4), (max = 5))) {
+    return res.status(400).json({ msg: `${data} should have between ${min} and ${max} symbols` });
+  }
+  return next();
+};
+
+const bodyNotEmpty = (req, res, next) => {
+  if (Object.keys(req.body).length === 0) return res.status(400).json({ message: 'Body empty' });
+  return next();
+};
 module.exports = {
   required,
-  requiredUsers,
+  isObjectID,
+  validateFormat,
+  checkLength,
+  validateLength,
+  bodyNotEmpty,
 };

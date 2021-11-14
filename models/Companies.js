@@ -33,23 +33,41 @@ const CompaniesSchema = new Schema({
     minlength: 2,
     maxlength: 40,
   },
-  zipCode: { type: Number, required: true, max: 10000 },
-  phone: { type: Number, required: true },
+  zipCode: {
+    type: Number,
+    required: true,
+    max: 10000,
+  },
+  phone: {
+    type: Number,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
     minlength: 2,
     maxlength: 40,
   },
-  pictureUrl: { type: String, maxlength: 40 },
+  pictureUrl: {
+    type: String,
+    minlength: 5,
+    maxlength: 200,
+  },
   contactFullName: {
     type: String,
     required: true,
     minlength: 2,
     maxlength: 40,
   },
-  contactPhone: { type: Number, required: true },
-  isActive: { type: Boolean, default: true },
+  contactPhone: {
+    type: Number,
+    minlength: 2,
+    required: true,
+  },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 module.exports = mongoose.model('Companies', CompaniesSchema);
