@@ -10,7 +10,9 @@ const getAll = (req, res) => {
 const getById = (req, res) => {
   Companies.findById(req.params.id)
     .then((found) => res.json(found))
-    .catch((err) => res.status(404).json({ message: `Company not found with id: ${req.params.id}`, err }));
+    .catch((err) =>
+      res.status(404).json({ message: `Company not found with id: ${req.params.id}`, err })
+    );
 };
 
 const getByName = (req, res) => {
@@ -25,8 +27,7 @@ const getByName = (req, res) => {
 };
 
 const add = (req, res) => {
-  if (Object.keys(req.body).length === 0) return res.status(400).json({ message: 'Body empty' });
-  return new Companies(req.body)
+  new Companies(req.body)
     .save()
     .then(() => res.json({ message: 'Company added successfully', Company: createdCompany }))
     .catch((err) => {
@@ -35,8 +36,7 @@ const add = (req, res) => {
 };
 
 const edit = (req, res) => {
-  if (Object.keys(req.body).length === 0) return res.status(400).json({ message: 'Body empty' });
-  return Companies.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  Companies.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then((found) => res.json({ message: 'Company edited successfully', Company: found }))
     .catch((err) => {
       res.status(500).json({ message: 'Error editing company', err });
