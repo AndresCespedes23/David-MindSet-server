@@ -60,28 +60,24 @@ const edit = (req, res) => {
     })
     .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
-/*
+
 const remove = (req, res) => {
-    const id = parseInt(req.params.id);
-    let remObj = applications.find((applications) => applications.id === id);
-    if (remObj === null) {
-        return res.status(400).json({ message: `no application with id: ${id}` });
-    }
-    const newList = applications.filter((applications) => applications.id !== id);
-    fs.writeFile(path.join(__dirname, '../data/applications.json'), JSON.stringify(applications), (err) => {
-        if (err) {
-            return res.status(500).json({ message: 'error deleting application' }) 
-        };
-        res.json({ message: 'Application deleted' });
-    });
-};*/
+  const { id } = req.params;
+  Applications.findByIdAndRemove(id)
+    .then((data) => {
+      if (!data) {
+        return res.status(404).json({ msg: `Application not found by ID: ${id}` });
+      }
+      return res.json({ msg: 'Application removed', data });
+    })
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+};
 
 module.exports = {
     getAll,
-    //getById: getById,
     getByPosition,
     getByCandidate,
     add,
     edit,
-   // remove: remove
+    remove
 };
