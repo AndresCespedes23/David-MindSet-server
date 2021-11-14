@@ -3,7 +3,7 @@ const sessions = require('../models/sessions');
 const getAll = (req, res) => {
   sessions.find()
     .then((data) => res.json({ data }))
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const getById = (req, res) => {
@@ -15,7 +15,7 @@ const getById = (req, res) => {
       }
       return res.json({ data });
     })
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const getByIdPsycologist = (req, res) => {
@@ -27,7 +27,7 @@ const getByIdPsycologist = (req, res) => {
       }
       return res.json({ data });
     })
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const getByIdCandidate = (req, res) => {
@@ -39,7 +39,7 @@ const getByIdCandidate = (req, res) => {
       }
       return res.json({ data });
     })
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 
@@ -54,7 +54,7 @@ const add = (req, res) => {
   newSession
     .save()
     .then((data) => res.json({ msg: 'Session added', data }))
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const edit = (req, res) => {
@@ -66,7 +66,7 @@ const edit = (req, res) => {
     }
     return res.json({ msg: 'Session updated', data });
   })
-  .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+  .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const remove = (req, res) => {
@@ -78,7 +78,7 @@ const remove = (req, res) => {
     }
     return res.json({ msg: 'Session removed', data });
   })
-  .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+  .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 module.exports = {

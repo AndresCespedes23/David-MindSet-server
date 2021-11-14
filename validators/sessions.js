@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
-const checkLength = (word, minLength, maxLength) => {
-  if (minLength <= word.length && word.length <= maxLength) {
-    return true;
-  }
-  return false;
-};
+const checkLength = (word, minLength, maxLength) => { return minLength <= word.length && word.length <= maxLength };
 
 const isNotEmpty = (req, res, next) => {
   if (!req.body.idPsychologists) {
@@ -20,12 +15,7 @@ const isNotEmpty = (req, res, next) => {
   return next();
 };
 
-const isObjectID = (id) => {
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return false;
-  }
-  return true;
-};
+const isObjectID = (id) => { return mongoose.Types.ObjectId.isValid(id); }
 
 const validateLength = (req, res, next) => {
   if (!checkLength(req.body.date, 10, 10)) {
