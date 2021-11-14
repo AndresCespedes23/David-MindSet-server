@@ -1,5 +1,7 @@
 const Candidates = require('../models/Candidates');
 
+const notFoundText = 'Candidate not found by';
+
 const getAll = (req, res) => {
   Candidates.find()
     .then((candidates) => res.json({ candidates }))
@@ -11,7 +13,7 @@ const getById = (req, res) => {
   Candidates.findById(id)
     .then((data) => {
       if (!data) {
-        return res.status(404).json({ msg: `No candidate with the id of ${id} founded` });
+        return res.status(404).json({ msg: `${notFoundText} ID: ${id}` });
       }
       return res.json({ data });
     })
@@ -23,7 +25,7 @@ const getByName = (req, res) => {
   Candidates.find({ firstName: name.toLowerCase() })
     .then((data) => {
       if (data.length === 0) {
-        return res.status(404).json({ msg: `No candidate with the name of ${name} founded` });
+        return res.status(404).json({ msg: `${notFoundText} name: ${name}` });
       }
       return res.json({ data });
     })
@@ -58,7 +60,7 @@ const edit = (req, res) => {
   Candidates.findByIdAndUpdate(id, req.body, { new: true })
     .then((newCandidate) => {
       if (!newCandidate) {
-        return res.status(404).json({ msg: `No candidate with the id of ${id} founded` });
+        return res.status(404).json({ msg: `${notFoundText} ID: ${id}` });
       }
       return res.json({ msg: 'Candidate updated', newCandidate });
     })
@@ -70,7 +72,7 @@ const remove = (req, res) => {
   Candidates.findByIdAndRemove(id)
     .then((removedCandidate) => {
       if (!removedCandidate) {
-        return res.status(404).json({ msg: `No candidate with the id of ${id} founded` });
+        return res.status(404).json({ msg: `${notFoundText} ID: ${id}` });
       }
       return res.json({ msg: 'Candidate removed', removedCandidate });
     })
