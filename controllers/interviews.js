@@ -1,5 +1,7 @@
 const Interviews = require('../models/Interviews.js');
 
+const notFoundTxt = 'Interview not found by';
+
 const getAll = (req, res) => {
   Interviews.find()
     .then((data) => res.json({ data }))
@@ -11,7 +13,7 @@ const getById = (req, res) => {
   Interviews.findById(id)
     .then((data) => {
       if (!data) {
-        return res.status(404).json({ msg: `Interview not found by ID: ${id}` });
+        return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       }
       return res.json({ data });
     })
@@ -19,12 +21,12 @@ const getById = (req, res) => {
 };
 
 const search = (req, res) => {
-  const { id } = req.params;
-  Interviews.find({ idCompany: id })
+  const queryParam = req.query;
+  const idCompany = queryParam.company || null;
+  if (!idCompany) return res.status(400).json({ msg: 'Missing query param: company' });
+  return Interviews.find({ idCompany })
     .then((data) => {
-      if (data.length === 0) {
-        return res.status(404).json({ msg: `Interview not found by Company ID: ${id}` });
-      }
+      if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} Company ID: ${idCompany}` });
       return res.json({ data });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
@@ -49,7 +51,7 @@ const edit = (req, res) => {
   Interviews.findByIdAndUpdate(id, req.body, { new: true })
     .then((data) => {
       if (!data) {
-        return res.status(404).json({ msg: `Interview not found by ID: ${id}` });
+        return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       }
       return res.json({ msg: 'Interview updated', data });
     })
@@ -61,7 +63,7 @@ const remove = (req, res) => {
   Interviews.findByIdAndRemove(id)
     .then((data) => {
       if (!data) {
-        return res.status(404).json({ msg: `Interview not found by ID: ${id}` });
+        return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       }
       return res.json({ msg: 'Interview removed', data });
     })
