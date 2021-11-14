@@ -187,7 +187,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/candidates/618fd02e0fb0d04c9a69a19e",
+							"raw": "http://localhost:8000/api/candidates/619062e49875b06098c9d806",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -196,19 +196,19 @@
 							"path": [
 								"api",
 								"candidates",
-								"618fd02e0fb0d04c9a69a19e"
+								"619062e49875b06098c9d806"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "getByNameCandidate",
+					"name": "search",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/candidates/byName/manuel",
+							"raw": "http://localhost:8000/api/candidates/search?name=jose",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -217,8 +217,13 @@
 							"path": [
 								"api",
 								"candidates",
-								"byName",
-								"manuel"
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "jose"
+								}
 							]
 						}
 					},
@@ -237,7 +242,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"jose\",\r\n    \"lastName\": \"lopez\",\r\n    \"email\": \"jose@gmail.com\",\r\n    \"password\": \"jose1234\",\r\n    \"phone\": 5646516,\r\n    \"address\": {\r\n      \"street\": \"moreno\",\r\n      \"number\": 4565\r\n    },\r\n    \"city\": \"rosario\",\r\n    \"province\": \"santa fe\",\r\n    \"country\": \"argentina\",\r\n    \"postalCode\": 2000,\r\n    \"birthday\": \"2013-10-21\"\r\n}"
+							"raw": "{\r\n    \"firstName\": \"ruben\",\r\n    \"lastName\": \"diaz\",\r\n    \"email\": \"ruben@gmail.com\",\r\n    \"password\": \"ruben4584\",\r\n    \"phone\": 5646516,\r\n    \"address\": {\r\n      \"street\": \"moreno\",\r\n      \"number\": 4565\r\n    },\r\n    \"city\": \"rosario\",\r\n    \"province\": \"santa fe\",\r\n    \"country\": \"argentina\",\r\n    \"postalCode\": 2000,\r\n    \"birthday\": \"2013-10-21\"\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8000/api/candidates",
@@ -267,7 +272,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"manuel\",\r\n    \"lastName\": \"santos\",\r\n    \"email\": \"manu@gmail.com\",\r\n    \"hobbies\": [\"play football\"]\r\n}"
+							"raw": "{\r\n    \"firstName\": \"nacho\",\r\n    \"lastName\": \"sanchez\",\r\n    \"email\": \"nacho@gmail.com\",\r\n    \"hobbies\": [\"play football\"]\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8000/api/candidates/61900e74f9681677b240a2b6",
@@ -291,7 +296,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/candidates/6190139956879f7b561c275c",
+							"raw": "http://localhost:8000/api/candidates/618f27834ef593dd5ba5c136",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -300,7 +305,7 @@
 							"path": [
 								"api",
 								"candidates",
-								"6190139956879f7b561c275c"
+								"618f27834ef593dd5ba5c136"
 							]
 						}
 					},
