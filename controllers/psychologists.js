@@ -1,27 +1,27 @@
 /* const psyList = require("../data/psychologists"); */
 
-const getAll = () => {
-  console.log('getall');
+const getAll = (req, res) => {
+  res.status(501).json({ msg: 'Not implemented' });
 };
 
-const getById = () => {
-  console.log('byid');
+const getById = (req, res) => {
+  res.status(501).json({ msg: 'Not implemented' });
 };
 
-const getByName = () => {
-  console.log('byname');
+const getByName = (req, res) => {
+  res.status(501).json({ msg: 'Not implemented' });
 };
 
-const add = () => {
-  console.log('add');
+const add = (req, res) => {
+  res.status(501).json({ msg: 'Not implemented' });
 };
 
-const edit = () => {
-  console.log('edit');
+const edit = (req, res) => {
+  res.status(501).json({ msg: 'Not implemented' });
 };
 
-const remove = () => {
-  console.log('edit');
+const remove = (req, res) => {
+  res.status(501).json({ msg: 'Not implemented' });
 };
 
 module.exports = {
