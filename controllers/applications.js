@@ -20,12 +20,14 @@ const getById = (req, res) => {
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
-const getByPosition = (req, res) => {
-  const { id } = req.params;
-  Applications.find({ idOpenPosition: id })
+const search = (req, res) => {
+  const queryParam = req.query;
+  const idOpenPosition = queryParam.openPosition || null;
+  if (!idOpenPosition) return res.status(400).json({ msg: 'Missing query param: Position' });
+  return Applications.find({ idOpenPosition })
     .then((data) => {
       if (data.length === 0) {
-        return res.status(404).json({ msg: `Position not found by ID: ${id}` });
+        return res.status(404).json({ msg: `Position not found by ID: ${idOpenPosition}` });
       }
       return res.json({ data });
     })
@@ -82,7 +84,7 @@ const remove = (req, res) => {
 
 module.exports = {
   getAll,
-  getByPosition,
+  search,
   getByCandidate,
   add,
   edit,
