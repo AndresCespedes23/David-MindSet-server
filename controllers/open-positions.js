@@ -36,7 +36,6 @@ const add = (req, res) => {
     startDate: req.body.startDate,
     endDate: req.body.endDate,
     jobDescription: req.body.jobDescription,
-    isActive: true,
   });
   newOpenPosition
     .save()
