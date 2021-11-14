@@ -20,14 +20,30 @@ const getById = (req, res) => {
 
 const getByName = (req, res) => {
   const { name } = req.params;
-  Administrators.find({ name: name.toLowerCase() }) // watch this, it is different than Valen
+  Administrators.find({ firstName: name.toLowerCase() })
     .then((administrators) => {
-      if (administrators === 0) {
+      if (administrators.length === 0) {
         return res.status(404).json({ msg: `Administrators not found by name: ${name}` });
       }
       return res.json({ administrators });
     })
     .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+};
+
+const add = (req, res) => {
+  const newAdministrator = new Administrators({
+    fistName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    password: req.body.password,
+    isActive: true,
+  });
+  newAdministrator.save((err, administrator) => {
+    if (err) {
+      return res.status(400).json({ msg: `Error: ${err}` });
+    }
+    return res.json({ msg: 'Administrator created', administrator });
+  });
 };
 
 /*
@@ -97,7 +113,7 @@ module.exports = {
   getAll,
   getById,
   getByName,
-  // add,
+  add,
   // edit,
   // remove,
 };
