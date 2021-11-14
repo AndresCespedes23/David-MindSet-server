@@ -18,22 +18,19 @@ const getById = (req, res) => {
     .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
-/*
-const getById = (req, res) => {
-    const foundId = adminData.find(administrator => administrator.id === parseInt(req.params.id));
-    if (!foundId) {
-        return res.status(404).json({ message: `No administrator with the id of ${req.params.id} founded` });
-    }
-    res.json(foundId);
+const getByName = (req, res) => {
+  const { name } = req.params;
+  Administrators.find({ name: name.toLowerCase() }) // watch this, it is different than Valen
+    .then((administrators) => {
+      if (administrators === 0) {
+        return res.status(404).json({ msg: `Administrators not found by name: ${name}` });
+      }
+      return res.json({ administrators });
+    })
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
-const getByName = (req, res) => {
-    const foundName = adminData.filter(administrator => administrator.firstName === (req.params.name));
-    if (foundName.length <= 0) {
-        return res.status(404).json({ message: `No administrator with the first name of ${req.params.name} founded` });
-    }
-    res.json(foundName);
-};
+/*
 
 const add = (req, res) => {
     const newAdmin = {
@@ -99,7 +96,7 @@ const remove = (req, res) => {
 module.exports = {
   getAll,
   getById,
-  // getByName,
+  getByName,
   // add,
   // edit,
   // remove,
