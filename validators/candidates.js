@@ -73,13 +73,13 @@ const validateLength = (req, res, next) => {
     return res.status(400).json({ msg: 'Street address must be between 3 and 40 characters' });
   }
   if (!checkLength(req.body.city, 3, 40)) {
-    return res.status(400).json({ msg: 'Last Name must be between 3 and 40 characters' });
+    return res.status(400).json({ msg: 'CIty must be between 3 and 40 characters' });
   }
   if (!checkLength(req.body.province, 3, 40)) {
-    return res.status(400).json({ msg: 'Email must be between 3 and 40 characters' });
+    return res.status(400).json({ msg: 'Province must be between 3 and 40 characters' });
   }
   if (!checkLength(req.body.country, 3, 40)) {
-    return res.status(400).json({ msg: 'Password must be between 3 and 40 characters' });
+    return res.status(400).json({ msg: 'Country must be between 3 and 40 characters' });
   }
   return next();
 };
