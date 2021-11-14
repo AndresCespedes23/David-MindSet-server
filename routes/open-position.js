@@ -5,10 +5,16 @@ const openPositions = require('../controllers/open-positions');
 const openPositionsValidator = require('../validators/open-positions');
 
 router.get('/', openPositions.getAll);
-router.get('/byIdCompany/:id', openPositionsValidator.isObjectID, openPositions.getByIdCompany);
-router.post('/', openPositionsValidator.isNotEmpty, openPositionsValidator.validateLength, openPositions.add);
-router.put('/:id', openPositionsValidator.isObjectID, openPositions.edit);
-router.delete('/:id', openPositionsValidator.isObjectID, openPositions.remove);
-router.get('/:id', openPositionsValidator.isObjectID, openPositions.getById);
+router.get('/byIdCompany/:id', openPositionsValidator.validateFormat, openPositions.getByIdCompany);
+router.post(
+  '/',
+  openPositionsValidator.isNotEmpty,
+  openPositionsValidator.validateLength,
+  openPositionsValidator.validateFormat,
+  openPositions.add,
+);
+router.put('/:id', openPositionsValidator.validateFormat, openPositions.edit);
+router.delete('/:id', openPositionsValidator.validateFormat, openPositions.remove);
+router.get('/:id', openPositionsValidator.validateFormat, openPositions.getById);
 
 module.exports = router;
