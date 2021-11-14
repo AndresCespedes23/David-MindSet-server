@@ -6,13 +6,13 @@ const { validate } = require('../validators/validators');
 const getAll = (req, res) => {
   Companies.find()
     .then((data) => res.json(data))
-    .catch((err) => res.status(500).json({ message: `Error adding company: ${err.stack}` }));
+    .catch((err) => res.status(500).json({ message: `Error adding company: ${err}` }));
 };
 
 const getById = (req, res) => {
   Companies.findById(req.params.id)
     .then((found) => res.json(found))
-    .catch((err) => res.status(404).json({ message: `Company not found with id: ${req.params.id}`, err: err.stack }));
+    .catch((err) => res.status(404).json({ message: `Company not found with id: ${req.params.id}`, err }));
 };
 
 const getByName = (req, res) => {
@@ -28,7 +28,7 @@ const getByName = (req, res) => {
 
 const add = (req, res) => {
   if (Object.keys(req.body).length === 0) return res.status(400).json({ message: 'Body empty' });
-  const loadedCompany = new Companies({
+  const loadedCompany = {
     name: req.body.name,
     address: req.body.address,
     city: req.body.city,
@@ -39,18 +39,19 @@ const add = (req, res) => {
     email: req.body.email,
     contactFullName: req.body.contactFullName,
     contactPhone: req.body.contactPhone,
-  });
+  };
   if (validate(loadedCompany)) {
     return res.status(400).json({ message: `Missing parameters: ${validate(loadedCompany)}` });
   }
   loadedCompany.isActive = req.body.isActive || true;
   loadedCompany.pictureUrl = null;
-  loadedCompany
+  const createdCompany = new Companies(loadedCompany);
+  createdCompany
     .save()
-    .then(() => res.json({ message: 'Company added successfully', Company: loadedCompany }))
+    .then(() => res.json({ message: 'Company added successfully', Company: createdCompany }))
     .catch((err) => {
       console.log(err);
-      if (err) return res.status(500).json({ message: `Error adding company: ${err.stack}` });
+      if (err) return res.status(500).json({ message: `Error adding company: ${err}` });
     });
 };
 
@@ -60,7 +61,7 @@ const edit = (req, res) => {
     .exec()
     .then((found) => res.json({ message: 'Company edited successfully', Company: found }))
     .catch((err) => {
-      if (err) return res.status(500).json({ message: 'Error editing company', err: err.stack });
+      if (err) return res.status(500).json({ message: 'Error editing company', err });
     });
 };
 
@@ -69,7 +70,7 @@ const remove = (req, res) => {
     .exec()
     .then(() => res.json({ message: 'Company deleted' }))
     .catch((err) => {
-      if (err) return res.status(500).json({ message: 'Error deleting Company', err: err.stack });
+      if (err) return res.status(500).json({ message: 'Error deleting Company', err });
     });
 };
 
