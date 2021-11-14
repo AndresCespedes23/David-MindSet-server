@@ -12,21 +12,19 @@ const getById = (req, res) => {
   const { id } = req.params;
   Administrators.findById(id)
     .then((data) => {
-      if (!data) {
-        return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-      }
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       return res.json({ data });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const search = (req, res) => {
-  const { name } = req.params;
-  Administrators.find({ firstName: name.toLowerCase() })
+  const queryParam = req.query;
+  const firstName = queryParam.name.toLowerCase() || null;
+  if (!firstName) return res.status(400).json({ msg: 'Missing query param: name' });
+  return Administrators.find({ firstName })
     .then((data) => {
-      if (data.length === 0) {
-        return res.status(404).json({ msg: `${notFoundTxt} name: ${name}` });
-      }
+      if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} name: ${firstName}` });
       return res.json({ data });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
@@ -51,9 +49,7 @@ const edit = (req, res) => {
   req.body.firstName = req.body.firstName.toLowerCase();
   Administrators.findByIdAndUpdate(id, req.body, { new: true })
     .then((data) => {
-      if (!data) {
-        return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-      }
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       return res.json({ msg: 'Administrator updated', data });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
@@ -63,9 +59,7 @@ const remove = (req, res) => {
   const { id } = req.params;
   Administrators.findByIdAndRemove(id)
     .then((data) => {
-      if (!data) {
-        return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-      }
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       return res.json({ msg: 'Administrator removed', data });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
