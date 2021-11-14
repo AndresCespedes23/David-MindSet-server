@@ -20,7 +20,7 @@ const getById = (req, res) => {
 
 const getByName = (req, res) => {
   const { name } = req.params;
-  Candidates.find({ firstName: name })
+  Candidates.find({ firstName: name.toLowerCase() })
     .then((data) => {
       if (data.length === 0) {
         return res.status(404).json({ msg: `No candidate with the name of ${name} founded` });
