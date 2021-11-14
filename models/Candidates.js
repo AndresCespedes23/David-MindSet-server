@@ -69,7 +69,7 @@ const CandidatesSchema = new Schema({
     { type: String, minlength: 3, maxlength: 40 },
   ],
   profileTypes: [
-    { type: Schema.Types.ObjectId, ref: 'profileTypes' },
+    { type: Schema.Types.ObjectId, ref: 'profileTypesSchema' },
   ],
   isOpenToWork: { type: Boolean, default: false },
 
