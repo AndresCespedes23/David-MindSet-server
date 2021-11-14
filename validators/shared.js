@@ -14,11 +14,11 @@ const required = (req, res, next) => {
   return res.status(400).json({ message: `Missing parameters: ${missingParameters}` });
 };
 
-const isObjectID = (id) => {
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+const isObjectID = (req, res, next) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return false;
   }
-  return true;
+  return next();
 };
 
 const validateFormat = (req, res, next) => {
