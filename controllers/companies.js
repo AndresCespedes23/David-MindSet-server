@@ -1,4 +1,4 @@
-/* eslint-disable consistent-return */
+/* easdslint-disable consistent-return */
 const Companies = require('../models/companies');
 
 const { validate } = require('../validators/validators');
@@ -44,24 +44,23 @@ const add = (req, res) => {
     return res.status(400).json({ message: `Missing parameters: ${validate(loadedCompany)}` });
   }
   loadedCompany.isActive = req.body.isActive || true;
-  loadedCompany.pictureUrl = null;
+  loadedCompany.pictureUrl = req.body.pictureUrl || null;
   const createdCompany = new Companies(loadedCompany);
-  createdCompany
+  return createdCompany
     .save()
     .then(() => res.json({ message: 'Company added successfully', Company: createdCompany }))
     .catch((err) => {
-      console.log(err);
-      if (err) return res.status(500).json({ message: `Error adding company: ${err}` });
+      res.status(500).json({ message: `Error adding company: ${err}` });
     });
 };
 
 const edit = (req, res) => {
   if (Object.keys(req.body).length === 0) return res.status(400).json({ message: 'Body empty' });
-  Companies.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  return Companies.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .exec()
     .then((found) => res.json({ message: 'Company edited successfully', Company: found }))
     .catch((err) => {
-      if (err) return res.status(500).json({ message: 'Error editing company', err });
+      res.status(500).json({ message: 'Error editing company', err });
     });
 };
 
@@ -70,7 +69,7 @@ const remove = (req, res) => {
     .exec()
     .then(() => res.json({ message: 'Company deleted' }))
     .catch((err) => {
-      if (err) return res.status(500).json({ message: 'Error deleting Company', err });
+      res.status(500).json({ message: 'Error deleting Company', err });
     });
 };
 
