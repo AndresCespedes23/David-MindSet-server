@@ -1,7 +1,7 @@
 /* easdslint-disable consistent-return */
 const Companies = require('../models/companies');
 
-const { validate } = require('../validators/validators');
+const { validate } = require('../validators/companies');
 
 const getAll = (req, res) => {
   Companies.find()
@@ -27,26 +27,9 @@ const getByName = (req, res) => {
 };
 
 const add = (req, res) => {
+  console.log('hola');
   if (Object.keys(req.body).length === 0) return res.status(400).json({ message: 'Body empty' });
-  const loadedCompany = {
-    name: req.body.name,
-    address: req.body.address,
-    city: req.body.city,
-    province: req.body.province,
-    country: req.body.country,
-    zipCode: req.body.zipCode,
-    phone: req.body.phone,
-    email: req.body.email,
-    contactFullName: req.body.contactFullName,
-    contactPhone: req.body.contactPhone,
-  };
-  if (validate(loadedCompany)) {
-    return res.status(400).json({ message: `Missing parameters: ${validate(loadedCompany)}` });
-  }
-  loadedCompany.isActive = req.body.isActive || true;
-  loadedCompany.pictureUrl = req.body.pictureUrl || null;
-  const createdCompany = new Companies(loadedCompany);
-  return createdCompany
+  return new Companies(req.body)
     .save()
     .then(() => res.json({ message: 'Company added successfully', Company: createdCompany }))
     .catch((err) => {
