@@ -15,10 +15,10 @@ const getById = (req, res) => {
       }
       return res.json({ data });
     })
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
-const getByCompany = (req, res) => {
+const search = (req, res) => {
   const { id } = req.params;
   Interviews.find({ idCompany: id })
     .then((data) => {
@@ -27,11 +27,11 @@ const getByCompany = (req, res) => {
       }
       return res.json({ data });
     })
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const add = (req, res) => {
-  const newInterview = new Interview({
+  const newInterview = new Interviews({
     idCompany: req.body.idCompany,
     idCandidate: req.body.idCandidate,
     date: req.body.date,
@@ -41,7 +41,7 @@ const add = (req, res) => {
   newInterview
     .save()
     .then((data) => res.json({ msg: 'New interview added', data }))
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const edit = (req, res) => {
@@ -53,7 +53,7 @@ const edit = (req, res) => {
       }
       return res.json({ msg: 'Interview updated', data });
     })
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const remove = (req, res) => {
@@ -65,13 +65,13 @@ const remove = (req, res) => {
       }
       return res.json({ msg: 'Interview removed', data });
     })
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 module.exports = {
   getAll,
   getById,
-  getByCompany,
+  search,
   add,
   edit,
   remove,
