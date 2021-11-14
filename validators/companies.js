@@ -1,14 +1,14 @@
 function requiredCompanies(req, res, next) {
-  res.locals.name = 'name';
-  res.locals.address = 'address';
-  res.locals.city = 'city';
-  res.locals.province = 'province';
-  res.locals.country = 'country';
-  res.locals.zipCode = 'zipCode';
-  res.locals.phone = 'phone';
-  res.locals.email = 'email';
-  res.locals.fullName = 'fullName';
-  res.locals.contactPhone = 'contactPhone';
+  res.locals.requirements.name = 'name';
+  res.locals.requirements.address = 'address';
+  res.locals.requirements.city = 'city';
+  res.locals.requirements.province = 'province';
+  res.locals.requirements.country = 'country';
+  res.locals.requirements.zipCode = 'zipCode';
+  res.locals.requirements.phone = 'phone';
+  res.locals.requirements.email = 'email';
+  res.locals.requirements.fullName = 'fullName';
+  res.locals.requirements.contactPhone = 'contactPhone';
   return next();
 }
 

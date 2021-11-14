@@ -3,7 +3,7 @@
 
 const required = (req, res, next) => {
   const missingParameters = [];
-  for (const requiredElement in res.locals) {
+  for (const requiredElement in res.locals.requirements) {
     // res.locals doesnt have a prototype
     if (!req.body[requiredElement]) {
       missingParameters.push(requiredElement);

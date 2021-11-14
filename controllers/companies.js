@@ -1,8 +1,6 @@
 /* easdslint-disable consistent-return */
 const Companies = require('../models/companies');
 
-const { validate } = require('../validators/companies');
-
 const getAll = (req, res) => {
   Companies.find()
     .then((data) => res.json(data))
