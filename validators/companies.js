@@ -8,7 +8,7 @@ function requiredCompanies(req, res, next) {
   res.locals.requirements.zipCode = 'zipCode';
   res.locals.requirements.phone = 'phone';
   res.locals.requirements.email = 'email';
-  res.locals.requirements.fullName = 'fullName';
+  res.locals.requirements.contactFullName = 'contactFullName';
   res.locals.requirements.contactPhone = 'contactPhone';
   return next();
 }

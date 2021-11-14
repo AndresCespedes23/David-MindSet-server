@@ -52,6 +52,7 @@ const CompaniesSchema = new Schema({
     type: String,
     minlength: 5,
     maxlength: 200,
+    default: null,
   },
   contactFullName: {
     type: String,

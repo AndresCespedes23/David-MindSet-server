@@ -16,7 +16,7 @@ const required = (req, res, next) => {
 
 const isObjectID = (req, res, next) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-    return false;
+    return res.status(400).json({ message: `Company not found with id: ${req.params.id}` });
   }
   return next();
 };
