@@ -3,7 +3,7 @@ const Candidates = require('../models/Candidates');
 const getAll = (req, res) => {
   Candidates.find()
     .then((candidates) => res.json({ candidates }))
-    .catch((error) => res.status(400).json({ msg: `Error: ${error}` }));
+    .catch((error) => res.status(500).json({ msg: `Error: ${error}` }));
 };
 
 const getById = (req, res) => {
@@ -15,7 +15,7 @@ const getById = (req, res) => {
       }
       return res.json({ data });
     })
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const getByName = (req, res) => {
@@ -27,7 +27,7 @@ const getByName = (req, res) => {
       }
       return res.json({ data });
     })
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const add = (req, res) => {
@@ -50,7 +50,7 @@ const add = (req, res) => {
   newCandidate
     .save()
     .then((candidate) => res.json({ msg: 'Candidate created', candidate }))
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const edit = (req, res) => {
@@ -62,7 +62,7 @@ const edit = (req, res) => {
       }
       return res.json({ msg: 'Candidate updated', newCandidate });
     })
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const remove = (req, res) => {
@@ -74,7 +74,7 @@ const remove = (req, res) => {
       }
       return res.json({ msg: 'Candidate removed', removedCandidate });
     })
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 module.exports = {
