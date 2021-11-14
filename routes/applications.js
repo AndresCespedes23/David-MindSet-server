@@ -7,7 +7,7 @@ const { validateFormat, isNotEmpty, validateLength } = require('../validators/ap
 router.get('/', applications.getAll);
 router.get('/search', validateFormat, applications.search);
 router.get('/byCan/:id', validateFormat, applications.getByCandidate);
-router.post('/', isNotEmpty, validateLength, validateFormat, applications.add);
+router.post('/', isNotEmpty, validateFormat, applications.add);
 router.put('/:id', validateFormat, validateLength, applications.edit);
 router.delete('/:id', applications.remove);
 router.get('/:id', validateFormat, applications.getById);
