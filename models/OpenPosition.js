@@ -4,15 +4,22 @@ const { Schema, model } = mongoose;
 
 const OpenPositionstSchema = new Schema({
   id: Schema.Types.ObjectId,
-  idCompany: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
+  idCompany: {
+    type: Schema.Types.ObjectId,
+    ref: 'Company',
+    required: true,
+  },
   startDate: {
     type: Date,
-    minlength: 8,
-    maxlength: 8,
+    minlength: 10,
+    maxlength: 10,
     required: true,
   },
   endDate: {
-    type: Date, minlength: 10, maxlength: 10, default: null,
+    type: Date,
+    minlength: 10,
+    maxlength: 10,
+    default: null,
   },
   jobDescription: {
     type: String,
@@ -20,7 +27,10 @@ const OpenPositionstSchema = new Schema({
     maxlength: 500,
     required: true,
   },
-  isActive: { type: Boolean, default: true },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 module.exports = model('OpenPositions', OpenPositionstSchema);
