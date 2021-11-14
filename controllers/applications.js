@@ -37,7 +37,17 @@ const getByPosition = (req, res) => {
 };
 
 
-
+const add = (req, res) => {
+    const newApplication = new Application({
+      idCandidate: req.body.idCandidate,
+      idPosition: req.body.idPosition,
+      isActive: true,
+    });
+    newApplication
+      .save()
+      .then((data) => res.json({ msg: 'Application added', data }))
+      .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+  };
 /*
 const edit = (req, res) => {
     const id = parseInt(req.params.id);
@@ -84,7 +94,7 @@ module.exports = {
     //getById: getById,
     getByPosition: getByPosition,
     getByCandidate: getByCandidate,
-    //add: add,
+    add: add,
     //edit: edit,
    // remove: remove
 };
