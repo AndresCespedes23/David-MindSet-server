@@ -7,7 +7,7 @@ router.get('/', interviews.getAll);
 router.post('/', interviews.add);
 router.put('/:id', interviews.edit);
 router.delete('/:id', interviews.remove);
-router.get('/search', interviews.search);
+router.get('/search/:id', interviews.search);
 router.get('/:id', interviews.getById);
 
 module.exports = router;
