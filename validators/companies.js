@@ -1,4 +1,5 @@
 function requiredCompanies(req, res, next) {
+  res.locals.requirements = {};
   res.locals.requirements.name = 'name';
   res.locals.requirements.address = 'address';
   res.locals.requirements.city = 'city';
