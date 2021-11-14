@@ -1,8 +1,21 @@
-//here the validations functions
-/*
-David to Juli
-El archivo validators/open-position.js :
-La funcion isObjectId no tiene mucho sentido de existir, dado que hace un if sobre una condicion que puede ser false o true, y retorna false o true. Es decir que donde se usa dicha funcion se podría reemplazar por lo que esta dentro de la condición del if.
-Algo parecido pasa con la función checkLength
+const mongoose = require('mongoose');
 
-*/
+const isNotEmpy = (req, res, next) => {
+  if (!req.body.firstName) {
+    return res.status(400).json({ msg: 'First name is required'});
+  }
+  if (!req.body.lastName) {
+    return res.status(400).json({ msg: 'First name is required'});
+  }
+  if (!req.body.email) {
+    return res.status(400).json({ msg: 'First name is required'});
+  }
+  if (!req.body.password) {
+    return res.status(400).json({ msg: 'First name is required'});
+  }
+  return next();
+};
+
+module.exports = {
+    isNotEmpty,
+};

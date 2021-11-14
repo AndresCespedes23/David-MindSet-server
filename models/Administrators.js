@@ -9,7 +9,6 @@ const AdministratorsSchema = new Schema({
     required: true,
     minLenght: 2,
     maxLength: 40,
-    // here u cant put more validations
   },
   lastName: {
     type: String,
