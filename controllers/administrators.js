@@ -32,44 +32,32 @@ const getByName = (req, res) => {
 
 const add = (req, res) => {
   const newAdministrator = new Administrators({
-    fistName: req.body.firstName,
+    firstName: req.body.firstName.toLowerCase(),
     lastName: req.body.lastName,
     email: req.body.email,
     password: req.body.password,
     isActive: true,
   });
-  newAdministrator.save((err, administrator) => {
-    if (err) {
-      return res.status(400).json({ msg: `Error: ${err}` });
-    }
-    return res.json({ msg: 'Administrator created', administrator });
-  });
+  newAdministrator
+    .save()
+    .then((data) => res.json({ msg: 'Administrator created', data }))
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+};
+
+const edit = (req, res) => {
+  const { id } = req.params;
+  req.body.firstName = req.body.firstName.toLowerCase();
+  Administrators.findByIdAndUpdate(id, req.body, { new: true })
+    .then((data) => {
+      if (!data) {
+        return res.status(404).json({ msg: `Administrator not fund by ID: ${id}` });
+      }
+      return res.json({ msg: 'Administrator updated', data });
+    })
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
 /*
-
-const add = (req, res) => {
-    const newAdmin = {
-        id: getLastId(adminData) +1,
-        firstName: req.query.firstName,
-        lastName: req.query.lastName,
-        email: req.query.email,
-        password: req.query.password,
-        isActive: req.query.isActive
-    };
-    if (!validate(newAdmin)) {
-        return res.status(400).json({ message: 'Some parameters are missing' });
-    }
-    adminData.push(newAdmin);
-    fs.writeFile(path.join(__dirname, '../data/administrators.json'), JSON.stringify(adminData), err => {
-        if (err) {
-            console.log(err);
-            return res.status(500).json({ message: 'Error adding administrator' });
-        }
-        res.json({ message: 'Administrator successfully added', administrator: newAdmin });
-    });
-};
-
 const edit = (req, res) => {
     const editAdmin = adminData.find(administrator => administrator.id === parseInt(req.params.id));
     if (!editAdmin) {
@@ -114,6 +102,6 @@ module.exports = {
   getById,
   getByName,
   add,
-  // edit,
+  edit,
   // remove,
 };
