@@ -1,4 +1,3 @@
-/* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 
 const required = (req, res, next) => {

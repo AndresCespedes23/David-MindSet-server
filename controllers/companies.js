@@ -25,7 +25,6 @@ const getByName = (req, res) => {
 };
 
 const add = (req, res) => {
-  console.log('hola');
   if (Object.keys(req.body).length === 0) return res.status(400).json({ message: 'Body empty' });
   return new Companies(req.body)
     .save()
@@ -38,7 +37,6 @@ const add = (req, res) => {
 const edit = (req, res) => {
   if (Object.keys(req.body).length === 0) return res.status(400).json({ message: 'Body empty' });
   return Companies.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    .exec()
     .then((found) => res.json({ message: 'Company edited successfully', Company: found }))
     .catch((err) => {
       res.status(500).json({ message: 'Error editing company', err });
@@ -47,7 +45,6 @@ const edit = (req, res) => {
 
 const remove = (req, res) => {
   Companies.findByIdAndDelete(req.params.id)
-    .exec()
     .then(() => res.json({ message: 'Company deleted' }))
     .catch((err) => {
       res.status(500).json({ message: 'Error deleting Company', err });

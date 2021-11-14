@@ -8,7 +8,7 @@ const { requiredCompanies } = require('../validators/companies');
 const { getAll, add, edit, remove, getByName, getById } = companies;
 
 router.get('/', getAll);
-router.post('/', add, requiredCompanies, required);
+router.post('/', requiredCompanies, required, add);
 router.put('/:id', edit);
 router.delete('/:id', remove);
 router.get('/byName/:name', getByName);
