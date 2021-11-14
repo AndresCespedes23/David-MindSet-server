@@ -20,12 +20,14 @@ const getById = (req, res) => {
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
-const getByName = (req, res) => {
-  const { name } = req.params;
-  Candidates.find({ firstName: name.toLowerCase() })
+const search = (req, res) => {
+  const queryParam = req.query;
+  const firstName = queryParam.name.toLowerCase() || null;
+  if (!firstName) return res.status(400).json({ msg: 'Missing query param: name' });
+  return Candidates.find({ firstName })
     .then((data) => {
       if (data.length === 0) {
-        return res.status(404).json({ msg: `${notFoundText} name: ${name}` });
+        return res.status(404).json({ msg: `${notFoundText} name: ${firstName}` });
       }
       return res.json({ data });
     })
@@ -82,7 +84,7 @@ const remove = (req, res) => {
 module.exports = {
   getAll,
   getById,
-  getByName,
+  search,
   add,
   edit,
   remove,
