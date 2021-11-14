@@ -1,9 +1,11 @@
 const Applications = require('../models/Applications');
 
+const notFoundTxt = 'Application not found by';
+
 const getAll = (req, res) => {
   Applications.find()
     .then((applications) => res.json({ applications }))
-    .catch((err) => res.status(400).json(err));
+    .catch((err) => res.status(500).json(err));
 };
 
 const getById = (req, res) => {
@@ -11,11 +13,11 @@ const getById = (req, res) => {
   Applications.findById(id)
     .then((data) => {
       if (!data) {
-        return res.status(404).json({ msg: `Application not found by ID: ${id}` });
+        return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       }
       return res.json({ data });
     })
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const getByPosition = (req, res) => {
@@ -27,7 +29,7 @@ const getByPosition = (req, res) => {
       }
       return res.json({ data });
     })
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const getByCandidate = (req, res) => {
@@ -39,7 +41,7 @@ const getByCandidate = (req, res) => {
       }
       return res.json({ data });
     })
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const add = (req, res) => {
@@ -51,7 +53,7 @@ const add = (req, res) => {
   newApplication
     .save()
     .then((data) => res.json({ msg: 'Application added', data }))
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const edit = (req, res) => {
@@ -59,11 +61,11 @@ const edit = (req, res) => {
   Applications.findByIdAndUpdate(id, req.body, { new: true })
     .then((data) => {
       if (!data) {
-        return res.status(404).json({ msg: `Application not found by ID: ${id}` });
+        return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       }
       return res.json({ msg: 'Appication updated', data });
     })
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const remove = (req, res) => {
@@ -71,11 +73,11 @@ const remove = (req, res) => {
   Applications.findByIdAndRemove(id)
     .then((data) => {
       if (!data) {
-        return res.status(404).json({ msg: `Application not found by ID: ${id}` });
+        return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       }
       return res.json({ msg: 'Application removed', data });
     })
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 module.exports = {
