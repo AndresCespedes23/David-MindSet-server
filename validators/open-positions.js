@@ -13,38 +13,29 @@ const isNotEmpty = (req, res, next) => {
   return next();
 };
 
-const isObjectID = (id) => {
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return false;
-  }
-  return true;
-};
-
 const validateFormat = (req, res, next) => {
-  if (req.body.idCompany && !isObjectID(req.body.idCompany)) {
+  if (req.body.idCompany && !mongoose.Types.ObjectId.isValid(req.body.idCompany)) {
     return res.status(400).json({ msg: 'Invalid company id' });
   }
-  if (req.params.id && !isObjectID(req.params.id)) {
+  if (req.query.company && !mongoose.Types.ObjectId.isValid(req.query.company)) {
+    return res.status(400).json({ msg: 'Invalid company id' });
+  }
+  if (req.params.id && !mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).json({ msg: 'Invalid id' });
   }
   return next();
 };
 
-const checkLength = (word, minLength, maxLength) => {
-  if (minLength <= word.length && word.length <= maxLength) {
-    return true;
-  }
-  return false;
-};
-
 const validateLength = (req, res, next) => {
-  if (!checkLength(req.body.startDate, 10, 10)) {
+  if (req.body.startDate && req.body.startDate.length !== 10) {
     return res.status(400).json({ msg: 'Start date should have 10 characters' });
   }
-  if (req.body.endDate && !checkLength(req.body.endDate, 10, 10)) {
+  if (req.body.endDate && req.body.endDate.length !== 10) {
     return res.status(400).json({ msg: 'End date should have 10 characters' });
   }
-  if (!checkLength(req.body.jobDescription, 10, 500)) {
+  if ((req.body.jobDescription
+    && req.body.jobDescription.length < 10)
+    || req.body.jobDescription.length > 500) {
     return res.status(400).json({ msg: 'Job description must be between 10 and 500 characters' });
   }
   return next();
@@ -52,7 +43,6 @@ const validateLength = (req, res, next) => {
 
 module.exports = {
   isNotEmpty,
-  isObjectID,
   validateLength,
   validateFormat,
 };
