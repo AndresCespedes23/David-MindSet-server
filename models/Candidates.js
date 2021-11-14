@@ -41,7 +41,7 @@ const CandidatesSchema = new Schema({
     type: Number, required: true, min: 1, max: 10000,
   },
   birthday: {
-    type: Date, required: true, minlength: 8, maxlength: 8,
+    type: Date, required: true, minlength: 10, maxlength: 10,
   },
   education: [{
     institution: { type: String, minlength: 3, maxlength: 40 },
