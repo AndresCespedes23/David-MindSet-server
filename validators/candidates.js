@@ -49,7 +49,43 @@ const isObjectID = (req, res, next) => {
   return next();
 };
 
+const checkLength = (word, minLength, maxLength) => {
+  if (minLength <= word.length && word.length <= maxLength) {
+    return true;
+  }
+  return false;
+};
+
+const validateLength = (req, res, next) => {
+  if (!checkLength(req.body.firstName, 2, 40)) {
+    return res.status(400).json({ msg: 'First Name must be between 2 and 40 characters' });
+  }
+  if (!checkLength(req.body.lastName, 2, 40)) {
+    return res.status(400).json({ msg: 'Last Name must be between 2 and 40 characters' });
+  }
+  if (!checkLength(req.body.email, 5, 40)) {
+    return res.status(400).json({ msg: 'Email must be between 5 and 40 characters' });
+  }
+  if (!checkLength(req.body.password, 8, 16)) {
+    return res.status(400).json({ msg: 'Password must be between 8 and 16 characters' });
+  }
+  if (!checkLength(req.body.address.street, 3, 40)) {
+    return res.status(400).json({ msg: 'Street address must be between 3 and 40 characters' });
+  }
+  if (!checkLength(req.body.city, 3, 40)) {
+    return res.status(400).json({ msg: 'Last Name must be between 3 and 40 characters' });
+  }
+  if (!checkLength(req.body.province, 3, 40)) {
+    return res.status(400).json({ msg: 'Email must be between 3 and 40 characters' });
+  }
+  if (!checkLength(req.body.country, 3, 40)) {
+    return res.status(400).json({ msg: 'Password must be between 3 and 40 characters' });
+  }
+  return next();
+};
+
 module.exports = {
   isNotEmpty,
   isObjectID,
+  validateLength,
 };
