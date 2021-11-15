@@ -50,9 +50,8 @@ const CompaniesSchema = new Schema({
   },
   pictureUrl: {
     type: String,
-    minlength: 5,
     maxlength: 200,
-    default: null,
+    default: '',
   },
   contactFullName: {
     type: String,

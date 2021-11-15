@@ -19,7 +19,7 @@ const getByName = (req, res) => {
   Companies.find({ name: req.query.name })
     .then((companies) => {
       if (companies.length === 0) {
-        return res.status(500).json({ message: `Company not found with name: ${req.params.name}` });
+        return res.status(500).json({ message: `Company not found with name: ${req.query.name}` });
       }
       return res.json(companies);
     })

@@ -9,8 +9,7 @@ const port = 8000;
 
 mongoose.connect(
   'mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false',
-  /*   'mongodb+srv://radium:radium123456@cluster0.urj6t.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-   */ (err) => {
+  (err) => {
     if (err) {
       console.log('error connecting database');
     } else {
