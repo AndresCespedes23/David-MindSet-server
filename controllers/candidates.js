@@ -32,7 +32,7 @@ const search = (req, res) => {
 
 const add = (req, res) => {
   const newCandidate = new Candidates({
-    firstName: req.body.firstName,
+    firstName: req.body.firstName.toLowerCase(),
     lastName: req.body.lastName,
     email: req.body.email,
     password: req.body.password,
@@ -55,6 +55,9 @@ const add = (req, res) => {
 
 const edit = (req, res) => {
   const { id } = req.params;
+  if (req.body.firstName) {
+    req.body.firstName = req.body.firstName.toLowerCase();
+  }
   Candidates.findByIdAndUpdate(id, req.body, { new: true })
     .then((newCandidate) => {
       if (!newCandidate) return res.status(404).json({ msg: `${notFoundText} ID: ${id}` });
