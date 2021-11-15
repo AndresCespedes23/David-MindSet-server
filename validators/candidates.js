@@ -51,44 +51,44 @@ const validateFormat = (req, res, next) => {
 };
 
 const validateLength = (req, res, next) => {
-  if ((req.body.firstName
-    && req.body.firstName.length < 2)
-    || req.body.firstName.length > 40) {
+  if (req.body.firstName
+    && (req.body.firstName.length < 2
+    || req.body.firstName.length > 40)) {
     return res.status(400).json({ msg: 'First Name must be between 2 and 40 characters' });
   }
-  if ((req.body.lastName
-    && req.body.lastName.length < 2)
-    || req.body.lastName.length > 40) {
+  if (req.body.lastName
+    && (req.body.lastName.length < 2
+    || req.body.lastName.length > 40)) {
     return res.status(400).json({ msg: 'Last Name must be between 2 and 40 characters' });
   }
-  if ((req.body.email
-    && req.body.email.length < 5)
-    || req.body.email.length > 40) {
+  if (req.body.email
+    && (req.body.email.length < 5
+    || req.body.email.length > 40)) {
     return res.status(400).json({ msg: 'Email must be between 5 and 40 characters' });
   }
-  if ((req.body.password
-    && req.body.password.length < 8)
-    || req.body.password.length > 16) {
+  if (req.body.password
+    && (req.body.password.length < 8
+    || req.body.password.length > 16)) {
     return res.status(400).json({ msg: 'Password  must be between 8 and 16 characters' });
   }
-  if ((req.body.address.street
-    && req.body.address.street.length < 3)
-    || req.body.address.street.length > 40) {
+  if (req.body.address
+    && (req.body.address.street.length < 3
+    || req.body.address.street.length > 40)) {
     return res.status(400).json({ msg: 'Street address must be between 3 and 40 characters' });
   }
-  if ((req.body.city
-    && req.body.city.length < 3)
-    || req.body.city.length > 40) {
+  if (req.body.city
+    && (req.body.city.length < 3
+    || req.body.city.length > 40)) {
     return res.status(400).json({ msg: 'City  must be between 3 and 40 characters' });
   }
-  if ((req.body.province
-    && req.body.province.length < 3)
-    || req.body.province.length > 40) {
+  if (req.body.province
+    && (req.body.province.length < 3
+    || req.body.province.length > 40)) {
     return res.status(400).json({ msg: 'Province must be between 3 and 40 characters' });
   }
-  if ((req.body.country
-    && req.body.country.length < 3)
-    || req.body.country.length > 40) {
+  if (req.body.country
+    && (req.body.country.length < 3
+    || req.body.country.length > 40)) {
     return res.status(400).json({ msg: 'Country must be between 3 and 40 characters' });
   }
   if (req.body.birthday && req.body.birthday.length !== 10) {
