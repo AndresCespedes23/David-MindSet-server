@@ -1,5 +1,7 @@
 /* eslint-disable no-cond-assign */
 /* eslint-disable no-restricted-syntax */
+const mongoose = require('mongoose');
+
 function requiredCompanies(req, res, next) {
   res.locals.requirements = {};
   res.locals.requirements.name = 'name';
@@ -15,8 +17,6 @@ function requiredCompanies(req, res, next) {
   return next();
 }
 
-const mongoose = require('mongoose');
-
 const required = (req, res, next) => {
   const missingParameters = [];
   for (const requiredElement in res.locals.requirements) {
@@ -29,10 +29,9 @@ const required = (req, res, next) => {
   return res.status(400).json({ message: `Missing parameters: ${missingParameters}` });
 };
 
-const isObjectID = (req, res, next) => {
-  console.log(mongoose.Types.ObjectId.isValid(req.params.id));
+const validateIdformat = (req, res, next) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-    return res.status(400).json({ message: `Company not found with id: ${req.params.id}` });
+    return res.status(400).json({ message: `Invalid ID format: ${req.params.id}` });
   }
   return next();
 };
@@ -136,8 +135,10 @@ const validateDataType = (req, res, next) => {
     }
   }
   for (let element = 0; element < typeNumber.length; element += 1) {
-    if (!parseInt(req.body[typeNumber[element]])) {
-      numberMiss.push(typeNumber[element]);
+    if (req.body[typeBoolean[element]]) {
+      if (!parseInt(req.body[typeNumber[element]])) {
+        numberMiss.push(typeNumber[element]);
+      }
     }
   }
   for (let element = 0; element < typeBoolean.length; element += 1) {
@@ -153,7 +154,7 @@ const validateDataType = (req, res, next) => {
   if (numberMiss.length !== 0) {
     return res.status(400).json({ message: `${numberMiss}: types should be number` });
   }
-  if (booleanMiss.length === 0) {
+  if (booleanMiss.length !== 0) {
     return res.status(400).json({ message: `${booleanMiss}: types should be boolean` });
   }
   return next();
@@ -162,7 +163,7 @@ const validateDataType = (req, res, next) => {
 module.exports = {
   required,
   requiredCompanies,
-  isObjectID,
+  validateIdformat,
   checkLength,
   validateLength,
   bodyNotEmpty,

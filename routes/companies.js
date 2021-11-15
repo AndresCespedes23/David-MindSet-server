@@ -5,7 +5,7 @@ const companies = require('../controllers/companies');
 const {
   required,
   requiredCompanies,
-  isObjectID,
+  validateIdformat,
   bodyNotEmpty,
   validateLength,
   validateDataType,
@@ -15,9 +15,9 @@ const { getAll, add, edit, remove, getByName, getById } = companies;
 
 router.get('/', getAll);
 router.post('/', bodyNotEmpty, requiredCompanies, required, validateDataType, validateLength, add);
-router.put('/:id', isObjectID, bodyNotEmpty, validateDataType, validateLength, edit);
-router.delete('/:id', isObjectID, remove);
+router.put('/:id', validateIdformat, bodyNotEmpty, validateDataType, validateLength, edit);
+router.delete('/:id', validateIdformat, remove);
 router.get('/search', getByName);
-router.get('/:id', isObjectID, getById);
+router.get('/:id', validateIdformat, getById);
 
 module.exports = router;
