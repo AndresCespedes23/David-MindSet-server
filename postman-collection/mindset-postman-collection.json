@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b95d6a1f-9af2-4e09-8ccc-e83d1b57ad09",
+		"_postman_id": "7d143528-b593-4d70-9338-b149aa3e936d",
 		"name": "Mindset",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -762,32 +762,25 @@
 					"name": "Profile Types",
 					"item": [
 						{
-							"name": "getAll",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/profile-types",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"profile-types"
-									]
-								}
+							"name": "GetAll",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
 							},
-							"response": []
-						},
-						{
-							"name": "getById",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\": \"Perro\"}"
+								},
 								"url": {
-									"raw": "http://localhost:8000/api/profile-types/{{id}}",
+									"raw": "http://localhost:8000/api/profile-types/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -796,19 +789,32 @@
 									"path": [
 										"api",
 										"profile-types",
-										"{{id}}"
+										""
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "getByName",
+							"name": "GetById",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\": \"Perro\"}"
+								},
 								"url": {
-									"raw": "http://localhost:8000/api/profile-types/byName/{{id}}",
+									"raw": "http://localhost:8000/api/profile-types/:id",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -817,20 +823,38 @@
 									"path": [
 										"api",
 										"profile-types",
-										"byName",
-										"{{id}}"
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "618fd6b01fc020c0af244977"
+										}
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "add",
+							"name": "Search",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\": \"Perro\"}"
+								},
 								"url": {
-									"raw": "http://localhost:8000/api/profile-types/add/{{id}}",
+									"raw": "http://localhost:8000/api/profile-types/search?name=Perro",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -839,20 +863,35 @@
 									"path": [
 										"api",
 										"profile-types",
-										"add",
-										"{{id}}"
+										"search"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Perro"
+										}
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "edit",
+							"name": "Add",
 							"request": {
-								"method": "GET",
-								"header": [],
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\": \"Perro\"}"
+								},
 								"url": {
-									"raw": "http://localhost:8000/api/profile-types/edit/{{id}}",
+									"raw": "http://localhost:8000/api/profile-types/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -861,20 +900,29 @@
 									"path": [
 										"api",
 										"profile-types",
-										"edit",
-										"{{id}}"
+										""
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "remove",
+							"name": "Edit",
 							"request": {
-								"method": "GET",
-								"header": [],
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\": \"Perro\"}"
+								},
 								"url": {
-									"raw": "http://localhost:8000/api/profile-types/remove/{{id}}",
+									"raw": "http://localhost:8000/api/profile-types/:id",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -883,8 +931,50 @@
 									"path": [
 										"api",
 										"profile-types",
-										"remove",
-										"{{id}}"
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "61927f871ffda41e01ba6ef1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\": \"Perro\"}"
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/profile-types/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"profile-types",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "619281fd6568957d011b5de1"
+										}
 									]
 								}
 							},
