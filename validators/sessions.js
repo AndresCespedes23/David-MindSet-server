@@ -24,13 +24,13 @@ const validateLength = (req, res, next) => {
 };
 
 const validateFormat = (req, res, next) => {
-  if (req.body.idPsychologists && !mongoose.Types.ObjectId.isValid(req.body.idCandidate)) {
+  if (req.body.idPsychologists && !mongoose.Types.ObjectId.isValid(req.body.idPsychologists)) {
     return res.status(400).json({ msg: 'Invalid psychologist id' });
   }
   if (req.body.idCandidate && !mongoose.Types.ObjectId.isValid(req.body.idCandidate)) {
     return res.status(400).json({ msg: 'Invalid candidate id' });
   }
-  if (req.params.id && !mongoose.Types.ObjectId.isValid(req.body.idCandidate)) {
+  if (req.params.id && !mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).json({ msg: 'Invalid id' });
   }
   return next();
