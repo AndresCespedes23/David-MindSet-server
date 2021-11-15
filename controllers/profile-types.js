@@ -9,7 +9,7 @@ const getAll = (req, res) => {
 };
 
 const getById = (req, res) => {
-  const id = req.params;
+  const { id } = req.params;
   ProfileTypes.findById(id)
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
@@ -19,10 +19,12 @@ const getById = (req, res) => {
 };
 
 const search = (req, res) => {
-  const text = req.query;
-  ProfileTypes.find({ name: text })
+  const { name } = req.query;
+  ProfileTypes.find({ name })
     .then((profileTypes) => {
-      if (profileTypes.length === 0) return res.status(404).json({ msg: `${notFoundTxt} name: ${text}` });
+      if (profileTypes.length === 0) {
+        return res.status(404).json({ msg: `${notFoundTxt} name: ${name}` });
+      }
       return res.json({ profileTypes });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
@@ -40,7 +42,7 @@ const add = (req, res) => {
 };
 
 const edit = (req, res) => {
-  const id = req.params;
+  const { id } = req.params;
   ProfileTypes.find(id, req.body, { new: true })
     .then((newProfileType) => {
       if (!newProfileType) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
@@ -50,7 +52,7 @@ const edit = (req, res) => {
 };
 
 const remove = (req, res) => {
-  const id = req.params;
+  const { id } = req.params;
   ProfileTypes.findAndRemove(id)
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
