@@ -21,20 +21,13 @@ const validateId = (req, res, next) => {
     && !mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).json({ msg: 'Invalid id' });
   }
-  if (req.body.email
-    && req.body.email.includes('@', 2)
-    && !req.body.email.includes('@', -1)
-    && req.body.email.includes('.', 5)
-    && !req.body.email.includes('.', -1)) {
-    return res.status(400).json({ msg: 'Invalid email' });
-  }
   return next();
 };
 
 const validateEmail = (req, res, next) => {
-  if (req.body.email
-    && req.body.email.includes('@')
-    && req.body.email.includes('.')) {
+  if ((req.body.email
+    && !req.body.email.includes('@'))
+    || !req.body.email.includes('.')) {
     return res.status(400).json({ msg: 'Invalid email' });
   }
   return next();
