@@ -10,7 +10,7 @@ router.get('/', administrators.getAll);
 router.get('/search', validateId, administrators.search);
 router.get('/:id', validateId, administrators.getById);
 router.post('/', isNotEmpty, validateId, validateEmail, validateLength, administrators.add);
-router.put('/:id', validateId, administrators.edit);
+router.put('/:id', validateId, validateEmail, validateLength, administrators.edit);
 router.delete('/:id', validateId, administrators.remove);
 
 module.exports = router;

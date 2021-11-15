@@ -46,7 +46,9 @@ const add = (req, res) => {
 
 const edit = (req, res) => {
   const { id } = req.params;
-  req.body.firstName = req.body.firstName.toLowerCase();
+  if (req.body.firstName) {
+    req.body.firstName = req.body.firstName.toLowerCase();
+  }
   Administrators.findByIdAndUpdate(id, req.body, { new: true })
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
