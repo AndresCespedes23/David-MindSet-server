@@ -17,7 +17,7 @@ const isNotEmpty = (req, res, next) => {
 const isObjectID = (id) => mongoose.Types.ObjectId.isValid(id);
 
 const validateLength = (req, res, next) => {
-  if (!req.body.date.lenght !== 10) {
+  if (!req.body.date.lenght === 10) {
     return res.status(400).json({ msg: 'Date should have 10 characters' });
   }
   return next();

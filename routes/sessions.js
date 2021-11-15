@@ -5,7 +5,6 @@ const sessions = require('../controllers/sessions');
 const { validateFormat, isNotEmpty, validateLength } = require('../validators/sessions');
 
 router.get('/', sessions.getAll);
-router.get('/byIdCompany/:id', validateFormat, sessions.getByIdSession);
 router.post(
   '/',
   isNotEmpty,
