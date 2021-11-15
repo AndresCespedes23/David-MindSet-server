@@ -23,12 +23,12 @@ const validateFormat = (req, res, next) => {
     }
   }
   if (req.body.firstName !== undefined) {
-    if (!typeof (req.body.firstName) === 'string') {
+    if (!(typeof (req.body.firstName) === 'string')) {
       return res.status(400).json({ msg: 'First Name must be string' });
     }
   }
   if (req.body.lastName !== undefined) {
-    if (!typeof (req.body.lastName) === 'string') {
+    if (!(typeof (req.body.lastName) === 'string')) {
       return res.status(400).json({ msg: 'Last Name must be string' });
     }
   }
@@ -38,7 +38,7 @@ const validateFormat = (req, res, next) => {
     }
   }
   if (req.body.password !== undefined) {
-    if (!typeof (req.body.password) === 'string') {
+    if (!(typeof (req.body.password) === 'string')) {
       return res.status(400).json({ msg: 'Password must be string' });
     }
   }
