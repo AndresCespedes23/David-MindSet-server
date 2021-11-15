@@ -1,14 +1,5 @@
 const mongoose = require('mongoose');
 
-const isObjectID = (req, res, next) => {
-  const { id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    console.log(mongoose.Types.ObjectId.isValid(id));
-    return res.status(400).json({ msg: 'No MongoDB ID' });
-  }
-  return next();
-};
-
 const isNotEmpty = (req, res, next) => {
   if (!req.body.firstName) {
     return res.status(400).json({ msg: 'First Name is required' });
@@ -26,6 +17,11 @@ const isNotEmpty = (req, res, next) => {
 };
 
 const validateFormat = (req, res, next) => {
+  if (req.params.id !== undefined) {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ msg: 'No MongoDB ID' });
+    }
+  }
   if (req.body.firstName !== undefined) {
     if (!typeof (req.body.firstName) === 'string') {
       return res.status(400).json({ msg: 'First Name must be string' });
@@ -74,7 +70,6 @@ const validateLength = (req, res, next) => {
 };
 
 module.exports = {
-  isObjectID,
   isNotEmpty,
   validateFormat,
   validateLength,
