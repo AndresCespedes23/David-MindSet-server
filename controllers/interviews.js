@@ -12,9 +12,7 @@ const getById = (req, res) => {
   const { id } = req.params;
   Interviews.findById(id)
     .then((data) => {
-      if (!data) {
-        return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-      }
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       return res.json({ data });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
@@ -50,9 +48,7 @@ const edit = (req, res) => {
   const { id } = req.params;
   Interviews.findByIdAndUpdate(id, req.body, { new: true })
     .then((data) => {
-      if (!data) {
-        return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-      }
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       return res.json({ msg: 'Interview updated', data });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
@@ -62,9 +58,7 @@ const remove = (req, res) => {
   const { id } = req.params;
   Interviews.findByIdAndRemove(id)
     .then((data) => {
-      if (!data) {
-        return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-      }
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       return res.json({ msg: 'Interview removed', data });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
