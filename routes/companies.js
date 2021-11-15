@@ -11,13 +11,13 @@ const {
   validateDataType,
 } = require('../validators/companies');
 
-const { getAll, add, edit, remove, getByName, getById } = companies;
+const { getAll, add, edit, remove, search, getById } = companies;
 
 router.get('/', getAll);
 router.post('/', bodyNotEmpty, requiredCompanies, required, validateDataType, validateLength, add);
 router.put('/:id', validateIdformat, bodyNotEmpty, validateDataType, validateLength, edit);
 router.delete('/:id', validateIdformat, remove);
-router.get('/search', getByName);
+router.get('/search', search);
 router.get('/:id', validateIdformat, getById);
 
 module.exports = router;

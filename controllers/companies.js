@@ -24,8 +24,8 @@ const getById = (req, res) => {
     .catch((err) => res.status(500).json({ message: 'Error finding company', err }));
 };
 
-const getByName = (req, res) => {
-  Companies.find({ name: req.query.name })
+const search = (req, res) => {
+  Companies.find(req.query)
     .then((found) => {
       if (found.length === 0) {
         return res.status(404).json({ message: `Company not found with name: ${req.query.name}` });
@@ -73,7 +73,7 @@ const remove = (req, res) => {
 module.exports = {
   getAll,
   getById,
-  getByName,
+  search,
   add,
   edit,
   remove,
