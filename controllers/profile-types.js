@@ -43,7 +43,7 @@ const add = (req, res) => {
 
 const edit = (req, res) => {
   const { id } = req.params;
-  ProfileTypes.find(id, req.body, { new: true })
+  ProfileTypes.findByIdAndUpdate(id, req.body, { new: true })
     .then((newProfileType) => {
       if (!newProfileType) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       return res.json({ msg: 'Profile type updated', newProfileType });
@@ -53,7 +53,7 @@ const edit = (req, res) => {
 
 const remove = (req, res) => {
   const { id } = req.params;
-  ProfileTypes.findAndRemove(id)
+  ProfileTypes.findByIdAndRemove(id)
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       return res.json({ msg: 'Profile type removed', data });
