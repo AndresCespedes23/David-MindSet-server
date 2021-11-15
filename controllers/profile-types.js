@@ -21,11 +21,9 @@ const getById = (req, res) => {
 const search = (req, res) => {
   const { name } = req.query;
   ProfileTypes.find({ name })
-    .then((profileTypes) => {
-      if (profileTypes.length === 0) {
-        return res.status(404).json({ msg: `${notFoundTxt} name: ${name}` });
-      }
-      return res.json({ profileTypes });
+    .then((data) => {
+      if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} name: ${name}` });
+      return res.json({ data });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
