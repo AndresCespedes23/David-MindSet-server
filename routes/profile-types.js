@@ -3,11 +3,11 @@ const express = require('express');
 const router = express.Router();
 const profileTypes = require('../controllers/profile-types');
 
-router.get('/profile-types', profileTypes.getAll);
-router.get('/profile-types/byName/:name', profileTypes.getByName);
-router.post('/profile-types/add', profileTypes.add);
-router.put('/profile-types/edit/:id', profileTypes.edit);
-router.delete('/profile-types/remove/:id', profileTypes.remove);
-router.get('/profile-types/:id', profileTypes.getById);
+router.get('/', profileTypes.getAll);
+router.get('/search', profileTypes.search);
+router.post('/add', profileTypes.add);
+router.put('/edit/:id', profileTypes.edit);
+router.delete('/remove/:id', profileTypes.remove);
+router.get('/:id', profileTypes.getById);
 
 module.exports = router;

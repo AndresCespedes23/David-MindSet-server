@@ -16,7 +16,7 @@ const getById = (req, res) => {
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
-const getByName = (req, res) => {
+const search = (req, res) => {
   const text = req.query;
   ProfileTypes.find({ name: text.toLowerCase() })
     .then((profileTypes) => {
@@ -60,7 +60,7 @@ const remove = (req, res) => {
 module.exports = {
   getAll,
   getById,
-  getByName,
+  search,
   add,
   edit,
   remove,

@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose;
+const { Schema, model } = mongoose;
 
 const profileTypesSchema = new Schema({
-  id: { type: mongoose.isValidObjectId, required: true },
+  id: Schema.Types.ObjectId,
   name: { type: String, minlength: 1, required: true },
   isActive: { type: Boolean, default: true },
 });
 
-module.exports = mongoose.model('ProfileTypes', profileTypesSchema);
+module.exports = model('ProfileTypes', profileTypesSchema);
