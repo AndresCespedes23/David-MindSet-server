@@ -33,9 +33,9 @@ const validateLength = (req, res, next) => {
   if (req.body.endDate && req.body.endDate.length !== 10) {
     return res.status(400).json({ msg: 'End date should have 10 characters' });
   }
-  if ((req.body.jobDescription
-    && req.body.jobDescription.length < 10)
-    || req.body.jobDescription.length > 500) {
+  if (req.body.jobDescription
+    && (req.body.jobDescription.length < 10
+    || req.body.jobDescription.length > 500)) {
     return res.status(400).json({ msg: 'Job description must be between 10 and 500 characters' });
   }
   return next();
