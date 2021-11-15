@@ -17,7 +17,13 @@ const getById = (req, res) => {
 };
 
 const getByName = (req, res) => {
-
+  const text = req.query;
+  ProfileTypes.find({ name: text.toLowerCase() })
+    .then((profileTypes) => {
+      if (profileTypes.length === 0) return res.status(404).json({ msg: `Profile Type not found by name: ${text}` });
+      return res.json({ profileTypes });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const add = () => {
