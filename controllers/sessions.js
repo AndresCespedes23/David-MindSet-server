@@ -12,9 +12,7 @@ const getById = (req, res) => {
   const { id } = req.params;
   Sessions.findById(id)
     .then((data) => {
-      if (!data) {
-        return res.status(404).json({ msg: `${notFoundTxt} ${id}` });
-      }
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}` });
       return res.json({ data });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
@@ -49,9 +47,7 @@ const edit = (req, res) => {
   const { id } = req.params;
   Sessions.findByIdAndUpdate(id, req.body, { new: true })
     .then((data) => {
-      if (!data) {
-        return res.status(404).json({ msg: `${notFoundTxt} ${id}` });
-      }
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}` });
       return res.json({ msg: 'Session updated', data });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
@@ -61,9 +57,7 @@ const remove = (req, res) => {
   const { id } = req.params;
   Sessions.findByIdAndDelete(id)
     .then((data) => {
-      if (!data) {
-        return res.status(404).json({ msg: `${notFoundTxt} ${id}` });
-      }
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}` });
       return res.json({ msg: 'Session removed', data });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
