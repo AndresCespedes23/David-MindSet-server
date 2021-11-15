@@ -44,6 +44,9 @@ const validateFormat = (req, res, next) => {
   if (req.params.id && !mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).json({ msg: 'Invalid id' });
   }
+  if (req.body.email && !req.body.email.includes('@')) {
+    return res.status(400).json({ msg: 'Invalid email' });
+  }
   return next();
 };
 
