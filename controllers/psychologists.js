@@ -55,10 +55,10 @@ const edit = (req, res) => {
 
 const remove = (req, res) => {
   const { id } = req.params;
-  Psychologist.findByIdAndDelete(id, (err, psychologist) => {
+  Psychologist.findByIdAndRemove(id, (err, psychologist) => {
     if (err) return res.status(500).json({ msg: `Error: ${err}` });
     if (!psychologist) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-    return res.json({ msg: 'Psychologist updated', psychologist });
+    return res.json({ msg: 'Psychologist deleted', psychologist });
   });
 };
 
