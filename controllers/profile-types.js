@@ -35,10 +35,10 @@ const add = (req, res) => {
     name: req.body.name,
     isActive: true,
   });
-  newProfileType.save((err, profileType) => {
-    if (err) return res.status(500).json({ msg: `Error: ${err}` });
-    return res.json({ msg: 'New profile added: ', profileType });
-  });
+  newProfileType
+    .save()
+    .then((data) => res.json({ msg: 'New profile added: ', data }))
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const edit = (req, res) => {
