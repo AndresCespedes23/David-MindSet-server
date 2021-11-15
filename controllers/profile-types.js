@@ -26,8 +26,15 @@ const getByName = (req, res) => {
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
-const add = () => {
-  console.log('Hola mundo');
+const add = (req, res) => {
+  const newProfileType = new ProfileTypes({
+    name: req.body.name,
+    isActive: true,
+  });
+  newProfileType.save((err, profileType) => {
+    if (err) return res.status(500).json({ msg: `Error: ${err}` });
+    return res.json({ msg: 'New profile added: ', profileType });
+  });
 };
 
 const edit = () => {
