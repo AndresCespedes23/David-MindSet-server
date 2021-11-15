@@ -38,28 +38,29 @@ const add = (req, res) => {
     turns: [],
     isActive: true,
   });
-  newPsychologist.save((err, psychologist) => {
-    if (err) return res.status(500).json({ msg: `Error: ${err}` });
-    return res.json({ msg: 'Psychologist created', psychologist });
-  });
+  newPsychologist.save()
+    .then((psychologist) => res.json({ msg: 'Psychologist created', psychologist }))
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const edit = (req, res) => {
   const { id } = req.params;
-  Psychologist.findByIdAndUpdate(id, req.body, { new: true }, (err, psychologist) => {
-    if (err) return res.status(500).json({ msg: `Error: ${err}` });
-    if (!psychologist) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-    return res.json({ msg: 'Psychologist updated', psychologist });
-  });
+  Psychologist.findByIdAndUpdate(id, req.body, { new: true })
+    .then((psychologist) => {
+      if (!psychologist) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
+      return res.json({ msg: 'Psychologist updated', psychologist });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const remove = (req, res) => {
   const { id } = req.params;
-  Psychologist.findByIdAndRemove(id, (err, psychologist) => {
-    if (err) return res.status(500).json({ msg: `Error: ${err}` });
-    if (!psychologist) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-    return res.json({ msg: 'Psychologist deleted', psychologist });
-  });
+  Psychologist.findByIdAndRemove(id)
+    .then((psychologist) => {
+      if (!psychologist) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
+      return res.json({ msg: 'Psychologist deleted', psychologist });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 module.exports = {
