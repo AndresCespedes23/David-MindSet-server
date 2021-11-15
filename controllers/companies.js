@@ -41,7 +41,6 @@ const add = (req, res) => {
 };
 
 const edit = (req, res) => {
-  console.log(typeof req.body.zipCode);
   Companies.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then((found) => {
       if (!found) return res.status(404).json({ message: `${idNotFoundString} ${req.params.id}` });
