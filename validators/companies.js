@@ -93,9 +93,6 @@ const validateLength = (req, res, next) => {
   ) {
     return res.status(400).json({ msg: `contactPhone should be between ${min} and ${max}` });
   }
-  if (req.body.isActive && !checkLength(req.body.isActive, (min = 4), (max = 5))) {
-    return res.status(400).json({ msg: `isActive should have between ${min} and ${max} symbols` });
-  }
   return next();
 };
 
