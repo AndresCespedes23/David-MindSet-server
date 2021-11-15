@@ -20,7 +20,7 @@ const getById = (req, res) => {
 
 const search = (req, res) => {
   const { text } = req.query;
-  Psychologist.find({ name: text.toLowerCase() })
+  Psychologist.find({ firstName: text })
     .then((psychologists) => {
       if (psychologists.length === 0) return res.status(404).json({ msg: `${notFoundTxt} Name: ${text}` });
       return res.json({ psychologists });
