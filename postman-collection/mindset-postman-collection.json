@@ -346,12 +346,12 @@
 					"response": []
 				},
 				{
-					"name": "getByCompanyIdInterview",
+					"name": "search",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/interviews/search/61917b2503bbd4df05176026",
+							"raw": "http://localhost:8000/api/interviews/search?company=61917b2503bbd4df05176026",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -360,8 +360,13 @@
 							"path": [
 								"api",
 								"interviews",
-								"search",
-								"61917b2503bbd4df05176026"
+								"search"
+							],
+							"query": [
+								{
+									"key": "company",
+									"value": "61917b2503bbd4df05176026"
+								}
 							]
 						}
 					},
