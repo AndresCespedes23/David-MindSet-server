@@ -3,7 +3,7 @@ const ProfileTypes = require('../models/Profile-types');
 const getAll = (req, res) => {
   ProfileTypes.find()
     .then((profileType) => res.json(profileType))
-    .catch((error) => res.status(500).json({ msg: `Error: ${error}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const getById = (req, res) => {
@@ -37,8 +37,14 @@ const add = (req, res) => {
   });
 };
 
-const edit = () => {
-  console.log('Hola mundo');
+const edit = (req, res) => {
+  const id = req.params;
+  ProfileTypes.find(id, req.body, { new: true })
+    .then((newProfileType) => {
+      if (!newProfileType) return res.status(404).json({ msg: `No profile type founded on ID: ${id}` });
+      return res.json({ msg: 'Profile type updated', newProfileType });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const remove = () => {
