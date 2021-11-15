@@ -34,18 +34,6 @@ const search = (req, res) => {
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
-const getByCandidate = (req, res) => {
-  const { id } = req.params;
-  Applications.find({ idCandidate: id })
-    .then((data) => {
-      if (data.length === 0) {
-        return res.status(404).json({ msg: `Candidate not found by ID: ${id}` });
-      }
-      return res.json({ data });
-    })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
-};
-
 const add = (req, res) => {
   const newApplication = new Applications({
     idOpenPosition: req.body.idOpenPosition,
@@ -85,7 +73,6 @@ const remove = (req, res) => {
 module.exports = {
   getAll,
   search,
-  getByCandidate,
   add,
   edit,
   remove,
