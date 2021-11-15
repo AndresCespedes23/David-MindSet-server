@@ -5,7 +5,7 @@ const idNotFoundString = 'Company not found with ID:';
 const getAll = (req, res) => {
   Companies.find()
     .then((found) => {
-      if (found.length === 0) return res.status(404).json({ msg: 'No companies found' });
+      if (found.length === 0) return res.status(404).json({ message: 'No companies found' });
       return res.json(found);
     })
     .catch((err) => res.status(500).json({ message: 'Error finding companies', err }));
@@ -14,7 +14,7 @@ const getAll = (req, res) => {
 const getById = (req, res) => {
   Companies.findById(req.params.id)
     .then((found) => {
-      if (!found) return res.status(404).json({ msg: `${idNotFoundString} ${req.params.id}` });
+      if (!found) return res.status(404).json({ message: `${idNotFoundString} ${req.params.id}` });
       return res.json(found);
     })
     .catch((err) => res.status(500).json({ message: 'Error finding company', err }));
@@ -41,9 +41,10 @@ const add = (req, res) => {
 };
 
 const edit = (req, res) => {
+  console.log(typeof req.body.zipCode);
   Companies.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then((found) => {
-      if (!found) return res.status(404).json({ msg: `${idNotFoundString} ${req.params.id}` });
+      if (!found) return res.status(404).json({ message: `${idNotFoundString} ${req.params.id}` });
       return res.json({ message: 'Company edited successfully', Company: found });
     })
     .catch((err) => {
@@ -54,7 +55,7 @@ const edit = (req, res) => {
 const remove = (req, res) => {
   Companies.findByIdAndRemove(req.params.id)
     .then((found) => {
-      if (!found) return res.status(404).json({ msg: `${idNotFoundString} ${req.params.id}` });
+      if (!found) return res.status(404).json({ message: `${idNotFoundString} ${req.params.id}` });
       return res.status(400).json({ message: 'Company deleted successfully', Company: found });
     })
     .catch((err) => {

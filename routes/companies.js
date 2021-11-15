@@ -5,19 +5,26 @@ const companies = require('../controllers/companies');
 const {
   required,
   requiredCompanies,
-  validateIdformat,
   bodyNotEmpty,
   validateLength,
-  validateDataType,
+  validateDataTypeAndFormat,
 } = require('../validators/companies');
 
 const { getAll, add, edit, remove, search, getById } = companies;
 
 router.get('/', getAll);
-router.post('/', bodyNotEmpty, requiredCompanies, required, validateDataType, validateLength, add);
-router.put('/:id', validateIdformat, bodyNotEmpty, validateDataType, validateLength, edit);
-router.delete('/:id', validateIdformat, remove);
+router.post(
+  '/',
+  bodyNotEmpty,
+  requiredCompanies,
+  required,
+  validateDataTypeAndFormat,
+  validateLength,
+  add
+);
+router.put('/:id', bodyNotEmpty, validateDataTypeAndFormat, validateLength, edit);
+router.delete('/:id', remove);
 router.get('/search', search);
-router.get('/:id', validateIdformat, getById);
+router.get('/:id', getById);
 
 module.exports = router;
