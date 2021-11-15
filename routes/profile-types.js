@@ -5,9 +5,9 @@ const profileTypes = require('../controllers/profile-types');
 
 router.get('/', profileTypes.getAll);
 router.get('/search', profileTypes.search);
-router.post('/add', profileTypes.add);
-router.put('/edit/:id', profileTypes.edit);
-router.delete('/remove/:id', profileTypes.remove);
 router.get('/:id', profileTypes.getById);
+router.post('/', profileTypes.add);
+router.put('/:id', profileTypes.edit);
+router.delete('/:id', profileTypes.remove);
 
 module.exports = router;
