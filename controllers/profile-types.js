@@ -47,8 +47,14 @@ const edit = (req, res) => {
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
-const remove = () => {
-  console.log('Hola mundo');
+const remove = (req, res) => {
+  const id = req.params;
+  ProfileTypes.findAndRemove(id)
+    .then((data) => {
+      if (!data) return res.status(404).json({ msg: `No profile type founded on ID: ${id}` });
+      return res.json({ msg: 'Profile type removed', data });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 module.exports = {
