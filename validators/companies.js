@@ -36,60 +36,67 @@ const validateIdformat = (req, res, next) => {
   return next();
 };
 
-const checkLength = (word, minLength, maxLength) => {
-  if (minLength <= word.length && word.length <= maxLength) {
-    return true;
-  }
-  return false;
-};
-
-const checkNumberSize = (number, min, max) => {
-  if (min <= number && number <= max) {
-    return true;
-  }
-  return false;
-};
-
 const validateLength = (req, res, next) => {
   let max;
   let min;
-  if (req.body.name && !checkLength(req.body.name, (min = 2), (max = 40))) {
+  if (req.body.name && (min = 2) <= req.body.name.length && (max = 40) >= req.body.name.length) {
     return res.status(400).json({ msg: `name should have between ${min} and ${max} symbols` });
   }
-  if (req.body.address && !checkLength(req.body.address, (min = 2), (max = 100))) {
+  if (
+    req.body.address &&
+    (min = 2) <= req.body.address.length &&
+    (max = 40) >= req.body.address.length
+  ) {
     return res.status(400).json({ msg: `address should have between ${min} and ${max} symbols` });
   }
-  if (req.body.city && !checkLength(req.body.city, (min = 2), (max = 40))) {
+  if (req.body.city && (min = 2) <= req.body.city.length && (max = 40) >= req.body.city.length) {
     return res.status(400).json({ msg: `city should have between ${min} and ${max} symbols` });
   }
-  if (req.body.province && !checkLength(req.body.province, (min = 2), (max = 40))) {
+  if (
+    req.body.province &&
+    (min = 2) <= req.body.province.length &&
+    (max = 40) >= req.body.province.length
+  ) {
     return res.status(400).json({ msg: `province should have between ${min} and ${max} symbols` });
   }
-  if (req.body.country && !checkLength(req.body.country, (min = 2), (max = 40))) {
+  if (
+    req.body.country &&
+    (min = 2) <= req.body.country.length &&
+    (max = 40) >= req.body.country.length
+  ) {
     return res.status(400).json({ msg: `country should have between ${min} and ${max} symbols` });
   }
-  if (req.body.zipCode && !checkNumberSize(req.body.zipCode, (min = 0), (max = 10000))) {
+  if (req.body.zipCode && (min = 0) <= req.body.zipCode && (max = 100000) >= req.body.zipCode) {
     return res.status(400).json({ msg: `zipCode should be between ${min} and ${max}` });
   }
-  if (req.body.phone && !checkNumberSize(req.body.phone, (min = 50), (max = Infinity))) {
+  if (req.body.phone && (min = 50) <= req.body.phone && (max = Infinity) >= req.body.phone) {
     return res.status(400).json({ msg: `phone should be between ${min} and ${max}` });
   }
-  if (req.body.email && !checkLength(req.body.email, (min = 5), (max = 40))) {
+  if (req.body.email && (min = 2) <= req.body.email.length && (max = 40) >= req.body.email.length) {
     return res.status(400).json({ msg: `email should have between ${min} and ${max} symbols` });
   }
-  if (req.body.pictureUrl && !checkLength(req.body.pictureUrl, (min = 5), (max = 200))) {
+  if (
+    req.body.pictureUrl &&
+    (min = 5) <= req.body.pictureUrl.length &&
+    (max = 200) >= req.body.pictureUrl.length
+  ) {
     return res
       .status(400)
       .json({ msg: `pictureUrl should have between ${min} and ${max} symbols` });
   }
-  if (req.body.contactFullName && !checkLength(req.body.contactFullName, (min = 2), (max = 40))) {
+  if (
+    req.body.contactFullName &&
+    (min = 2) <= req.body.contactFullName.length &&
+    (max = 40) >= req.body.contactFullName.length
+  ) {
     return res
       .status(400)
       .json({ msg: `contactFullName should have between ${min} and ${max} symbols` });
   }
   if (
     req.body.contactPhone &&
-    !checkNumberSize(req.body.contactPhone, (min = 50), (max = Infinity))
+    (min = 50) <= req.body.contactPhone &&
+    (max = Infinity) >= req.body.contactPhone
   ) {
     return res.status(400).json({ msg: `contactPhone should be between ${min} and ${max}` });
   }
