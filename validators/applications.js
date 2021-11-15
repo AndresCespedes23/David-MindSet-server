@@ -12,10 +12,10 @@ const isNotEmpty = (req, res, next) => {
 
 const validateFormat = (req, res, next) => {
   if (req.body.idCandidate && !mongoose.Types.ObjectId.isValid(req.body.idCandidate)) {
-    return res.status(400).json({ msg: 'Invalid company id' });
+    return res.status(400).json({ msg: 'Invalid Candidate id' });
   }
   if (req.body.idOpenPosition && !mongoose.Types.ObjectId.isValid(req.body.idOpenPosition)) {
-    return res.status(400).json({ msg: 'Invalid company id' });
+    return res.status(400).json({ msg: 'Invalid Position id' });
   }
   if (req.params.id && !mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).json({ msg: 'Invalid id' });
