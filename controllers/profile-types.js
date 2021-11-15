@@ -20,7 +20,7 @@ const getById = (req, res) => {
 
 const search = (req, res) => {
   const text = req.query;
-  ProfileTypes.find({ name: text.toLowerCase() })
+  ProfileTypes.find({ name: text })
     .then((profileTypes) => {
       if (profileTypes.length === 0) return res.status(404).json({ msg: `${notFoundTxt} name: ${text}` });
       return res.json({ profileTypes });
