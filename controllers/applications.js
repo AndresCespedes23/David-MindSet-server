@@ -22,7 +22,7 @@ const getById = (req, res) => {
 
 const search = (req, res) => {
   const queryParam = req.query;
-  const idOpenPosition = queryParam.openPosition || null;
+  const idOpenPosition = queryParam.idOpenPosition || null;
   if (!idOpenPosition) return res.status(400).json({ msg: 'Missing query param: Position' });
   return Applications.find({ idOpenPosition })
     .then((data) => {
