@@ -8,7 +8,7 @@ const isNotEmpty = (req, res, next) => {
     return res.status(400).json({ msg: 'You must complete the id company' });
   }
   if (!req.body.date) {
-    return res.status(400).json({ msg: 'You must complete the start date' });
+    return res.status(400).json({ msg: 'You must complete the date' });
   }
   return next();
 };
