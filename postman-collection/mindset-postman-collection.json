@@ -638,7 +638,18 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8000/api/psychologists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists"
+							]
+						}
 					},
 					"response": []
 				},
@@ -647,16 +658,46 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8000/api/psychologists/619062e49875b06098c9d806",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists",
+								"619062e49875b06098c9d806"
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "getByNamePsychologist",
+					"name": "search",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8000/api/psychologists/search?text=valentin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists",
+								"search"
+							],
+							"query": [
+								{
+									"key": "text",
+									"value": "valentin"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -664,8 +705,29 @@
 					"name": "addPsychologist",
 					"request": {
 						"method": "POST",
-						"header": [],
-						"url": null
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"valentin\",\r\n    \"lastName\": \"Locatelli\",\r\n    \"email\": \"valeloca@gmail.com\",\r\n    \"password\": \"valeloca123\",\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/psychologists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists"
+							]
+						}
 					},
 					"response": []
 				},
@@ -673,8 +735,30 @@
 					"name": "updatePsychologist",
 					"request": {
 						"method": "PUT",
-						"header": [],
-						"url": null
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Javier\",\r\n    \"lastName\": \"Rondina\",\r\n    \"email\": \"javierron@gmail.com\",\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/psychologists/61900e74f9681677b240a2b6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists",
+								"61900e74f9681677b240a2b6"
+							]
+						}
 					},
 					"response": []
 				},
@@ -683,7 +767,19 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8000/api/psychologists/618f27834ef593dd5ba5c136",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists",
+								"618f27834ef593dd5ba5c136"
+							]
+						}
 					},
 					"response": []
 				}
