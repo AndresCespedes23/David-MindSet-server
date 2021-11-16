@@ -3,31 +3,38 @@
 /* eslint-disable no-restricted-syntax */
 const mongoose = require('mongoose');
 
-function requiredCompanies(req, res, next) {
-  res.locals.requirements = {};
-  res.locals.requirements.name = 'name';
-  res.locals.requirements.address = 'address';
-  res.locals.requirements.city = 'city';
-  res.locals.requirements.province = 'province';
-  res.locals.requirements.country = 'country';
-  res.locals.requirements.zipCode = 'zipCode';
-  res.locals.requirements.phone = 'phone';
-  res.locals.requirements.email = 'email';
-  res.locals.requirements.contactFullName = 'contactFullName';
-  res.locals.requirements.contactPhone = 'contactPhone';
-  return next();
-}
-
 const required = (req, res, next) => {
-  const missingParameters = [];
-  for (const requiredElement in res.locals.requirements) {
-    // res.locals doesnt have a prototype
-    if (!req.body[requiredElement]) {
-      missingParameters.push(requiredElement);
-    }
+  if (!req.body.name) {
+    return res.status(400).json({ msg: 'Name is required' });
   }
-  if (missingParameters.length === 0) return next();
-  return res.status(400).json({ message: `Missing parameters: ${missingParameters}` });
+  if (!req.body.address) {
+    return res.status(400).json({ msg: 'address is required' });
+  }
+  if (!req.body.email) {
+    return res.status(400).json({ msg: 'Email is required' });
+  }
+  if (!req.body.city) {
+    return res.status(400).json({ msg: 'city is required' });
+  }
+  if (!req.body.province) {
+    return res.status(400).json({ msg: 'province is required' });
+  }
+  if (!req.body.country) {
+    return res.status(400).json({ msg: 'country is required' });
+  }
+  if (!req.body.zipCode) {
+    return res.status(400).json({ msg: 'zipCode is required' });
+  }
+  if (!req.body.phone) {
+    return res.status(400).json({ msg: 'phone is required' });
+  }
+  if (!req.body.contactFullName) {
+    return res.status(400).json({ msg: 'contactFullName is required' });
+  }
+  if (!req.body.contactPhone) {
+    return res.status(400).json({ msg: 'contactPhone is required' });
+  }
+  return next();
 };
 
 const validateLength = (req, res, next) => {
