@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a84a3927-8e27-44a0-9908-a12ee60a9470",
+		"_postman_id": "108874a7-f70b-449e-a589-3b0cfe0b7cf0",
 		"name": "MindSet",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -13,9 +13,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -35,9 +33,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -68,9 +64,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				}
@@ -95,9 +89,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -106,9 +98,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -117,9 +107,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -128,9 +116,7 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -139,9 +125,7 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -150,9 +134,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				}
@@ -166,9 +148,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -177,9 +157,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -188,9 +166,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -199,9 +175,7 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -210,9 +184,7 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -221,9 +193,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				}
@@ -237,9 +207,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -248,9 +216,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -259,9 +225,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -270,9 +234,7 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -281,9 +243,7 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -292,9 +252,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				}
@@ -464,7 +422,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/open-positions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"open-positions"
+							]
 						}
 					},
 					"response": []
@@ -475,18 +442,44 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/open-positions/61912a4ebb803ee2a348db74",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"open-positions",
+								"61912a4ebb803ee2a348db74"
+							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "getByCompanyIdOpenPosition",
+					"name": "search",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/open-positions/search?company=618f199a76acd1a49f2fde11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"open-positions",
+								"search"
+							],
+							"query": [
+								{
+									"key": "company",
+									"value": "618f199a76acd1a49f2fde11"
+								}
+							]
 						}
 					},
 					"response": []
@@ -495,9 +488,29 @@
 					"name": "addOpenPosition",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \r\n\"idCompany\": \"618f199a76acd1a49f2fde11\",\r\n\"startDate\": \"2020-01-01\",\r\n\"endDate\": \"2020-01-01\",\r\n\"jobDescription\": \"jobDescription11\"\r\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/open-positions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"open-positions",
+								""
+							]
 						}
 					},
 					"response": []
@@ -506,9 +519,29 @@
 					"name": "updateOpenPosition",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"jobDescription\": \"jobDescription4\",\r\n\"isActive\": true\r\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/open-positions/619126dac2956664cc2a9d1f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"open-positions",
+								"619126dac2956664cc2a9d1f"
+							]
 						}
 					},
 					"response": []
@@ -519,7 +552,17 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/open-positions/61912a4ebb803ee2a348db74",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"open-positions",
+								"61912a4ebb803ee2a348db74"
+							]
 						}
 					},
 					"response": []
@@ -545,9 +588,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -556,9 +597,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -567,9 +606,7 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -578,9 +615,7 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -589,9 +624,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				}
@@ -605,9 +638,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -616,9 +647,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -627,9 +656,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -638,9 +665,7 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -649,9 +674,7 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -660,9 +683,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				}
@@ -676,9 +697,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -687,9 +706,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -698,9 +715,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -709,9 +724,7 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -720,9 +733,7 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -731,9 +742,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				}
