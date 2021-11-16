@@ -141,14 +141,25 @@
 			]
 		},
 		{
-			"name": "Canditates",
+			"name": "Candidates",
 			"item": [
 				{
 					"name": "getAllCandidate",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8000/api/candidates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates"
+							]
+						}
 					},
 					"response": []
 				},
@@ -157,16 +168,46 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8000/api/candidates/619062e49875b06098c9d806",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates",
+								"619062e49875b06098c9d806"
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "getByNameCandidate",
+					"name": "search",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8000/api/candidates/search?name=jose",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "jose"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -174,8 +215,29 @@
 					"name": "addCandidate",
 					"request": {
 						"method": "POST",
-						"header": [],
-						"url": null
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"ruben\",\r\n    \"lastName\": \"diaz\",\r\n    \"email\": \"ruben@gmail.com\",\r\n    \"password\": \"ruben4584\",\r\n    \"phone\": 5646516,\r\n    \"address\": {\r\n      \"street\": \"moreno\",\r\n      \"number\": 4565\r\n    },\r\n    \"city\": \"rosario\",\r\n    \"province\": \"santa fe\",\r\n    \"country\": \"argentina\",\r\n    \"postalCode\": 2000,\r\n    \"birthday\": \"2013-10-21\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/candidates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates"
+							]
+						}
 					},
 					"response": []
 				},
@@ -183,8 +245,30 @@
 					"name": "updateCandidate",
 					"request": {
 						"method": "PUT",
-						"header": [],
-						"url": null
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"nacho\",\r\n    \"lastName\": \"sanchez\",\r\n    \"email\": \"nacho@gmail.com\",\r\n    \"hobbies\": [\"play football\"]\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/candidates/61900e74f9681677b240a2b6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates",
+								"61900e74f9681677b240a2b6"
+							]
+						}
 					},
 					"response": []
 				},
@@ -193,7 +277,19 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8000/api/candidates/618f27834ef593dd5ba5c136",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates",
+								"618f27834ef593dd5ba5c136"
+							]
+						}
 					},
 					"response": []
 				}
