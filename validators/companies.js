@@ -2,77 +2,77 @@ const mongoose = require('mongoose');
 
 const required = (req, res, next) => {
   if (!req.body.name) {
-    return res.status(400).json({ msg: 'Name is required' });
+    return res.status(400).json({ message: 'Name is required' });
   }
   if (!req.body.address) {
-    return res.status(400).json({ msg: 'address is required' });
+    return res.status(400).json({ message: 'address is required' });
   }
   if (!req.body.email) {
-    return res.status(400).json({ msg: 'Email is required' });
+    return res.status(400).json({ message: 'Email is required' });
   }
   if (!req.body.city) {
-    return res.status(400).json({ msg: 'city is required' });
+    return res.status(400).json({ message: 'city is required' });
   }
   if (!req.body.province) {
-    return res.status(400).json({ msg: 'province is required' });
+    return res.status(400).json({ message: 'province is required' });
   }
   if (!req.body.country) {
-    return res.status(400).json({ msg: 'country is required' });
+    return res.status(400).json({ message: 'country is required' });
   }
   if (!req.body.zipCode) {
-    return res.status(400).json({ msg: 'zipCode is required' });
+    return res.status(400).json({ message: 'zipCode is required' });
   }
   if (!req.body.phone) {
-    return res.status(400).json({ msg: 'phone is required' });
+    return res.status(400).json({ message: 'phone is required' });
   }
   if (!req.body.contactFullName) {
-    return res.status(400).json({ msg: 'contactFullName is required' });
+    return res.status(400).json({ message: 'contactFullName is required' });
   }
   if (!req.body.contactPhone) {
-    return res.status(400).json({ msg: 'contactPhone is required' });
+    return res.status(400).json({ message: 'contactPhone is required' });
   }
   return next();
 };
 
 const validateLength = (req, res, next) => {
   if (req.params.id && !mongoose.Types.ObjectId.isValid(req.params.id)) {
-    return res.status(400).json({ msg: 'No MongoDB ID' });
+    return res.status(400).json({ message: 'No MongoDB ID' });
   }
   if (req.body.name && (req.body.name.length < 2 || req.body.name.length > 40)) {
-    return res.status(400).json({ msg: 'name must be between 2 and 40 characters' });
+    return res.status(400).json({ message: 'name must be between 2 and 40 characters' });
   }
   if (req.body.address && (req.body.address.length < 2 || req.body.address.length > 40)) {
-    return res.status(400).json({ msg: 'address must be between 2 and 40 characters' });
+    return res.status(400).json({ message: 'address must be between 2 and 40 characters' });
   }
   if (req.body.email && (req.body.email.length < 2 || req.body.email.length > 40)) {
-    return res.status(400).json({ msg: 'email must be between 2 and 40 characters' });
+    return res.status(400).json({ message: 'email must be between 2 and 40 characters' });
   }
   if (req.body.city && (req.body.city.length < 2 || req.body.city.length > 40)) {
-    return res.status(400).json({ msg: 'city must be between 2 and 40 characters' });
+    return res.status(400).json({ message: 'city must be between 2 and 40 characters' });
   }
   if (req.body.province && (req.body.province.length < 2 || req.body.province.length > 40)) {
-    return res.status(400).json({ msg: 'province must be between 2 and 40 characters' });
+    return res.status(400).json({ message: 'province must be between 2 and 40 characters' });
   }
   if (req.body.country && (req.body.country.length < 2 || req.body.country.length > 40)) {
-    return res.status(400).json({ msg: 'country must be between 2 and 40 characters' });
+    return res.status(400).json({ message: 'country must be between 2 and 40 characters' });
   }
   if (
     req.body.contactFullName &&
     (req.body.contactFullName.length < 2 || req.body.contactFullName.length > 40)
   ) {
-    return res.status(400).json({ msg: 'contactFullName must be between 2 and 40 characters' });
+    return res.status(400).json({ message: 'contactFullName must be between 2 and 40 characters' });
   }
   if (req.body.contactPhone && req.body.contactPhone < 0) {
-    return res.status(400).json({ msg: 'contactPhone must be greater than 0' });
+    return res.status(400).json({ message: 'contactPhone must be greater than 0' });
   }
   if (req.body.phone && req.body.phone < 0) {
-    return res.status(400).json({ msg: 'phone must be greater than 0' });
+    return res.status(400).json({ message: 'phone must be greater than 0' });
   }
   if (req.body.pictureUrl && (req.body.pictureUrl.length < 5 || req.body.pictureUrl.length > 100)) {
-    return res.status(400).json({ msg: 'pictureUrl must be between 5 and 100 characters' });
+    return res.status(400).json({ message: 'pictureUrl must be between 5 and 100 characters' });
   }
   if (req.body.zipCode && (req.body.zipCode.length < 0 || req.body.zipCode.length > 100000)) {
-    return res.status(400).json({ msg: 'zipCode must be between 0 and 10000' });
+    return res.status(400).json({ message: 'zipCode must be between 0 and 10000' });
   }
   return next();
 };
@@ -129,6 +129,9 @@ const validateDataTypeAndFormat = (req, res, next) => {
   }
   if (req.body.contactPhone && typeof req.body.contactPhone !== 'number') {
     return res.status(400).json({ message: 'Contact phone must be number' });
+  }
+  if (req.body.isActive && typeof req.body.isActive !== 'boolean') {
+    return res.status(400).json({ message: 'Active status must be boolean' });
   }
   return next();
 };
