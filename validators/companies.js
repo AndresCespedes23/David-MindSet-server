@@ -1,6 +1,3 @@
-/* eslint-disable no-bitwise */
-/* eslint-disable no-cond-assign */
-/* eslint-disable no-restricted-syntax */
 const mongoose = require('mongoose');
 
 const required = (req, res, next) => {
@@ -138,7 +135,6 @@ const validateDataTypeAndFormat = (req, res, next) => {
 
 module.exports = {
   required,
-  requiredCompanies,
   validateDataTypeAndFormat,
   validateLength,
   bodyNotEmpty,
