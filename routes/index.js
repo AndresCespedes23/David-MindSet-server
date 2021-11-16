@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const psychologists = require('./psychologists');
+const interviews = require('./interviews');
 const candidates = require('./candidates');
 const openPositions = require('./open-position');
 
@@ -15,6 +16,7 @@ router.get('/server-status', (req, res) => res.send({
 }));
 
 router.use('/psychologists', psychologists);
+router.use('/interviews', interviews);
 router.use('/candidates', candidates);
 router.use('/open-positions', openPositions);
 

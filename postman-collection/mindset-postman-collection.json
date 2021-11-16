@@ -362,7 +362,19 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8000/api/interviews/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								""
+							]
+						}
 					},
 					"response": []
 				},
@@ -371,16 +383,46 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8000/api/interviews/61917af803bbd4df05176025",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								"61917af803bbd4df05176025"
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "getByCompanyIdInterview",
+					"name": "search",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8000/api/interviews/search?company=61917b2503bbd4df05176026",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								"search"
+							],
+							"query": [
+								{
+									"key": "company",
+									"value": "61917b2503bbd4df05176026"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -389,7 +431,28 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"_id\": \"61917ba503bbd4df05176028\",\r\n        \"idCompany\": \"61917bd303bbd4df0517602a\",\r\n        \"idCandidate\": \"61917bce03bbd4df05176029\",\r\n        \"date\": \"2021-11-09T03:00:00.000Z\",\r\n        \"status\": true,\r\n        \"isActive\": false\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/interviews/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								""
+							]
+						}
 					},
 					"response": []
 				},
@@ -398,7 +461,28 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/interviews/61917ba503bbd4df05176028",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								"61917ba503bbd4df05176028"
+							]
+						}
 					},
 					"response": []
 				},
@@ -407,7 +491,19 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8000/api/interviews/61917ba503bbd4df05176028",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								"61917ba503bbd4df05176028"
+							]
+						}
 					},
 					"response": []
 				}
