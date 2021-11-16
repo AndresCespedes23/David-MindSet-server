@@ -13,22 +13,22 @@
         <h2>Companies:</h2>
         <ul>
           <li><a href="/api/companies">getAll</a></li>
-          <li><a href="/api/companies/1">getById</a></li>
-          <li><a href="/api/companies/search/?name=pepsi">getByName</a></li>
-          <li><a href="/api/companies/add">add</a></li>
-          <li><a href="/api/companies/edit/1">edit</a></li>
-          <li><a href="/api/companies/remove/1">remove</a></li>
+          <li><a href="/api/company/1">getById</a></li>
+          <li><a href="/api/company/byName/pepsi">getByName</a></li>
+          <li><a href="/api/company/add">add</a></li>
+          <li><a href="/api/company/edit/1">edit</a></li>
+          <li><a href="/api/company/remove/100">remove</a></li>
         </ul>
       </li>
       <li>
         <h2>Candidates:</h2>
         <ul>
           <li><a href="/api/candidates">getAll</a></li>
-          <li><a href="/api/candidate/1">getById</a></li>
-          <li><a href="/api/candidate/byName/john">getByName</a></li>
-          <li><a href="/api/candidate/add">add</a></li>
-          <li><a href="/api/candidate/edit/1">edit</a></li>
-          <li><a href="/api/candidate/remove/100">remove</a></li>
+          <li><a href="/api/candidates/618fd02e0fb0d04c9a69a19e">getById</a></li>
+          <li><a href="/api/candidates/search">search</a></li>
+          <li><a href="/api/candidates/add">add</a></li>
+          <li><a href="/api/candidates/edit/1">edit</a></li>
+          <li><a href="/api/candidates/remove/100">remove</a></li>
         </ul>
       </li>
       <li>
@@ -59,9 +59,7 @@
         <ul>
           <li><a href="/api/psychologists">getAll</a></li>
           <li><a href="/api/psychologists/1">getById</a></li>
-          <li>
-            <a href="/api/psychologists/byName?firstName=Mirvin&lastName=Dowdeswell">getByName</a>
-          </li>
+          <li><a href="/api/psychologists/byName?firstName=Mirvin&lastName=Dowdeswell">getByName</a></li>
           <li><a href="/api/psychologists/add">add</a></li>
           <li><a href="/api/psychologists/edit/1">edit</a></li>
           <li><a href="/api/psychologists/remove/2">remove</a></li>
@@ -74,10 +72,7 @@
           <li><a href="/api/session/1">getById</a></li>
           <li><a href="/api/session/byIdCandidate/15">getByIdCandidate</a></li>
           <li>
-            <a
-              href="/api/session/add?id=215&idPsychologists=215&idCandidate=215&date=11/23/2021&time=14:30&isActive=true"
-              >add</a
-            >
+            <a href="/api/session/add?id=215&idPsychologists=215&idCandidate=215&date=11/23/2021&time=14:30&isActive=true">add</a>
           </li>
           <li><a href="/api/session/edit/50">edit</a></li>
           <li><a href="/api/session/remove/40">remove</a></li>
@@ -98,8 +93,8 @@
         <h2>Interviews:</h2>
         <ul>
           <li><a href="/api/interviews">getAll</a></li>
-          <li><a href="/api/interviews/130">getById</a></li>
-          <li><a href="/api/interviews/byCompany/4">getByCompany</a></li>
+          <li><a href="/api/interviews/">getById</a></li>
+          <li><a href="/api/interviews/search">search</a></li>
           <li><a href="/api/interviews/add">add</a></li>
           <li><a href="/api/interviews/edit/130">edit</a></li>
           <li><a href="/api/interviews/remove/130">remove</a></li>
@@ -109,8 +104,8 @@
         <h2>Open positions:</h2>
         <ul>
           <li><a href="/api/open-positions">getAll</a></li>
-          <li><a href="/api/open-positions/5">getById</a></li>
-          <li><a href="/api/open-positions/byIdCompany/12">getByIdCompany</a></li>
+          <li><a href="/api/open-positions/618f199a76acd1a49f2fde81">getById</a></li>
+          <li><a href="/api/open-positions/search">getByIdCompany</a></li>
           <li><a href="/api/open-positions/add">add</a></li>
           <li><a href="/api/open-positions/edit/6">edit</a></li>
           <li><a href="/api/open-positions/remove/4">remove</a></li>
