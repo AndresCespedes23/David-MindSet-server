@@ -35,9 +35,6 @@ const required = (req, res, next) => {
 };
 
 const validateLength = (req, res, next) => {
-  if (req.params.id && !mongoose.Types.ObjectId.isValid(req.params.id)) {
-    return res.status(400).json({ message: 'No MongoDB ID' });
-  }
   if (req.body.name && (req.body.name.length < 2 || req.body.name.length > 40)) {
     return res.status(400).json({ message: 'name must be between 2 and 40 characters' });
   }
@@ -85,7 +82,7 @@ const bodyNotEmpty = (req, res, next) => {
 const validateDataTypeAndFormat = (req, res, next) => {
   if (req.params.id) {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-      return res.status(400).json({ message: 'No MongoDB ID' });
+      return res.status(400).json({ message: 'Invalid MongoDB ID format' });
     }
   }
   if (req.body.name && typeof req.body.name !== 'string') {
