@@ -38,62 +38,44 @@ const required = (req, res, next) => {
 };
 
 const validateLength = (req, res, next) => {
-  let max;
-  let min;
-  const stringError = (minimum, maximum) => `must be between ${minimum} and ${maximum}`;
-  if ((req.body.name && (min = 2) >= req.body.name.length) | ((max = 60) <= req.body.name.length)) {
-    return res.status(400).json({ message: `name ${stringError(min, max)} symbols` });
+  if (req.params.id && !mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ msg: 'No MongoDB ID' });
   }
-  if (
-    req.body.address &&
-    ((min = 2) >= req.body.address.length) | ((max = 60) <= req.body.address.length)
-  ) {
-    return res.status(400).json({ message: `address ${stringError(min, max)} symbols` });
+  if (req.body.name && (req.body.name.length < 2 || req.body.name.length > 40)) {
+    return res.status(400).json({ msg: 'name must be between 2 and 40 characters' });
   }
-  if (req.body.city && ((min = 2) >= req.body.city.length) | ((max = 60) <= req.body.city.length)) {
-    return res.status(400).json({ message: `city ${stringError(min, max)} symbols` });
+  if (req.body.address && (req.body.address.length < 2 || req.body.address.length > 40)) {
+    return res.status(400).json({ msg: 'address must be between 2 and 40 characters' });
   }
-  if (
-    req.body.province &&
-    ((min = 2) >= req.body.province.length) | ((max = 60) <= req.body.province.length)
-  ) {
-    return res.status(400).json({ message: `province ${stringError(min, max)} symbols` });
+  if (req.body.email && (req.body.email.length < 2 || req.body.email.length > 40)) {
+    return res.status(400).json({ msg: 'email must be between 2 and 40 characters' });
   }
-  if (
-    req.body.country &&
-    ((min = 2) >= req.body.country.length) | ((max = 60) <= req.body.country.length)
-  ) {
-    return res.status(400).json({ message: `country ${stringError(min, max)} symbols` });
+  if (req.body.city && (req.body.city.length < 2 || req.body.city.length > 40)) {
+    return res.status(400).json({ msg: 'city must be between 2 and 40 characters' });
   }
-  if (req.body.zipCode && ((min = 0) >= req.body.zipCode) | ((max = 100000) <= req.body.zipCode)) {
-    return res.status(400).json({ message: `zipCode ${stringError(min, max)}` });
+  if (req.body.province && (req.body.province.length < 2 || req.body.province.length > 40)) {
+    return res.status(400).json({ msg: 'province must be between 2 and 40 characters' });
   }
-  if (req.body.phone && ((min = 50) >= req.body.phone) | ((max = Infinity) <= req.body.phone)) {
-    return res.status(400).json({ message: `phone ${stringError(min, max)} symbols` });
-  }
-  if (
-    req.body.email &&
-    ((min = 2) >= req.body.email.length) | ((max = 60) <= req.body.email.length)
-  ) {
-    return res.status(400).json({ message: `email ${stringError(min, max)} symbols` });
-  }
-  if (
-    req.body.pictureUrl &&
-    ((min = 5) >= req.body.pictureUrl.length) | ((max = 200) <= req.body.pictureUrl.length)
-  ) {
-    return res.status(400).json({ message: `pictureUrl ${stringError(min, max)} symbols` });
+  if (req.body.country && (req.body.country.length < 2 || req.body.country.length > 40)) {
+    return res.status(400).json({ msg: 'country must be between 2 and 40 characters' });
   }
   if (
     req.body.contactFullName &&
-    ((min = 2) >= req.body.contactFullName.length) | ((max = 60) <= req.body.contactFullName.length)
+    (req.body.contactFullName.length < 2 || req.body.contactFullName.length > 40)
   ) {
-    return res.status(400).json({ message: `contactFullName ${stringError(min, max)} symbols` });
+    return res.status(400).json({ msg: 'contactFullName must be between 2 and 40 characters' });
   }
-  if (
-    req.body.contactPhone &&
-    ((min = 50) >= req.body.contactPhone) | ((max = Infinity) <= req.body.contactPhone)
-  ) {
-    return res.status(400).json({ message: `contactPhone ${stringError(min, max)}` });
+  if (req.body.contactPhone && req.body.contactPhone < 0) {
+    return res.status(400).json({ msg: 'contactPhone must be greater than 0' });
+  }
+  if (req.body.phone && req.body.phone < 0) {
+    return res.status(400).json({ msg: 'phone must be greater than 0' });
+  }
+  if (req.body.pictureUrl && (req.body.pictureUrl.length < 5 || req.body.pictureUrl.length > 100)) {
+    return res.status(400).json({ msg: 'pictureUrl must be between 5 and 100 characters' });
+  }
+  if (req.body.zipCode && (req.body.zipCode.length < 0 || req.body.zipCode.length > 100000)) {
+    return res.status(400).json({ msg: 'zipCode must be between 0 and 10000' });
   }
   return next();
 };
