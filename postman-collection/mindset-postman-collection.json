@@ -79,7 +79,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/applications/6190829064878c10d564810b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"applications",
+								"6190829064878c10d564810b"
+							]
 						}
 					},
 					"response": []
@@ -89,16 +99,46 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8000/api/applications/6190821b05546183be4f7590",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"applications",
+								"6190821b05546183be4f7590"
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "getByPositionIdApplication",
+					"name": "search",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8000/api/applications/search?idOpenPosition=6190823905546183be4f7592",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"applications",
+								"search"
+							],
+							"query": [
+								{
+									"key": "idOpenPosition",
+									"value": "6190823905546183be4f7592"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -107,7 +147,20 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8000/api/applications/byCan/6190823105546183be4f7591",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"applications",
+								"byCan",
+								"6190823105546183be4f7591"
+							]
+						}
 					},
 					"response": []
 				},
@@ -116,7 +169,28 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"idCandidate\": \"6190823105546183be4f7591\",\r\n            \"idOpenPosition\": \"6190823905546183be4f7592\",\r\n            \"isActive\": true\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/applications/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"applications",
+								""
+							]
+						}
 					},
 					"response": []
 				},
@@ -125,7 +199,28 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"idCandidate\": \"6190823105546183be4f7591\",\r\n            \"idOpenPosition\": \"6190823905546183be4f7592\",\r\n            \"isActive\": false\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/applications/6190821b05546183be4f7590",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"applications",
+								"6190821b05546183be4f7590"
+							]
+						}
 					},
 					"response": []
 				},
@@ -134,7 +229,19 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8000/api/applications/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"applications",
+								""
+							]
+						}
 					},
 					"response": []
 				}
