@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1614314b-f1cb-412b-87f9-0d04e5911289",
+		"_postman_id": "108874a7-f70b-449e-a589-3b0cfe0b7cf0",
 		"name": "MindSet",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -13,9 +13,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -35,9 +33,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -68,9 +64,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				}
@@ -254,7 +248,7 @@
 			]
 		},
 		{
-			"name": "Canditates",
+			"name": "Candidates",
 			"item": [
 				{
 					"name": "getAllCandidate",
@@ -262,7 +256,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/candidates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates"
+							]
 						}
 					},
 					"response": []
@@ -273,18 +276,44 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/candidates/619062e49875b06098c9d806",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates",
+								"619062e49875b06098c9d806"
+							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "getByNameCandidate",
+					"name": "search",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/candidates/search?name=jose",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "jose"
+								}
+							]
 						}
 					},
 					"response": []
@@ -293,9 +322,28 @@
 					"name": "addCandidate",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"ruben\",\r\n    \"lastName\": \"diaz\",\r\n    \"email\": \"ruben@gmail.com\",\r\n    \"password\": \"ruben4584\",\r\n    \"phone\": 5646516,\r\n    \"address\": {\r\n      \"street\": \"moreno\",\r\n      \"number\": 4565\r\n    },\r\n    \"city\": \"rosario\",\r\n    \"province\": \"santa fe\",\r\n    \"country\": \"argentina\",\r\n    \"postalCode\": 2000,\r\n    \"birthday\": \"2013-10-21\"\r\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/candidates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates"
+							]
 						}
 					},
 					"response": []
@@ -304,9 +352,29 @@
 					"name": "updateCandidate",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"nacho\",\r\n    \"lastName\": \"sanchez\",\r\n    \"email\": \"nacho@gmail.com\",\r\n    \"hobbies\": [\"play football\"]\r\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/candidates/61900e74f9681677b240a2b6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates",
+								"61900e74f9681677b240a2b6"
+							]
 						}
 					},
 					"response": []
@@ -317,7 +385,17 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/candidates/618f27834ef593dd5ba5c136",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates",
+								"618f27834ef593dd5ba5c136"
+							]
 						}
 					},
 					"response": []
@@ -325,76 +403,106 @@
 			]
 		},
 		{
-			"name": "Companies",
-			"item": [
-				{
-					"name": "getAllCompany",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": ""
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getByIdCompany",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": ""
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getByNameCompany",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": ""
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "addCompany",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": ""
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "updateCompany",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": ""
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "deleteCompany",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": ""
-						}
-					},
-					"response": []
-				}
-			]
-		},
+      "name": "Companies",
+      "item": [
+        {
+          "name": "getAll",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "companies"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "company", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getByName",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies/byName/:name",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "company", "byName", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "add",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies/{{id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "company", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "edit",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies/edit/{{id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "company", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "remove",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies/remove/{{id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "company", "{{id}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
 		{
 			"name": "Interviews",
 			"item": [
@@ -404,7 +512,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/interviews/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								""
+							]
 						}
 					},
 					"response": []
@@ -415,18 +533,44 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/interviews/61917af803bbd4df05176025",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								"61917af803bbd4df05176025"
+							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "getByCompanyIdInterview",
+					"name": "search",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/interviews/search?company=61917b2503bbd4df05176026",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								"search"
+							],
+							"query": [
+								{
+									"key": "company",
+									"value": "61917b2503bbd4df05176026"
+								}
+							]
 						}
 					},
 					"response": []
@@ -436,8 +580,27 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"_id\": \"61917ba503bbd4df05176028\",\r\n        \"idCompany\": \"61917bd303bbd4df0517602a\",\r\n        \"idCandidate\": \"61917bce03bbd4df05176029\",\r\n        \"date\": \"2021-11-09T03:00:00.000Z\",\r\n        \"status\": true,\r\n        \"isActive\": false\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/interviews/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								""
+							]
 						}
 					},
 					"response": []
@@ -447,8 +610,27 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/interviews/61917ba503bbd4df05176028",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								"61917ba503bbd4df05176028"
+							]
 						}
 					},
 					"response": []
@@ -459,7 +641,17 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/interviews/61917ba503bbd4df05176028",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								"61917ba503bbd4df05176028"
+							]
 						}
 					},
 					"response": []
@@ -641,9 +833,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -652,9 +842,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -663,9 +851,7 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -674,9 +860,7 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -685,9 +869,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				}
@@ -702,7 +884,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/psychologists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists"
+							]
 						}
 					},
 					"response": []
@@ -713,18 +904,44 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/psychologists/619062e49875b06098c9d806",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists",
+								"619062e49875b06098c9d806"
+							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "getByNamePsychologist",
+					"name": "search",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/psychologists/search?text=valentin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists",
+								"search"
+							],
+							"query": [
+								{
+									"key": "text",
+									"value": "valentin"
+								}
+							]
 						}
 					},
 					"response": []
@@ -733,9 +950,28 @@
 					"name": "addPsychologist",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"valentin\",\r\n    \"lastName\": \"Locatelli\",\r\n    \"email\": \"valeloca@gmail.com\",\r\n    \"password\": \"valeloca123\",\r\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/psychologists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists"
+							]
 						}
 					},
 					"response": []
@@ -744,9 +980,29 @@
 					"name": "updatePsychologist",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Javier\",\r\n    \"lastName\": \"Rondina\",\r\n    \"email\": \"javierron@gmail.com\",\r\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/psychologists/61900e74f9681677b240a2b6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists",
+								"61900e74f9681677b240a2b6"
+							]
 						}
 					},
 					"response": []
@@ -757,7 +1013,17 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/psychologists/618f27834ef593dd5ba5c136",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists",
+								"618f27834ef593dd5ba5c136"
+							]
 						}
 					},
 					"response": []
@@ -772,9 +1038,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -783,9 +1047,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -794,9 +1056,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -805,9 +1065,7 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -816,9 +1074,7 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				},
@@ -827,9 +1083,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": null
 					},
 					"response": []
 				}

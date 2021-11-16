@@ -1,127 +1,73 @@
-const fs = require("fs");
-const path = require("path");
-/* const psyList = require("../data/psychologists"); */
+const Psychologist = require('../models/Psychologists');
 
-const validate = (object) => {
-	for (let key in object) {
-		if (object[key] === undefined) {
-			return false;
-		}
-	}
-	return true;
-};
-
-const getLastId = (collection) => {
-	let larger = 0;
-	collection.forEach((element) => {
-		if (element.id > larger) {
-			larger = element.id;
-		}
-	});
-	return larger;
-};
+const notFoundTxt = 'Psychologist not found by';
 
 const getAll = (req, res) => {
-	/* res.json(psyList); */
-	console.log('getall')
+  Psychologist.find()
+    .then((psychologists) => res.json({ psychologists }))
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const getById = (req, res) => {
-	/* const id = parseInt(req.params.id);
-	const psyFound = psyList.find((psy) => psy.id === id);
-	if (!psyFound) {
-		return res.status(404).json({ message: `Psychologist not found with id: ${id}` });
-	}
-	res.json(psyFound); */
-	console.log('byid')
+  const { id } = req.params;
+  Psychologist.findById(id)
+    .then((psychologist) => {
+      if (!psychologist) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
+      return res.json({ psychologist });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
-const getByName = (req, res) => {
-	/* const psyFound = psyList.filter(
-		(psy) => psy.firstName === req.query.firstName && psy.lastName === req.query.lastName
-	);
-	if (psyFound.length <= 0) {
-		return res.status(404).json({
-			message: `Psychologist not found with name: ${psyFound.firstName} ${psyFound.lastName}`,
-		});
-	}
-	res.json(psyFound); */
-	console.log('byname')
+const search = (req, res) => {
+  const { text } = req.query;
+  Psychologist.find({ firstName: text })
+    .then((psychologists) => {
+      if (psychologists.length === 0) return res.status(404).json({ msg: `${notFoundTxt} Name: ${text}` });
+      return res.json({ psychologists });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const add = (req, res) => {
-	/* const newPsy = {
-		id: getLastId(psyList) + 1,
-		firstName: req.query.firstName,
-		lastName: req.query.lastName,
-		email: req.query.email,
-		pictureUrl: req.query.pictureUrl,
-		isActive: req.query.isActive,
-		password: req.query.password,
-		turns: [],
-	};
-	if (!validate(newPsy)) {
-		return res.status(400).json({ message: "Missing parameters" });
-	}
-	psyList.push(newPsy);
-	fs.writeFile(path.join(__dirname, "../data/psychologists.json"), JSON.stringify(psyList), (err) => {
-		if (err) {
-			return res.status(500).json({ message: "Error adding Psy" });
-		}
-		res.json({ message: "Psychologist added successfully", psy: newPsy });
-	}); */
-	console.log('add')
+  const newPsychologist = new Psychologist({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    password: req.body.password,
+    pictureUrl: req.body.pictureUrl,
+    turns: [],
+    isActive: true,
+  });
+  newPsychologist.save()
+    .then((psychologist) => res.json({ msg: 'Psychologist created', psychologist }))
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const edit = (req, res) => {
-	/* const id = parseInt(req.params.id);
-	const psyFound = psyList.find((psy) => psy.id === id);
-	if (!psyFound) {
-		return res.status(404).json({ message: `Psychologist not found with id ${id}` });
-	}
-	psyList = psyList.map((psy) => {
-		if (psy.id === id) {
-			psy.firstName = req.query.firstName || psy.firstName;
-			psy.lastName = req.query.lastName || psy.lastName;
-			psy.email = req.query.email || psy.email;
-			psy.pictureUrl = req.query.pictureUrl || psy.pictureUrl;
-			psy.isActive = req.query.isActive || psy.isActive;
-			psy.password = req.query.password || psy.password;
-			psy.turns = [];
-		}
-		return psy;
-	});
-	fs.writeFile(path.join(__dirname, "../data/psychologists.json"), JSON.stringify(psyList), (err) => {
-		if (err) {
-			return res.status(500).json({ message: "Error editing psychologist" });
-		}
-		res.json({ message: "Psychologist edited successfully", psyFound });
-	}); */
-	console.log('edit')
+  const { id } = req.params;
+  Psychologist.findByIdAndUpdate(id, req.body, { new: true })
+    .then((psychologist) => {
+      if (!psychologist) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
+      return res.json({ msg: 'Psychologist updated', psychologist });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const remove = (req, res) => {
-	/* const id = parseInt(req.params.id);
-	const psyFound = psyList.find((psy) => psy.id === id);
-	if (!psyFound) {
-		return res.status(404).json({ message: `Psychologist not found with id ${id}` });
-	}
-	psyList = psyList.filter((psy) => psy.id !== id);
-	fs.writeFile(path.join(__dirname, "../data/psychologists.json"), JSON.stringify(psyList), (err) => {
-		if (err) {
-			console.log(err);
-			return res.status(500).json({ message: "Error deleting psychologist" });
-		}
-		res.json({ message: "Psychologist deleted", psy: psyFound });
-	}); */
-	console.log('edit')
+  const { id } = req.params;
+  Psychologist.findByIdAndRemove(id)
+    .then((psychologist) => {
+      if (!psychologist) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
+      return res.json({ msg: 'Psychologist deleted', psychologist });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 module.exports = {
-	getAll: getAll,
-	getById: getById,
-	getByName: getByName,
-	add: add,
-	edit: edit,
-	remove: remove,
+  getAll,
+  getById,
+  search,
+  add,
+  edit,
+  remove,
 };
