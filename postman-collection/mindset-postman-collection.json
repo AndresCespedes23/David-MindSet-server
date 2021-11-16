@@ -296,64 +296,106 @@
 			]
 		},
 		{
-			"name": "Companies",
-			"item": [
-				{
-					"name": "getAllCompany",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
-					},
-					"response": []
-				},
-				{
-					"name": "getByIdCompany",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
-					},
-					"response": []
-				},
-				{
-					"name": "getByNameCompany",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
-					},
-					"response": []
-				},
-				{
-					"name": "addCompany",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": null
-					},
-					"response": []
-				},
-				{
-					"name": "updateCompany",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": null
-					},
-					"response": []
-				},
-				{
-					"name": "deleteCompany",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": null
-					},
-					"response": []
-				}
-			]
-		},
+      "name": "Companies",
+      "item": [
+        {
+          "name": "getAll",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "companies"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "company", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getByName",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies/byName/:name",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "company", "byName", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "add",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies/{{id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "company", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "edit",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies/edit/{{id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "company", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "remove",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies/remove/{{id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "company", "{{id}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
 		{
 			"name": "Interviews",
 			"item": [
