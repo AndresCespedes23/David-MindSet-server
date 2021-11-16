@@ -1,5 +1,7 @@
 const express = require('express');
 const path = require('path');
+
+const administrators = require('./administrators');
 const applications = require('./applications');
 const psychologists = require('./psychologists');
 const companies = require('./companies');
@@ -17,6 +19,7 @@ router.get('/server-status', (req, res) => res.send({
   status: 'Server OK',
 }));
 
+router.use('/administrators', administrators);
 router.use('/applications', applications);
 router.use('/companies', companies);
 router.use('/psychologists', psychologists);

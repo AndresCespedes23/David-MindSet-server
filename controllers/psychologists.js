@@ -1,3 +1,29 @@
+<<<<<<< HEAD
+/* const psyList = require("../data/psychologists"); */
+
+const getAll = (req, res) => {
+  res.status(501).json({ msg: 'Not implemented' });
+};
+
+const getById = (req, res) => {
+  res.status(501).json({ msg: 'Not implemented' });
+};
+
+const getByName = (req, res) => {
+  res.status(501).json({ msg: 'Not implemented' });
+};
+
+const add = (req, res) => {
+  res.status(501).json({ msg: 'Not implemented' });
+};
+
+const edit = (req, res) => {
+  res.status(501).json({ msg: 'Not implemented' });
+};
+
+const remove = (req, res) => {
+  res.status(501).json({ msg: 'Not implemented' });
+=======
 const Psychologist = require('../models/Psychologists');
 
 const notFoundTxt = 'Psychologist not found by';
@@ -61,12 +87,17 @@ const remove = (req, res) => {
       return res.json({ msg: 'Psychologist deleted', psychologist });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+>>>>>>> development
 };
 
 module.exports = {
   getAll,
   getById,
+<<<<<<< HEAD
+  getByName,
+=======
   search,
+>>>>>>> development
   add,
   edit,
   remove,

@@ -1,112 +1,77 @@
-const fs = require('fs');
-const path = require('path');
-/* const adminData = require('../data/administrators.json'); */
+const Administrators = require('../models/Administrators'); // insted of re-write json we reach /models/Administrators where is the conection with Moongose and it's Schema
 
-const validate = (entity) => {
-    for (let key in entity) {
-      if (entity[key] === undefined) {
-        return false;
-      }
-    }
-    return true;
-};
-
-const getLastId = group => {
-    let large = 0;
-    group.forEach(element => {
-      if (element.id > large) {
-        large = element.id;
-      }
-    });
-    return large;
-};
+const notFoundTxt = 'Administrator not found by';
 
 const getAll = (req, res) => {
-    res.json(adminData);
+  Administrators.find() // find() is from Moongose documentation
+    .then((data) => res.json({ data }))
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const getById = (req, res) => {
-    const foundId = adminData.find(administrator => administrator.id === parseInt(req.params.id));
-    if (!foundId) {
-        return res.status(404).json({ message: `No administrator with the id of ${req.params.id} founded` });
-    }
-    res.json(foundId);
+  const { id } = req.params;
+  Administrators.findById(id)
+    .then((data) => {
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
+      return res.json({ data });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
-const getByName = (req, res) => {
-    const foundName = adminData.filter(administrator => administrator.firstName === (req.params.name));
-    if (foundName.length <= 0) {
-        return res.status(404).json({ message: `No administrator with the first name of ${req.params.name} founded` });
-    }
-    res.json(foundName);
+const search = (req, res) => {
+  const queryParam = req.query;
+  const firstName = queryParam.name.toLowerCase() || null;
+  if (!firstName) return res.status(400).json({ msg: 'Missing query param: name' });
+  return Administrators.find({ firstName })
+    .then((data) => {
+      if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} name: ${firstName}` });
+      return res.json({ data });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const add = (req, res) => {
-    const newAdmin = {
-        id: getLastId(adminData) +1,
-        firstName: req.query.firstName,
-        lastName: req.query.lastName,
-        email: req.query.email,
-        password: req.query.password,
-        isActive: req.query.isActive
-    };
-    if (!validate(newAdmin)) {
-        return res.status(400).json({ message: 'Some parameters are missing' });
-    }
-    adminData.push(newAdmin);
-    fs.writeFile(path.join(__dirname, '../data/administrators.json'), JSON.stringify(adminData), err => {
-        if (err) { 
-            console.log(err);
-            return res.status(500).json({ message: 'Error adding administrator' });
-        }
-        res.json({ message: 'Administrator successfully added', administrator: newAdmin });
-    });
+  const newAdministrator = new Administrators({
+    firstName: req.body.firstName.toLowerCase(),
+    lastName: req.body.lastName,
+    email: req.body.email,
+    password: req.body.password,
+    isActive: true,
+  });
+  newAdministrator
+    .save()
+    .then((data) => res.json({ msg: 'Administrator created', data }))
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const edit = (req, res) => {
-    const editAdmin = adminData.find(administrator => administrator.id === parseInt(req.params.id));
-    if (!editAdmin) {
-        return res.status(404).json({ message: `No administrator with the id of ${req.params.id} founded` });
-    }
-    adminData = adminData.map(administrator => {
-        if (administrator.id === parseInt(req.params.id)) {
-            administrator.firstName = req.query.firstName || administrator.firstName;
-            administrator.lastName = req.query.lastName || administrator.lastName;
-            administrator.email = req.query.email || administrator.email;
-            administrator.password = req.query.password || administrator.password;
-            administrator.isActive = req.query.isActive || administrator.isActive;
-        }
-        return administrator;
-    });
-    fs.writeFile(path.join(__dirname, '../data/administrators.json'), JSON.stringify(adminData), (err) => {
-        if (err) {
-            console.log(err);
-            return res.status(500).json({ message: 'Error editing administrator' });
-        }
-        res.json({ message: 'Administrator updated', editAdmin });
-    });
+  const { id } = req.params;
+  if (req.body.firstName) {
+    req.body.firstName = req.body.firstName.toLowerCase();
+  }
+  Administrators.findByIdAndUpdate(id, req.body, { new: true })
+    .then((data) => {
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
+      return res.json({ msg: 'Administrator updated', data });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const remove = (req, res) => {
-    const foundIdDeleted = adminData.find(administrator => administrator.id === parseInt(req.params.id));
-    if (!foundIdDeleted) {
-        return res.status(404).json({ message: `No administrator with the id of ${req.params.id} founded` });
-    }
-    adminData = adminData.filter(administrator => administrator.id !== parseInt(req.params.id));
-    fs.writeFile(path.join(__dirname, '../data/administrators.json'), JSON.stringify(adminData), (err) => {
-        if (err) {
-            console.log(err);
-            return res.status(500).json({ message: 'Error removing administrator' });
-        }
-        res.json({ message: 'Administrator removed' });
-    });
+  const { id } = req.params;
+  Administrators.findByIdAndRemove(id)
+    .then((data) => {
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
+      return res.json({ msg: 'Administrator removed', data });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 module.exports = {
-  getAll: getAll,
-  getById: getById,
-  getByName: getByName,
-  add: add,
-  edit: edit,
-  remove: remove,
+  getAll,
+  getById,
+  search,
+  add,
+  edit,
+  remove,
 };
