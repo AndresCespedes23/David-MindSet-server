@@ -1,7 +1,13 @@
 const express = require('express');
 const path = require('path');
-const psychologists = require('./psychologists');
 const profileTypes = require('./profile-types');
+const administrators = require('./administrators');
+const applications = require('./applications');
+const psychologists = require('./psychologists');
+const companies = require('./companies');
+const interviews = require('./interviews');
+const candidates = require('./candidates');
+const openPositions = require('./open-position');
 
 const router = express.Router();
 
@@ -13,8 +19,13 @@ router.get('/server-status', (req, res) => res.send({
   status: 'Server OK',
 }));
 
+router.use('/administrators', administrators);
+router.use('/applications', applications);
+router.use('/companies', companies);
 router.use('/psychologists', psychologists);
-
+router.use('/interviews', interviews);
+router.use('/candidates', candidates);
+router.use('/open-positions', openPositions);
 router.use('/profile-types', profileTypes);
 
 module.exports = router;

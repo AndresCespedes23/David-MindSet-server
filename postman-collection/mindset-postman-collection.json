@@ -1,1395 +1,20 @@
 {
 	"info": {
-		"_postman_id": "7d143528-b593-4d70-9338-b149aa3e936d",
-		"name": "Mindset",
+		"_postman_id": "108874a7-f70b-449e-a589-3b0cfe0b7cf0",
+		"name": "MindSet",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "api",
+			"name": "Administrators",
 			"item": [
 				{
-					"name": "Psychologists",
-					"item": [
-						{
-							"name": "getAll",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/psychologists/",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"psychologists",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getById",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/psychologists/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"psychologists",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getByName",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/psychologists/byName/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"psychologists",
-										"byName",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "add",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/psychologists/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"psychologists",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "edit",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/psychologists/edit/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"psychologists",
-										"edit",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "remove",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/psychologists/remove/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"psychologists",
-										"remove",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Administrator",
-					"item": [
-						{
-							"name": "getAll",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/administrators/",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"administrators",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getById",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/administrator/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"administrator",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getByName",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/administrator/byName/:name",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"administrator",
-										"byName",
-										":name"
-									],
-									"variable": [
-										{
-											"key": "name",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "add",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/administrator/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"administrator",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "edit",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/administrator/edit/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"administrator",
-										"edit",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "remove",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/administrator/remove/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"administrator",
-										"remove",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Companies",
-					"item": [
-						{
-							"name": "getAll",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/companies",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"companies"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getById",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/company/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"company",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getByName",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/company/byName/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"company",
-										"byName",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "add",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/company/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"company",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "edit",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/company/edit/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"company",
-										"edit",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "remove",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/company/remove/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"company",
-										"remove",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Open Positions",
-					"item": [
-						{
-							"name": "getAll",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/open-positions",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"open-positions"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getById",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/open-positions/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"open-positions",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "byIDCompany",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/open-positions/byIdCompany/:idCompany",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"open-positions",
-										"byIdCompany",
-										":idCompany"
-									],
-									"variable": [
-										{
-											"key": "idCompany",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "add",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/open-positions/add",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"open-positions",
-										"add"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "edit",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/open-positions/edit/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"open-positions",
-										"edit",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "remove",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/open-positions/remove/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"open-positions",
-										"remove",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Applications",
-					"item": [
-						{
-							"name": "getAll",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/applications/",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"applications",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getById",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/applications/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"applications",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getByPosition",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/applications/byPos/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"applications",
-										"byPos",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "add",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/applications/add",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"applications",
-										"add"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "edit",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/applications/edit/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"applications",
-										"edit",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "remove",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/applications/remove/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"applications",
-										"remove",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getByCandidate",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/applications/byCan/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"applications",
-										"byCan",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Profile Types",
-					"item": [
-						{
-							"name": "GetAll",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\"name\": \"Perro\"}"
-								},
-								"url": {
-									"raw": "http://localhost:8000/api/profile-types/",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"profile-types",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetById",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\"name\": \"Perro\"}"
-								},
-								"url": {
-									"raw": "http://localhost:8000/api/profile-types/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"profile-types",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "618fd6b01fc020c0af244977"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Search",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\"name\": \"Perro\"}"
-								},
-								"url": {
-									"raw": "http://localhost:8000/api/profile-types/search?name=Perro",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"profile-types",
-										"search"
-									],
-									"query": [
-										{
-											"key": "name",
-											"value": "Perro"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Add",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\"name\": \"Perro\"}"
-								},
-								"url": {
-									"raw": "http://localhost:8000/api/profile-types/",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"profile-types",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Edit",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\"name\": \"Perro\"}"
-								},
-								"url": {
-									"raw": "http://localhost:8000/api/profile-types/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"profile-types",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "61927f871ffda41e01ba6ef1"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete",
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\"name\": \"Perro\"}"
-								},
-								"url": {
-									"raw": "http://localhost:8000/api/profile-types/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"profile-types",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "619281fd6568957d011b5de1"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Sessions",
-					"item": [
-						{
-							"name": "getAll",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/sessions",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"sessions"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getById",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/session/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"session",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "byIdCandidate",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/session/byIdCandidate/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"session",
-										"byIdCandidate",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "add",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/session/add",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"session",
-										"add"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "edit",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/session/edit/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"session",
-										"edit",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "remove",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/session/remove/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"session",
-										"remove",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Candidates",
-					"item": [
-						{
-							"name": "getAll",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/candidates/",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"candidates",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getById",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/candidate/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"candidate",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getByName",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/candidate/byName/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"candidate",
-										"byName",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "add",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/candidate/add",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"candidate",
-										"add"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "edit",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/candidate/edit/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"candidate",
-										"edit",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "remove",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/candidate/remove/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"candidate",
-										"remove",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Interviews",
-					"item": [
-						{
-							"name": "getAll",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/interviews/",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"interviews",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getById",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/interviews/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"interviews",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getByCompany",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/interviews/byCompany/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"interviews",
-										"byCompany",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "add",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/interviews/add",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"interviews",
-										"add"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "edit",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/interviews/edit/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"interviews",
-										"edit",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "remove",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/api/interviews/remove/{{id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"interviews",
-										"remove",
-										"{{id}}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "api",
+					"name": "getAllAdministrator",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/",
+							"raw": "http://localhost:8000/api/administrators/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1397,6 +22,313 @@
 							"port": "8000",
 							"path": [
 								"api",
+								"administrators",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByIdAdministrator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/administrators/6190532293f8158d733c7992",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"administrators",
+								"6190532293f8158d733c7992"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/administrators/search?name=minerva",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"administrators",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "minerva"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addAdministrator",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"firstName\": \"roberto\",\r\n        \"lastName\": \"RIBAS\",\r\n        \"email\": \"profesoracoso@gmail.com\",\r\n        \"password\": \"roberto123\",\r\n        \"isActive\": true\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/administrators/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"administrators",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAdministrator",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"holaSusana3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/administrators/619061262fe690bdd976acb1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"administrators",
+								"619061262fe690bdd976acb1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAdministrator",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/administrators/6191be2658c7aef5121c9654",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"administrators",
+								"6191be2658c7aef5121c9654"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Applications",
+			"item": [
+				{
+					"name": "getAllApplication",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/applications/6190829064878c10d564810b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"applications",
+								"6190829064878c10d564810b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByIdApplication",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/applications/6190821b05546183be4f7590",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"applications",
+								"6190821b05546183be4f7590"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/applications/search?idOpenPosition=6190823905546183be4f7592",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"applications",
+								"search"
+							],
+							"query": [
+								{
+									"key": "idOpenPosition",
+									"value": "6190823905546183be4f7592"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByCandidateIdApplication",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/applications/byCan/6190823105546183be4f7591",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"applications",
+								"byCan",
+								"6190823105546183be4f7591"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addApplication",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"idCandidate\": \"6190823105546183be4f7591\",\r\n            \"idOpenPosition\": \"6190823905546183be4f7592\",\r\n            \"isActive\": true\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/applications/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"applications",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateApplication",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"idCandidate\": \"6190823105546183be4f7591\",\r\n            \"idOpenPosition\": \"6190823905546183be4f7592\",\r\n            \"isActive\": false\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/applications/6190821b05546183be4f7590",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"applications",
+								"6190821b05546183be4f7590"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteApplication",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/applications/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"applications",
 								""
 							]
 						}
@@ -1404,12 +336,848 @@
 					"response": []
 				}
 			]
-		}
-	],
-	"variable": [
+		},
 		{
-			"key": "open-positions",
-			"value": "open-positions"
+			"name": "Candidates",
+			"item": [
+				{
+					"name": "getAllCandidate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/candidates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByIdCandidate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/candidates/619062e49875b06098c9d806",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates",
+								"619062e49875b06098c9d806"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/candidates/search?name=jose",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "jose"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addCandidate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"ruben\",\r\n    \"lastName\": \"diaz\",\r\n    \"email\": \"ruben@gmail.com\",\r\n    \"password\": \"ruben4584\",\r\n    \"phone\": 5646516,\r\n    \"address\": {\r\n      \"street\": \"moreno\",\r\n      \"number\": 4565\r\n    },\r\n    \"city\": \"rosario\",\r\n    \"province\": \"santa fe\",\r\n    \"country\": \"argentina\",\r\n    \"postalCode\": 2000,\r\n    \"birthday\": \"2013-10-21\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/candidates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCandidate",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"nacho\",\r\n    \"lastName\": \"sanchez\",\r\n    \"email\": \"nacho@gmail.com\",\r\n    \"hobbies\": [\"play football\"]\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/candidates/61900e74f9681677b240a2b6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates",
+								"61900e74f9681677b240a2b6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCandidate",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/candidates/618f27834ef593dd5ba5c136",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"candidates",
+								"618f27834ef593dd5ba5c136"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+      "name": "Companies",
+      "item": [
+        {
+          "name": "getAll",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "companies"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "company", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getByName",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies/byName/:name",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "company", "byName", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "add",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies/{{id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "company", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "edit",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies/edit/{{id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "company", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "remove",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/companies/remove/{{id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "company", "{{id}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+		{
+			"name": "Interviews",
+			"item": [
+				{
+					"name": "getAllInterview",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/interviews/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByIdInterview",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/interviews/61917af803bbd4df05176025",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								"61917af803bbd4df05176025"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/interviews/search?company=61917b2503bbd4df05176026",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								"search"
+							],
+							"query": [
+								{
+									"key": "company",
+									"value": "61917b2503bbd4df05176026"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addInterview",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"_id\": \"61917ba503bbd4df05176028\",\r\n        \"idCompany\": \"61917bd303bbd4df0517602a\",\r\n        \"idCandidate\": \"61917bce03bbd4df05176029\",\r\n        \"date\": \"2021-11-09T03:00:00.000Z\",\r\n        \"status\": true,\r\n        \"isActive\": false\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/interviews/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateInterview",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/interviews/61917ba503bbd4df05176028",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								"61917ba503bbd4df05176028"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteInterview",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/interviews/61917ba503bbd4df05176028",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"interviews",
+								"61917ba503bbd4df05176028"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OpenPositions",
+			"item": [
+				{
+					"name": "getAllOpenPositions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/open-positions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"open-positions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByIdOpenPosition",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/open-positions/61912a4ebb803ee2a348db74",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"open-positions",
+								"61912a4ebb803ee2a348db74"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/open-positions/search?company=618f199a76acd1a49f2fde11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"open-positions",
+								"search"
+							],
+							"query": [
+								{
+									"key": "company",
+									"value": "618f199a76acd1a49f2fde11"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addOpenPosition",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \r\n\"idCompany\": \"618f199a76acd1a49f2fde11\",\r\n\"startDate\": \"2020-01-01\",\r\n\"endDate\": \"2020-01-01\",\r\n\"jobDescription\": \"jobDescription11\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/open-positions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"open-positions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateOpenPosition",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"jobDescription\": \"jobDescription4\",\r\n\"isActive\": true\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/open-positions/619126dac2956664cc2a9d1f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"open-positions",
+								"619126dac2956664cc2a9d1f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteOpenPosition",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/open-positions/61912a4ebb803ee2a348db74",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"open-positions",
+								"61912a4ebb803ee2a348db74"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile Types",
+			"item": [
+				{
+					"name": "getAllProfileType",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByIdProfileType",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "getByNameProfileType",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "addProfileType",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "updateProfileType",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProfileType",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Psychologists",
+			"item": [
+				{
+					"name": "getAllPsychologist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/psychologists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByIdPsychologist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/psychologists/619062e49875b06098c9d806",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists",
+								"619062e49875b06098c9d806"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/psychologists/search?text=valentin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists",
+								"search"
+							],
+							"query": [
+								{
+									"key": "text",
+									"value": "valentin"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addPsychologist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"valentin\",\r\n    \"lastName\": \"Locatelli\",\r\n    \"email\": \"valeloca@gmail.com\",\r\n    \"password\": \"valeloca123\",\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/psychologists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePsychologist",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Javier\",\r\n    \"lastName\": \"Rondina\",\r\n    \"email\": \"javierron@gmail.com\",\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/psychologists/61900e74f9681677b240a2b6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists",
+								"61900e74f9681677b240a2b6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePsychologist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/psychologists/618f27834ef593dd5ba5c136",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"psychologists",
+								"618f27834ef593dd5ba5c136"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sessions",
+			"item": [
+				{
+					"name": "getAllSession",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "getByIdSession",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "getByCandidateIdSession",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "addSession",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "updateSession",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSession",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

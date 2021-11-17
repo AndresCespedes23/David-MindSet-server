@@ -1,154 +1,86 @@
-const fs = require('fs');
-const path = require('path');
-/* const candidates = require('../data/candidates.json'); */
+const Candidates = require('../models/Candidates');
 
-const getLastId = (collection) => {
-    let larger = 0;
-    collection.forEach((element) => {
-      if (element.id > larger) {
-        larger = element.id;
-      }
-    });
-    return larger;
-};
-
-const validate = (object) => {
-    for (let key in object) {
-      if (object[key] === undefined) {
-        return false;
-      }
-    }
-    return true;
-};
+const notFoundText = 'Candidate not found by';
 
 const getAll = (req, res) => {
-    res.json(candidates.list);
+  Candidates.find()
+    .then((candidates) => res.json({ candidates }))
+    .catch((error) => res.status(500).json({ msg: `Error: ${error}` }));
 };
 
 const getById = (req, res) => {
-    const candidateID = parseInt(req.params.id);
-    const foundCandidate = candidates.list.find(candidate => candidate.id === candidateID);
-    if (!foundCandidate) {
-        return res.status(404).json({ message: `Candidate not found with id: ${candidateID}` });
-    }
-    res.json(foundCandidate);
+  const { id } = req.params;
+  Candidates.findById(id)
+    .then((data) => {
+      if (!data) return res.status(404).json({ msg: `${notFoundText} ID: ${id}` });
+      return res.json({ data });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
-const getByName = (req, res) => {
-    const name = req.params.name;
-    const foundCandidates = candidates.list.filter(candidate => candidate.firstName.toLowerCase() === name.toLowerCase())
-    if (foundCandidates.length === 0) {
-        return res.status(404).json({
-            message: `Candidate not found with name: ${name}`,
-            candidates: foundCandidates
-        });
-    }
-    res.json(foundCandidates);
+const search = (req, res) => {
+  const queryParam = req.query;
+  const firstName = queryParam.name.toLowerCase() || null;
+  if (!firstName) return res.status(400).json({ msg: 'Missing query param: name' });
+  return Candidates.find({ firstName })
+    .then((data) => {
+      if (data.length === 0) return res.status(404).json({ msg: `${notFoundText} name: ${firstName}` });
+      return res.json({ data });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const add = (req, res) => {
-    let lastID = getLastId(candidates.list);
-    const newCandidate = {
-        id: lastID + 1,
-        firstName: req.query.firstName,
-        lastName: req.query.lastName,
-        email: req.query.email,
-        password: req.query.password,
-        pictureUrl: req.query.pictureUrl,
-        phone: req.query.phone,
-        address: req.query.address,
-        city: req.query.city,
-        province: req.query.province,
-        country: req.query.country,
-        postalCode: req.query.postalCode,
-        birthday: req.query.birthday,
-        education: req.query.education === undefined ? [] : [req.query.education],
-        experiences: req.query.experiences === undefined ? [] : [req.query.experiences],
-        courses: req.query.courses === undefined ? [] : [req.query.courses] ,
-        hobbies: req.query.hobbies === undefined ? [] : [req.query.hobbies] ,
-        mainSkills: req.query.mainSkills === undefined ? [] : [req.query.mainSkills] ,
-        profileTypes: req.query.profileTypes === undefined ? [] : [req.query.profileTypes] ,
-        isOpenToWork: true,
-        isActive: true
-    };
-    if (!validate(newCandidate)) {
-        return res.status(400).json({ message: 'Missing parameters' });
-    }
-    candidates.list.push(newCandidate);
-    fs.writeFile(path.join(__dirname, '../data/candidates.json'), JSON.stringify(candidates), err => {
-        if (err) {
-            return res.status(500).json({ message:'Error while saving data' });
-        }
-        res.json({
-            message: 'Candidate created',
-            candidate: newCandidate
-        });
-    });
+  const newCandidate = new Candidates({
+    firstName: req.body.firstName.toLowerCase(),
+    lastName: req.body.lastName,
+    email: req.body.email,
+    password: req.body.password,
+    phone: req.body.phone,
+    address: {
+      street: req.body.address.street,
+      number: req.body.address.number,
+    },
+    city: req.body.city,
+    province: req.body.province,
+    country: req.body.country,
+    postalCode: req.body.postalCode,
+    birthday: req.body.birthday,
+  });
+  newCandidate
+    .save()
+    .then((candidate) => res.json({ msg: 'Candidate created', candidate }))
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const edit = (req, res) => {
-    const candidateID = parseInt(req.params.id)
-    const foundCandidate = candidates.list.find(candidate => candidate.id === candidateID);
-    let updatedCandidate;
-    if (!foundCandidate) {
-        return res.status(404).json({ message: `Candidate not found with id: ${candidateID}` });
-    }
-    candidates = candidates.list.map((candidate) => {
-        if (candidate.id === candidateID) {
-            candidate.firstName = req.query.firstName || candidate.firstName;
-            candidate.lastName = req.query.lastName || candidate.lastName;
-            candidate.email = req.query.email || candidate.email;
-            candidate.password = req.query.password || candidate.password;
-            candidate.pictureUrl = req.query.pictureUrl || candidate.pictureUrl;
-            candidate.phone = req.query.phone || candidate.phone;
-            candidate.address = req.query.address || candidate.address;
-            candidate.city = req.query.city || candidate.city;
-            candidate.province = req.query.province || candidate.province;
-            candidate.country = req.query.country || candidate.country;
-            candidate.postalCode = req.query.postalCode || candidate.postalCode;
-            candidate.birthday = req.query.birthday || candidate.birthday;
-            candidate.education = req.query.education !== undefined ? [req.query.education] : candidate.education;
-            candidate.experiences = req.query.experiences !== undefined ? [req.query.experiences] : candidate.experiences;
-            candidate.courses = req.query.courses !== undefined ? [req.query.courses] : candidate.courses;
-            candidate.hobbies = req.query.hobbies !== undefined ? [req.query.hobbies] : candidate.hobbies;
-            candidate.mainSkills = req.query.mainSkills !== undefined ? [req.query.mainSkills] : candidate.mainSkills;
-            candidate.profileTypes = req.query.profileTypes !== undefined ? [req.query.profileTypes] : candidate.profileTypes;
-            candidate.isOpenToWork = req.query.isOpenToWork || candidate.isOpenToWork;
-            updatedCandidate = candidate;
-        }
-        return candidate;
-    });
-    fs.writeFile(path.join(__dirname, '../data/candidates.json'), JSON.stringify({ list: candidates }), err => {
-        if (err) {
-            return res.status(500).json({ message: 'Error while saving data' });
-        }
-        res.json({
-            message: 'Updated Candidate',
-            candidate: updatedCandidate
-        });
-    });
+  const { id } = req.params;
+  if (req.body.firstName) {
+    req.body.firstName = req.body.firstName.toLowerCase();
+  }
+  Candidates.findByIdAndUpdate(id, req.body, { new: true })
+    .then((newCandidate) => {
+      if (!newCandidate) return res.status(404).json({ msg: `${notFoundText} ID: ${id}` });
+      return res.json({ msg: 'Candidate updated', newCandidate });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const remove = (req, res) => {
-    const candidateID = parseInt(req.params.id);
-    const foundCandidate = candidates.list.filter(candidate => candidate.id === candidateID);
-    if (!foundCandidate) {
-        return res.status(404).json({ message: `Candidate not found with id: ${candidateID}` });
-    }
-    candidates = candidates.list.filter((candidate) => candidate.id !== candidateID);
-    fs.writeFile(path.join(__dirname, '../data/candidates.json'), JSON.stringify({ list: candidates }), err => {
-        if (err) {
-            return res.status(500).json({ message: 'Error while saving data' });
-        }
-        res.json({ message: 'Deleted Candidate' });
-    });
+  const { id } = req.params;
+  Candidates.findByIdAndRemove(id)
+    .then((removedCandidate) => {
+      if (!removedCandidate) return res.status(404).json({ msg: `${notFoundText} ID: ${id}` });
+      return res.json({ msg: 'Candidate removed', removedCandidate });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 module.exports = {
-  getAll: getAll,
-  getById: getById,
-  getByName: getByName,
-  add: add,
-  edit: edit,
-  remove: remove,
+  getAll,
+  getById,
+  search,
+  add,
+  edit,
+  remove,
 };
