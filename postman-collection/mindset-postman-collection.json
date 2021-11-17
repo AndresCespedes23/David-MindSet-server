@@ -905,7 +905,7 @@
 			]
 		},
 		{
-			"name": "ProfileTypes",
+			"name": "Profile Types",
 			"item": [
 				{
 					"name": "getAllProfileType",

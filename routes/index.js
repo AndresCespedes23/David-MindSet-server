@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-
+const profileTypes = require('./profile-types');
 const administrators = require('./administrators');
 const applications = require('./applications');
 const psychologists = require('./psychologists');
@@ -26,5 +26,6 @@ router.use('/psychologists', psychologists);
 router.use('/interviews', interviews);
 router.use('/candidates', candidates);
 router.use('/open-positions', openPositions);
+router.use('/profile-types', profileTypes);
 
 module.exports = router;
