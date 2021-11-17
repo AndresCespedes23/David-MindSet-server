@@ -10,7 +10,7 @@ mongoose.connect('mongodb+srv://radium:radium123456@cluster0.urj6t.mongodb.net/m
   if (err) {
     console.log('error connecting database');
   } else {
-    console.log('data base connected');
+    console.log('database connected');
   }
 });
 

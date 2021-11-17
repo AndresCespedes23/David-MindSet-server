@@ -1,115 +1,73 @@
-const fs = require('fs'); 
-const path = require('path');
-/* const sessions = require('../data/sessions.json'); */
+const Sessions = require('../models/Sessions');
 
-// VALIDATION FUNCTIONS
+const notFoundTxt = 'Session not found with ID:';
 
-const validate = (entity) => {      
-  for (let key in entity) {
-    if (entity[key] === undefined) {
-      return false;
-    }
-  }
-  return true;
+const getAll = (req, res) => {
+  Sessions.find()
+    .then((data) => res.json({ data }))
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
-
-const getLastId = (collection) => {  
-  let larger = 0;
-  collection.forEach((element) => {
-    if (element.id > larger) {
-      larger = element.id;
-    }
-  });
-  return larger;
-};
-
-// PATH FUNCTIONS based on julianv97
-
-const getAll = (req, res) => res.json(sessions);
 
 const getById = (req, res) => {
-  const id = parseInt(req.params.id);
-  const sessionFound = sessions.find((session) => session.id === id);
-  if (!sessionFound) {
-    return res.status(404).json({ message: `Session not found with id: ${id}` });
-  }
-  res.json(sessionFound);
+  const { id } = req.params;
+  Sessions.findById(id)
+    .then((data) => {
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}` });
+      return res.json({ data });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
-const getByIdCandidate = (req, res) => {
-  const idCandidate = parseInt(req.params.id);
-  const sessionFound = sessions.filter((session) => session.idCandidate === idCandidate);
-  if (sessionFound.length <= 0) {
-    return res.status(404).json({ message: `Session not found with the ID: ${idCandidate}` });
-  }
-  res.json(sessionFound);
+const search = (req, res) => {
+  const queryParam = req.query;
+  const idCandidate = queryParam.idCandidate || null;
+  if (!idCandidate) return res.status(400).json({ msg: 'Missing query param: candidate' });
+  return Sessions.find({ idCandidate })
+    .then((data) => {
+      if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} session ID: ${idCandidate}` });
+      return res.json({ data });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const add = (req, res) => {
-  const newSession = {
-    id: getLastId(sessions) + 1,
-    idPsychologists: req.query.idPsychologists,
-    idCandidate: req.query.idCandidate,
-    date: req.query.date,
-    time: req.query.time,
-    isActive: req.query.isActive,
-  };
-  if (!validate(newSession)) {
-    return res.status(400).json({ message: 'Missing parameters' });
-  }
-  sessions.push(newSession);
-  fs.writeFile(path.join(__dirname, '../data/sessions.json'), JSON.stringify(sessions), (err) => {
-    if (err) {
-      return res.status(500).json({ message: 'Error adding a session' });
-    }
-    res.json({ message: 'Session added successfully', session: newSession });
+  const newSession = new Sessions({
+    idPsychologists: req.body.idPsychologists,
+    idCandidate: req.body.idCandidate,
+    date: req.body.date,
+    isActive: true,
   });
+  newSession
+    .save()
+    .then((data) => res.json({ msg: 'Session added', data }))
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const edit = (req, res) => {
-  const id = parseInt(req.params.id);
-  const sessionFound = sessions.find((session) => session.id === id);
-  if (!sessionFound) {
-    return res.status(404).json({ message: `Session not found with id ${id}` });
-  }
-  sessions.map((session) => {
-    if (session.id === id) {
-      session.idPsychologists = req.query.idPsychologists || session.idPsychologists;
-      session.idCandidate = req.query.idCandidate || session.idCandidate;
-      session.date = req.query.date || session.date;
-      session.time = req.query.time || session.time;
-      session.isActive = req.query.isActive || session.isActive;
-    }
-    return session;
-  });
-  fs.writeFile(path.join(__dirname, '../data/session.json'), JSON.stringify(sessions), (err) => {
-    if (err) {
-      return res.status(500).json({ message: 'Error editing session' });
-    }
-    res.json({ message: 'Session edited successfully', sessionFound });
-  });
+  const { id } = req.params;
+  Sessions.findByIdAndUpdate(id, req.body, { new: true })
+    .then((data) => {
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}` });
+      return res.json({ msg: 'Session updated', data });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
-  
+
 const remove = (req, res) => {
-  const id = parseInt(req.params.id);
-  const sessionFound = sessions.find((session) => session.id === id);
-  if (!sessionFound) {
-    return res.status(404).json({ message: `Session not found with id ${id}` });
-  }
-  sessions.filter((session) => session.id !== id);
-  fs.writeFile(path.join(__dirname, '../data/sessions.json'), JSON.stringify(sessions), (err) => {
-    if (err) {
-      return res.status(500).json({ message: 'Error deleting the session' });
-    }
-    res.json({ message: 'Session deleted' });
-  });
+  const { id } = req.params;
+  Sessions.findByIdAndDelete(id)
+    .then((data) => {
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}` });
+      return res.json({ msg: 'Session removed', data });
+    })
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 module.exports = {
-  getAll: getAll,
-  getByIdCandidate: getByIdCandidate,
-  add: add,
-  getById: getById,
-  edit: edit,
-  remove: remove
+  getAll,
+  search,
+  add,
+  getById,
+  edit,
+  remove,
 };
