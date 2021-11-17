@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const routes = require('./routes');
 
 const app = express();
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 mongoose.connect('mongodb+srv://radium:radium123456@cluster0.urj6t.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', (err) => {
   if (err) {

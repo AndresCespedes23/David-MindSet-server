@@ -17,6 +17,9 @@
   "bugs": {
     "url": "https://github.com/davidcurras/mindset-2021/issues"
   },
+  "engines": {
+    "node": "16.8.0"
+  },
   "homepage": "https://github.com/davidcurras/mindset-2021#readme",
   "dependencies": {
     "cors": "^2.8.5",
