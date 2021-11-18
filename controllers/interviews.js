@@ -1,4 +1,4 @@
-const Interviews = require('../models/Interviews.js');
+const Interviews = require('../models/Interviews');
 
 const notFoundTxt = 'Interview not found by';
 
