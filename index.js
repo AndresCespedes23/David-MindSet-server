@@ -1,12 +1,12 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const routes = require('./routes');
 
 const app = express();
-const port = process.env.PORT || 8000;
 
-mongoose.connect('mongodb+srv://radium:radium123456@cluster0.urj6t.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', (err) => {
+mongoose.connect(process.env.DATABASE_URL, (err) => {
   if (err) {
     console.log('error connecting database');
   } else {
@@ -22,6 +22,6 @@ app.use(cors());
 
 app.use('/api', routes);
 
-app.listen(port, () => {
-  console.log(`Open your browser in http://localhost:${port}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Open your browser in http://localhost:${process.env.PORT}`);
 });
