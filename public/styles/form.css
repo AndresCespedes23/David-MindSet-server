@@ -31,6 +31,18 @@
     width: 100%;
 }
 
+.msg-error {
+    display: block;
+    color: red;
+    padding: 2px; 
+    font-size: 12px; 
+}
+
 .hide {
     display: none;
+}
+
+.input-error {
+    border-color: red;
+    color: red;
 }
