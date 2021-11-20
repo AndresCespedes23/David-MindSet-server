@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- pay atention -->
+    <title>Companies List</title>
+    <link rel="stylesheet" type="text/css" href="../../styles/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../styles/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../../styles/list.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="header-top">
+        <div class="welcome">
+          <!-- pay atention -->
+          <a href="companies.html" class="header-button welcome-top"
+            >Welcome User</a
+          >
+        </div>
+        <a href="../../index.html" class="header-button">LOG OUT</a>
+      </div>
+      <div class="header">
+        <a href="../../index.html" class="mindset">MindSet</a>
+      </div>
+    </header>
+    <div class="container-main">
+      <section class="main">
+        <!-- pay atention -->
+        <h1>Companies List</h1>
+        <div class="list">
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>OtherData</th>
+              <th>OtherData2</th>
+              <th>Action</th>
+            </tr>
+            <tr>
+              <td>Alfreds Futterkiste</td>
+              <td>Maria Anders</td>
+              <td>Germany</td>
+              <td class="action">
+                <a href="#"
+                  ><span class="material-icons-outlined">search</span></a
+                >
+                <a href="formCompanies.html"
+                  ><span class="material-icons-outlined">edit</span></a
+                >
+                <a href="#"
+                  ><span
+                    class="material-icons-outlined delete-button"
+                    id="delete-button"
+                    >clear</span
+                  ></a
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>Centro comercial Moctezuma</td>
+              <td>Francisco Chang</td>
+              <td>Mexico</td>
+              <td class="action">
+                <a href="#"
+                  ><span class="material-icons-outlined">search</span></a
+                >
+                <a href="formCompanies.html"
+                  ><span class="material-icons-outlined">edit</span></a
+                >
+                <a href="#"
+                  ><span class="material-icons-outlined">clear</span></a
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>Ernst Handel</td>
+              <td>Roland Mendel</td>
+              <td>Austria</td>
+              <td class="action">
+                <a href="#"
+                  ><span class="material-icons-outlined">search</span></a
+                >
+                <a href="formCompanies.html"
+                  ><span class="material-icons-outlined">edit</span></a
+                >
+                <a href="#"
+                  ><span class="material-icons-outlined">clear</span></a
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>Island Trading</td>
+              <td>Helen Bennett</td>
+              <td>UK</td>
+              <td class="action">
+                <a href="#"
+                  ><span class="material-icons-outlined">search</span></a
+                >
+                <a href="formCompanies.html"
+                  ><span class="material-icons-outlined">edit</span></a
+                >
+                <a href="#"
+                  ><span class="material-icons-outlined">clear</span></a
+                >
+              </td>
+            </tr>
+          </table>
+          <!-- pay atention -->
+          <a href="formCompanies.html" class="button-add">
+            <span id="button-green">Add</span>
+          </a>
+        </div>
+      </section>
+      <aside class="side-menu">
+        <div>
+          <ul>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+          </ul>
+        </div>
+      </aside>
+      <div class="modal modal-hide" id="modal">
+        <div class="center-modal">
+          <div class="modal-message">
+            <h2>¿Are you sure that you want to delete this data?</h2>
+            <p>acá iria la data</p>
+            <div class="button-modal">
+              <button class="modal-ok">ACCEPT</button>
+              <button class="modal-cancel" id="cancel-button">CANCEL</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../../js/companies/listCompanies.js"></script>
+  </body>
+</html>
