@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Application Form</title>
+    <!-- pay atention -->
+    <link rel="stylesheet" type="text/css" href="../../styles/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../styles/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../../styles/list.css" />
+    <link rel="stylesheet" type="text/css" href="../../styles/form.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+    />
+    <script defer src="../../js/applications/form-applications.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="header-top">
+        <div class="welcome">
+          <!-- pay atention -->
+          <a href="listSessions.html" class="header-button welcome-top">Welcome User</a>
+        </div>
+        <a href="../../index.html" class="header-button">LOG OUT</a>
+      </div>
+      <div class="header">
+        <a href="../../index.html" class="mindset">MindSet</a>
+      </div>
+    </header>
+    <div class="container-main">
+      <section class="main">
+        <h1 id="title">Add application</h1>
+        <form id="form" class="form-subscription">
+          <div>
+            <div class="container-form">
+              <ul class="column">
+                <li>
+                  <label for="open-position">Open position</label>
+                  <select name="open-position" id="open-position"></select>
+                  <span id="open-position-error-msg" class="msg-error modal-hide"
+                    >*Select an open position.</span
+                  >
+                </li>
+                <li>
+                  <label for="is-active">Date</label>
+                  <input type="checkbox" id="is-active" name="date" />
+                </li>
+              </ul>
+              <ul class="column">
+                <li>
+                  <label for="candidate">Candidate</label>
+                  <select name="candidate" id="candidate"></select>
+                  <span id="candidate-error-msg" class="msg-error modal-hide"
+                    >*Select a candidate.</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="button">
+            <input id="save-button" type="button" value="SAVE" />
+          </div>
+        </form>
+      </section>
+      <aside class="side-menu">
+        <div>
+          <ul>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+          </ul>
+        </div>
+      </aside>
+      <div class="modal modal-hide" id="modal-ok">
+        <div class="center-modal">
+          <div class="modal-message">
+            <h2 id="modal-ok-title"></h2>
+            <p id="modal-ok-data"></p>
+            <div class="button-modal">
+              <button class="modal-ok-confirm" id="modal-ok-confirm">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
