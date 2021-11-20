@@ -10,7 +10,6 @@ const candidates = require('./candidates');
 const openPositions = require('./open-position');
 const sessions = require('./sessions');
 
-
 const router = express.Router();
 
 router.get('/', (req, res) => {

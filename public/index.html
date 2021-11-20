@@ -1,115 +1,34 @@
-<!DOCTYPE >
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MindSet API</title>
+    <title>MindSet</title>
+    <link rel="stylesheet" type="text/css" href="styles/reset.css" />
+    <link rel="stylesheet" type="text/css" href="styles/styles.css" />
   </head>
   <body>
-    <h1>MindSet</h1>
-    <ul>
-      <li>
-        <h2>Companies:</h2>
-        <ul>
-          <li><a href="/api/companies">getAll</a></li>
-          <li><a href="/api/company/1">getById</a></li>
-          <li><a href="/api/company/byName/pepsi">getByName</a></li>
-          <li><a href="/api/company/add">add</a></li>
-          <li><a href="/api/company/edit/1">edit</a></li>
-          <li><a href="/api/company/remove/100">remove</a></li>
-        </ul>
-      </li>
-      <li>
-        <h2>Candidates:</h2>
-        <ul>
-          <li><a href="/api/candidates">getAll</a></li>
-          <li><a href="/api/candidates/618fd02e0fb0d04c9a69a19e">getById</a></li>
-          <li><a href="/api/candidates/search">search</a></li>
-          <li><a href="/api/candidates/add">add</a></li>
-          <li><a href="/api/candidates/edit/1">edit</a></li>
-          <li><a href="/api/candidates/remove/100">remove</a></li>
-        </ul>
-      </li>
-      <li>
-        <h2>Applications:</h2>
-        <ul>
-          <li><a href="/api/applications">getAll</a></li>
-          <li><a href="/api/applications/byPos/7">getByOpenPosition</a></li>
-          <li><a href="/api/applications/byCan/8">getByCandidate</a></li>
-          <li><a href="/api/applications/add">add</a></li>
-          <li><a href="/api/applications/edit/7">edit</a></li>
-          <li><a href="/api/applications/remove/5">remove</a></li>
-          <li><a href="/api/applications/1">getById</a></li>
-        </ul>
-      </li>
-      <li>
-        <h2>Administrators:</h2>
-        <ul>
-          <li><a href="/api/administrators">getAll</a></li>
-          <li><a href="/api/administrators/6190532293f8158d733c7992">getById</a></li>
-          <li><a href="/api/administrators/search?name=minerva">search</a></li>
-          <li><a href="/api/administrators">add</a></li>
-          <li><a href="/api/administrators/619061262fe690bdd976acb1">edit</a></li>
-          <li><a href="/api/administrators/6191be2658c7aef5121c9654">remove</a></li>
-        </ul>
-      </li>
-        <h2>Psychologists:</h2>
-        <ul>
-          <li><a href="/api/psychologists">getAll</a></li>
-          <li><a href="/api/psychologists/1">getById</a></li>
-          <li><a href="/api/psychologists/byName?firstName=Mirvin&lastName=Dowdeswell">getByName</a></li>
-          <li><a href="/api/psychologists/add">add</a></li>
-          <li><a href="/api/psychologists/edit/1">edit</a></li>
-          <li><a href="/api/psychologists/remove/2">remove</a></li>
-        </ul>
-      </li>
-      <li>
-        <h2>Sessions:</h2>
-        <ul>
-          <li><a href="/api/sessions">getAll</a></li>
-          <li><a href="/api/session/1">getById</a></li>
-          <li><a href="/api/session/search?idCandidate=15">getByIdCandidate</a></li>
-          <li>
-            <a href="/api/session/add?id=215&idPsychologists=215&idCandidate=215&date=11/23/2021&time=14:30&isActive=true">add</a>
-          </li>
-          <li><a href="/api/session/edit/50">edit</a></li>
-          <li><a href="/api/session/remove/40">remove</a></li>
-        </ul>
-      </li>
-      <li>
-        <h2>Profile-Types:</h2>
-        <ul>
-          <li><a href="/api/profile-types">getAll</a></li>
-          <li><a href="/api/profile-types/619282dc6568957d011b5de7">getById</a></li>
-          <li><a href="/api/profile-types/search">getByName</a></li>
-          <li><a href="/api/profile-types/add">add</a></li>
-          <li><a href="/api/profile-types/edit/619282dc6568957d011b5de7">edit</a></li>
-          <li><a href="/api/profile-types/remove/619282dc6568957d011b5de7">remove</a></li>
-        </ul>
-      </li>
-      <li>
-        <h2>Interviews:</h2>
-        <ul>
-          <li><a href="/api/interviews">getAll</a></li>
-          <li><a href="/api/interviews/">getById</a></li>
-          <li><a href="/api/interviews/search">search</a></li>
-          <li><a href="/api/interviews/add">add</a></li>
-          <li><a href="/api/interviews/edit/130">edit</a></li>
-          <li><a href="/api/interviews/remove/130">remove</a></li>
-        </ul>
-      </li>
-      <li>
-        <h2>Open positions:</h2>
-        <ul>
-          <li><a href="/api/open-positions">getAll</a></li>
-          <li><a href="/api/open-positions/618f199a76acd1a49f2fde81">getById</a></li>
-          <li><a href="/api/open-positions/search">getByIdCompany</a></li>
-          <li><a href="/api/open-positions/add">add</a></li>
-          <li><a href="/api/open-positions/edit/6">edit</a></li>
-          <li><a href="/api/open-positions/remove/4">remove</a></li>
-        </ul>
-      </li>
-    </ul>
+    <header>
+      <div class="header-top">
+        <a href="#"></a>
+        <!-- here use / class="header-button" / for button top-right-->
+        <a href="#"></a>
+      </div>
+      <div class="header">
+        <a href="#" class="mindset">MindSet</a>
+      </div>
+    </header>
+    <div class="container">
+      <a href="#" class="user">Administrator</a>
+      <a href="#" class="user">Applications</a>
+      <a href="#" class="user">Candidates</a>
+      <a href="views/companies/listCompanies.html" class="user">Companies</a>
+      <a href="#" class="user">Interviews</a>
+      <a href="#" class="user">Open Positions</a>
+      <a href="#" class="user">Profile Types</a>
+      <a href="#" class="user">Psychologist</a>
+      <a href="#" class="user">Sessions</a>
+    </div>
   </body>
 </html>

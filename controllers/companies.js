@@ -5,10 +5,7 @@ const idNotFoundString = 'Company not found with ID:';
 
 const getAll = (req, res) => {
   Companies.find()
-    .then((found) => {
-      if (found.length === 0) return res.status(404).json({ message: 'No companies found' });
-      return res.json(found);
-    })
+    .then((data) => res.json({ data }))
     .catch((err) => res.status(500).json({ message: 'Error finding companies', err }));
 };
 
