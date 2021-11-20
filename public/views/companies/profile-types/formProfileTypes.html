@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Companies Form</title> <!-- pay atention -->
+        <title>Session Form</title> <!-- pay atention -->
         <link rel="stylesheet" type="text/css" href="../../styles/reset.css">
         <link rel="stylesheet" type="text/css" href="../../styles/styles.css">
         <link rel="stylesheet" type="text/css" href="../../styles/list.css">
@@ -16,7 +16,7 @@
           <div class="header-top">
             <div class="welcome">
               <!-- pay atention -->
-              <a href="companies.html" class="header-button welcome-top">Welcome User</a>
+              <a href="listSessions.html" class="header-button welcome-top">Welcome User</a>
             </div>
             <a href="../../index.html" class="header-button">LOG OUT</a>
           </div>
@@ -26,57 +26,16 @@
         </header>
         <div class="container-main">
             <section class="main">
-                <h1>Companies Form</h1> <!--name of your Resource-->
+                <h1 id="title">Add Session</h1>
                 <form id="form" class="form-subscription">
                     <div >
                         <div class="container-form">
-                            <ul class="column">
-                                <li>
-                                    <label for="fullname">Full name</label>
-                                    <input type="text" id="fullname" name="fullname">
-                                </li>
-                                <li>
-                                    <label for="email">Enter your email</label>
-                                    <input type="text" id="email" name="email">
-                                </li>
-                                <li>
-                                    <label for="password">Password</label>
-                                    <input type="password" id="password" name="password">
-                                </li>
-                                <li>
-                                    <label for="repeatpwd">Repeat password</label>
-                                    <input type="password" id="repeatpwd" name="repeatpwd">
-                                </li>
-                                <li>
-                                    <label for="age">Age</label>
-                                    <input type="text" id="age" name="age">
-                                </li>
-                            </ul>
-                            <ul class="column">
-                                <li>
-                                    <label for="phone">Phone number</label>
-                                    <input type="tel" id="phone" name="phone">
-                                </li>
-                                <li>
-                                    <label for="address">Address</label>
-                                    <input type="text" id="address" name="address">
-                                </li>
-                                    <li><label for="city">City</label>
-                                    <input type="text" id="city" name="city">
-                                </li>
-                                <li>
-                                    <label for="zip">ZIP Code</label>
-                                    <input type="text" id="zip" name="zip">
-                                </li>
-                                <li>
-                                    <label for="idnumber">ID Number</label>
-                                    <input type="text" id="idnumber" name="idnumber">
-                                </li>
-                            </ul>
+                            <label for="psychologist">Psychologist</label>
+                            <input name="psychologist" id="psychologist"></input>
                         </div>
                     </div>
                     <div class="button">
-                        <input id="button-green" type="button" value="SAVE">
+                        <button id="button-green">SAVE</button>
                     </div>
                 </form>
             </section>
@@ -94,6 +53,18 @@
                     </ul>
                 </div>
             </aside>
+            <div class="modal hide" id="modal-ok">
+                <div class="center-modal">
+                  <div class="modal-message">
+                    <h2 id="modal-ok-title"></h2>
+                    <p id="modal-ok-data"></p>
+                    <div class="button-modal">
+                      <button class="modal-ok-confirm" id="modal-ok-confirm">OK</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
         </div>
+        <script src="../../js/profile-types/formProfileTypes.js"></script>
     </body>
 </html>

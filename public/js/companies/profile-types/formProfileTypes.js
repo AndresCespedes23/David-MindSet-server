@@ -12,7 +12,7 @@ let candidatesArray = [];
 
 modalOkConfirm.addEventListener('click', () => {
   modalOk.classList.toggle('hide');
-  window.location.href = `${window.location.origin}/api/views/sessions/listSessions.html`;
+  window.location.href = `${window.location.origin}/api/views/sessions/listProfileTypes.html`;
 });
 
 const getPsychologists = () => {
