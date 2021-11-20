@@ -3,7 +3,7 @@ const Sessions = require('../models/Sessions');
 const notFoundTxt = 'Session not found with ID:';
 
 const getAll = (req, res) => {
-  Sessions.find()
+  Sessions.find().populate('idCandidate', 'firstName lastName')
     .then((data) => res.json({ data }))
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };

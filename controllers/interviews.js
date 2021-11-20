@@ -3,7 +3,7 @@ const Interviews = require('../models/Interviews');
 const notFoundTxt = 'Interview not found by';
 
 const getAll = (req, res) => {
-  Interviews.find()
+  Interviews.find().populate('idCompany', 'name').populate('idCandidate', 'firstName lastName')
     .then((data) => res.json({ data }))
     .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
