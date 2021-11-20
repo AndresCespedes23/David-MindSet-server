@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
 const deleteButtons = document.querySelectorAll('.delete-button');
@@ -77,8 +78,6 @@ const getSessions = () => {
       const tableSession = document.getElementById('table-session');
       if (response.data.length === 0) {
         tableSession.classList.add('hide');
-        const emptyTableMsg = document.getElementById('empty-table-msg');
-        emptyTableMsg.classList.remove('hide');
       } else {
         tableSession.classList.remove('hide');
         response.data.forEach((interviews) => {
@@ -88,9 +87,9 @@ const getSessions = () => {
           const tdDate = document.createElement('td');
           const deleteIcon = createDeleteButton(interviews);
           const updateIcon = createUpdateButton(interviews);
-          tdCompany.innerText = interviews.idCompany;
-          tdCandidate.innerText = interviews.idCandidate;
-          tdDate.innerText = interviews.date;
+          tdCompany.innerText = interviews.idCompany.name;
+          tdCandidate.innerText = interviews.idCandidate.name;
+          tdDate.innerText = interviews.date.split('T')[0];
           tr.append(tdCompany, tdCandidate, tdDate, deleteIcon, updateIcon);
           tableContent.append(tr);
         });

@@ -11,7 +11,7 @@ const IntervewsSchema = new Schema({
   },
   idCandidate: {
     type: Schema.Types.ObjectId,
-    ref: 'Candidate',
+    ref: 'Candidates',
     required: true,
   },
   date: {
@@ -28,4 +28,4 @@ const IntervewsSchema = new Schema({
   },
 });
 
-module.exports = model('Candidates', IntervewsSchema);
+module.exports = model('Interviews', IntervewsSchema);
