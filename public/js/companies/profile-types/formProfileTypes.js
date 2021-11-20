@@ -15,30 +15,16 @@ modalOkConfirm.addEventListener('click', () => {
   window.location.href = `${window.location.origin}/api/views/sessions/listProfileTypes.html`;
 });
 
-const getPsychologists = () => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/psychologists')
+const getProfiles = () => {
+  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/profile-types')
     .then((response) => response.json())
     .then((response) => {
-      psychologistsArray = response.psychologists;
-      response.psychologists.forEach((psychologist) => {
+      profilesArray = response.profiles;
+      response.forEach((profiles) => {
         const option = document.createElement('option');
-        option.innerText = `${psychologist.firstName} ${psychologist.lastName}`;
-        option.value = psychologist._id;
+        option.innerText = `${profiles.name}`;
+        option.value = profiles._id;
         psychologistSelect.append(option);
-      });
-    });
-};
-
-const getCandidates = () => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates')
-    .then((response) => response.json())
-    .then((response) => {
-      candidatesArray = response.candidates;
-      response.candidates.forEach((candidate) => {
-        const option = document.createElement('option');
-        option.innerText = `${candidate.firstName} ${candidate.lastName}`;
-        option.value = candidate._id;
-        candidateSelect.append(option);
       });
     });
 };
@@ -48,12 +34,12 @@ const openOkModal = (response) => {
   const modalOkTitle = document.getElementById('modal-ok-title');
   modalOkTitle.textContent = response.msg;
   const modalOkData = document.getElementById('modal-ok-data');
-  modalOkData.textContent = `Psychologist: ${response.data.idPsychologists}. Candidate: ${response.data.idCandidate}. Date: ${response.data.date}.`;
+  modalOkData.textContent = `Psychologist: ${response.name}.`;
 };
 
-const addSession = (data) => {
+const addProfile = (data) => {
   fetch(
-    'https://basd-2021-david-mindset-dev.herokuapp.com/api/sessions',
+    'https://basd-2021-david-mindset-dev.herokuapp.com/api/profile-types',
     {
       method: 'POST',
       mode: 'cors',
@@ -72,16 +58,16 @@ const addSession = (data) => {
     });
 };
 
-const updateSession = (data) => {
+const updateProfile = () => {
   fetch(
-    `https://basd-2021-david-mindset-dev.herokuapp.com/api/sessions/${params.get('_id')}`,
+    `https://basd-2021-david-mindset-dev.herokuapp.com/api/profile-types/${params.get('_id')}`,
     {
       method: 'PUT',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(),
     },
   )
     .then((response) => response.json())
@@ -93,16 +79,14 @@ const updateSession = (data) => {
     });
 };
 
-const saveSession = () => {
+const saveProfile = () => {
   const data = {
-    idPsychologists: psychologistSelect.value,
-    idCandidate: candidateSelect.value,
-    date: dateInput.value,
+    name: psychologistSelect.value,
   };
   if (params.get('_id')) {
-    updateSession(data);
+    updateProfile(data);
   } else {
-    addSession(data);
+    addProfile(data);
   }
 };
 
