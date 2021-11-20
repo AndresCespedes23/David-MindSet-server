@@ -34,14 +34,14 @@ const deleteSession = (interviewId) => {
     });
 };
 
-const openDeleteModal = (session) => {
+const openDeleteModal = (interview) => {
   const dataModal = document.getElementById('data-modal');
-  dataModal.textContent = `Psychologist: ${session.idPsychologists}. Candidate: ${session.idCandidate}. Date: ${session.date}.`;
+  dataModal.textContent = `Interview: ${interview.idCompany}. Candidate: ${interview.idCandidate}. Date: ${interview.date}.`;
   modal.classList.remove('hide');
-  confirmDeleteButton.onclick = () => deleteSession(session._id);
+  confirmDeleteButton.onclick = () => deleteSession(interview._id);
 };
 
-const createDeleteButton = (session) => {
+const createDeleteButton = (interview) => {
   const buttonDelete = document.createElement('button');
   buttonDelete.setAttribute('class', 'delete-button');
   const deleteLogo = document.createElement('span');
@@ -49,7 +49,7 @@ const createDeleteButton = (session) => {
   deleteLogo.textContent = 'clear';
   buttonDelete.innerHTML = deleteLogo.outerHTML;
   buttonDelete.addEventListener('click', () => {
-    openDeleteModal(session);
+    openDeleteModal(interview);
   });
   return buttonDelete;
 };
@@ -58,14 +58,14 @@ const openUpdateSession = (interview) => {
   window.location.href = `${window.location.origin}/public/views/interviews/formInterviews.html?_id=${interview._id}`;
 };
 
-const createUpdateButton = (session) => {
+const createUpdateButton = (interview) => {
   const buttonUpdate = document.createElement('button');
   const updateLogo = document.createElement('span');
   updateLogo.classList.add('material-icons-outlined');
   updateLogo.textContent = 'edit';
   buttonUpdate.innerHTML = updateLogo.outerHTML;
   buttonUpdate.addEventListener('click', () => {
-    openUpdateSession(session);
+    openUpdateSession(interview);
   });
   return buttonUpdate;
 };
