@@ -18,9 +18,12 @@ cancelButton.addEventListener('click', () => {
 });
 
 const deleteApplication = (ApplicationId) => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/applications/${ApplicationId}`, {
-    method: 'DELETE',
-  })
+  fetch(
+    `http://localhost:8000/api/applications/${ApplicationId}` /* `https://basd-2021-david-mindset-dev.herokuapp.com/api/applications/${ApplicationId} `*/,
+    {
+      method: 'DELETE',
+    }
+  )
     .then((response) => response.json())
     .then(() => {
       modal.classList.add('modal-hide');
@@ -42,8 +45,8 @@ const openDeleteModal = (application) => {
   confirmDeleteButton.onclick = () => deleteApplication(application._id);
 };
 
-const openUpdateSession = (application) => {
-  window.location.href = `${window.location.origin}/public/views/applications/form-applications.html?_id=${application._id}`;
+const openUpdateApplication = (application) => {
+  window.location.href = `http://localhost:8000/api/views/applications/form-applications.html?id=${application._id}` /* `${window.location.origin}/public/views/applications/form-applications.html?_id=${application._id}` */;
 };
 
 const createDeleteButton = (application) => {
@@ -59,7 +62,7 @@ const createDeleteButton = (application) => {
   return buttonDelete;
 };
 
-const createSearchButton = (session) => {
+/* const createSearchButton = (session) => {
   const buttonSearch = document.createElement('button');
   const searchLogo = document.createElement('span');
   searchLogo.classList.add('material-icons-outlined');
@@ -67,22 +70,24 @@ const createSearchButton = (session) => {
   buttonSearch.setAttribute('id', session._id);
   buttonSearch.innerHTML = searchLogo.outerHTML;
   return buttonSearch;
-};
+}; */
 
-const createUpdateButton = (session) => {
+const createUpdateButton = (application) => {
   const buttonUpdate = document.createElement('button');
   const updateLogo = document.createElement('span');
   updateLogo.classList.add('material-icons-outlined');
   updateLogo.textContent = 'edit';
   buttonUpdate.innerHTML = updateLogo.outerHTML;
   buttonUpdate.addEventListener('click', () => {
-    openUpdateSession(session);
+    openUpdateApplication(application);
   });
   return buttonUpdate;
 };
 
 const getApplications = () => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/applications')
+  fetch(
+    `http://localhost:8000/api/applications` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/applications' */
+  )
     .then((response) => response.json())
     .then((response) => {
       const tableApplication = document.getElementById('table-application');
@@ -101,19 +106,12 @@ const getApplications = () => {
           isActive.type = 'checkbox';
           isActiveTableElement.appendChild(isActive);
           const deleteIcon = createDeleteButton(application);
-          const searchIcon = createSearchButton(application);
           const updateIcon = createUpdateButton(application);
           openPosition.innerText = application.idOpenPosition;
           candidate.innerText = application.idCandidate;
           isActive.checked = application.isActive;
-          tr.append(
-            openPosition,
-            candidate,
-            isActiveTableElement,
-            deleteIcon,
-            searchIcon,
-            updateIcon
-          );
+          isActive.disabled = 'disabled';
+          tr.append(openPosition, candidate, isActiveTableElement, deleteIcon, updateIcon);
           tableContent.append(tr);
         });
       }

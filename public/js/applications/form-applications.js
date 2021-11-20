@@ -11,15 +11,17 @@ const modalOkData = document.getElementById('modal-ok-data');
 const params = new URLSearchParams(window.location.search);
 let candidatesArray = [];
 let openPositionsArray = [];
+
 modalOkConfirm.addEventListener('click', () => {
   modalOk.classList.toggle('modal-hide'); // 2 - de verdadero a falso
-  window.location.href =
-    'https://basd-2021-david-mindset-dev.herokuapp.com/api/views/applications/list-applications.html';
+  window.location.href = `http://localhost:8000/api/views/applications/list-applications.html` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/views/applications/list-applications.html' */;
 });
 
 // popula el dropdown de candidates
 const getCandidates = () => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates')
+  fetch(
+    `http://localhost:8000/api/candidates` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates' */
+  )
     .then((response) => response.json())
     .then((response) => {
       candidatesArray = response.candidates;
@@ -34,7 +36,9 @@ const getCandidates = () => {
 
 // popula el dropdown de open positions
 const getOpenPositions = () => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/open-positions')
+  fetch(
+    `http://localhost:8000/api/open-positions` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/open-positions' */
+  )
     .then((response) => response.json())
     .then((response) => {
       openPositionsArray = response.data;
@@ -54,14 +58,17 @@ const openOkModal = (response) => {
 };
 
 const addApplication = (data) => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/applications', {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
+  fetch(
+    `http://localhost:8000/api/applications` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/applications' */,
+    {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }
+  )
     .then((response) => response.json())
     .then((response) => {
       openOkModal(response);
@@ -72,14 +79,19 @@ const addApplication = (data) => {
 };
 
 const updateApplication = (data) => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/applications/${params.get('id')}`, {
-    method: 'PUT',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
+  fetch(
+    `http://localhost:8000/api/applications/${params.get(
+      'id'
+    )}` /* `https://basd-2021-david-mindset-dev.herokuapp.com/api/applications/${params.get('id')}` */,
+    {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }
+  )
     .then((response) => response.json())
     .then((response) => {
       openOkModal(response);
@@ -88,12 +100,10 @@ const updateApplication = (data) => {
       console.log(err);
     });
 };
-
 const saveApplication = () => {
   const data = {
     idCandidate: candidateSelect.value,
     idOpenPosition: openPositionSelect.value,
-    isActive: isActiveInput.checked,
   };
   if (!params.get('id')) return addApplication(data);
   return updateApplication(data);
@@ -111,10 +121,13 @@ const getCandidateName = (id) => {
 
 // popula los inputs
 const getApplication = () => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/applications/${params.get('id')}`)
+  fetch(
+    `http://localhost:8000/api/applications/${params.get(
+      'id'
+    )}` /* `https://basd-2021-david-mindset-dev.herokuapp.com/api/applications/${params.get('id')}` */
+  )
     .then((response) => response.json())
     .then((response) => {
-      isActiveInput.checked = response.data.isActive;
       candidateSelect.value = response.data.idCandidate;
       candidateSelect.text = getCandidateName(response.data.idCandidate);
       openPositionSelect.value = response.data.idOpenPosition;
@@ -222,7 +235,7 @@ form.onsubmit = (event) => {
     })
     .then((response) => {
       console.log(response);
-      // window.location.href = `${window.location.origin}/views/applications/list-applications.html`;
+      // window.location.href = `http://localhost:8000/views/applications/list-applications.html`;
     })
     .catch((error) => {
       console.log(error);

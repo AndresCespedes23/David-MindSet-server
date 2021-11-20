@@ -1,4 +1,6 @@
 const express = require('express');
+//const app = express();
+
 const path = require('path');
 const profileTypes = require('./profile-types');
 const administrators = require('./administrators');
@@ -11,6 +13,8 @@ const openPositions = require('./open-position');
 const sessions = require('./sessions');
 
 const router = express.Router();
+
+router.use(express.static(path.join(__dirname, '../public')));
 
 router.get('/', (req, res) => {
   res.sendFile('index.html', { root: path.join(__dirname, '../public') });
