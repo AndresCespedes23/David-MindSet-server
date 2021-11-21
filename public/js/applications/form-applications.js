@@ -3,7 +3,7 @@
 const candidateSelect = document.getElementById('candidate');
 const openPositionSelect = document.getElementById('open-position');
 const isActiveInput = document.getElementById('is-active');
-const isActiveEntry = document.getElementById('is-active-entry');
+const isActiveLiElement = document.getElementById('is-active-entry');
 const saveButton = document.getElementById('save-button');
 const modalOk = document.getElementById('modal-ok');
 const modalOkConfirm = document.getElementById('modal-ok-confirm');
@@ -101,6 +101,7 @@ const updateApplication = (data) => {
       console.log(err);
     });
 };
+
 const saveApplication = () => {
   const data = {
     idCandidate: candidateSelect.value,
@@ -111,17 +112,7 @@ const saveApplication = () => {
   return updateApplication(data);
 };
 
-const getOpenPositionName = (id) => {
-  const openPositions = openPositionsArray.find((element) => element._id === id);
-  return `${openPositions.name}`;
-};
-
-const getCandidateName = (id) => {
-  const candidate = candidatesArray.find((element) => element._id === id);
-  return `${candidate.firstName} ${candidate.lastName}`;
-};
-
-// popula los inputs
+// popula los inputs en caso de edit
 const getApplication = () => {
   fetch(
     `http://localhost:8000/api/applications/${params.get(
@@ -143,7 +134,7 @@ window.onload = () => {
   getOpenPositions();
   getCandidates();
   if (params.get('id')) {
-    isActiveEntry.classList.remove('modal-hide');
+    isActiveLiElement.classList.remove('modal-hide');
     const title = document.getElementById('title');
     title.innerText = 'Edit application';
     saveButton.value = 'UPDATE';

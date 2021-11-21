@@ -1,17 +1,10 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
-const deleteButtons = document.querySelectorAll('.delete-button');
 const cancelButton = document.getElementById('cancel-button');
 const modal = document.getElementById('modal');
 const confirmDeleteButton = document.getElementById('confirm-delete-button');
 const tableContent = document.getElementById('table-content');
-
-deleteButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    modal.classList.toggle('modal-hide');
-  });
-});
 
 cancelButton.addEventListener('click', () => {
   modal.classList.toggle('modal-hide');
@@ -42,16 +35,16 @@ const openDeleteModal = (application) => {
   const dataModal = document.getElementById('data-modal');
   dataModal.textContent = `Open position: ${application.idOpenPosition}. Candidate: ${application.idCandidate}. Active status: ${application.isActive}.`;
   modal.classList.remove('modal-hide');
-  confirmDeleteButton.onclick = () => deleteApplication(application._id);
+  confirmDeleteButton.addEventListener('click', () => deleteApplication(application._id));
 };
 
-const openUpdateApplication = (application) => {
-  window.location.href = `http://localhost:8000/api/views/applications/form-applications.html?id=${application._id}` /* `${window.location.origin}/public/views/applications/form-applications.html?_id=${application._id}` */;
-};
-
+// table delete buttons
 const createDeleteButton = (application) => {
   const buttonDelete = document.createElement('button');
   buttonDelete.setAttribute('class', 'delete-button');
+  buttonDelete.addEventListener('click', () => {
+    modal.classList.toggle('modal-hide');
+  });
   const deleteLogo = document.createElement('span');
   deleteLogo.classList.add('material-icons-outlined');
   deleteLogo.textContent = 'clear';
@@ -62,24 +55,14 @@ const createDeleteButton = (application) => {
   return buttonDelete;
 };
 
-/* const createSearchButton = (session) => {
-  const buttonSearch = document.createElement('button');
-  const searchLogo = document.createElement('span');
-  searchLogo.classList.add('material-icons-outlined');
-  searchLogo.textContent = 'search';
-  buttonSearch.setAttribute('id', session._id);
-  buttonSearch.innerHTML = searchLogo.outerHTML;
-  return buttonSearch;
-}; */
-
-const createUpdateButton = (application) => {
+const createEditButton = (application) => {
   const buttonUpdate = document.createElement('button');
   const updateLogo = document.createElement('span');
   updateLogo.classList.add('material-icons-outlined');
-  updateLogo.textContent = 'edit';
+  updateLogo.textContent = 'edit'; // selects the appropiate icon through text
   buttonUpdate.innerHTML = updateLogo.outerHTML;
   buttonUpdate.addEventListener('click', () => {
-    openUpdateApplication(application);
+    window.location.href = `http://localhost:8000/api/views/applications/form-applications.html?id=${application._id}` /* `${window.location.origin}/public/views/applications/form-applications.html?_id=${application._id}` */;
   });
   return buttonUpdate;
 };
@@ -100,17 +83,17 @@ const getApplications = () => {
         response.applications.forEach((application) => {
           const tr = document.createElement('tr');
           const openPosition = document.createElement('td');
+          openPosition.innerText = application.idOpenPosition;
           const candidate = document.createElement('td');
+          candidate.innerText = application.idCandidate;
           const isActiveTableElement = document.createElement('td');
           const isActive = document.createElement('input');
           isActive.type = 'checkbox';
-          isActiveTableElement.appendChild(isActive);
-          const deleteIcon = createDeleteButton(application);
-          const updateIcon = createUpdateButton(application);
-          openPosition.innerText = application.idOpenPosition;
-          candidate.innerText = application.idCandidate;
           isActive.checked = application.isActive;
           isActive.disabled = 'disabled';
+          isActiveTableElement.appendChild(isActive);
+          const deleteIcon = createDeleteButton(application);
+          const updateIcon = createEditButton(application);
           tr.append(openPosition, candidate, isActiveTableElement, deleteIcon, updateIcon);
           tableContent.append(tr);
         });
