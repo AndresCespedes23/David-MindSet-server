@@ -13,7 +13,7 @@ let errorList = [];
 
 modalOkConfirm.addEventListener('click', () => {
   modalOk.classList.toggle('hide');
-  window.location.href = `${window.location.origin}/public/views/interviews/listInterviews.html`;
+  window.location.href = `${window.location.origin}/api/views/interviews/listInterviews.html`;
 });
 
 // Busco las empresas para llenar el select
