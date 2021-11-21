@@ -17,7 +17,6 @@ modalOkConfirm.addEventListener('click', () => {
   window.location.href = `${window.location.origin}/api/views/administrators/listAdmin.html`;
 });
 
-// Modal that shows success message
 const openOkModal = (response) => {
   modalOk.classList.remove('hide');
   const modalOkTitle = document.getElementById('modal-ok-title');
@@ -62,20 +61,17 @@ const updateAdmin = (administrators) => {
     });
 };
 
-// Function that creates an object with the formulary data and decides between add or edit
-const savePsychologist = () => {
-  const psychologists = {
+const saveAdmin = () => {
+  const administrators = {
     firstName: firstName.value,
     lastName: lastName.value,
     email: email.value,
-    password: password.value,
-    picture: pictureUrl.value,
-    turns: turns.value || [],
+    password: password.value
   };
   if (params.get('_id')) {
-    updateAdmin(psychologists);
+    updateAdmin(administrators);
   } else {
-    addAdmin(psychologists);
+    addAdmin(administrators);
   }
 };
 
@@ -98,11 +94,11 @@ const validateLength = () => {
     }
   }
   if (email.value !== undefined) {
-    if (!(email.value.length >= 5 && email.value.length <= 50)) {
-      errorList.push('Email must be between 5 and 50 characters');
+    if (!(email.value.length >= 5 && email.value.length <= 40)) {
+      errorList.push('Email must be between 5 and 40 characters');
       email.classList.add('input-error');
       emailError.classList.remove('hide');
-      emailError.textContent = '*Email must be between 5 and 50 characters.';
+      emailError.textContent = '*Email must be between 5 and 40 characters.';
     }
   }
   if (password.value !== undefined) {
@@ -126,17 +122,14 @@ const validateFormat = () => {
   }
 };
 
-// Search psychologist so that when I edit, it shows me the data of the psychologist
-const getPsychologist = () => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/psychologists/${params.get('_id')}`)
+const getAdmin = () => {
+  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/administrators/${params.get('_id')}`)
     .then((response) => response.json())
     .then((response) => {
-      firstName.value = response.psychologist.firstName;
-      lastName.value = response.psychologist.lastName;
-      email.value = response.psychologist.email;
-      password.value = response.psychologist.password;
-      pictureUrl.value = response.psychologist.pictureUrl;
-      turns.value = response.psychologist.turns;
+      firstName.value = response.data.firstName;
+      lastName.value = response.data.lastName;
+      email.value = response.data.email;
+      password.value = response.data.password;
     })
     .catch((err) => {
       console.log(err);
@@ -145,19 +138,18 @@ const getPsychologist = () => {
 
 window.onload = () => {
   if (params.get('_id')) {
-    getPsychologist();
+    getAdmin();
     const title = document.getElementById('title');
-    title.innerText = 'Edit Psychologist';
+    title.innerText = 'Edit Administrator';
     saveButton.value = 'UPDATE';
   }
 };
 
-// If there are no errors, save the psychologist
 saveButton.addEventListener('click', () => {
   errorList = [];
   validateLength();
   validateFormat();
   if (errorList.length === 0) {
-    savePsychologist();
+    saveAdmin();
   }
 });
