@@ -12,7 +12,7 @@ const modalOkData = document.getElementById('modal-ok-data');
 const params = new URLSearchParams(window.location.search);
 
 modalOkConfirm.addEventListener('click', () => {
-  modalOk.classList.toggle('modal-hide'); // 2 - de verdadero a falso
+  modalOk.classList.toggle('modal-hide'); // 2) 0 -> 1 (oculta)
   window.location.href = `http://localhost:8000/api/views/applications/list-applications.html` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/views/applications/list-applications.html' */;
 });
 
@@ -49,7 +49,7 @@ const getOpenPositions = () => {
 };
 
 const openOkModal = (response) => {
-  modalOk.classList.toggle('modal-hide'); // 1 - de falso a verdadero
+  modalOk.classList.toggle('modal-hide'); // 1) 1 -> 0 (muestra)
   modalOkTitle.textContent = response.msg;
   modalOkData.textContent = `Candidate: ${response.application.idCandidate}. Open position: ${response.application.idOpenPosition}.`;
 };

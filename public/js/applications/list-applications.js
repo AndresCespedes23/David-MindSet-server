@@ -1,25 +1,21 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
-const cancelButton = document.getElementById('cancel-button');
+const cancelButtonModal = document.getElementById('cancel-button');
 const modal = document.getElementById('modal');
-const confirmDeleteButton = document.getElementById('confirm-delete-button');
+const confirmDeleteButtonModal = document.getElementById('confirm-delete-button');
 const tableContent = document.getElementById('table-content');
 
-cancelButton.addEventListener('click', () => {
-  modal.classList.toggle('modal-hide');
-});
-
-const deleteApplication = (ApplicationId) => {
+const deleteApplication = (applicationId) => {
   fetch(
-    `http://localhost:8000/api/applications/${ApplicationId}` /* `https://basd-2021-david-mindset-dev.herokuapp.com/api/applications/${ApplicationId} `*/,
+    `http://localhost:8000/api/applications/${applicationId}` /* `https://basd-2021-david-mindset-dev.herokuapp.com/api/applications/${ApplicationId} `*/,
     {
       method: 'DELETE',
     }
   )
     .then((response) => response.json())
     .then(() => {
-      modal.classList.add('modal-hide');
+      modal.classList.toggle('modal-hide'); // 2b) 0 -> 1 (oculta)
       // Set table empty
       while (tableContent.hasChildNodes()) {
         tableContent.removeChild(tableContent.firstChild);
@@ -31,24 +27,25 @@ const deleteApplication = (ApplicationId) => {
     });
 };
 
+cancelButtonModal.addEventListener('click', () => {
+  modal.classList.toggle('modal-hide'); // 2a) 0 -> 1 (oculta)
+});
+
 const openDeleteModal = (application) => {
   const dataModal = document.getElementById('data-modal');
   dataModal.textContent = `Open position: ${application.idOpenPosition._id}. Candidate: ${application.idCandidate._id}. Active status: ${application.isActive}.`;
-  modal.classList.remove('modal-hide');
-  confirmDeleteButton.addEventListener('click', () => deleteApplication(application._id));
+  modal.classList.toggle('modal-hide'); // 1) 1 -> 0 (muestra)
+  confirmDeleteButtonModal.addEventListener('click', () => deleteApplication(application._id));
 };
 
 // table delete buttons
 const createDeleteButton = (application) => {
   const buttonDelete = document.createElement('button');
-  buttonDelete.setAttribute('class', 'delete-button');
-  buttonDelete.addEventListener('click', () => {
-    modal.classList.toggle('modal-hide');
-  });
   const deleteLogo = document.createElement('span');
   deleteLogo.classList.add('material-icons-outlined');
-  deleteLogo.textContent = 'clear';
+  deleteLogo.textContent = 'clear'; // selects the appropiate icon through text
   buttonDelete.innerHTML = deleteLogo.outerHTML;
+  buttonDelete.setAttribute('class', 'delete-button');
   buttonDelete.addEventListener('click', () => {
     openDeleteModal(application);
   });
