@@ -88,7 +88,7 @@ const getSessions = () => {
           const deleteIcon = createDeleteButton(interviews);
           const updateIcon = createUpdateButton(interviews);
           tdCompany.innerText = interviews.idCompany.name;
-          tdCandidate.innerText = interviews.idCandidate.name;
+          tdCandidate.innerText = `${interviews.idCandidate.firstName || ''} ${interviews.idCandidate.lastName || ''}`;
           tdDate.innerText = interviews.date.split('T')[0];
           tr.append(tdCompany, tdCandidate, tdDate, deleteIcon, updateIcon);
           tableContent.append(tr);

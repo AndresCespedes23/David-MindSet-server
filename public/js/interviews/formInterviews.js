@@ -51,7 +51,7 @@ const openOkModal = (response) => {
   const modalOkTitle = document.getElementById('modal-ok-title');
   modalOkTitle.textContent = response.msg;
   const modalOkData = document.getElementById('modal-ok-data');
-  modalOkData.textContent = `Company: ${response.data.idCompany}. Candidate: ${response.data.idCandidate}. Date: ${response.data.date}.`;
+  modalOkData.textContent = `Company: ${response.data.idCompany.name}. Candidate: ${response.data.idCandidate}. Date: ${response.data.date}.`;
 };
 
 const addInterview = (data) => {
@@ -65,6 +65,7 @@ const addInterview = (data) => {
   })
     .then((response) => response.json())
     .then((response) => {
+      console.log(response);
       openOkModal(response);
     })
     .catch((err) => {
@@ -104,28 +105,14 @@ const saveInterview = () => {
   }
 };
 
-const getCompanyName = (id) => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/companies/${id}`)
-    .then((response) => response.json())
-    .then((response) => response.data.name);
-};
-
-const getCandidateName = (id) => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates/${id}`)
-    .then((response) => response.json())
-    .then((response) => response.data.name);
-};
-
 const getInterview = () => {
   fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/interviews/${params.get('_id')}`)
     .then((response) => response.json())
     .then((response) => {
       companySelect.value = response.data.idCompany;
       // Missing Populate
-      companySelect.text = getCompanyName(response.data.idCompany);
       candidateSelect.value = response.data.idCandidate;
       // Missing Populate
-      candidateSelect.text = getCandidateName(response.data.idCandidate);
       dateInput.value = response.data.date.split('T')[0];
       statusInput.value = response.data.status;
     })
