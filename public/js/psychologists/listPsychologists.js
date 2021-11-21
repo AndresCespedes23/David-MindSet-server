@@ -27,13 +27,11 @@ const deletePsychologist = (psychologistId) => {
         tableContent.removeChild(tableContent.firstChild);
       }
       getPsychologists();
-      console.log();
     })
     .catch((error) => console.log(error));
 };
 
 const openDeleteModal = (psychologists) => {
-  console.log(psychologists);
   const dataModal = document.getElementById('data-modal');
   dataModal.textContent = `First Name: ${psychologists.firstName}, Last Name: ${psychologists.lastName}, Email: ${psychologists.email}, Password: ${psychologists.password}, Picture: ${psychologists.pictureUrl}, Turns: ${psychologists.turns}`;
   modal.classList.remove('hide');
