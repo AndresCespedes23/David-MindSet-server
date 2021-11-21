@@ -115,7 +115,7 @@ window.onload = () => {
   }
 };
 
-// If there are no errors, save the psychologist
+// Pass all validations then save the profile
 saveButton.addEventListener('click', () => {
   errorList = [];
   validateLength();
