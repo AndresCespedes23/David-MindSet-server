@@ -1,98 +1,163 @@
-const firstName = document.getElementById('firstName'),
-      lastName = document.getElementById('lastName'),
-      email = document.getElementById('email'),
-      password = document.getElementById('password'),
-      age = document.getElementById('age'),
-      phoneNumber = document.getElementById('phone'),
-      address = document.getElementById('address'),
-      city = document.getElementById('city'),
-      zipCode = document.getElementById('zip'),
-      id = document.getElementById('idNumber'),
-      submit = document.getElementById('button-green'),
-      modalOk = document.getElementById('modal-ok'),
-      modalOkTitle = document.getElementById('modal-ok-title'),
-      modalOkData = document.getElementById('modal-ok-data'),
-      params = new URLSearchParams(window.location.search);
-
-// Función para obtener las sesiones y luego llenar la tabla
-const getSessions = () => {
-    fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/administrator')
-    .then((response) => response.json())
-    .then((response) => {
-        const tableSession = document.getElementById('table-session');
-        if (response.data.length === 0) {
-            tableSession.classList.add('hide');
-        } else {
-            tableSession.classList.remove('hide');
-            response.data.forEach((administrator) => {
-                const tr = document.createElement('tr');
-                const tdCompany = document.createElement('td');
-                const tdCandidate = document.createElement('td');
-                const tdDate = document.createElement('td');
-                const deleteIcon = createDeleteButton(administrator);
-                const updateIcon = createUpdateButton(administrator);
-                tdCompany.innerText = administrator.idCompany.name;
-                tdCandidate.innerText = `${administrator.idCandidate.firstName || ''} ${administrator.idCandidate.lastName || ''}`;
-                tdDate.innerText = administrator.date.split('T')[0];
-                tr.append(tdCompany, tdCandidate, tdDate, deleteIcon, updateIcon);
-                tableContent.append(tr);
-            });
-        };
-    });
-};
-  
-window.onload = () => {
-    getSessions();
-};
+const firstName = document.getElementById('first-name');
+const firstNameError = document.getElementById('first-name-error');
+const lastName = document.getElementById('last-name');
+const lastNameError = document.getElementById('last-name-error');
+const email = document.getElementById('email');
+const emailError = document.getElementById('email-error');
+const password = document.getElementById('password');
+const passwordError = document.getElementById('password-error');
+const saveButton = document.getElementById('button-green');
+const modalOk = document.getElementById('modal-ok');
+const modalOkConfirm = document.getElementById('modal-ok-confirm');
+const params = new URLSearchParams(window.location.search);
+let errorList = [];
 
 modalOkConfirm.addEventListener('click', () => {
-    modalOk.classList.toggle('hide');
-    window.location.href = `${window.location.origin}/public/views/sessions/list-psychologists.html`;
-    // por que no tengo una carpeta sessions dentro de views??????????
+  modalOk.classList.toggle('hide');
+  window.location.href = `${window.location.origin}/api/views/administrators/listAdmin.html`;
 });
 
+// Modal that shows success message
 const openOkModal = (response) => {
-    modalOk.classList.remove('hide');
-    modalOkTitle.textContent = response.msg;
-    modalOkData.textContent = `First Name: ${response.data.firstName}. Last Name: ${response.data.lastName}. Email: ${response.data.email}. Password: ${response.data.password}. Age: ${response.data.age}. Phone Number: ${response.data.phoneNumber}. Addres: ${response.data.address}. City: ${response.data.city}. Zip Code: ${response.data.zipCode}`;
+  modalOk.classList.remove('hide');
+  const modalOkTitle = document.getElementById('modal-ok-title');
+  modalOkTitle.textContent = response.msg;
+  const modalOkData = document.getElementById('modal-ok-data');
+  modalOkData.textContent = `First Name: ${response.data.firstName}. Last Name: ${response.data.lastName}. Email: ${response.data.email}. Password: ${response.data.password}`;
 };
 
-const addNewAdmin = (administrators) => {
-    fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/psychologists',
-        {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(administrators),
-        },
-    )
+const addAdmin = (administrators) => {
+  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/administrators', {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(administrators),
+  })
     .then((response) => response.json())
     .then((response) => {
-        openOkModal(response);
+      openOkModal(response);
     })
-      .catch((err) => {
-        console.log(err);
+    .catch((err) => {
+      console.log(err);
     });
 };
 
-const saveNewAdmin = () => {
-    const newAdmin = {
-        firstName: firstName.value,
-        lastName: lastName.value,
-        email: email.value,
-        password: password.value,
-        age: age.value,
-        phoneNumber: phoneNumber.value,
-        addres: address.value,
-        city: city.value,
-        zipCode: zipCode.value,
-        id: id.value
-    };
-    if (params.get('_id')) {
-        updateAdmin(newAdmin);
-    } else {
-        addAdmin(newAdmin);
-    }
+const updateAdmin = (administrators) => {
+  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/administrators/${params.get('_id')}`, {
+    method: 'PUT',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(administrators),
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      openOkModal(response);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
+
+// Function that creates an object with the formulary data and decides between add or edit
+const savePsychologist = () => {
+  const psychologists = {
+    firstName: firstName.value,
+    lastName: lastName.value,
+    email: email.value,
+    password: password.value,
+    picture: pictureUrl.value,
+    turns: turns.value || [],
+  };
+  if (params.get('_id')) {
+    updatePsychologist(psychologists);
+  } else {
+    addPsychologist(psychologists);
+  }
+};
+
+// Validations
+const validateLength = () => {
+  if (firstName.value !== undefined) {
+    if (!(firstName.value.length >= 2 && firstName.value.length <= 40)) {
+      errorList.push('First Name must be between 2 and 40 characters');
+      firstName.classList.add('input-error');
+      firstNameError.classList.remove('hide');
+      firstNameError.textContent = '*First Name must be between 2 and 40 characters.';
+    }
+  }
+  if (lastName.value !== undefined) {
+    if (!(lastName.value.length >= 2 && lastName.value.length <= 40)) {
+      errorList.push('Last Name must be between 2 and 40 characters');
+      lastName.classList.add('input-error');
+      lastNameError.classList.remove('hide');
+      lastNameError.textContent = '*Last Name must be between 2 and 40 characters.';
+    }
+  }
+  if (email.value !== undefined) {
+    if (!(email.value.length >= 5 && email.value.length <= 50)) {
+      errorList.push('Email must be between 5 and 50 characters');
+      email.classList.add('input-error');
+      emailError.classList.remove('hide');
+      emailError.textContent = '*Email must be between 5 and 50 characters.';
+    }
+  }
+  if (password.value !== undefined) {
+    if (!(password.value.length >= 8 && password.value.length <= 16)) {
+      errorList.push('Password must be between 8 and 16 characters');
+      password.classList.add('input-error');
+      passwordError.classList.remove('hide');
+      passwordError.textContent = '*Password must be between 8 and 16 characters.';
+    }
+  }
+};
+
+const validateFormat = () => {
+  if (email.value !== undefined) {
+    if (!(email.value.split('').indexOf('@') !== -1 && email.value.split('').indexOf('.') !== -1)) {
+      errorList.push('Email must be an email format');
+      email.classList.add('input-error');
+      emailError.classList.remove('hide');
+      emailError.textContent = '*Email must be an email format.';
+    }
+  }
+};
+
+// Search psychologist so that when I edit, it shows me the data of the psychologist
+const getPsychologist = () => {
+  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/psychologists/${params.get('_id')}`)
+    .then((response) => response.json())
+    .then((response) => {
+      firstName.value = response.psychologist.firstName;
+      lastName.value = response.psychologist.lastName;
+      email.value = response.psychologist.email;
+      password.value = response.psychologist.password;
+      pictureUrl.value = response.psychologist.pictureUrl;
+      turns.value = response.psychologist.turns;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+window.onload = () => {
+  if (params.get('_id')) {
+    getPsychologist();
+    const title = document.getElementById('title');
+    title.innerText = 'Edit Psychologist';
+    saveButton.value = 'UPDATE';
+  }
+};
+
+// If there are no errors, save the psychologist
+saveButton.addEventListener('click', () => {
+  errorList = [];
+  validateLength();
+  validateFormat();
+  if (errorList.length === 0) {
+    savePsychologist();
+  }
+});
