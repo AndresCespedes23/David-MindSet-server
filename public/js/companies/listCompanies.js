@@ -57,7 +57,7 @@ const createDeleteButton = (companies) => {
 
 // Function to go into the edit form
 const openUpdatePsychologist = (companies) => {
-  window.location.href = `${window.location.origin}/public/views/companies/formCompanies.html?_id=${companies._id}`;
+  window.location.href = `${window.location.origin}/api/views/companies/formCompanies.html?_id=${companies._id}`;
 };
 
 // Function that creates the edit button of each table row
