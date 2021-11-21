@@ -80,7 +80,7 @@ const addApplication = (data) => {
   )
     .then((response) => response.json())
     .then((response) => {
-      if (response.msg) errorHandler(response.msg); // si entra, sólo abre el modal de error
+      if (response.msg) errorHandler(response.msg);
       openOkModal(response);
     })
     .catch((err) => {

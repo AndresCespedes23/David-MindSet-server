@@ -99,7 +99,7 @@ const getApplications = () => {
           const tr = document.createElement('tr');
           const openPosition = document.createElement('td');
           openPosition.innerText = application.idOpenPosition._id;
-          openPosition.title = application._id /* application.idOpenPosition.jobDescription */;
+          openPosition.title = application.idOpenPosition.jobDescription;
           const candidate = document.createElement('td');
           candidate.innerText = application.idCandidate._id;
           candidate.title = `${application.idCandidate.firstName} ${application.idCandidate.lastName}`;
