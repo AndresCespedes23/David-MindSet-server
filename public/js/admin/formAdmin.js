@@ -36,7 +36,6 @@ const addAdmin = (administrators) => {
   })
     .then((response) => response.json())
     .then((response) => {
-      console.log(response);
       openOkModal(response);
     })
     .catch((err) => {
@@ -69,7 +68,6 @@ const saveAdmin = () => {
     email: email.value,
     password: password.value
   };
-  console.log(administrators);
   if (params.get('_id')) {
     updateAdmin(administrators);
   } else {
