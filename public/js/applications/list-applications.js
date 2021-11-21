@@ -15,17 +15,15 @@ const deleteApplication = (applicationId) => {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
-    }
+    },
   )
+    .then((response) => response.json())
     .then((response) => {
-      if (response.status !== 404) response.json();
-      else {
+      if (response.res) {
         dataModal.textContent = 'User not found';
         confirmDeleteButtonModal.onclick = () => modal.classList.toggle('modal-hide'); // 2a) 0 -> 1 (oculta)
-        throw new Error('User not found');
+        throw new Error(response.err);
       }
-    })
-    .then(() => {
       modal.classList.toggle('modal-hide'); // 2b) 0 -> 1 (oculta)
       // Set table empty
       while (tableContent.hasChildNodes()) {
@@ -41,10 +39,10 @@ cancelButtonModal.addEventListener('click', () => {
 });
 
 const openDeleteModal = (application) => {
-  console.log(confirmDeleteButtonModal);
   dataModal.textContent = `Open position: ${application.idOpenPosition._id}. Candidate: ${application.idCandidate._id}. Active status: ${application.isActive}.`;
   modal.classList.toggle('modal-hide'); // 1) 1 -> 0 (muestra)
-  confirmDeleteButtonModal.onclick = () => deleteApplication(application._id); //tiene que ser una declaración, no una llamada
+  confirmDeleteButtonModal.onclick = () => deleteApplication(application._id);
+  // onclick tiene que ser una declaración de funcion, no una llamada
 };
 
 // table delete buttons
@@ -75,7 +73,7 @@ const createEditButton = (application) => {
 
 const getApplications = () => {
   fetch(
-    `http://localhost:8000/api/applications` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/applications' */
+    `http://localhost:8000/api/applications` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/applications' */,
   )
     .then((response) => response.json())
     .then((response) => {

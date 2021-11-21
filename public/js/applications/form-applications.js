@@ -9,17 +9,34 @@ const modalOk = document.getElementById('modal-ok');
 const modalOkConfirm = document.getElementById('modal-ok-confirm');
 const modalOkTitle = document.getElementById('modal-ok-title');
 const modalOkData = document.getElementById('modal-ok-data');
+const modalError = document.getElementById('modal-error');
+const modalErrorConfirm = document.getElementById('modal-error-confirm');
+//const modalErrorTitle = document.getElementById('modal-error-title');
+const modalErrorData = document.getElementById('modal-error-data');
 const params = new URLSearchParams(window.location.search);
 
 modalOkConfirm.addEventListener('click', () => {
   modalOk.classList.toggle('modal-hide'); // 2) 0 -> 1 (oculta)
   window.location.href = `http://localhost:8000/api/views/applications/list-applications.html` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/views/applications/list-applications.html' */;
 });
+modalErrorConfirm.addEventListener('click', () => {
+  modalOk.classList.toggle('modal-hide'); // 2) 0 -> 1 (oculta)
+  window.location.href = `http://localhost:8000/api/views/applications/list-applications.html` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/views/applications/list-applications.html' */;
+});
+
+const errorHandler = (response) => {
+  // las responses del controller tienen que devolver -> { err }
+  if (response.err) {
+    modalError.classList.toggle('modal-hide');
+    modalErrorData.textContent = response.err;
+    throw new Error(response.err);
+  }
+};
 
 // popula el dropdown de candidates
 const getCandidates = () => {
   fetch(
-    `http://localhost:8000/api/candidates` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates' */
+    `http://localhost:8000/api/candidates` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates' */,
   )
     .then((response) => response.json())
     .then((response) => {
@@ -35,7 +52,7 @@ const getCandidates = () => {
 // popula el dropdown de open positions
 const getOpenPositions = () => {
   fetch(
-    `http://localhost:8000/api/open-positions` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/open-positions' */
+    `http://localhost:8000/api/open-positions` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/open-positions' */,
   )
     .then((response) => response.json())
     .then((response) => {
@@ -64,10 +81,11 @@ const addApplication = (data) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
-    }
+    },
   )
     .then((response) => response.json())
     .then((response) => {
+      errorHandler(response);
       openOkModal(response);
     })
     .catch((err) => {
@@ -78,7 +96,7 @@ const addApplication = (data) => {
 const updateApplication = (data) => {
   fetch(
     `http://localhost:8000/api/applications/${params.get(
-      'id'
+      'id',
     )}` /* `https://basd-2021-david-mindset-dev.herokuapp.com/api/applications/${params.get('id')}` */,
     {
       method: 'PUT',
@@ -87,10 +105,11 @@ const updateApplication = (data) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
-    }
+    },
   )
     .then((response) => response.json())
     .then((response) => {
+      errorHandler(response);
       openOkModal(response);
     })
     .catch((err) => {
@@ -112,14 +131,14 @@ const saveApplication = () => {
 const getApplication = () => {
   fetch(
     `http://localhost:8000/api/applications/${params.get(
-      'id'
-    )}` /* `https://basd-2021-david-mindset-dev.herokuapp.com/api/applications/${params.get('id')}` */
+      'id',
+    )}` /* `https://basd-2021-david-mindset-dev.herokuapp.com/api/applications/${params.get('id')}` */,
   )
     .then((response) => response.json())
     .then((response) => {
-      if (response.status !== 200 && response.status !== 201) return console.log('User not found');
+      errorHandler(response);
+      // si se trata de editar muy rapido no llega a mostrarse en los dropdown
       candidateSelect.value = response.application.idCandidate._id;
-      // candidates hay veces que no genera la asignacion
       openPositionSelect.value = response.application.idOpenPosition._id;
       isActiveInput.checked = response.application.isActive;
     })
