@@ -73,9 +73,9 @@ const savePsychologist = () => {
     turns: turns.value || [],
   };
   if (params.get('_id')) {
-    updatePsychologist(psychologists);
+    updateAdmin(psychologists);
   } else {
-    addPsychologist(psychologists);
+    addAdmin(psychologists);
   }
 };
 
