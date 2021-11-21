@@ -1,5 +1,4 @@
 const nameProfile = document.getElementById('name');
-let nameProfileValue = nameProfile.value;
 const nameProfileError = document.getElementById('name-error');
 const saveButton = document.getElementById('button-green');
 const modalOk = document.getElementById('modal-ok');
@@ -9,7 +8,7 @@ let errorList = [];
 
 modalOkConfirm.addEventListener('click', () => {
   modalOk.classList.toggle('hide');
-  window.location.href = `${window.location.origin}/api/views/psychologists/listPsychologists.html`;
+  window.location.href = `${window.location.origin}/public/views/profile-types/listProfileTypes.html`;
 });
 
 // Modal that shows success message
@@ -60,7 +59,7 @@ const updateProfile = (profile) => {
 // Function that creates an object with the formulary data and decides between add or edit
 const saveProfile = () => {
   const profileTypes = {
-    name: nameProfileValue,
+    name: nameProfile.value,
   };
   if (params.get('_id')) {
     updateProfile(profileTypes);
@@ -71,8 +70,8 @@ const saveProfile = () => {
 
 // Validations
 const validateLength = () => {
-  if (nameProfileValue !== undefined) {
-    if (!(nameProfileValue.length >= 2 && nameProfileValue.length <= 30)) {
+  if (nameProfile.value !== undefined) {
+    if (!nameProfile.value.length >= 2 && nameProfile.value.length <= 30) {
       errorList.push('Name must be between 2 and 30 characters');
       nameProfile.classList.add('input-error');
       nameProfileError.classList.remove('hide');
@@ -84,8 +83,8 @@ const validateLength = () => {
 const specialChars = "<>@!#$%^&*()_+[]{}?:;|'\"\\,./~`-=";
 
 const validateFormat = () => {
-  if (nameProfileValue !== undefined) {
-    if (nameProfileValue.includes(specialChars)) {
+  if (nameProfile.value !== undefined) {
+    if (nameProfile.value.includes(specialChars)) {
       errorList.push('Only letters, please');
       nameProfile.classList.add('input-error');
       nameProfileError.classList.remove('hide');
@@ -94,12 +93,12 @@ const validateFormat = () => {
   }
 };
 
-// Search psychologist so that when I edit, it shows me the data of the psychologist
+// Search profiles so that when I edit, it shows me the data of the profiles
 const getProfile = () => {
   fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/profile-types/${params.get('_id')}`)
     .then((response) => response.json())
     .then((response) => {
-      nameProfileValue = response.name;
+      nameProfile.value = response.name;
     })
     .catch((err) => {
       console.log(err);

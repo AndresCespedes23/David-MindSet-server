@@ -67,7 +67,7 @@ const createSearchButton = (profile) => {
 
 // Function to go into the edit form
 const openUpdateSession = (profile) => {
-  window.location.href = `${window.location.origin}/api/views/profile-types/formProfileTypes.html?_id=${profile._id}`;
+  window.location.href = `${window.location.origin}/public/views/profile-types/formProfileTypes.html?_id=${profile._id}`;
 };
 
 const createUpdateButton = (profile) => {
