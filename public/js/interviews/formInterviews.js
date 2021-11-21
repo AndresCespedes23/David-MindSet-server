@@ -51,6 +51,8 @@ const getInterview = () => {
   fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/interviews/${params.get('_id')}`)
     .then((response) => response.json())
     .then((response) => {
+      companySelect.value = response.data.idCompany._id;
+      candidateSelect.value = response.data.idCandidate._id;
       dateInput.value = response.data.date.split('T')[0];
       statusInput.value = response.data.status;
     })
@@ -65,7 +67,7 @@ const openOkModal = (response) => {
   const modalOkTitle = document.getElementById('modal-ok-title');
   modalOkTitle.textContent = response.msg;
   const modalOkData = document.getElementById('modal-ok-data');
-  modalOkData.textContent = `Company: ${response.data.idCompany.name}. Candidate: ${response.data.idCandidate.firstName} . Date: ${
+  modalOkData.textContent = `Company: ${response.data.idCompany.name || response.data.idCompany}. Candidate: ${response.data.idCandidate.firstName || response.data.idCandidate} ${response.data.idCandidate.lastName || ''} . Date: ${
     response.data.date.split('T')[0]
   }.`;
 };
@@ -99,7 +101,6 @@ const updateInterview = (data) => {
   })
     .then((response) => response.json())
     .then((response) => {
-      console.log(response)
       openOkModal(response);
     })
     .catch((err) => {
