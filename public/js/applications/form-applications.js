@@ -11,7 +11,6 @@ const modalOkTitle = document.getElementById('modal-ok-title');
 const modalOkData = document.getElementById('modal-ok-data');
 const modalError = document.getElementById('modal-error');
 const modalErrorConfirm = document.getElementById('modal-error-confirm');
-//const modalErrorTitle = document.getElementById('modal-error-title');
 const modalErrorData = document.getElementById('modal-error-data');
 const params = new URLSearchParams(window.location.search);
 
@@ -20,7 +19,7 @@ modalOkConfirm.addEventListener('click', () => {
   window.location.href = `http://localhost:8000/api/views/applications/list-applications.html` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/views/applications/list-applications.html' */;
 });
 modalErrorConfirm.addEventListener('click', () => {
-  modalOk.classList.toggle('modal-hide'); // 2) 0 -> 1 (oculta)
+  modalError.classList.toggle('modal-hide'); // 2) 0 -> 1 (oculta)
   window.location.href = `http://localhost:8000/api/views/applications/list-applications.html` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/views/applications/list-applications.html' */;
 });
 

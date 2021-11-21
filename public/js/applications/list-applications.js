@@ -6,6 +6,20 @@ const modal = document.getElementById('modal');
 const dataModal = document.getElementById('data-modal');
 const confirmDeleteButtonModal = document.getElementById('confirm-delete-button');
 const tableContent = document.getElementById('table-content');
+const modalError = document.getElementById('modal-error');
+const modalErrorConfirm = document.getElementById('modal-error-confirm');
+const modalErrorData = document.getElementById('modal-error-data');
+
+modalErrorConfirm.onclick = () => modalError.classList.toggle('modal-hide'); // 2) 0 -> 1 (oculta)
+
+const errorHandler = (response) => {
+  // las responses del controller tienen que devolver -> { err }
+  if (response.err) {
+    modalError.classList.toggle('modal-hide');
+    modalErrorData.textContent = response.err;
+    throw new Error(response.err);
+  }
+};
 
 const deleteApplication = (applicationId) => {
   fetch(
@@ -19,12 +33,8 @@ const deleteApplication = (applicationId) => {
   )
     .then((response) => response.json())
     .then((response) => {
-      if (response.res) {
-        dataModal.textContent = 'User not found';
-        confirmDeleteButtonModal.onclick = () => modal.classList.toggle('modal-hide'); // 2a) 0 -> 1 (oculta)
-        throw new Error(response.err);
-      }
       modal.classList.toggle('modal-hide'); // 2b) 0 -> 1 (oculta)
+      errorHandler(response);
       // Set table empty
       while (tableContent.hasChildNodes()) {
         tableContent.removeChild(tableContent.firstChild);
@@ -77,6 +87,7 @@ const getApplications = () => {
   )
     .then((response) => response.json())
     .then((response) => {
+      errorHandler(response);
       const tableApplication = document.getElementById('table-application');
       if (response.applications.length === 0) {
         tableApplication.classList.add('modal-hide');

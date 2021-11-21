@@ -7,7 +7,7 @@ const getAll = (req, res) => {
     .populate('idCandidate', 'firstName lastName')
     .populate('idOpenPosition', 'jobDescription')
     .then((applications) => res.json({ applications }))
-    .catch((err) => res.status(500).json(err));
+    .catch((err) => res.status(500).json({ err }));
 };
 
 const getById = (req, res) => {
@@ -19,7 +19,7 @@ const getById = (req, res) => {
       if (!application) return res.status(404).json({ err: `${notFoundTxt} ID: ${id}` });
       return res.json({ application });
     })
-    .catch((err) => res.status(500).json({ err: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ err }));
 };
 
 const search = (req, res) => {
@@ -35,7 +35,7 @@ const search = (req, res) => {
       }
       return res.json({ application });
     })
-    .catch((err) => res.status(500).json({ err: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ err }));
 };
 
 const add = (req, res) => {
@@ -47,7 +47,7 @@ const add = (req, res) => {
   newApplication
     .save()
     .then((application) => res.json({ msg: 'Application added', application }))
-    .catch((err) => res.status(500).json({ err: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ err }));
 };
 
 const edit = (req, res) => {
@@ -57,7 +57,7 @@ const edit = (req, res) => {
       if (!application) return res.status(404).json({ err: `${notFoundTxt} ID: ${id}` });
       return res.json({ msg: 'Application updated', application });
     })
-    .catch((err) => res.status(500).json({ err: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ err }));
 };
 
 const remove = (req, res) => {
@@ -67,7 +67,7 @@ const remove = (req, res) => {
       if (!application) return res.status(404).json({ err: `${notFoundTxt} ID: ${id}` });
       return res.json({ msg: 'Application removed', application });
     })
-    .catch((err) => res.status(500).json({ err: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ err }));
 };
 
 module.exports = {
