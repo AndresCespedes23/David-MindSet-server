@@ -49,10 +49,10 @@ const validateLength = (req, res, next) => {
     || req.body.email.length <= 40)) {
     return res.status(400).json({ msg: 'Email should be beetween 5 and 40 characters' });
   }
-  if (req.body.password
-    && (req.body.password.length >= 8
-    || req.body.password.length <= 16)) {
-    return res.status(400).json({ msg: 'Password should be beetween 8 and 16 characters' });
+  if (req.body.password !== undefined) {
+    if (!(req.body.password.length >= 8 && req.body.password.length <= 16)) {
+      return res.status(400).json({ msg: 'Password must be between 8 and 16 characters' });
+    }
   }
   return next();
 };
