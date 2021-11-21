@@ -3,6 +3,7 @@
 const candidateSelect = document.getElementById('candidate');
 const openPositionSelect = document.getElementById('open-position');
 const isActiveInput = document.getElementById('is-active');
+const isActiveEntry = document.getElementById('is-active-entry');
 const saveButton = document.getElementById('save-button');
 const modalOk = document.getElementById('modal-ok');
 const modalOkConfirm = document.getElementById('modal-ok-confirm');
@@ -106,6 +107,7 @@ const saveApplication = () => {
     idOpenPosition: openPositionSelect.value,
   };
   if (!params.get('id')) return addApplication(data);
+  data.isActive = isActiveInput.checked;
   return updateApplication(data);
 };
 
@@ -129,9 +131,8 @@ const getApplication = () => {
     .then((response) => response.json())
     .then((response) => {
       candidateSelect.value = response.data.idCandidate;
-      candidateSelect.text = getCandidateName(response.data.idCandidate);
       openPositionSelect.value = response.data.idOpenPosition;
-      candidateSelect.text = getOpenPositionName(response.data.idOpenPosition);
+      isActiveInput.checked = response.data.isActive;
     })
     .catch((err) => {
       console.log(err);
@@ -142,6 +143,7 @@ window.onload = () => {
   getOpenPositions();
   getCandidates();
   if (params.get('id')) {
+    isActiveEntry.classList.remove('modal-hide');
     const title = document.getElementById('title');
     title.innerText = 'Edit application';
     saveButton.value = 'UPDATE';
