@@ -36,6 +36,7 @@ const addAdmin = (administrators) => {
   })
     .then((response) => response.json())
     .then((response) => {
+      console.log(response);
       openOkModal(response);
     })
     .catch((err) => {
