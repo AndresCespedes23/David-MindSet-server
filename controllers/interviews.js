@@ -10,7 +10,7 @@ const getAll = (req, res) => {
 
 const getById = (req, res) => {
   const { id } = req.params;
-  Interviews.findById(id)
+  Interviews.findById(id).populate('idCompany', 'name').populate('idCandidate', 'firstName lastName')
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       return res.json({ data });
@@ -22,7 +22,7 @@ const search = (req, res) => {
   const queryParam = req.query;
   const idCompany = queryParam.company || null;
   if (!idCompany) return res.status(400).json({ msg: 'Missing query param: company' });
-  return Interviews.find({ idCompany })
+  return Interviews.find({ idCompany }).populate('idCompany', 'name').populate('idCandidate', 'firstName lastName')
     .then((data) => {
       if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} Company ID: ${idCompany}` });
       return res.json({ data });
@@ -39,14 +39,14 @@ const add = (req, res) => {
     isActive: true,
   });
   newInterview
-    .save()
+    .save().populate('idCompany', 'name').populate('idCandidate', 'firstName lastName')
     .then((data) => res.json({ msg: 'New interview added', data }))
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
 
 const edit = (req, res) => {
   const { id } = req.params;
-  Interviews.findByIdAndUpdate(id, req.body, { new: true })
+  Interviews.findByIdAndUpdate(id, req.body, { new: true }).populate('idCompany', 'name').populate('idCandidate', 'firstName lastName')
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       return res.json({ msg: 'Interview updated', data });
@@ -56,7 +56,7 @@ const edit = (req, res) => {
 
 const remove = (req, res) => {
   const { id } = req.params;
-  Interviews.findByIdAndRemove(id)
+  Interviews.findByIdAndRemove(id).populate('idCompany', 'name').populate('idCandidate', 'firstName lastName')
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       return res.json({ msg: 'Interview removed', data });
