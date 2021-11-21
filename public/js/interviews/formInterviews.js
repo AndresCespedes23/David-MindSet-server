@@ -51,8 +51,8 @@ const getInterview = () => {
   fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/interviews/${params.get('_id')}`)
     .then((response) => response.json())
     .then((response) => {
-      companySelect.value = response.data.idCompany.name;
-      candidateSelect.value = response.data.idCandidate.firstName;
+      companySelect.nodeValue = response.data.idCompany.name;
+      candidateSelect.nodeValue = `${response.data.idCandidate.firstName} ${response.data.idCandidate.lastName}`;
       dateInput.value = response.data.date.split('T')[0];
       statusInput.value = response.data.status;
     })
@@ -134,6 +134,7 @@ const saveInterview = () => {
     status: statusInput.value,
     date: dateInput.value,
   };
+
   if (params.get('_id')) {
     updateInterview(data);
   } else {
