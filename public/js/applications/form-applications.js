@@ -117,8 +117,6 @@ const getApplication = () => {
   )
     .then((response) => response.json())
     .then((response) => {
-      console.log(response.application.idCandidate._id);
-      console.log(response.application.idOpenPosition._id);
       candidateSelect.value = response.application.idCandidate._id;
       openPositionSelect.value = response.application.idOpenPosition._id;
       isActiveInput.checked = response.application.isActive;

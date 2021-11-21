@@ -19,7 +19,6 @@ const deleteApplication = (ApplicationId) => {
   )
     .then((response) => response.json())
     .then(() => {
-      console.log(tableContent);
       modal.classList.add('modal-hide');
       // Set table empty
       while (tableContent.hasChildNodes()) {
