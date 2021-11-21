@@ -29,17 +29,14 @@ const openOkModal = (response) => {
 };
 
 const addPsychologist = (psychologists) => {
-  fetch(
-    'https://basd-2021-david-mindset-dev.herokuapp.com/api/psychologists',
-    {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(psychologists),
+  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/psychologists', {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  )
+    body: JSON.stringify(psychologists),
+  })
     .then((response) => response.json())
     .then((response) => {
       openOkModal(response);
@@ -50,17 +47,14 @@ const addPsychologist = (psychologists) => {
 };
 
 const updatePsychologist = (psychologists) => {
-  fetch(
-    `https://basd-2021-david-mindset-dev.herokuapp.com/api/psychologists/${params.get('_id')}`,
-    {
-      method: 'PUT',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(psychologists),
+  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/psychologists/${params.get('_id')}`, {
+    method: 'PUT',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  )
+    body: JSON.stringify(psychologists),
+  })
     .then((response) => response.json())
     .then((response) => {
       openOkModal(response);
@@ -136,7 +130,6 @@ const getPsychologist = () => {
   fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/psychologists/${params.get('_id')}`)
     .then((response) => response.json())
     .then((response) => {
-      console.log(response);
       firstName.value = response.psychologist.firstName;
       lastName.value = response.psychologist.lastName;
       email.value = response.psychologist.email;
