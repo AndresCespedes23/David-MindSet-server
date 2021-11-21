@@ -63,7 +63,7 @@ const createDeleteButton = (interview) => {
 
 // Función para ir al form de edición
 const openUpdateSession = (interview) => {
-  window.location.href = `${window.location.origin}/api/public/views/interviews/formInterviews.html?_id=${interview._id}`;
+  window.location.href = `${window.location.origin}/api/views/interviews/formInterviews.html?_id=${interview._id}`;
 };
 
 // Función para crear el botón de editar que se agregan a cada fila de la tabla
