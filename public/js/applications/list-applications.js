@@ -19,6 +19,7 @@ const deleteApplication = (ApplicationId) => {
   )
     .then((response) => response.json())
     .then(() => {
+      console.log(tableContent);
       modal.classList.add('modal-hide');
       // Set table empty
       while (tableContent.hasChildNodes()) {
@@ -33,7 +34,7 @@ const deleteApplication = (ApplicationId) => {
 
 const openDeleteModal = (application) => {
   const dataModal = document.getElementById('data-modal');
-  dataModal.textContent = `Open position: ${application.idOpenPosition}. Candidate: ${application.idCandidate}. Active status: ${application.isActive}.`;
+  dataModal.textContent = `Open position: ${application.idOpenPosition._id}. Candidate: ${application.idCandidate._id}. Active status: ${application.isActive}.`;
   modal.classList.remove('modal-hide');
   confirmDeleteButton.addEventListener('click', () => deleteApplication(application._id));
 };
@@ -83,9 +84,11 @@ const getApplications = () => {
         response.applications.forEach((application) => {
           const tr = document.createElement('tr');
           const openPosition = document.createElement('td');
-          openPosition.innerText = application.idOpenPosition;
+          openPosition.innerText = application.idOpenPosition._id;
+          openPosition.title = application.idOpenPosition.jobDescription;
           const candidate = document.createElement('td');
-          candidate.innerText = application.idCandidate;
+          candidate.innerText = application.idCandidate._id;
+          candidate.title = `${application.idCandidate.firstName} ${application.idCandidate.lastName}`;
           const isActiveTableElement = document.createElement('td');
           const isActive = document.createElement('input');
           isActive.type = 'checkbox';
@@ -94,7 +97,7 @@ const getApplications = () => {
           isActiveTableElement.appendChild(isActive);
           const deleteIcon = createDeleteButton(application);
           const updateIcon = createEditButton(application);
-          tr.append(openPosition, candidate, isActiveTableElement, deleteIcon, updateIcon);
+          tr.append(candidate, openPosition, isActiveTableElement, deleteIcon, updateIcon);
           tableContent.append(tr);
         });
       }
