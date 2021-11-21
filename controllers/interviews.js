@@ -39,7 +39,7 @@ const add = (req, res) => {
     isActive: true,
   });
   newInterview
-    .save().populate('idCompany', 'name').populate('idCandidate', 'firstName lastName')
+    .save()
     .then((data) => res.json({ msg: 'New interview added', data }))
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
