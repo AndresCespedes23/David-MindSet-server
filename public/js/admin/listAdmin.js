@@ -30,7 +30,7 @@ const deleteAdmin = (adminId) => {
 
 const openDeleteModal = (administrators) => {
   const dataModal = document.getElementById("data-modal");
-  dataModal.textContent = `First Name: ${administrators.firstName}, Last Name: ${administrators.lastName}, Email: ${administrators.email}, Password: ${administrators.password}`;
+  dataModal.textContent = `First Name: ${administrators.firstName} \n, Last Name: ${administrators.lastName} \n, Email: ${administrators.email} \n, Password: ${administrators.password}`;
   modal.classList.remove("hide");
   confirmDeleteButton.onclick = () => deleteAdmin(administrators._id);
 };
