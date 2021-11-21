@@ -1,76 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../styles/form.css">
-    <link rel="stylesheet" href="../../styles/list.css">
-    <link rel="stylesheet" href="../../styles/reset.css">
-    <link rel="stylesheet" href="../../styles/styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../styles/form.css" />
+    <link rel="stylesheet" href="../../styles/list.css" />
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/styles.css" />
     <title>Administrator form</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <div class="header-top">
-          <div class="welcome">
-            <!-- pay atention -->
-            <a href="companies.html" class="header-button welcome-top">Welcome User</a>
-          </div>
-          <a href="../../index.html" class="header-button">LOG OUT</a>
+      <div class="header-top">
+        <div class="welcome">
+          <!-- pay atention -->
+          <a href="companies.html" class="header-button welcome-top"
+            >Welcome User</a
+          >
         </div>
-        <div class="header">
-          <a href="../../index.html" class="mindset">MindSet</a>
-        </div>
+        <a href="../../index.html" class="header-button">LOG OUT</a>
+      </div>
+      <div class="header">
+        <a href="../../index.html" class="mindset">MindSet</a>
+      </div>
     </header>
     <div class="container-main">
-        <section class="main">
-            <h1>Administrator Form</h1> <!--name of your Resource-->
-            <form id="form" class="form-subscription">
-                <div class="container-form">
-                    <ul class="column">
-                        <li>
-                            <label for="firstName">First name</label>
-                            <input type="text" id="firstName" name="firstName">
-                            <span id="first-name-error" class="msg-error hide"></span>
-                        </li>
-                        <li>
-                            <label for="lastName">Last name</label>
-                            <input type="text" id="lastName" name="lastName">
-                            <span id="last-name-error" class="msg-error hide"></span>
-                        </li>
-                        <li>
-                            <label for="email">Email</label>
-                            <input type="text" id="email" name="email">
-                            <span id="email-error" class="msg-error hide"></span>
-                        </li>
-                        <li>
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password">
-                            <span id="password-error" class="msg-error hide"></span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="button">
-                    <input id="button-green" type="button" value="SAVE">
-                </div>
-            </form>
-        </section>
-        <aside class="side-menu">
-            <div>
-                <ul>
-                    <li>.</li>
-                    <li>.</li>
-                    <li>.</li>
-                    <li>.</li>
-                    <li>.</li>
-                    <li>.</li>
-                    <li>.</li>
-                    <li>.</li>
-                </ul>
+      <section class="main">
+        <h1>Administrator Form</h1>
+        <!--name of your Resource-->
+        <form id="form" class="form-subscription">
+          <div class="container-form">
+            <ul class="column">
+              <li>
+                <label for="firstName">First name</label>
+                <input type="text" id="firstName" name="firstName" />
+                <span id="first-name-error" class="msg-error hide"></span>
+              </li>
+              <li>
+                <label for="lastName">Last name</label>
+                <input type="text" id="lastName" name="lastName" />
+                <span id="last-name-error" class="msg-error hide"></span>
+              </li>
+              <li>
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" />
+                <span id="email-error" class="msg-error hide"></span>
+              </li>
+              <li>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" />
+                <span id="password-error" class="msg-error hide"></span>
+              </li>
+            </ul>
+          </div>
+          <div class="button">
+            <input id="button-green" type="button" value="SAVE" />
+          </div>
+        </form>
+      </section>
+      <aside class="side-menu">
+        <div>
+          <ul>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+          </ul>
+        </div>
+      </aside>
+      <div class="modal hide" id="modal-ok">
+        <div class="center-modal">
+          <div class="modal-message">
+            <h2 id="modal-ok-title"></h2>
+            <p id="modal-ok-data"></p>
+            <div class="button-modal">
+              <button class="modal-ok-confirm" id="modal-ok-confirm">OK</button>
             </div>
-        </aside>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="../../js/admin/formAdmin.js"></script>
-</body>
+  </body>
 </html>
