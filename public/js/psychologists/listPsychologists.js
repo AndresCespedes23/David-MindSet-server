@@ -57,7 +57,7 @@ const createDeleteButton = (psychologists) => {
 
 // Function to go into the edit form
 const openUpdatePsychologist = (psychologist) => {
-  window.location.href = `${window.location.origin}/mindset-2021/public/views/psychologists/formPsychologists.html?_id=${psychologist._id}`;
+  window.location.href = `${window.location.origin}/api/views/psychologists/formPsychologists.html?_id=${psychologist._id}`;
 };
 
 // Function that creates the edit button of each table row

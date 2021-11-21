@@ -17,7 +17,7 @@ let errorList = [];
 
 modalOkConfirm.addEventListener('click', () => {
   modalOk.classList.toggle('hide');
-  window.location.href = `${window.location.origin}/mindset-2021/public/views/psychologists/listPsychologists.html`;
+  window.location.href = `${window.location.origin}/api/views/psychologists/listPsychologists.html`;
 });
 
 // Modal that shows success message
