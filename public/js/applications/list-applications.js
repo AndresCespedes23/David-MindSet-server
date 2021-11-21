@@ -2,23 +2,21 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
 const cancelButtonModal = document.getElementById('cancel-button');
-const modal = document.getElementById('modal');
-const dataModal = document.getElementById('data-modal');
-const confirmDeleteButtonModal = document.getElementById('confirm-delete-button');
+const modalDelete = document.getElementById('modal-delete');
+const modalDeleteContent = document.getElementById('modal-delete-content');
+const modalDeleteConfirm = document.getElementById('modal-delete-confirm');
 const tableContent = document.getElementById('table-content');
-const modalError = document.getElementById('modal-error');
-const modalErrorConfirm = document.getElementById('modal-error-confirm');
-const modalErrorData = document.getElementById('modal-error-data');
+const modalData = document.getElementById('modal-data');
+const modalDataConfirm = document.getElementById('modal-data-confirm');
+const modalDataContent = document.getElementById('modal-data-content');
 
-modalErrorConfirm.onclick = () => modalError.classList.toggle('modal-hide'); // 2) 0 -> 1 (oculta)
+modalDataConfirm.onclick = () => modalData.classList.toggle('modal-hide'); // 2) 0 -> 1 (oculta)
 
 const errorHandler = (response) => {
-  // las responses del controller tienen que devolver -> { err }
-  if (response.err) {
-    modalError.classList.toggle('modal-hide');
-    modalErrorData.textContent = response.err;
-    throw new Error(response.err);
-  }
+  // las responses del controller tienen que devolver -> { msg }
+  modalData.classList.toggle('modal-hide');
+  modalDataContent.textContent = response;
+  throw new Error(response);
 };
 
 const deleteApplication = (applicationId) => {
@@ -33,25 +31,27 @@ const deleteApplication = (applicationId) => {
   )
     .then((response) => response.json())
     .then((response) => {
-      modal.classList.toggle('modal-hide'); // 2b) 0 -> 1 (oculta)
-      errorHandler(response);
+      modalDelete.classList.toggle('modal-hide'); // 2b) 0 -> 1 (oculta)
+      if (response.msg) errorHandler(response.msg);
       // Set table empty
       while (tableContent.hasChildNodes()) {
         tableContent.removeChild(tableContent.firstChild);
       }
       getApplications();
+      modalData.classList.toggle('modal-hide'); // 1) 1 -> 0 (muestra)
+      modalDataContent.textContent = 'Application deleted successfully';
     })
     .catch((err) => console.log(err));
 };
 
 cancelButtonModal.addEventListener('click', () => {
-  modal.classList.toggle('modal-hide'); // 2a) 0 -> 1 (oculta)
+  modalDelete.classList.toggle('modal-hide'); // 2a) 0 -> 1 (oculta)
 });
 
 const openDeleteModal = (application) => {
-  dataModal.textContent = `Open position: ${application.idOpenPosition._id}. Candidate: ${application.idCandidate._id}. Active status: ${application.isActive}.`;
-  modal.classList.toggle('modal-hide'); // 1) 1 -> 0 (muestra)
-  confirmDeleteButtonModal.onclick = () => deleteApplication(application._id);
+  modalDeleteContent.textContent = `Open position: ${application.idOpenPosition._id}. Candidate: ${application.idCandidate._id}. Active status: ${application.isActive}.`;
+  modalDelete.classList.toggle('modal-hide'); // 1) 1 -> 0 (muestra)
+  modalDeleteConfirm.onclick = () => deleteApplication(application._id);
   // onclick tiene que ser una declaración de funcion, no una llamada
 };
 
@@ -87,7 +87,7 @@ const getApplications = () => {
   )
     .then((response) => response.json())
     .then((response) => {
-      errorHandler(response);
+      if (response.msg) errorHandler(response.msg);
       const tableApplication = document.getElementById('table-application');
       if (response.applications.length === 0) {
         tableApplication.classList.add('modal-hide');

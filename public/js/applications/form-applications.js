@@ -5,31 +5,23 @@ const openPositionSelect = document.getElementById('open-position');
 const isActiveInput = document.getElementById('is-active');
 const isActiveLiElement = document.getElementById('is-active-entry');
 const saveButton = document.getElementById('save-button');
-const modalOk = document.getElementById('modal-ok');
+const modalData = document.getElementById('modal-data');
 const modalOkConfirm = document.getElementById('modal-ok-confirm');
-const modalOkTitle = document.getElementById('modal-ok-title');
-const modalOkData = document.getElementById('modal-ok-data');
-const modalError = document.getElementById('modal-error');
-const modalErrorConfirm = document.getElementById('modal-error-confirm');
-const modalErrorData = document.getElementById('modal-error-data');
+const modalDataTitle = document.getElementById('modal-data-title');
+const modalDataContent = document.getElementById('modal-data-content');
 const params = new URLSearchParams(window.location.search);
 
 modalOkConfirm.addEventListener('click', () => {
-  modalOk.classList.toggle('modal-hide'); // 2) 0 -> 1 (oculta)
-  window.location.href = `http://localhost:8000/api/views/applications/list-applications.html` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/views/applications/list-applications.html' */;
-});
-modalErrorConfirm.addEventListener('click', () => {
-  modalError.classList.toggle('modal-hide'); // 2) 0 -> 1 (oculta)
+  modalData.classList.toggle('modal-hide'); // 2) 0 -> 1 (oculta)
   window.location.href = `http://localhost:8000/api/views/applications/list-applications.html` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/views/applications/list-applications.html' */;
 });
 
 const errorHandler = (response) => {
   // las responses del controller tienen que devolver -> { err }
-  if (response.err) {
-    modalError.classList.toggle('modal-hide');
-    modalErrorData.textContent = response.err;
-    throw new Error(response.err);
-  }
+  modalData.classList.toggle('modal-hide'); // 1a) 1 -> 0 (muestra)
+  modalDataTitle.textContent = 'Error';
+  modalDataContent.textContent = response;
+  throw new Error(response);
 };
 
 // popula el dropdown de candidates
@@ -39,13 +31,15 @@ const getCandidates = () => {
   )
     .then((response) => response.json())
     .then((response) => {
+      if (response.msg) errorHandler(response.msg);
       response.candidates.forEach((candidates) => {
         const option = document.createElement('option');
         option.innerText = `${candidates.firstName} ${candidates.lastName}`;
         option.value = candidates._id;
         candidateSelect.append(option);
       });
-    });
+    })
+    .catch((err) => console.log(err));
 };
 
 // popula el dropdown de open positions
@@ -55,19 +49,21 @@ const getOpenPositions = () => {
   )
     .then((response) => response.json())
     .then((response) => {
+      if (response.msg) errorHandler(response.msg);
       response.data.forEach((openPosition) => {
         const option = document.createElement('option');
         option.innerText = `${openPosition.jobDescription}`;
         option.value = openPosition._id;
         openPositionSelect.append(option);
       });
-    });
+    })
+    .catch((err) => console.log(err));
 };
 
 const openOkModal = (response) => {
-  modalOk.classList.toggle('modal-hide'); // 1) 1 -> 0 (muestra)
-  modalOkTitle.textContent = response.msg;
-  modalOkData.textContent = `Candidate: ${response.application.idCandidate}. Open position: ${response.application.idOpenPosition}.`;
+  modalData.classList.toggle('modal-hide'); // 1b) 1 -> 0 (muestra)
+  modalDataTitle.textContent = response.success;
+  modalDataContent.textContent = `Candidate: ${response.application.idCandidate}. Open position: ${response.application.idOpenPosition}.`;
 };
 
 const addApplication = (data) => {
@@ -84,7 +80,7 @@ const addApplication = (data) => {
   )
     .then((response) => response.json())
     .then((response) => {
-      errorHandler(response);
+      if (response.msg) errorHandler(response.msg); // si entra, sólo abre el modal de error
       openOkModal(response);
     })
     .catch((err) => {
@@ -108,7 +104,7 @@ const updateApplication = (data) => {
   )
     .then((response) => response.json())
     .then((response) => {
-      errorHandler(response);
+      if (response.msg) errorHandler(response.msg);
       openOkModal(response);
     })
     .catch((err) => {
@@ -135,7 +131,7 @@ const getApplication = () => {
   )
     .then((response) => response.json())
     .then((response) => {
-      errorHandler(response);
+      if (response.msg) errorHandler(response.msg);
       // si se trata de editar muy rapido no llega a mostrarse en los dropdown
       candidateSelect.value = response.application.idCandidate._id;
       openPositionSelect.value = response.application.idOpenPosition._id;
