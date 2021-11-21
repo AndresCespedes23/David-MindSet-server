@@ -20,6 +20,7 @@ modalOkConfirm.addEventListener('click', () => {
   window.location.href = `${window.location.origin}/mindset-2021/public/views/psychologists/listPsychologists.html`;
 });
 
+// Modal that shows success message
 const openOkModal = (response) => {
   modalOk.classList.remove('hide');
   const modalOkTitle = document.getElementById('modal-ok-title');
@@ -64,6 +65,7 @@ const updatePsychologist = (psychologists) => {
     });
 };
 
+// Function that creates an object with the formulary data and decides between add or edit
 const savePsychologist = () => {
   const psychologists = {
     firstName: firstName.value,
@@ -80,6 +82,7 @@ const savePsychologist = () => {
   }
 };
 
+// Validations
 const validateLength = () => {
   if (firstName.value !== undefined) {
     if (!(firstName.value.length >= 2 && firstName.value.length <= 40)) {
@@ -126,6 +129,7 @@ const validateFormat = () => {
   }
 };
 
+// Search psychologist so that when I edit, it shows me the data of the psychologist
 const getPsychologist = () => {
   fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/psychologists/${params.get('_id')}`)
     .then((response) => response.json())
@@ -151,6 +155,7 @@ window.onload = () => {
   }
 };
 
+// If there are no errors, save the psychologist
 saveButton.addEventListener('click', () => {
   errorList = [];
   validateLength();
