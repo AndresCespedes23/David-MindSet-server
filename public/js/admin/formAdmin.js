@@ -14,7 +14,7 @@ let errorList = [];
 
 modalOkConfirm.addEventListener('click', () => {
   modalOk.classList.toggle('hide');
-  window.location.href = `${window.location.origin}/api/views/administrators/listAdmin.html`;
+  window.location.href = `${window.location.origin}/api/views/admin/listAdmin.html`;
 });
 
 const openOkModal = (response) => {
@@ -68,6 +68,7 @@ const saveAdmin = () => {
     email: email.value,
     password: password.value
   };
+  console.log(administrators);
   if (params.get('_id')) {
     updateAdmin(administrators);
   } else {
