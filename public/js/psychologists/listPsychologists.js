@@ -6,12 +6,14 @@ const modal = document.getElementById('modal');
 const confirmDeleteButton = document.getElementById('confirm-delete-button');
 const tableContent = document.getElementById('table-content');
 
+// Event to open modal to confirm remove
 deleteButtons.forEach((button) => {
   button.addEventListener('click', () => {
     modal.classList.toggle('hide');
   });
 });
 
+// Event to close the modal to confirm remove
 cancelButton.addEventListener('click', () => {
   modal.classList.toggle('hide');
 });
@@ -31,6 +33,7 @@ const deletePsychologist = (psychologistId) => {
     .catch((error) => console.log(error));
 };
 
+// Modal to confirm remove
 const openDeleteModal = (psychologists) => {
   const dataModal = document.getElementById('data-modal');
   dataModal.textContent = `First Name: ${psychologists.firstName}, Last Name: ${psychologists.lastName}, Email: ${psychologists.email}, Password: ${psychologists.password}, Picture: ${psychologists.pictureUrl}, Turns: ${psychologists.turns}`;
@@ -38,6 +41,7 @@ const openDeleteModal = (psychologists) => {
   confirmDeleteButton.onclick = () => deletePsychologist(psychologists._id);
 };
 
+// Function that creates the remove button of each table row
 const createDeleteButton = (psychologists) => {
   const buttonDelete = document.createElement('button');
   buttonDelete.setAttribute('class', 'delete-button');
@@ -51,10 +55,12 @@ const createDeleteButton = (psychologists) => {
   return buttonDelete;
 };
 
+// Function to go into the edit form
 const openUpdatePsychologist = (psychologist) => {
   window.location.href = `${window.location.origin}/mindset-2021/public/views/psychologists/formPsychologists.html?_id=${psychologist._id}`;
 };
 
+// Function that creates the edit button of each table row
 const createUpdateButton = (psychologist) => {
   const buttonUpdate = document.createElement('button');
   const updateLogo = document.createElement('span');
@@ -67,6 +73,7 @@ const createUpdateButton = (psychologist) => {
   return buttonUpdate;
 };
 
+// Function that obtains the psychologists and then fill the table
 const getPsychologists = () => {
   fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/psychologists')
     .then((response) => response.json())
