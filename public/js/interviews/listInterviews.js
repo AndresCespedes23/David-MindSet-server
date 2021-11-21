@@ -7,12 +7,14 @@ const modal = document.getElementById('modal');
 const confirmDeleteButton = document.getElementById('confirm-delete-button');
 const tableContent = document.getElementById('table-content');
 
+// Evento para abrir el modal de confirmación de borrado
 deleteButtons.forEach((button) => {
   button.addEventListener('click', () => {
     modal.classList.toggle('hide');
   });
 });
 
+// Evento para cerrar el modal de confirmación de borrado
 cancelButton.addEventListener('click', () => {
   modal.classList.toggle('hide');
 });
@@ -35,13 +37,17 @@ const deleteSession = (interviewId) => {
     });
 };
 
+// Modal de confirmación de borrado
 const openDeleteModal = (interview) => {
   const dataModal = document.getElementById('data-modal');
-  dataModal.textContent = `Interview: ${interview.idCompany}. Candidate: ${interview.idCandidate}. Date: ${interview.date}.`;
+  dataModal.textContent = `Company: ${interview.idCompany.name}. Candidate: ${interview.idCandidate.firstName} ${
+    interview.idCandidate.lastName
+  }. Date: ${interview.date.split('T')[0]}.`;
   modal.classList.remove('hide');
   confirmDeleteButton.onclick = () => deleteSession(interview._id);
 };
 
+// Función para crear el botón de borrar que se agregan a cada fila de la tabla
 const createDeleteButton = (interview) => {
   const buttonDelete = document.createElement('button');
   buttonDelete.setAttribute('class', 'delete-button');
@@ -55,10 +61,12 @@ const createDeleteButton = (interview) => {
   return buttonDelete;
 };
 
+// Función para ir al form de edición
 const openUpdateSession = (interview) => {
   window.location.href = `${window.location.origin}/public/views/interviews/formInterviews.html?_id=${interview._id}`;
 };
 
+// Función para crear el botón de editar que se agregan a cada fila de la tabla
 const createUpdateButton = (interview) => {
   const buttonUpdate = document.createElement('button');
   const updateLogo = document.createElement('span');
@@ -71,6 +79,7 @@ const createUpdateButton = (interview) => {
   return buttonUpdate;
 };
 
+// Función para obtener las sesiones y luego llenar la tabla
 const getSessions = () => {
   fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/interviews')
     .then((response) => response.json())

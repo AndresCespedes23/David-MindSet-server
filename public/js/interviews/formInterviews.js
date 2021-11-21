@@ -24,7 +24,7 @@ const getCompanies = () => {
       if (response.data.length > 0) {
         response.data.forEach((company) => {
           const option = document.createElement('option');
-          option.innerText = `${company.name}`;
+          option.innerText = company.name;
           option.value = company._id;
           companySelect.append(option);
         });
@@ -39,19 +39,37 @@ const getCandidates = () => {
     .then((response) => {
       response.candidates.forEach((candidate) => {
         const option = document.createElement('option');
+        option.value = `${candidate._id}`;
         option.innerText = `${candidate.firstName} ${candidate.lastName}`;
-        option.value = candidate._id;
         candidateSelect.append(option);
       });
     });
 };
 
+// Busco la interview para que al editar ya me muestre los datos de esa interview
+const getInterview = () => {
+  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/interviews/${params.get('_id')}`)
+    .then((response) => response.json())
+    .then((response) => {
+      companySelect.value = response.data.idCompany.name;
+      candidateSelect.value = response.data.idCandidate.firstName;
+      dateInput.value = response.data.date.split('T')[0];
+      statusInput.value = response.data.status;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+// Modal que muestra el mensaje de exito
 const openOkModal = (response) => {
   modalOk.classList.remove('hide');
   const modalOkTitle = document.getElementById('modal-ok-title');
   modalOkTitle.textContent = response.msg;
   const modalOkData = document.getElementById('modal-ok-data');
-  modalOkData.textContent = `Company: ${response.data.idCompany.name}. Candidate: ${response.data.idCandidate}. Date: ${response.data.date}.`;
+  modalOkData.textContent = `Company: ${response.data.idCompany}. Candidate: ${response.data.idCandidate} . Date: ${
+    response.data.date.split('T')[0]
+  }.`;
 };
 
 const addInterview = (data) => {
@@ -65,7 +83,6 @@ const addInterview = (data) => {
   })
     .then((response) => response.json())
     .then((response) => {
-      console.log(response);
       openOkModal(response);
     })
     .catch((err) => {
@@ -91,36 +108,7 @@ const updateInterview = (data) => {
     });
 };
 
-const saveInterview = () => {
-  const data = {
-    idCompany: companySelect.value,
-    idCandidate: candidateSelect.value,
-    status: statusInput.value,
-    date: dateInput.value,
-  };
-  if (params.get('_id')) {
-    updateInterview(data);
-  } else {
-    addInterview(data);
-  }
-};
-
-const getInterview = () => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/interviews/${params.get('_id')}`)
-    .then((response) => response.json())
-    .then((response) => {
-      companySelect.value = response.data.idCompany;
-      // Missing Populate
-      candidateSelect.value = response.data.idCandidate;
-      // Missing Populate
-      dateInput.value = response.data.date.split('T')[0];
-      statusInput.value = response.data.status;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
+// Validaciones
 const isNotEmpty = () => {
   if (companySelect.value === '') {
     errorList.push('Company is required');
@@ -138,17 +126,22 @@ const isNotEmpty = () => {
   }
 };
 
-window.onload = () => {
-  getCompanies();
-  getCandidates();
+// Función que crea un objeto con la data del formulario y decide entre agregar o editar
+const saveInterview = () => {
+  const data = {
+    idCompany: companySelect.value,
+    idCandidate: candidateSelect.value,
+    status: statusInput.value,
+    date: dateInput.value,
+  };
   if (params.get('_id')) {
-    const title = document.getElementById('title');
-    title.innerText = 'Edit Session';
-    saveButton.value = 'UPDATE';
-    getInterview();
+    updateInterview(data);
+  } else {
+    addInterview(data);
   }
 };
 
+// Si no hay errores, guardo la interview
 saveButton.addEventListener('click', () => {
   errorList = [];
   isNotEmpty();
@@ -156,3 +149,15 @@ saveButton.addEventListener('click', () => {
     saveInterview();
   }
 });
+
+// En el onload me fijo si se está en el form de edición y luego lleno los selects
+window.onload = () => {
+  if (params.get('_id')) {
+    const title = document.getElementById('title');
+    title.innerText = 'Edit Session';
+    saveButton.value = 'UPDATE';
+    getInterview();
+  }
+  getCompanies();
+  getCandidates();
+};
