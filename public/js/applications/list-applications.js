@@ -3,6 +3,7 @@
 /* eslint-disable no-console */
 const cancelButtonModal = document.getElementById('cancel-button');
 const modal = document.getElementById('modal');
+const dataModal = document.getElementById('data-modal');
 const confirmDeleteButtonModal = document.getElementById('confirm-delete-button');
 const tableContent = document.getElementById('table-content');
 
@@ -11,9 +12,19 @@ const deleteApplication = (applicationId) => {
     `http://localhost:8000/api/applications/${applicationId}` /* `https://basd-2021-david-mindset-dev.herokuapp.com/api/applications/${ApplicationId} `*/,
     {
       method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
     }
   )
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status !== 404) response.json();
+      else {
+        dataModal.textContent = 'User not found';
+        confirmDeleteButtonModal.onclick = () => modal.classList.toggle('modal-hide'); // 2a) 0 -> 1 (oculta)
+        throw new Error('User not found');
+      }
+    })
     .then(() => {
       modal.classList.toggle('modal-hide'); // 2b) 0 -> 1 (oculta)
       // Set table empty
@@ -22,9 +33,7 @@ const deleteApplication = (applicationId) => {
       }
       getApplications();
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => console.log(err));
 };
 
 cancelButtonModal.addEventListener('click', () => {
@@ -32,10 +41,10 @@ cancelButtonModal.addEventListener('click', () => {
 });
 
 const openDeleteModal = (application) => {
-  const dataModal = document.getElementById('data-modal');
+  console.log(confirmDeleteButtonModal);
   dataModal.textContent = `Open position: ${application.idOpenPosition._id}. Candidate: ${application.idCandidate._id}. Active status: ${application.isActive}.`;
   modal.classList.toggle('modal-hide'); // 1) 1 -> 0 (muestra)
-  confirmDeleteButtonModal.addEventListener('click', () => deleteApplication(application._id));
+  confirmDeleteButtonModal.onclick = () => deleteApplication(application._id); //tiene que ser una declaración, no una llamada
 };
 
 // table delete buttons
@@ -81,7 +90,7 @@ const getApplications = () => {
           const tr = document.createElement('tr');
           const openPosition = document.createElement('td');
           openPosition.innerText = application.idOpenPosition._id;
-          openPosition.title = application.idOpenPosition.jobDescription;
+          openPosition.title = application._id /* application.idOpenPosition.jobDescription */;
           const candidate = document.createElement('td');
           candidate.innerText = application.idCandidate._id;
           candidate.title = `${application.idCandidate.firstName} ${application.idCandidate.lastName}`;

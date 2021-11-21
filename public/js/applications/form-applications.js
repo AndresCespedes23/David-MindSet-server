@@ -117,7 +117,9 @@ const getApplication = () => {
   )
     .then((response) => response.json())
     .then((response) => {
+      if (response.status !== 200 && response.status !== 201) return console.log('User not found');
       candidateSelect.value = response.application.idCandidate._id;
+      // candidates hay veces que no genera la asignacion
       openPositionSelect.value = response.application.idOpenPosition._id;
       isActiveInput.checked = response.application.isActive;
     })
