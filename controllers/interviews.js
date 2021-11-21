@@ -10,7 +10,7 @@ const getAll = (req, res) => {
 
 const getById = (req, res) => {
   const { id } = req.params;
-  Interviews.findById(id)
+  Interviews.findById(id).populate('idCompany', 'name').populate('idCandidate', 'firstName lastName')
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
       return res.json({ data });
@@ -22,7 +22,7 @@ const search = (req, res) => {
   const queryParam = req.query;
   const idCompany = queryParam.company || null;
   if (!idCompany) return res.status(400).json({ msg: 'Missing query param: company' });
-  return Interviews.find({ idCompany })
+  return Interviews.find({ idCompany }).populate('idCompany', 'name').populate('idCandidate', 'firstName lastName')
     .then((data) => {
       if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} Company ID: ${idCompany}` });
       return res.json({ data });
