@@ -187,3 +187,7 @@
   .button-modal button:hover {
     background-color: rgb(88, 88, 88);
   }
+
+  .hide{
+    display: none;
+  }
