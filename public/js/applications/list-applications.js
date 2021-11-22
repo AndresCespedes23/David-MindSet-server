@@ -13,10 +13,10 @@ const modalDataContent = document.getElementById('modal-data-content');
 modalDataConfirm.onclick = () => modalData.classList.toggle('modal-hide'); // 2) 0 -> 1 (oculta)
 
 const errorHandler = (response) => {
-  // las responses del controller tienen que devolver -> { msg }
+  // las responses de error tienen que devolver -> { msg }
   modalData.classList.toggle('modal-hide');
-  modalDataContent.textContent = response;
-  throw new Error(response);
+  if (response.msg) modalDataContent.textContent = response;
+  else modalDataContent.textContent = `${response.name}: ${response.message}`;
 };
 
 const deleteApplication = (applicationId) => {
@@ -32,7 +32,7 @@ const deleteApplication = (applicationId) => {
     .then((response) => response.json())
     .then((response) => {
       modalDelete.classList.toggle('modal-hide'); // 2b) 0 -> 1 (oculta)
-      if (response.msg) errorHandler(response.msg);
+      if (response.msg) throw new Error(response.msg);
       // Set table empty
       while (tableContent.hasChildNodes()) {
         tableContent.removeChild(tableContent.firstChild);
@@ -41,7 +41,7 @@ const deleteApplication = (applicationId) => {
       modalData.classList.toggle('modal-hide'); // 1) 1 -> 0 (muestra)
       modalDataContent.textContent = 'Application deleted successfully';
     })
-    .catch((err) => console.log(err));
+    .catch((err) => errorHandler(err));
 };
 
 cancelButtonModal.addEventListener('click', () => {
@@ -87,7 +87,7 @@ const getApplications = () => {
   )
     .then((response) => response.json())
     .then((response) => {
-      if (response.msg) errorHandler(response.msg);
+      if (response.msg) throw new Error(response.msg);
       const tableApplication = document.getElementById('table-application');
       if (response.applications.length === 0) {
         tableApplication.classList.add('modal-hide');
@@ -115,7 +115,8 @@ const getApplications = () => {
           tableContent.append(tr);
         });
       }
-    });
+    })
+    .catch((err) => errorHandler(err));
 };
 
 window.onload = () => {

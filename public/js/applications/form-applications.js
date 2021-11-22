@@ -20,8 +20,8 @@ const errorHandler = (response) => {
   // las responses del controller tienen que devolver -> { err }
   modalData.classList.toggle('modal-hide'); // 1a) 1 -> 0 (muestra)
   modalDataTitle.textContent = 'Error';
-  modalDataContent.textContent = response;
-  throw new Error(response);
+  if (response.msg) modalDataContent.textContent = response;
+  else modalDataContent.textContent = `${response.name}: ${response.message}`;
 };
 
 // popula el dropdown de candidates
@@ -31,7 +31,7 @@ const getCandidates = () => {
   )
     .then((response) => response.json())
     .then((response) => {
-      if (response.msg) errorHandler(response.msg);
+      if (response.msg) throw new Error(response.msg);
       response.candidates.forEach((candidates) => {
         const option = document.createElement('option');
         option.innerText = `${candidates.firstName} ${candidates.lastName}`;
@@ -39,7 +39,7 @@ const getCandidates = () => {
         candidateSelect.append(option);
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => errorHandler(err));
 };
 
 // popula el dropdown de open positions
@@ -49,7 +49,7 @@ const getOpenPositions = () => {
   )
     .then((response) => response.json())
     .then((response) => {
-      if (response.msg) errorHandler(response.msg);
+      if (response.msg) throw new Error(response.msg);
       response.data.forEach((openPosition) => {
         const option = document.createElement('option');
         option.innerText = `${openPosition.jobDescription}`;
@@ -57,7 +57,7 @@ const getOpenPositions = () => {
         openPositionSelect.append(option);
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => errorHandler(err));
 };
 
 const openOkModal = (response) => {
@@ -80,12 +80,10 @@ const addApplication = (data) => {
   )
     .then((response) => response.json())
     .then((response) => {
-      if (response.msg) errorHandler(response.msg);
+      if (response.msg) throw new Error(response.msg);
       openOkModal(response);
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => errorHandler(err));
 };
 
 const updateApplication = (data) => {
@@ -104,12 +102,10 @@ const updateApplication = (data) => {
   )
     .then((response) => response.json())
     .then((response) => {
-      if (response.msg) errorHandler(response.msg);
+      if (response.msg) throw new Error(response.msg);
       openOkModal(response);
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => errorHandler(err));
 };
 
 const saveApplication = () => {
@@ -131,15 +127,13 @@ const getApplication = () => {
   )
     .then((response) => response.json())
     .then((response) => {
-      if (response.msg) errorHandler(response.msg);
+      if (response.msg) throw new Error(response.msg);
       // si se trata de editar muy rapido no llega a mostrarse en los dropdown
       candidateSelect.value = response.application.idCandidate._id;
       openPositionSelect.value = response.application.idOpenPosition._id;
       isActiveInput.checked = response.application.isActive;
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => errorHandler(err));
 };
 
 window.onload = () => {
