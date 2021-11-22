@@ -80,6 +80,27 @@ const addCandidates = (data) => {
     });
 };
 
+const updateCandidates = (data) => {
+  fetch(
+    `https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates/${params.get('_id')}`,
+    {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    },
+  )
+    .then((response) => response.json())
+    .then((response) => {
+      openOkModal(response);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 window.onload = () => {
   if (params.get('_id')) {
     getCandidates();
