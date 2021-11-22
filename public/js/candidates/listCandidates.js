@@ -55,6 +55,22 @@ const createDeleteButton = (candidate) => {
   return buttonDelete;
 };
 
+const openUpdateCandidate = (candidates) => {
+  window.location.href = `${window.location.origin}/mindset-2021/public/views/candidates/formCandidates.html?_id=${candidates._id}`;
+};
+
+const createUpdateButton = (candidate) => {
+  const buttonUpdate = document.createElement('button');
+  const updateLogo = document.createElement('span');
+  updateLogo.classList.add('material-icons-outlined');
+  updateLogo.textContent = 'edit';
+  buttonUpdate.innerHTML = updateLogo.outerHTML;
+  buttonUpdate.addEventListener('click', () => {
+    openUpdateCandidate(candidate);
+  });
+  return buttonUpdate;
+};
+
 const getCandidates = () => {
   fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates')
     .then((response) => response.json())
