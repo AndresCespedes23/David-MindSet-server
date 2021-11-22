@@ -90,17 +90,19 @@ const getSessions = () => {
       } else {
         tableSession.classList.remove('hide');
         response.data.forEach((session) => {
-          const tr = document.createElement('tr');
-          const psychologist = document.createElement('td');
-          const candidate = document.createElement('td');
-          const date = document.createElement('td');
-          const deleteIcon = createDeleteButton(session);
-          const updateIcon = createUpdateButton(session);
-          psychologist.innerText = `${session.idPsychologists.firstName} ${session.idPsychologists.lastName}`;
-          candidate.innerText = `${session.idCandidate.firstName} ${session.idCandidate.lastName}`;
-          date.innerText = session.date.split('T')[0];
-          tr.append(psychologist, candidate, date, deleteIcon, updateIcon);
-          tableContent.append(tr);
+          if (session.idPsychologists && session.idCandidate) {
+            const tr = document.createElement('tr');
+            const psychologist = document.createElement('td');
+            const candidate = document.createElement('td');
+            const date = document.createElement('td');
+            const deleteIcon = createDeleteButton(session);
+            const updateIcon = createUpdateButton(session);
+            psychologist.innerText = `${session.idPsychologists.firstName} ${session.idPsychologists.lastName}`;
+            candidate.innerText = `${session.idCandidate.firstName} ${session.idCandidate.lastName}`;
+            date.innerText = session.date.split('T')[0];
+            tr.append(psychologist, candidate, date, deleteIcon, updateIcon);
+            tableContent.append(tr);
+          }
         });
       }
     });
