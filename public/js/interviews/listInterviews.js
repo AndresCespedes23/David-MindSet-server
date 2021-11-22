@@ -90,7 +90,7 @@ const getSessions = () => {
       } else {
         tableSession.classList.remove('hide');
         response.data.forEach((interviews) => {
-          if (interviews) {
+          if (interviews.idCompany && interviews.idCandidate) {
             const tr = document.createElement('tr');
             const tdCompany = document.createElement('td');
             const tdCandidate = document.createElement('td');
