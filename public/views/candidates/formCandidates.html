@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Candidates Form</title> <!-- pay atention -->
+        <link rel="stylesheet" type="text/css" href="../../styles/reset.css">
+        <link rel="stylesheet" type="text/css" href="../../styles/styles.css">
+        <link rel="stylesheet" type="text/css" href="../../styles/list.css">
+        <link rel="stylesheet" type="text/css" href="../../styles/form.css" >
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+    </head>
+    <body>
+        <header>
+          <div class="header-top">
+            <div class="welcome">
+              <!-- pay atention -->
+              <a href="listCandidates.html" class="header-button welcome-top">Welcome User</a>
+            </div>
+            <a href="../../index.html" class="header-button">LOG OUT</a>
+          </div>
+          <div class="header">
+            <a href="../../index.html" class="mindset">MindSet</a>
+          </div>
+        </header>
+        <div class="container-main">
+            <section class="main">
+                <h1>Candidates Form</h1> <!--name of your Resource-->
+                <form id="form" class="form-subscription">
+                    <div >
+                        <div class="container-form">
+                            <ul class="column">
+                                <li>
+                                    <label for="firstname">First name</label>
+                                    <input type="text" id="firstname" name="firstname">
+                                    <span id="first-name-error" class="msg-error hide"></span>
+                                </li>
+                                <li>
+                                    <label for="lastname">Last Name</label>
+                                    <input type="text" id="lastname" name="lastname">
+                                    <span id="last-name-error" class="msg-error hide"></span>
+                                </li>
+                                <li>
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" name="password">
+                                    <span id="password-error" class="msg-error hide"></span>
+                                </li>
+                                <li>
+                                    <label for="birthday">Birthday</label>
+                                    <input type="text" id="birthday" name="birthday">
+                                    <span id="email-error" class="msg-error hide"></span>
+                                </li>
+                                <li>
+                                    <label for="Country">Country</label>
+                                    <input type="text" id="country" name="country">
+                                    <span id="country-error" class="msg-error hide"></span>
+                                </li>
+                            </ul>
+                            <ul class="column">
+                                <li>
+                                    <label for="phone">Phone number</label>
+                                    <input type="tel" id="phone" name="phone">
+                                    <span id="phone-error" class="msg-error hide"></span>
+                                </li>
+                                <li>
+                                    <label for="address">Address</label>
+                                    <input type="text" id="address" name="address">
+                                    <span id="address-error" class="msg-error hide"></span>
+                                </li>
+                                    <li><label for="city">City</label>
+                                    <input type="text" id="city" name="city">
+                                    <span id="city-error" class="msg-error hide"></span>
+                                </li>
+                                <li>
+                                    <label for="Postal">Postal Code</label>
+                                    <input type="text" id="postal" name="postal">
+                                    <span id="postal-error" class="msg-error hide"></span>
+                                </li>
+                                <li>
+                                    <label for="province">Province</label>
+                                    <input type="text" id="province" name="province">
+                                    <span id="province-error" class="msg-error hide"></span>
+                                </li>
+                                <li>
+                                    <label for="email">Email</label>
+                                    <input type="text" id="email" name="email">
+                                    <span id="email-error" class="msg-error hide"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="button">
+                        <input id="button-green" type="button" value="SAVE">
+                    </div>
+                </form>
+            </section>
+            <aside class="side-menu">
+                <div>
+                    <ul>
+                        <li>.</li>
+                        <li>.</li>
+                        <li>.</li>
+                        <li>.</li>
+                        <li>.</li>
+                        <li>.</li>
+                        <li>.</li>
+                        <li>.</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        <div class="modal hide" id="modal-ok">
+            <div class="center-modal">
+              <div class="modal-message">
+                <h2 id="modal-ok-title"></h2>
+                <p id="modal-ok-data"></p>
+                <div class="button-modal">
+                  <button class="modal-ok-confirm" id="modal-ok-confirm">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <script src="../../js/candidates/formCandidates.js"></script>
+    </body>
+</html>
