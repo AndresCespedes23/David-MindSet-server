@@ -90,17 +90,21 @@ const getSessions = () => {
       } else {
         tableSession.classList.remove('hide');
         response.data.forEach((interviews) => {
-          const tr = document.createElement('tr');
-          const tdCompany = document.createElement('td');
-          const tdCandidate = document.createElement('td');
-          const tdDate = document.createElement('td');
-          const deleteIcon = createDeleteButton(interviews);
-          const updateIcon = createUpdateButton(interviews);
-          tdCompany.innerText = interviews.idCompany ? interviews.idCompany.name : '';
-          tdCandidate.innerText = `${interviews.idCandidate.firstName || ''} ${interviews.idCandidate.lastName || ''}`;
-          tdDate.innerText = interviews.date.split('T')[0];
-          tr.append(tdCompany, tdCandidate, tdDate, deleteIcon, updateIcon);
-          tableContent.append(tr);
+          if (interviews) {
+            const tr = document.createElement('tr');
+            const tdCompany = document.createElement('td');
+            const tdCandidate = document.createElement('td');
+            const tdDate = document.createElement('td');
+            const deleteIcon = createDeleteButton(interviews);
+            const updateIcon = createUpdateButton(interviews);
+            tdCompany.innerText = interviews.idCompany.name;
+            tdCandidate.innerText = `${interviews.idCandidate.firstName || ''} ${
+              interviews.idCandidate.lastName || ''
+            }`;
+            tdDate.innerText = interviews.date.split('T')[0];
+            tr.append(tdCompany, tdCandidate, tdDate, deleteIcon, updateIcon);
+            tableContent.append(tr);
+          }
         });
       }
     });
