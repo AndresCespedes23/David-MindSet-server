@@ -55,6 +55,16 @@ const createDeleteButton = (candidate) => {
   return buttonDelete;
 };
 
+const createSearchButton = (candidates) => {
+  const buttonSearch = document.createElement('button');
+  const searchLogo = document.createElement('span');
+  searchLogo.classList.add('material-icons-outlined');
+  searchLogo.textContent = 'search';
+  buttonSearch.setAttribute('id', candidates._id);
+  buttonSearch.innerHTML = searchLogo.outerHTML;
+  return buttonSearch;
+};
+
 const openUpdateCandidate = (candidates) => {
   window.location.href = `${window.location.origin}/mindset-2021/public/views/candidates/formCandidates.html?_id=${candidates._id}`;
 };
