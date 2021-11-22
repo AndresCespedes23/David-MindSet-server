@@ -113,10 +113,6 @@ const saveCandidates = () => {
     postalCode: candidatePostalCode.value,
     birthday: candidateBirthday.value,
     phone: parseInt(candidatePhone.value, 10),
-    address: {
-      street: 'fsdfds',
-      number: 1234,
-    },
   };
   if (params.get('_id')) {
     updateCandidates(data);
