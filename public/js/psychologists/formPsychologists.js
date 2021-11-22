@@ -26,7 +26,7 @@ const openOkModal = (response) => {
   const modalOkTitle = document.getElementById('modal-ok-title');
   modalOkTitle.textContent = response.msg;
   const modalOkData = document.getElementById('modal-ok-data');
-  modalOkData.textContent = `First Name: ${response.psychologists.firstName}. Last Name: ${response.psychologists.lastName}. Email: ${response.psychologists.email}. Password: ${response.psychologists.password}. Picture: ${response.psychologists.pictureUrl}. Turns: ${response.psychologists.turns || ' '}.`;
+  modalOkData.textContent = `First Name: ${response.psychologist.firstName}. Last Name: ${response.psychologist.lastName}. Email: ${response.psychologist.email}. Password: ${response.psychologist.password}. Picture: ${response.psychologist.pictureUrl}. Turns: ${response.psychologist.turns || ' '}.`;
 };
 
 const addPsychologist = (psychologists) => {
