@@ -30,7 +30,7 @@ const deleteSession = (interviewId) => {
       while (tableContent.hasChildNodes()) {
         tableContent.removeChild(tableContent.firstChild);
       }
-      getSessions();
+      getInterviews();
     })
     .catch((err) => {
       console.log(err);
@@ -80,7 +80,7 @@ const createUpdateButton = (interview) => {
 };
 
 // Función para obtener las sesiones y luego llenar la tabla
-const getSessions = () => {
+const getInterviews = () => {
   fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/interviews')
     .then((response) => response.json())
     .then((response) => {
@@ -111,5 +111,5 @@ const getSessions = () => {
 };
 
 window.onload = () => {
-  getSessions();
+  getInterviews();
 };
