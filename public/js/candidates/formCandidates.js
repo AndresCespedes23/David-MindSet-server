@@ -101,6 +101,30 @@ const updateCandidates = (data) => {
     });
 };
 
+const saveCandidates = () => {
+  const data = {
+    firstName: firstName.value,
+    lastName: lastName.value,
+    email: candidateEmail.value,
+    password: candidatePassword.value,
+    province: candidateProvince.value,
+    city: candidateCity.value,
+    country: candidateCountry.value,
+    postalCode: candidatePostalCode.value,
+    birthday: candidateBirthday.value,
+    phone: parseInt(candidatePhone.value, 10),
+    address: {
+      street: 'fsdfds',
+      number: 1234,
+    },
+  };
+  if (params.get('_id')) {
+    updateCandidates(data);
+  } else {
+    addCandidates(data);
+  }
+};
+
 window.onload = () => {
   if (params.get('_id')) {
     getCandidates();
@@ -108,5 +132,7 @@ window.onload = () => {
   }
 };
 saveButton.addEventListener('click', () => {
-
+  if (errorList.length === 0) {
+    saveCandidates();
+  }
 });
