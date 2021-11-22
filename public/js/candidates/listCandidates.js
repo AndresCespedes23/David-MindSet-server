@@ -14,6 +14,47 @@ cancelButton.addEventListener('click', () => {
   modal.classList.toggle('hide');
 });
 
+const deleteCandidate = (candidateID) => {
+  fetch(
+    `https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates/${candidateID}`,
+    {
+      method: 'DELETE',
+    },
+  )
+    .then((response) => response.json())
+    .then(() => {
+      modal.classList.add('hide');
+      // Set table empty
+      while (tableContent.hasChildNodes()) {
+        tableContent.removeChild(tableContent.firstChild);
+      }
+      getCandidates();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const openDeleteModal = (candidates) => {
+  const dataModal = document.getElementById('data-modal');
+  dataModal.textContent = `First Name: ${candidates.firstName}, Last Name: ${candidates.lastName}, Phone: ${candidates.phone}. Email: ${candidates.email}, Country: ${candidates.country}, Province: ${candidates.province}, City: ${candidates.city}, Postal code: ${candidates.postalCode}, Address: ${candidates.address.street} ${candidates.address.number}`;
+  modal.classList.remove('hide');
+  confirmDeleteButton.onclick = () => deleteCandidate(candidates._id);
+};
+
+const createDeleteButton = (candidate) => {
+  const buttonDelete = document.createElement('button');
+  buttonDelete.setAttribute('class', 'delete-button');
+  const deleteLogo = document.createElement('span');
+  deleteLogo.classList.add('material-icons-outlined');
+  deleteLogo.textContent = 'clear';
+  buttonDelete.innerHTML = deleteLogo.outerHTML;
+  buttonDelete.addEventListener('click', () => {
+    openDeleteModal(candidate);
+  });
+  return buttonDelete;
+};
+
 const getCandidates = () => {
   fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates')
     .then((response) => response.json())
