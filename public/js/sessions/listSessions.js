@@ -1,5 +1,6 @@
 const deleteButtons = document.querySelectorAll('.delete-button');
 const cancelButton = document.getElementById('cancel-button');
+const addButton = document.getElementById('button-green');
 const modal = document.getElementById('modal');
 const confirmDeleteButton = document.getElementById('confirm-delete-button');
 const tableContent = document.getElementById('table-content');
@@ -12,6 +13,10 @@ deleteButtons.forEach((button) => {
 
 cancelButton.addEventListener('click', () => {
   modal.classList.toggle('hide');
+});
+
+addButton.addEventListener('click', () => {
+  window.location.href = `${window.location.origin}/api/views/sessions/formSessions.html`;
 });
 
 const deleteSession = (sessionID) => {
@@ -37,7 +42,9 @@ const deleteSession = (sessionID) => {
 
 const openDeleteModal = (session) => {
   const dataModal = document.getElementById('data-modal');
-  dataModal.textContent = `Psychologist: ${session.idPsychologists}. Candidate: ${session.idCandidate}. Date: ${session.date}.`;
+  dataModal.textContent = `Psychologist: ${session.idPsychologists.firstName} ${session.idPsychologists.lastName}.
+  Candidate: ${session.idCandidate.firstName} ${session.idCandidate.lastName}.
+  Date: ${session.date.split('T')[0]}.`;
   modal.classList.remove('hide');
   confirmDeleteButton.onclick = () => deleteSession(session._id);
 };
@@ -91,7 +98,7 @@ const getSessions = () => {
           const updateIcon = createUpdateButton(session);
           psychologist.innerText = `${session.idPsychologists.firstName} ${session.idPsychologists.lastName}`;
           candidate.innerText = `${session.idCandidate.firstName} ${session.idCandidate.lastName}`;
-          date.innerText = session.date;
+          date.innerText = session.date.split('T')[0];
           tr.append(psychologist, candidate, date, deleteIcon, updateIcon);
           tableContent.append(tr);
         });

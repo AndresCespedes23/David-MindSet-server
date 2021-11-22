@@ -51,12 +51,16 @@ const getCandidates = () => {
     });
 };
 
-const openOkModal = (response) => {
+const openOkModal = (response, mode) => {
   modalOk.classList.remove('hide');
   const modalOkTitle = document.getElementById('modal-ok-title');
   modalOkTitle.textContent = response.msg;
   const modalOkData = document.getElementById('modal-ok-data');
-  modalOkData.textContent = `Psychologist: ${response.data.idPsychologists}. Candidate: ${response.data.idCandidate}. Date: ${response.data.date}.`;
+  if (mode === 'edit') {
+    modalOkData.textContent = `Psychologist: ${response.data.idPsychologists.firstName} ${response.data.idPsychologists.lastName}.
+    Candidate: ${response.data.idCandidate.firstName} ${response.data.idCandidate.lastName}.
+    Date: ${response.data.date.split('T')[0]}.`;
+  }
 };
 
 const addSession = (data) => {
@@ -73,7 +77,7 @@ const addSession = (data) => {
   )
     .then((response) => response.json())
     .then((response) => {
-      openOkModal(response);
+      openOkModal(response, 'add');
     })
     .catch((err) => {
       console.log(err);
@@ -94,7 +98,7 @@ const updateSession = (data) => {
   )
     .then((response) => response.json())
     .then((response) => {
-      openOkModal(response);
+      openOkModal(response, 'edit');
     })
     .catch((err) => {
       console.log(err);
