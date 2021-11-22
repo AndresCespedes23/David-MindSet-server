@@ -8,7 +8,7 @@ let errorList = [];
 
 modalOkConfirm.addEventListener('click', () => {
   modalOk.classList.toggle('hide');
-  window.location.href = `${window.location.origin}/public/views/profile-types/listProfileTypes.html`;
+  window.location.href = `${window.location.origin}/api/views/profile-types/listProfileTypes.html`;
 });
 
 // Modal that shows success message
@@ -19,7 +19,6 @@ const openOkModal = (response) => {
   const modalOkData = document.getElementById('modal-ok-data');
   modalOkData.textContent = `Name: ${response.name}.`;
 };
-
 const addProfile = (profile) => {
   fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/profile-types', {
     method: 'POST',
@@ -71,7 +70,7 @@ const saveProfile = () => {
 // Validations
 const validateLength = () => {
   if (nameProfile.value !== undefined) {
-    if (!nameProfile.value.length >= 2 && nameProfile.value.length <= 30) {
+    if (!(nameProfile.value.length >= 3 && nameProfile.value.length <= 50)) {
       errorList.push('Name must be between 2 and 30 characters');
       nameProfile.classList.add('input-error');
       nameProfileError.classList.remove('hide');
@@ -80,11 +79,11 @@ const validateLength = () => {
   }
 };
 
-const specialChars = "<>@!#$%^&*()_+[]{}?:;|'\"\\,./~`-=";
+const numbers = /^[0-9]*$/;
 
 const validateFormat = () => {
   if (nameProfile.value !== undefined) {
-    if (nameProfile.value.includes(specialChars)) {
+    if (nameProfile.value.match(numbers)) {
       errorList.push('Only letters, please');
       nameProfile.classList.add('input-error');
       nameProfileError.classList.remove('hide');

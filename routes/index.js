@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.use(express.static('public'));
 
-router.get('/api', (req, res) => {
+router.get('/', (req, res) => {
   res.sendFile('index.html', { root: path.join(__dirname, '../public') });
 });
 

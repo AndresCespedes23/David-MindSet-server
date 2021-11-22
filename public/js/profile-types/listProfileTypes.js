@@ -55,19 +55,9 @@ const createDeleteButton = (profile) => {
   return buttonDelete;
 };
 
-const createSearchButton = (profile) => {
-  const buttonSearch = document.createElement('button');
-  const searchLogo = document.createElement('span');
-  searchLogo.classList.add('material-icons-outlined');
-  searchLogo.textContent = 'search';
-  buttonSearch.setAttribute('id', profile._id);
-  buttonSearch.innerHTML = searchLogo.outerHTML;
-  return buttonSearch;
-};
-
 // Function to go into the edit form
 const openUpdateSession = (profile) => {
-  window.location.href = `${window.location.origin}/public/views/profile-types/formProfileTypes.html?_id=${profile._id}`;
+  window.location.href = `${window.location.origin}/api/views/profile-types/formProfileTypes.html?_id=${profile._id}`;
 };
 
 const createUpdateButton = (profile) => {
@@ -98,11 +88,10 @@ const getProfiles = () => {
           const profilesId = document.createElement('td');
           const name = document.createElement('td');
           const deleteIcon = createDeleteButton(profile);
-          const searchIcon = createSearchButton(profile);
           const updateIcon = createUpdateButton(profile);
           profilesId.innerText = profile._id;
           name.innerText = profile.name;
-          tr.append(profilesId, name, deleteIcon, searchIcon, updateIcon);
+          tr.append(profilesId, name, deleteIcon, updateIcon);
           tableContent.append(tr);
         });
       }
