@@ -7,8 +7,10 @@ const modalDeleteContent = document.getElementById('modal-delete-content');
 const modalDeleteConfirm = document.getElementById('modal-delete-confirm');
 const tableContent = document.getElementById('table-content');
 const modalData = document.getElementById('modal-data');
-const modalDataConfirm = document.getElementById('modal-data-confirm');
+const modalDataTitle = document.getElementById('modal-data-title');
+modalDataTitle.textContent = 'Error';
 const modalDataContent = document.getElementById('modal-data-content');
+const modalDataConfirm = document.getElementById('modal-data-confirm');
 
 modalDataConfirm.onclick = () => modalData.classList.toggle('modal-hide'); // 2) 0 -> 1 (oculta)
 

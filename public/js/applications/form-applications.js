@@ -6,9 +6,10 @@ const isActiveInput = document.getElementById('is-active');
 const isActiveLiElement = document.getElementById('is-active-entry');
 const saveButton = document.getElementById('save-button');
 const modalData = document.getElementById('modal-data');
-const modalOkConfirm = document.getElementById('modal-ok-confirm');
 const modalDataTitle = document.getElementById('modal-data-title');
+modalDataTitle.textContent = 'Error';
 const modalDataContent = document.getElementById('modal-data-content');
+const modalOkConfirm = document.getElementById('modal-ok-confirm');
 const params = new URLSearchParams(window.location.search);
 
 modalOkConfirm.addEventListener('click', () => {
@@ -19,7 +20,6 @@ modalOkConfirm.addEventListener('click', () => {
 const errorHandler = (response) => {
   // las responses del controller tienen que devolver -> { err }
   modalData.classList.toggle('modal-hide'); // 1a) 1 -> 0 (muestra)
-  modalDataTitle.textContent = 'Error';
   if (response.msg) modalDataContent.textContent = response;
   else modalDataContent.textContent = `${response.name}: ${response.message}`;
 };
