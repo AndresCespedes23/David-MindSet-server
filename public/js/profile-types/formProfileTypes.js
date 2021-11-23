@@ -17,7 +17,7 @@ const openOkModal = (response) => {
   const modalOkTitle = document.getElementById('modal-ok-title');
   modalOkTitle.textContent = response.msg;
   const modalOkData = document.getElementById('modal-ok-data');
-  modalOkData.textContent = `Name: ${response.name}.`;
+  modalOkData.textContent = `Name: ${response.data.name}.`;
 };
 
 const addProfile = (profile) => {
