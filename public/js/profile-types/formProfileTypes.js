@@ -98,7 +98,7 @@ const getProfile = () => {
   fetch(`${window.location.origin}/api/profile-types/${params.get('_id')}`)
     .then((response) => response.json())
     .then((response) => {
-      nameProfile.value = response.name;
+      nameProfile.value = response.data.name;
     })
     .catch((err) => {
       console.log(err);
