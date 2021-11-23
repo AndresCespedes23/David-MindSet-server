@@ -125,7 +125,10 @@ const getApplication = () => {
       'id',
     )}` /* `https://basd-2021-david-mindset-dev.herokuapp.com/api/applications/${params.get('id')}` */,
   )
-    .then((response) => response.json())
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
     .then((response) => {
       if (response.msg) throw new Error(response.msg);
       // si se trata de editar muy rapido no llega a mostrarse en los dropdown

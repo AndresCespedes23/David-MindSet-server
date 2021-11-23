@@ -14,7 +14,7 @@ mongoose.connect(
     } else {
       console.log('database connected');
     }
-  }
+  },
 );
 
 app.use(express.json());
@@ -24,6 +24,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use('/api', routes);
+
+app.use((req, res) =>
+  res.json({
+    msg: `${req.url}/ : Error 400 Bad request`,
+  }),
+);
 
 app.listen(/* process.env.PORT */ PORT, () => {
   console.log(`Open your browser in http://localhost:${PORT}`);

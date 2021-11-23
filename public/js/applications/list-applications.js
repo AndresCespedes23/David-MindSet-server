@@ -7,8 +7,6 @@ const modalDeleteContent = document.getElementById('modal-delete-content');
 const modalDeleteConfirm = document.getElementById('modal-delete-confirm');
 const tableContent = document.getElementById('table-content');
 const modalData = document.getElementById('modal-data');
-const modalDataTitle = document.getElementById('modal-data-title');
-modalDataTitle.textContent = 'Error';
 const modalDataContent = document.getElementById('modal-data-content');
 const modalDataConfirm = document.getElementById('modal-data-confirm');
 
@@ -85,7 +83,7 @@ const createEditButton = (application) => {
 
 const getApplications = () => {
   fetch(
-    `http://localhost:8000/api/applications` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/applications' */,
+    `http://localhost:8000/api/appslications` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/applications' */,
   )
     .then((response) => response.json())
     .then((response) => {
