@@ -19,7 +19,6 @@ const openOkModal = (response) => {
   const modalOkData = document.getElementById('modal-ok-data');
   modalOkData.textContent = `Name: ${response.name}.`;
 };
-
 const addProfile = (profile) => {
   fetch(`${window.location.origin}/api/profile-types`, {
     method: 'POST',
@@ -95,7 +94,7 @@ const validateFormat = () => {
 
 // Search profiles so that when I edit, it shows me the data of the profiles
 const getProfile = () => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/profile-types/${params.get('_id')}`)
+  fetch(`${window.location.origin}/api/profile-types/${params.get('_id')}`)
     .then((response) => response.json())
     .then((response) => {
       nameProfile.value = response.name;
