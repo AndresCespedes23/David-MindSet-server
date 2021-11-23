@@ -3,7 +3,7 @@ const OpenPosition = require('../models/OpenPosition');
 const notFoundTxt = 'Open Position not found by';
 
 const getAll = (req, res) => {
-  OpenPosition.find().populate()
+  OpenPosition.find().populate('idCompany', 'name')
     .then((data) => res.json({ data }))
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
