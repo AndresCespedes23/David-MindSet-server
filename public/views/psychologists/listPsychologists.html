@@ -5,18 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- pay atention -->
-    <title>Companies List</title>
+    <title>Psychologists List</title>
     <link rel="stylesheet" type="text/css" href="../../styles/reset.css" />
     <link rel="stylesheet" type="text/css" href="../../styles/styles.css" />
     <link rel="stylesheet" type="text/css" href="../../styles/list.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+    />
   </head>
   <body>
     <header>
       <div class="header-top">
         <div class="welcome">
           <!-- pay atention -->
-          <a href="../../index.html" class="header-button welcome-top">Welcome User</a>
+          <a href="../../index.html" class="header-button welcome-top"
+            >Welcome User</a
+          >
         </div>
         <a href="../../index.html" class="header-button">LOG OUT</a>
       </div>
@@ -26,22 +31,26 @@
     </header>
     <div class="container-main">
       <section class="main">
-        <h1>Companies List</h1>
+        <h1>Psychologists List</h1>
         <div class="list">
           <table id="table-session">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Address</th>
+                <th>First Name</th>
+                <th>Last Name</th>
                 <th>Email</th>
+                <th>Password</th>
+                <th>Picture URL</th>
+                <th>Turns</th>
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody id="table-content"></tbody>
+            <tbody id="table-content">
+            </tbody>
           </table>
-          <span id="empty-table-msg" class="hide">No Companies found</span>
+          <span id="empty-table-msg" class="hide">No psychologists found</span>
           <!-- pay atention -->
-          <a href="formCompanies.html" class="button-add">
+          <a href="formPsychologists.html" class="button-add">
             <span id="button-green">Add</span>
           </a>
         </div>
@@ -73,6 +82,6 @@
         </div>
       </div>
     </div>
-    <script src="../../js/companies/listCompanies.js"></script>
+    <script src="../../js/psychologists/listPsychologists.js"></script>
   </body>
 </html>

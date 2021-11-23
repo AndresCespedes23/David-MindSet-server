@@ -1,193 +1,194 @@
 /*this is for the "Welcome User" in the top of the page*/
 .welcome {
-    display: flex;
-    align-self: center;
-  }
-  
-  .welcome a {
-    padding: 10px 10px 10px 10px;
-    border: hidden;
-    border-radius: 30px;
-    background-color: rgb(255, 255, 255);
-    font-size: 25px;
-    font-style: italic;
-    font-weight: bold;
-  }
-  
-  .welcome a:hover {
-    background-color: rgb(231, 231, 231);
-  }
-  
-  /*main*/
-  .container-main {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  /*this is for the menu on the left of the page*/
-  .side-menu {
-    order: 1;
-    margin: 30px;
-    padding: 30px;
-    width: 25%;
-    border: 2px rgb(191, 191, 191) solid;
-    border-radius: 30px;
-  }
-  
-  .side-menu li {
-    padding: 10px;
-  }
-  
-  /*this is for the name of the resource*/
-  .main {
-    display: flex;
-    flex-direction: column;
-    order: 2;
-    margin: 30px 0px 0px 30px;
-    width: 75%;
-  }
-  
-  .main h1 {
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 2px rgb(191, 191, 191) solid;
-    font-size: 30px;
-  }
-  
-  /*this is for the data list*/
-  .list th {
-    background-color: rgba(129, 129, 129);
-    color: rgb(255, 255, 255);
-    text-align: center;
-  }
-  
-  .list tr:nth-of-type(odd) {
-    background-color: rgba(4, 0, 255, 0.349);
-  }
-  
-  .list tr:nth-of-type(even) {
-    background-color: rgba(231, 231, 231, 0.349);
-  }
-  
-  .list tr:hover {
-    background-color: rgb(163, 163, 163);
-  }
-  
-  .list table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .list td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
-  
-  .action {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .action a:nth-of-type(3) {
-    background-color: rgb(248, 83, 83);
-    color: rgb(20, 20, 20);
-  }
-  
-  #button-green {
-    padding: 16px 40px;
-    margin: 15px 2px;
-    border: rgb(21, 139, 10);
-    border-radius: 30px;
-    background-color: rgb(21, 139, 10);
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-    font-size: 15px;
-    cursor: pointer;
-  }
-  
-  #button-green:hover {
-    background-color: rgb(88, 88, 88);
-  }
-  
-  .button-add {
-    display: flex;
-    text-decoration: none;
-  }
-  
-  /*      MODAL   */
-  .modal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.212);
-  }
-  
-  .close-modal {
-    display: flex;
-    justify-content: flex-end;
-    margin: 5px;
-  }
-  
-  .modal-hide {
-    display: none;
-  }
-  
-  .modal-message {
-    background-color: #ffffff;
-    margin: 30% auto;
-    padding: 1.5em;
-    border: 0.2em solid #090a0a;
-    width: 80%;
-    color: #090a0a;
-    line-height: 25px;
-    text-align: center;
-  }
-  
-  .modal-message h2 {
-    margin-bottom: 10px;
-    font-style: italic;
-  }
-  
-  .modal-message p {
-    margin-bottom: 10px;
-    font-size: 12px;
-  }
-  
-  .button-modal {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .button-modal button {
-    padding: 16px 20px;
-    margin: 15px 2px;
-    border-radius: 30px;
-    font-size: 15px;
-    cursor: pointer;
-  }
-  
-  .modal-ok {
-    background-color: rgb(104, 255, 162);
-    border: rgb(88, 88, 88);
-  }
-  
-  .modal-cancel {
-    background-color: rgb(255, 104, 104);
-    border: rgb(88, 88, 88);
-  }
-  
-  .button-modal button:hover {
-    background-color: rgb(88, 88, 88);
-  }
+  display: flex;
+  align-self: center;
+}
 
-  .hide {
-    display: none;
-  }
+.welcome a {
+  padding: 10px 10px 10px 10px;
+  border: hidden;
+  border-radius: 30px;
+  background-color: rgb(255, 255, 255);
+  font-size: 25px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.welcome a:hover {
+  background-color: rgb(231, 231, 231);
+}
+
+/*main*/
+.container-main {
+  display: flex;
+  flex-direction: row;
+}
+
+/*this is for the menu on the left of the page*/
+.side-menu {
+  order: 1;
+  margin: 30px;
+  padding: 30px;
+  width: 25%;
+  border: 2px rgb(191, 191, 191) solid;
+  border-radius: 30px;
+}
+
+.side-menu li {
+  padding: 10px;
+}
+
+/*this is for the name of the resource*/
+.main {
+  display: flex;
+  flex-direction: column;
+  order: 2;
+  margin: 30px 0px 0px 30px;
+  width: 75%;
+}
+
+.main h1 {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px rgb(191, 191, 191) solid;
+  font-size: 30px;
+}
+
+/*this is for the data list*/
+.list th {
+  background-color: rgba(129, 129, 129);
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+.list tr:nth-of-type(odd) {
+  background-color: rgba(4, 0, 255, 0.349);
+}
+
+.list tr:nth-of-type(even) {
+  background-color: rgba(231, 231, 231, 0.349);
+}
+
+.list tr:hover {
+  background-color: rgb(163, 163, 163);
+}
+
+.list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.list td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.action {
+  display: flex;
+  justify-content: center;
+}
+
+.action a:nth-of-type(3) {
+  background-color: rgb(248, 83, 83);
+  color: rgb(20, 20, 20);
+}
+
+#button-green {
+  padding: 16px 40px;
+  margin: 15px 2px;
+  border: rgb(21, 139, 10);
+  border-radius: 30px;
+  background-color: rgb(21, 139, 10);
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+#button-green:hover {
+  background-color: rgb(88, 88, 88);
+}
+
+.button-add {
+  display: flex;
+  text-decoration: none;
+}
+
+/*      MODAL   */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.212);
+}
+
+.close-modal {
+  display: flex;
+  justify-content: flex-end;
+  margin: 5px;
+}
+
+.modal-hide {
+  display: none;
+}
+
+.modal-message {
+  background-color: #ffffff;
+  margin: 30% auto;
+  padding: 1.5em;
+  border: 0.2em solid #090a0a;
+  width: 80%;
+  color: #090a0a;
+  line-height: 25px;
+  text-align: center;
+}
+
+.modal-message h2 {
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.modal-message p {
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+.button-modal {
+  display: flex;
+  justify-content: center;
+}
+
+.button-modal button {
+  padding: 16px 20px;
+  margin: 15px 2px;
+  border-radius: 30px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.modal-ok {
+  background-color: rgb(104, 255, 162);
+  border: rgb(88, 88, 88);
+}
+
+.modal-cancel {
+  background-color: rgb(255, 104, 104);
+  border: rgb(88, 88, 88);
+}
+
+.button-modal button:hover {
+  background-color: rgb(88, 88, 88);
+}
+
+.hide {
+  display: none;
+}
