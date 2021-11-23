@@ -83,7 +83,7 @@ const createEditButton = (application) => {
 };
 
 const getApplications = () => {
-  fetch(/* `${origin}/api/applications` */ 'http://localhost:8000/api/applications')
+  fetch(`${origin}/api/applications`)
     .then((response) => response.json())
     .then((response) => {
       if (response.msg) throw new Error(response.msg);
