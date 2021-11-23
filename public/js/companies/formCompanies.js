@@ -33,13 +33,13 @@ modalOkConfirm.addEventListener('click', () => {
 const openOkModal = (response) => {
   modalOk.classList.remove('hide');
   const modalOkTitle = document.getElementById('modal-ok-title');
-  modalOkTitle.textContent = response.message;
+  modalOkTitle.textContent = response.msg;
   const modalOkData = document.getElementById('modal-ok-data');
   modalOkData.textContent = `Name: ${response.Company.name}. Email: ${response.Company.email}. address: ${response.Company.address}.`;
 };
 
 const addCompany = (companies) => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/companies', {
+  fetch(`${window.location.origin}/api/companies`, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -57,7 +57,7 @@ const addCompany = (companies) => {
 };
 
 const updateCompany = (companies) => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/companies/${params.get('_id')}`, {
+  fetch(`${window.location.origin}/api/companies/${params.get('_id')}`, {
     method: 'PUT',
     mode: 'cors',
     headers: {
@@ -199,7 +199,7 @@ const validateFormat = () => {
 
 // Search psychologist so that when I edit, it shows me the data of the psychologist
 const getCompany = () => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/companies/${params.get('_id')}`)
+  fetch(`${window.location.origin}/api/companies/${params.get('_id')}`)
     .then((response) => response.json())
     .then((response) => {
       fullName.value = response.name || '';
