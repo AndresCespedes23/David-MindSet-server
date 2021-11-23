@@ -7,7 +7,7 @@ const saveButton = document.getElementById('button-green');
 let errorList = [];
 
 const getOpenPosition = () => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/open-positions/${params.get('_id')}`)
+  fetch(`${window.location.origin}/api/open-positions/${params.get('_id')}`)
     .then((response) => response.json())
     .then((response) => {
       companyField.value = response.data.idCompany;
@@ -22,7 +22,7 @@ const getOpenPosition = () => {
 
 const addOpenPosition = (data) => {
   fetch(
-    'https://basd-2021-david-mindset-dev.herokuapp.com/api/open-positions/',
+    `${window.location.origin}/api/open-positions/`,
     {
       method: 'POST',
       mode: 'cors',
@@ -40,7 +40,7 @@ const addOpenPosition = (data) => {
 
 const updateOpenPosition = (data) => {
   fetch(
-    `https://basd-2021-david-mindset-dev.herokuapp.com/api/open-positions/${params.get('_id')}`,
+    `${window.location.origin}/api/open-positions/${params.get('_id')}`,
     {
       method: 'PUT',
       mode: 'cors',
@@ -66,8 +66,10 @@ const saveOpenPosition = () => {
   if (params.get('_id')) {
     console.log(data)
     updateOpenPosition(data);
+    window.location.href = `${window.location.origin}/api/views/open-positions/listOpenPositions.html`;
   } else {
     addOpenPosition(data);
+    window.location.href = `${window.location.origin}/api/views/open-positions/listOpenPositions.html`;
   }
 };
 

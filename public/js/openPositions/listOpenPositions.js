@@ -15,7 +15,7 @@ cancelButton.addEventListener('click', () => {
 });
 
 const getOpenPositions = () => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/open-positions/')
+  fetch(`${window.location.origin}/api/open-positions/`)
     .then((response) => response.json())
     .then((response) => {
       if (response.length === 0) {
@@ -37,9 +37,9 @@ const getOpenPositions = () => {
             tdDescription.innerText = data.jobDescription;
             const deleteBtn = createDeleteButton(data);
             const updateBtn = createUpdateButton(data);
+            tr.append(tdCompany, tdStartDate, tdEndDate, tdDescription, updateBtn, deleteBtn);
+            tableContent.append(tr);
           };
-          tr.append(tdCompany, tdStartDate, tdEndDate, tdDescription, updateBtn, deleteBtn);
-          tableContent.append(tr);
         });
       }
     })
@@ -50,7 +50,7 @@ const getOpenPositions = () => {
 
 const deletePosition = (positionID) => {
   fetch(
-    `https://basd-2021-david-mindset-dev.herokuapp.com/api/open-positions/${positionID}`,
+    `${window.location.origin}/api/open-positions/${positionID}`,
     {
       method: 'DELETE',
     },
