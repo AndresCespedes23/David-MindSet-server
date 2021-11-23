@@ -25,17 +25,19 @@ const getOpenPositions = () => {
       } else {
         console.log(response);
         response.data.forEach((data) => {
-          const tr = document.createElement('tr');
-          const tdCompany = document.createElement('td');
-          const tdStartDate = document.createElement('td');
-          const tdEndDate = document.createElement('td');
-          const tdDescription = document.createElement('td');
-          tdCompany.innerText = data.idCompany.name;
-          tdStartDate.innerText = data.startDate.split('T')[0];;
-          tdEndDate.innerText = data.endDate.split('T')[0];;
-          tdDescription.innerText = data.jobDescription;
-          const deleteBtn = createDeleteButton(data);
-          const updateBtn = createUpdateButton(data);
+          if (data.idCompany) {
+            const tr = document.createElement('tr');
+            const tdCompany = document.createElement('td');
+            const tdStartDate = document.createElement('td');
+            const tdEndDate = document.createElement('td');
+            const tdDescription = document.createElement('td');
+            tdCompany.innerText = data.idCompany.name;
+            tdStartDate.innerText = data.startDate.split('T')[0];;
+            tdEndDate.innerText = data.endDate.split('T')[0];;
+            tdDescription.innerText = data.jobDescription;
+            const deleteBtn = createDeleteButton(data);
+            const updateBtn = createUpdateButton(data);
+          };
           tr.append(tdCompany, tdStartDate, tdEndDate, tdDescription, updateBtn, deleteBtn);
           tableContent.append(tr);
         });
