@@ -19,7 +19,7 @@ cancelButton.addEventListener('click', () => {
 });
 
 const deletePsychologist = (psychologistId) => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/psychologists/${psychologistId}`, {
+  fetch(`${window.location.origin}/api/psychologists/${psychologistId}`, {
     method: 'DELETE',
   })
     .then((response) => response.json())
@@ -75,7 +75,7 @@ const createUpdateButton = (psychologist) => {
 
 // Function that obtains the psychologists and then fill the table
 const getPsychologists = () => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/psychologists')
+  fetch(`${window.location.origin}/api/psychologists`)
     .then((response) => response.json())
     .then((response) => {
       if (response.length === 0) {

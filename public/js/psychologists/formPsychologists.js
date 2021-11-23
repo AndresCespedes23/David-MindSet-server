@@ -30,7 +30,7 @@ const openOkModal = (response) => {
 };
 
 const addPsychologist = (psychologists) => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/psychologists', {
+  fetch(`${window.location.origin}/api/psychologists`, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -48,7 +48,7 @@ const addPsychologist = (psychologists) => {
 };
 
 const updatePsychologist = (psychologists) => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/psychologists/${params.get('_id')}`, {
+  fetch(`${window.location.origin}/api/psychologists/${params.get('_id')}`, {
     method: 'PUT',
     mode: 'cors',
     headers: {
@@ -131,7 +131,7 @@ const validateFormat = () => {
 
 // Search psychologist so that when I edit, it shows me the data of the psychologist
 const getPsychologist = () => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/psychologists/${params.get('_id')}`)
+  fetch(`${window.location.origin}/api/psychologists/${params.get('_id')}`)
     .then((response) => response.json())
     .then((response) => {
       firstName.value = response.psychologist.firstName;
