@@ -4,6 +4,8 @@ const notFoundTxt = 'Session not found with ID:';
 
 const getAll = (req, res) => {
   Sessions.find()
+    .populate('idPsychologists', 'firstName lastName')
+    .populate('idCandidate', 'firstName lastName')
     .then((data) => res.json({ data }))
     .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 };
@@ -11,6 +13,8 @@ const getAll = (req, res) => {
 const getById = (req, res) => {
   const { id } = req.params;
   Sessions.findById(id)
+    .populate('idPsychologists', 'firstName lastName')
+    .populate('idCandidate', 'firstName lastName')
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}` });
       return res.json({ data });
@@ -46,6 +50,8 @@ const add = (req, res) => {
 const edit = (req, res) => {
   const { id } = req.params;
   Sessions.findByIdAndUpdate(id, req.body, { new: true })
+    .populate('idPsychologists', 'firstName lastName')
+    .populate('idCandidate', 'firstName lastName')
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}` });
       return res.json({ msg: 'Session updated', data });
@@ -56,6 +62,8 @@ const edit = (req, res) => {
 const remove = (req, res) => {
   const { id } = req.params;
   Sessions.findByIdAndDelete(id)
+    .populate('idPsychologists', 'firstName lastName')
+    .populate('idCandidate', 'firstName lastName')
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}` });
       return res.json({ msg: 'Session removed', data });

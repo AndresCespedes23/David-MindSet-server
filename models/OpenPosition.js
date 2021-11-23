@@ -6,7 +6,7 @@ const OpenPositionstSchema = new Schema({
   id: Schema.Types.ObjectId,
   idCompany: {
     type: Schema.Types.ObjectId,
-    ref: 'Company',
+    ref: 'Companies',
     required: true,
   },
   startDate: {

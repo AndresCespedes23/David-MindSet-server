@@ -1,5 +1,5 @@
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-use-before-define */
+/* eslint-disable no-underscore-dangle */
 const deleteButtons = document.querySelectorAll('.delete-button');
 const cancelButton = document.getElementById('cancel-button');
 const modal = document.getElementById('modal');
@@ -18,8 +18,8 @@ cancelButton.addEventListener('click', () => {
   modal.classList.toggle('hide');
 });
 
-const deleteCompany = (companyId) => {
-  fetch(`${window.location.origin}/api/companies/${companyId}`, {
+const deletePsychologist = (psychologistId) => {
+  fetch(`${window.location.origin}/api/psychologists/${psychologistId}`, {
     method: 'DELETE',
   })
     .then((response) => response.json())
@@ -28,21 +28,21 @@ const deleteCompany = (companyId) => {
       while (tableContent.hasChildNodes()) {
         tableContent.removeChild(tableContent.firstChild);
       }
-      getCompanies();
+      getPsychologists();
     })
     .catch((error) => console.log(error));
 };
 
 // Modal to confirm remove
-const openDeleteModal = (companies) => {
+const openDeleteModal = (psychologists) => {
   const dataModal = document.getElementById('data-modal');
-  dataModal.textContent = `Name: ${companies.name}, Email: ${companies.email}, Address: ${companies.address}`;
+  dataModal.textContent = `First Name: ${psychologists.firstName}, Last Name: ${psychologists.lastName}, Email: ${psychologists.email}, Password: ${psychologists.password}, Picture: ${psychologists.pictureUrl}, Turns: ${psychologists.turns}`;
   modal.classList.remove('hide');
-  confirmDeleteButton.onclick = () => deleteCompany(companies._id);
+  confirmDeleteButton.onclick = () => deletePsychologist(psychologists._id);
 };
 
 // Function that creates the remove button of each table row
-const createDeleteButton = (companies) => {
+const createDeleteButton = (psychologists) => {
   const buttonDelete = document.createElement('button');
   buttonDelete.setAttribute('class', 'delete-button');
   const deleteLogo = document.createElement('span');
@@ -50,53 +50,62 @@ const createDeleteButton = (companies) => {
   deleteLogo.textContent = 'clear';
   buttonDelete.innerHTML = deleteLogo.outerHTML;
   buttonDelete.addEventListener('click', () => {
-    openDeleteModal(companies);
+    openDeleteModal(psychologists);
   });
   return buttonDelete;
 };
 
 // Function to go into the edit form
-const openUpdatePsychologist = (companies) => {
-  window.location.href = `${window.location.origin}/api/views/companies/formCompanies.html?_id=${companies._id}`;
+const openUpdatePsychologist = (psychologist) => {
+  window.location.href = `${window.location.origin}/api/views/psychologists/formPsychologists.html?_id=${psychologist._id}`;
 };
 
 // Function that creates the edit button of each table row
-const createUpdateButton = (companies) => {
+const createUpdateButton = (psychologist) => {
   const buttonUpdate = document.createElement('button');
   const updateLogo = document.createElement('span');
   updateLogo.classList.add('material-icons-outlined');
   updateLogo.textContent = 'edit';
   buttonUpdate.innerHTML = updateLogo.outerHTML;
   buttonUpdate.addEventListener('click', () => {
-    openUpdatePsychologist(companies);
+    openUpdatePsychologist(psychologist);
   });
   return buttonUpdate;
 };
 
 // Function that obtains the psychologists and then fill the table
-const getCompanies = () => {
-  fetch(`${window.location.origin}/api/companies`)
+const getPsychologists = () => {
+  fetch(`${window.location.origin}/api/psychologists`)
     .then((response) => response.json())
     .then((response) => {
       if (response.length === 0) {
-        const noCompanies = document.createElement('h2');
-        noCompanies.innerText = 'No psychologists found';
-        tableContent.appendChild(noCompanies);
+        const noPsychologists = document.createElement('h2');
+        noPsychologists.innerText = 'No psychologists found';
+        tableContent.appendChild(noPsychologists);
       } else {
-        response.data.forEach((company) => {
+        response.psychologists.forEach((psychologist) => {
           const tr = document.createElement('tr');
-          const tdName = document.createElement('td');
+          const tdFirstName = document.createElement('td');
+          const tdLastName = document.createElement('td');
           const tdEmail = document.createElement('td');
-          const tdAddress = document.createElement('td');
-          const deleteButton = createDeleteButton(company);
-          const updateButton = createUpdateButton(company);
-          tdName.innerText = company.name;
-          tdEmail.innerText = company.email;
-          tdAddress.innerText = company.address;
+          const tdPassword = document.createElement('td');
+          const tdPictureUrl = document.createElement('td');
+          const tdTurns = document.createElement('td');
+          const deleteButton = createDeleteButton(psychologist);
+          const updateButton = createUpdateButton(psychologist);
+          tdFirstName.innerText = psychologist.firstName;
+          tdLastName.innerText = psychologist.lastName;
+          tdEmail.innerText = psychologist.email;
+          tdPassword.innerText = psychologist.password;
+          tdPictureUrl.innerText = psychologist.tdPictureUrl;
+          tdTurns.innerText = psychologist.turns;
           tr.append(
-            tdName,
+            tdFirstName,
+            tdLastName,
             tdEmail,
-            tdAddress,
+            tdPassword,
+            tdPictureUrl,
+            tdTurns,
             deleteButton,
             updateButton,
           );
@@ -108,5 +117,5 @@ const getCompanies = () => {
 };
 
 window.onload = () => {
-  getCompanies();
+  getPsychologists();
 };

@@ -16,7 +16,7 @@
       <div class="header-top">
         <div class="welcome">
           <!-- pay atention -->
-          <a href="../../index.html" class="header-button welcome-top">Welcome User</a>
+          <a href="#" class="header-button welcome-top">Welcome User</a>
         </div>
         <a href="../../index.html" class="header-button">LOG OUT</a>
       </div>
@@ -26,22 +26,22 @@
     </header>
     <div class="container-main">
       <section class="main">
-        <h1>Companies List</h1>
+        <!-- pay atention -->
+        <h1>Interviews List</h1>
         <div class="list">
-          <table id="table-session">
+          <table id="table-session" class="hide">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Email</th>
-                <th>Actions</th>
+                <th>Company</th>
+                <th>Candidate</th>
+                <th>Date</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody id="table-content"></tbody>
           </table>
-          <span id="empty-table-msg" class="hide">No Companies found</span>
           <!-- pay atention -->
-          <a href="formCompanies.html" class="button-add">
+          <a href="formInterviews.html" class="button-add">
             <span id="button-green">Add</span>
           </a>
         </div>
@@ -73,6 +73,6 @@
         </div>
       </div>
     </div>
-    <script src="../../js/companies/listCompanies.js"></script>
+    <script src="../../js/interviews/listInterviews.js"></script>
   </body>
 </html>
