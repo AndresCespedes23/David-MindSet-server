@@ -1,4 +1,4 @@
-const companyField = document.getElementById('companyName');
+const companiesSelect = document.getElementById('companyName');
 const startDateField = document.getElementById('startDate');
 const endDateField = document.getElementById('endDate');
 const descriptionField = document.getElementById('description');
@@ -10,14 +10,29 @@ const getOpenPosition = () => {
   fetch(`${window.location.origin}/api/open-positions/${params.get('_id')}`)
     .then((response) => response.json())
     .then((response) => {
-      companyField.value = response.data.idCompany;
-      startDateField.value = response.data.startDate;
-      endDateField.value = response.data.endDate;
+      companyField.value = response.data.idCompany.name;
+      startDateField.value = response.data.startDate.split('T')[0];
+      endDateField.value = response.data.endDate.split('T')[0];
       descriptionField.value = response.data.jobDescription;
     })
     .catch((err) => {
       console.log(err);
     });
+};
+
+const getCompanies = () => {
+  fetch(`${origin}/api/companies`)
+    .then((response) => response.json())
+    .then((response) => {
+      if (response.msg) throw new Error(response.msg);
+      response.companies.forEach((companies) => {
+        const option = document.createElement('option');
+        option.innerText = `${companies.name}`;
+        option.value = companies._id;
+        companiesSelect.append(option);
+      });
+    })
+    .catch((err) => console.log(err));
 };
 
 const addOpenPosition = (data) => {
@@ -58,7 +73,7 @@ const updateOpenPosition = (data) => {
 
 const saveOpenPosition = () => {
   const data = {
-    idCompany: companyField.value,
+    idCompany: companyField.popoulate(),
     startDate: startDateField.value,
     endDate: endDateField.value,
     jobDescription: descriptionField.value,
@@ -86,6 +101,7 @@ const isNotEmpty = () => {
 };
 
 window.onload = () => {
+  getCompanies();
   if (params.get('_id')) {
     getOpenPosition();
   }

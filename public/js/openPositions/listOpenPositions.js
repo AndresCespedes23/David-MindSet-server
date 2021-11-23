@@ -32,8 +32,8 @@ const getOpenPositions = () => {
             const tdEndDate = document.createElement('td');
             const tdDescription = document.createElement('td');
             tdCompany.innerText = data.idCompany.name;
-            tdStartDate.innerText = data.startDate.split('T')[0];;
-            tdEndDate.innerText = data.endDate.split('T')[0];;
+            tdStartDate.innerText = data.startDate.split('T')[0];
+            tdEndDate.innerText = data.endDate.split('T')[0];
             tdDescription.innerText = data.jobDescription;
             const deleteBtn = createDeleteButton(data);
             const updateBtn = createUpdateButton(data);
