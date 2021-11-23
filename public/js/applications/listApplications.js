@@ -96,7 +96,7 @@ const getApplications = () => {
       } else {
         tableApplication.classList.remove('modal-hide');
         response.applications.forEach((application) => {
-          /* REMOVING CANDIDATES OR OPEN POSITIONS ALONG WITH THEIR ASSIGNED APPLICATIONS
+          /* REMOVING CANDIDATES OR OPEN POSITIONS *ALONG* WITH THEIR ASSIGNED APPLICATIONS
           IS NOT IMPLEMENTED YET. */
           if (application.idCandidate && application.idOpenPosition) {
             const tr = document.createElement('tr');
