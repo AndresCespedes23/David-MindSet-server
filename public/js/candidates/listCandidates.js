@@ -66,7 +66,7 @@ const createSearchButton = (candidates) => {
 };
 
 const openUpdateCandidate = (candidates) => {
-  window.location.href = `${window.location.origin}/mindset-2021/public/views/candidates/formCandidates.html?_id=${candidates._id}`;
+  window.location.href = `${window.location.origin}/api/views/candidates/formCandidates.html?_id=${candidates._id}`;
 };
 
 const createUpdateButton = (candidate) => {

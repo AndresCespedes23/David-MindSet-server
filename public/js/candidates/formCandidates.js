@@ -24,11 +24,11 @@ const saveButton = document.getElementById('button-green');
 const modalOk = document.getElementById('modal-ok');
 const modalOkConfirm = document.getElementById('modal-ok-confirm');
 const params = new URLSearchParams(window.location.search);
-const errorList = [];
+let errorList = [];
 
 modalOkConfirm.addEventListener('click', () => {
   modalOk.classList.toggle('hide');
-  window.location.href = `${window.location.origin}/mindset-2021/public/views/candidates/listCandidates.html`;
+  window.location.href = `${window.location.origin}/views/candidates/listCandidates.html`;
 });
 const openOkModal = (response) => {
   modalOk.classList.remove('hide');
@@ -267,6 +267,7 @@ window.onload = () => {
   }
 };
 saveButton.addEventListener('click', () => {
+  errorList = 0;
   validateLength();
   validateEmailFormat();
   isNotEmpty();
