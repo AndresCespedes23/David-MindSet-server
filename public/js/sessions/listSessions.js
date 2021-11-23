@@ -21,7 +21,7 @@ addButton.addEventListener('click', () => {
 
 const deleteSession = (sessionID) => {
   fetch(
-    `https://basd-2021-david-mindset-dev.herokuapp.com/api/sessions/${sessionID}`,
+    `${window.location.origin}/api/sessions/${sessionID}`,
     {
       method: 'DELETE',
     },
@@ -79,7 +79,7 @@ const createUpdateButton = (session) => {
 };
 
 const getSessions = () => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/sessions')
+  fetch(`${window.location.origin}/api/sessions`)
     .then((response) => response.json())
     .then((response) => {
       const tableSession = document.getElementById('table-session');

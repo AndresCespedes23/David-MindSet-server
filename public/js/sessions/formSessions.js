@@ -26,7 +26,7 @@ dateInput.addEventListener('focus', () => {
 });
 
 const getPsychologists = () => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/psychologists')
+  fetch(`${window.location.origin}/api/psychologists`)
     .then((response) => response.json())
     .then((response) => {
       response.psychologists.forEach((psychologist) => {
@@ -39,7 +39,7 @@ const getPsychologists = () => {
 };
 
 const getCandidates = () => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates')
+  fetch(`${window.location.origin}/api/candidates`)
     .then((response) => response.json())
     .then((response) => {
       response.candidates.forEach((candidate) => {
@@ -65,7 +65,7 @@ const openOkModal = (response, mode) => {
 
 const addSession = (data) => {
   fetch(
-    'https://basd-2021-david-mindset-dev.herokuapp.com/api/sessions',
+    `${window.location.origin}/api/sessions`,
     {
       method: 'POST',
       mode: 'cors',
@@ -86,7 +86,7 @@ const addSession = (data) => {
 
 const updateSession = (data) => {
   fetch(
-    `https://basd-2021-david-mindset-dev.herokuapp.com/api/sessions/${params.get('_id')}`,
+    `${window.location.origin}/api/sessions/${params.get('_id')}`,
     {
       method: 'PUT',
       mode: 'cors',
@@ -136,7 +136,7 @@ const isNotEmpty = () => {
 };
 
 const getSession = () => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/sessions/${params.get('_id')}`)
+  fetch(`${window.location.origin}/api/sessions/${params.get('_id')}`)
     .then((response) => response.json())
     .then((response) => {
       psychologistSelect.value = response.data.idPsychologists._id;
