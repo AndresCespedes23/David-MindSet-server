@@ -19,7 +19,7 @@ cancelButton.addEventListener('click', () => {
 });
 
 const deleteCompany = (companyId) => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/companies/${companyId}`, {
+  fetch(`${window.location.origin}/api/companies/${companyId}`, {
     method: 'DELETE',
   })
     .then((response) => response.json())
@@ -75,7 +75,7 @@ const createUpdateButton = (companies) => {
 
 // Function that obtains the psychologists and then fill the table
 const getCompanies = () => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/companies')
+  fetch(`${window.location.origin}/api/companies`)
     .then((response) => response.json())
     .then((response) => {
       if (response.length === 0) {
