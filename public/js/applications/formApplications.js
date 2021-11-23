@@ -14,7 +14,7 @@ const { origin } = window.location;
 
 modalOkConfirm.addEventListener('click', () => {
   modalData.classList.toggle('modal-hide'); // 2) 0 -> 1 (oculta)
-  window.location.href = `${origin}/api/views/applications/list-applications.html`; // redirects to list
+  window.location.href = `${origin}/api/views/applications/listApplications.html`; // redirects to list
 });
 
 const errorHandler = (response) => {

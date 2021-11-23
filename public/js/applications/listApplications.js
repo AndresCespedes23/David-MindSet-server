@@ -77,16 +77,17 @@ const createEditButton = (application) => {
   updateLogo.textContent = 'edit'; // selects the appropiate icon through text
   buttonUpdate.innerHTML = updateLogo.outerHTML;
   buttonUpdate.addEventListener('click', () => {
-    window.location.href = `${origin}/api/views/applications/form-applications.html?id=${application._id}`;
+    window.location.href = `${origin}/api/views/applications/formApplications.html?id=${application._id}`;
   });
   return buttonUpdate;
 };
 
 const getApplications = () => {
-  fetch(`${origin}/api/applications`)
+  fetch(/* `${origin}/api/applications` */ 'http://localhost:8000/api/applications')
     .then((response) => response.json())
     .then((response) => {
       if (response.msg) throw new Error(response.msg);
+      console.log(response);
       const tableApplication = document.getElementById('table-application');
       if (response.applications.length === 0) {
         tableApplication.classList.add('modal-hide');
@@ -95,23 +96,27 @@ const getApplications = () => {
       } else {
         tableApplication.classList.remove('modal-hide');
         response.applications.forEach((application) => {
-          const tr = document.createElement('tr');
-          const openPosition = document.createElement('td');
-          openPosition.innerText = application.idOpenPosition._id;
-          openPosition.title = application.idOpenPosition.jobDescription;
-          const candidate = document.createElement('td');
-          candidate.innerText = application.idCandidate._id;
-          candidate.title = `${application.idCandidate.firstName} ${application.idCandidate.lastName}`;
-          const isActiveTableElement = document.createElement('td');
-          const isActive = document.createElement('input');
-          isActive.type = 'checkbox';
-          isActive.checked = application.isActive;
-          isActive.disabled = 'disabled';
-          isActiveTableElement.appendChild(isActive);
-          const deleteIcon = createDeleteButton(application);
-          const updateIcon = createEditButton(application);
-          tr.append(candidate, openPosition, isActiveTableElement, deleteIcon, updateIcon);
-          tableContent.append(tr);
+          /* REMOVING CANDIDATES OR OPEN POSITIONS WITH THEIR ASSIGNED APPLICATIONS
+          IS NOT IMPLEMENTED YET. */
+          if (application.idCandidate && application.idOpenPosition) {
+            const tr = document.createElement('tr');
+            const openPosition = document.createElement('td');
+            openPosition.innerText = application.idOpenPosition._id;
+            openPosition.title = application.idOpenPosition.jobDescription;
+            const candidate = document.createElement('td');
+            candidate.innerText = application.idCandidate._id;
+            candidate.title = `${application.idCandidate.firstName} ${application.idCandidate.lastName}`;
+            const isActiveTableElement = document.createElement('td');
+            const isActive = document.createElement('input');
+            isActive.type = 'checkbox';
+            isActive.checked = application.isActive;
+            isActive.disabled = 'disabled';
+            isActiveTableElement.appendChild(isActive);
+            const deleteIcon = createDeleteButton(application);
+            const updateIcon = createEditButton(application);
+            tr.append(candidate, openPosition, isActiveTableElement, deleteIcon, updateIcon);
+            tableContent.append(tr);
+          }
         });
       }
     })
