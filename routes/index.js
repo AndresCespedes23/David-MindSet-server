@@ -11,8 +11,9 @@ const openPositions = require('./open-position');
 const sessions = require('./sessions');
 
 const router = express.Router();
+router.use(express.static('public'));
 
-router.get('/', (req, res) => {
+router.get('/api', (req, res) => {
   res.sendFile('index.html', { root: path.join(__dirname, '../public') });
 });
 
