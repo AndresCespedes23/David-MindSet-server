@@ -7,6 +7,7 @@ const candidateProvince = document.getElementById('province');
 const candidateCountry = document.getElementById('country');
 const candidatePostalCode = document.getElementById('postal');
 const candidateAddress = document.getElementById('address');
+const candidateAddressNumber = document.getElementById('address-number');
 const candidateBirthday = document.getElementById('birthday');
 const candidatePassword = document.getElementById('password');
 const candidatePasswordError = document.getElementById('password-error');
@@ -34,11 +35,11 @@ const openOkModal = (response) => {
   const modalOkTitle = document.getElementById('modal-ok-title');
   modalOkTitle.textContent = response.msg;
   const modalOkData = document.getElementById('modal-ok-data');
-  modalOkData.textContent = `First name: ${response.newCandidate.firstName}. Last name: ${response.newCandidate.lastName}. Email: ${response.newCandidate.email}. Country: ${response.newCandidate.country}. Province: ${response.newCandidate.province}. City: ${response.newCandidate.city}. Postal code: ${response.newCandidate.postalCode}. Address: ${response.newCandidate.address}. Birthday: ${response.newCandidate.birthday}. Phone: ${response.newCandidate.phone}. Password: ${response.newCandidate.password}.`;
+  modalOkData.textContent = `First name: ${response.newCandidate.firstName}. Last name: ${response.newCandidate.lastName}. Email: ${response.newCandidate.email}. Country: ${response.newCandidate.country}. Province: ${response.newCandidate.province}. City: ${response.newCandidate.city}. Postal code: ${response.newCandidate.postalCode}. Address: ${response.newCandidate.address.street} ${response.newCandidate.address.number}. Birthday: ${response.newCandidate.birthday.split('T')[0]}. Phone: ${response.newCandidate.phone}. Password: ${response.newCandidate.password}.`;
 };
 
 const getCandidates = () => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates/${params.get('_id')}`)
+  fetch(`${window.location.origin}/api/candidates/${params.get('_id')}`)
     .then((response) => response.json())
     .then((response) => {
       console.log(response);
@@ -50,8 +51,9 @@ const getCandidates = () => {
       candidateCity.value = response.data.city;
       candidateCountry.value = response.data.country;
       candidatePostalCode.value = response.data.postalCode;
-      candidateAddress.value = `${response.data.address.street}  ${response.data.address.number}`;
-      candidateBirthday.value = response.data.birthday;
+      candidateAddress.value = response.data.address.street;
+      candidateAddressNumber.value = response.data.address.number;
+      candidateBirthday.value = response.data.birthday.split('T')[0];
       candidatePhone.value = response.data.phone;
     })
     .catch((err) => {
@@ -61,7 +63,7 @@ const getCandidates = () => {
 
 const addCandidates = (data) => {
   fetch(
-    'https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates',
+    `${window.location.origin}/api/candidates`,
     {
       method: 'POST',
       mode: 'cors',
@@ -82,7 +84,7 @@ const addCandidates = (data) => {
 
 const updateCandidates = (data) => {
   fetch(
-    `https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates/${params.get('_id')}`,
+    `${window.location.origin}/api/candidates/${params.get('_id')}`,
     {
       method: 'PUT',
       mode: 'cors',
@@ -113,6 +115,10 @@ const saveCandidates = () => {
     postalCode: candidatePostalCode.value,
     birthday: candidateBirthday.value,
     phone: parseInt(candidatePhone.value, 10),
+    address: {
+      street: candidateAddress.value,
+      number: candidateAddressNumber.value,
+    },
   };
   if (params.get('_id')) {
     updateCandidates(data);
@@ -155,7 +161,7 @@ const validateLength = () => {
     }
   }
   if (candidatePhone.value !== undefined) {
-    if (!(candidatePhone.value.length >= 8 && candidatePhone.value.length <= 9)) {
+    if (!(candidatePhone.value.length >= 7 && candidatePhone.value.length <= 8)) {
       errorList.push('Phone number  must be between 8 and 9 characters');
       candidatePhone.classList.add('input-error');
       candidatePhoneError.classList.remove('hide');
@@ -191,7 +197,7 @@ const validateLength = () => {
   }
   if (candidatePostalCode.value !== undefined) {
     if (!(candidatePostalCode.value.length >= 1 && candidatePostalCode.value.length <= 5)) {
-      errorList.push('Postal code must be between 5 and 5 characters');
+      errorList.push('Postal code must be between 1 and 5 characters');
       candidatePostalCode.classList.add('input-error');
       candidatePostalCodeError.classList.remove('hide');
       candidatePostalCodeError.textContent = '*Postal code must be between 1 and 5 characters.';
@@ -199,7 +205,7 @@ const validateLength = () => {
   }
   if (candidateBirthday.value !== undefined) {
     if (!(candidateBirthday.value.length >= 10 && candidateBirthday.value.length <= 10)) {
-      errorList.push('Birthday must be between 5 and 5 characters');
+      errorList.push('Birthday must be between 10 characters');
       candidateBirthday.classList.add('input-error');
       candidateBirthdayError.classList.remove('hide');
       candidateBirthdayError.textContent = '*Birthday must be 10 characters.';

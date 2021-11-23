@@ -16,7 +16,7 @@ cancelButton.addEventListener('click', () => {
 
 const deleteCandidate = (candidateID) => {
   fetch(
-    `https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates/${candidateID}`,
+    `${window.location.origin}/api/candidates/${candidateID}`,
     {
       method: 'DELETE',
     },
@@ -82,7 +82,7 @@ const createUpdateButton = (candidate) => {
 };
 
 const getCandidates = () => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates')
+  fetch(`${window.location.origin}/api/candidates`)
     .then((response) => response.json())
     .then((response) => {
       const tableCandidates = document.getElementById('table-candidates');
@@ -116,7 +116,7 @@ const getCandidates = () => {
           city.innerText = candidates.city;
           postalCode.innerText = candidates.postalCode;
           address.innerText = `${candidates.address.street} ${candidates.address.number}`;
-          birthday.innerText = candidates.birthday;
+          birthday.innerText = candidates.birthday.split('T')[0];
           // eslint-disable-next-line max-len
           tr.append(firstName, lastName, phone, email, country, province, city, postalCode, address, birthday, deleteIcon, searchIcon, updateIcon);
           tableContent.append(tr);
