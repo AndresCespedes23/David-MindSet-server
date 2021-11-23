@@ -28,7 +28,7 @@ let errorList = [];
 
 modalOkConfirm.addEventListener('click', () => {
   modalOk.classList.toggle('hide');
-  window.location.href = `${window.location.origin}/views/candidates/listCandidates.html`;
+  window.location.href = `${window.location.origin}/api/views/candidates/listCandidates.html`;
 });
 const openOkModal = (response) => {
   modalOk.classList.remove('hide');
@@ -267,7 +267,7 @@ window.onload = () => {
   }
 };
 saveButton.addEventListener('click', () => {
-  errorList = 0;
+  errorList = [];
   validateLength();
   validateEmailFormat();
   isNotEmpty();
