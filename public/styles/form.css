@@ -17,7 +17,7 @@
     display: block;
     padding: 10px 5px;
 }
-.column input {
+.column input, select {
     display: inline;
     width: 100%;
     padding: 10px 20px;
@@ -29,4 +29,19 @@
     display: flex;
     justify-content: flex-end;
     width: 100%;
+}
+.msg-error {
+    display: block;
+    color: red;
+    padding: 2px; 
+    font-size: 12px; 
+}
+
+.hide {
+    display: none;
+}
+
+.input-error {
+    border-color: red;
+    color: red;
 }
