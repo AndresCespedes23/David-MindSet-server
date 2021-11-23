@@ -19,8 +19,9 @@ const openOkModal = (response) => {
   const modalOkData = document.getElementById('modal-ok-data');
   modalOkData.textContent = `Name: ${response.name}.`;
 };
+
 const addProfile = (profile) => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/profile-types', {
+  fetch(`${window.location.origin}/api/profile-types`, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -38,7 +39,7 @@ const addProfile = (profile) => {
 };
 
 const updateProfile = (profile) => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/profile-types/${params.get('_id')}`, {
+  fetch(`${window.location.origin}/api/profile-types/${params.get('_id')}`, {
     method: 'PUT',
     mode: 'cors',
     headers: {

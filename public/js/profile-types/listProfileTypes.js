@@ -16,7 +16,7 @@ cancelButton.addEventListener('click', () => {
 
 const deleteSession = (_id) => {
   fetch(
-    `https://basd-2021-david-mindset-dev.herokuapp.com/api/profile-types/${_id}`,
+    `${window.location.origin}/api/profile-types/${_id}`,
     {
       method: 'DELETE',
     },
@@ -73,7 +73,7 @@ const createUpdateButton = (profile) => {
 };
 
 const getProfiles = () => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/profile-types')
+  fetch(`${window.location.origin}/api/profile-types`)
     .then((response) => response.json())
     .then((response) => {
       const tableProfile = document.getElementById('table-profile');
