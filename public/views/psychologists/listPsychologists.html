@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- pay atention -->
+    <title>Psychologists List</title>
+    <link rel="stylesheet" type="text/css" href="../../styles/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../styles/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../../styles/list.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="header-top">
+        <div class="welcome">
+          <!-- pay atention -->
+          <a href="../../index.html" class="header-button welcome-top"
+            >Welcome User</a
+          >
+        </div>
+        <a href="../../index.html" class="header-button">LOG OUT</a>
+      </div>
+      <div class="header">
+        <a href="../../index.html" class="mindset">MindSet</a>
+      </div>
+    </header>
+    <div class="container-main">
+      <section class="main">
+        <h1>Psychologists List</h1>
+        <div class="list">
+          <table id="table-session">
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Picture URL</th>
+                <th>Turns</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="table-content">
+            </tbody>
+          </table>
+          <span id="empty-table-msg" class="hide">No psychologists found</span>
+          <!-- pay atention -->
+          <a href="formPsychologists.html" class="button-add">
+            <span id="button-green">Add</span>
+          </a>
+        </div>
+      </section>
+      <aside class="side-menu">
+        <div>
+          <ul>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+            <li>.</li>
+          </ul>
+        </div>
+      </aside>
+      <div class="modal hide" id="modal">
+        <div class="center-modal">
+          <div class="modal-message">
+            <h2>¿Are you sure that you want to delete this data?</h2>
+            <p id="data-modal">acá iria la data</p>
+            <div class="button-modal">
+              <button class="modal-ok" id="confirm-delete-button">ACCEPT</button>
+              <button class="modal-cancel" id="cancel-button">CANCEL</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../../js/psychologists/listPsychologists.js"></script>
+  </body>
+</html>
