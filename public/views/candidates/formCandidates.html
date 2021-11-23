@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Companies Form</title> <!-- pay atention -->
+        <title>Candidates Form</title> <!-- pay atention -->
         <link rel="stylesheet" type="text/css" href="../../styles/reset.css">
         <link rel="stylesheet" type="text/css" href="../../styles/styles.css">
         <link rel="stylesheet" type="text/css" href="../../styles/list.css">
@@ -34,51 +34,63 @@
                                 <li>
                                     <label for="firstname">First name</label>
                                     <input type="text" id="firstname" name="firstname">
+                                    <span id="first-name-error" class="msg-error hide"></span>
                                 </li>
                                 <li>
                                     <label for="lastname">Last Name</label>
                                     <input type="text" id="lastname" name="lastname">
+                                    <span id="last-name-error" class="msg-error hide"></span>
                                 </li>
                                 <li>
                                     <label for="password">Password</label>
                                     <input type="password" id="password" name="password">
+                                    <span id="password-error" class="msg-error hide"></span>
                                 </li>
                                 <li>
-                                    <label for="repeatpwd">Repeat password</label>
-                                    <input type="password" id="repeatpwd" name="repeatpwd">
-                                </li>
-                                <li>
-                                    <label for="age">Birthday</label>
-                                    <input type="date" id="age" name="age">
+                                    <label for="birthday">Birthday</label>
+                                    <input type="text" id="birthday" name="birthday">
+                                    <span id="email-error" class="msg-error hide"></span>
                                 </li>
                                 <li>
                                     <label for="Country">Country</label>
                                     <input type="text" id="country" name="country">
+                                    <span id="country-error" class="msg-error hide"></span>
+                                </li>
+                                <li>
+                                    <label for="phone">Phone number</label>
+                                    <input type="tel" id="phone" name="phone">
+                                    <span id="phone-error" class="msg-error hide"></span>
                                 </li>
                             </ul>
                             <ul class="column">
                                 <li>
-                                    <label for="phone">Phone number</label>
-                                    <input type="tel" id="phone" name="phone">
-                                </li>
-                                <li>
                                     <label for="address">Address</label>
                                     <input type="text" id="address" name="address">
+                                    <span id="address-error" class="msg-error hide"></span>
+                                </li>
+                                <li>
+                                    <label for="address">Address Number</label>
+                                    <input type="text" id="address-number" name="address">
+                                    <span id="address-number-error" class="msg-error hide"></span>
                                 </li>
                                     <li><label for="city">City</label>
                                     <input type="text" id="city" name="city">
+                                    <span id="city-error" class="msg-error hide"></span>
                                 </li>
                                 <li>
                                     <label for="Postal">Postal Code</label>
                                     <input type="text" id="postal" name="postal">
+                                    <span id="postal-error" class="msg-error hide"></span>
                                 </li>
                                 <li>
-                                    <label for="idnumber">Province</label>
+                                    <label for="province">Province</label>
                                     <input type="text" id="province" name="province">
+                                    <span id="province-error" class="msg-error hide"></span>
                                 </li>
                                 <li>
-                                    <label for="firstname">Email</label>
+                                    <label for="email">Email</label>
                                     <input type="text" id="email" name="email">
+                                    <span id="email-error" class="msg-error hide"></span>
                                 </li>
                             </ul>
                         </div>
@@ -103,5 +115,17 @@
                 </div>
             </aside>
         </div>
+        <div class="modal hide" id="modal-ok">
+            <div class="center-modal">
+              <div class="modal-message">
+                <h2 id="modal-ok-title"></h2>
+                <p id="modal-ok-data"></p>
+                <div class="button-modal">
+                  <button class="modal-ok-confirm" id="modal-ok-confirm">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <script src="../../js/candidates/formCandidates.js"></script>
     </body>
 </html>

@@ -11,6 +11,7 @@ const openPositions = require('./open-position');
 const sessions = require('./sessions');
 
 const router = express.Router();
+router.use(express.static('public'));
 
 router.use(express.static('public'));
 

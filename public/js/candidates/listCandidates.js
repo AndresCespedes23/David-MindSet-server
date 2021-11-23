@@ -16,7 +16,7 @@ cancelButton.addEventListener('click', () => {
 
 const deleteCandidate = (candidateID) => {
   fetch(
-    `https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates/${candidateID}`,
+    `${window.location.origin}/api/candidates/${candidateID}`,
     {
       method: 'DELETE',
     },
@@ -28,7 +28,7 @@ const deleteCandidate = (candidateID) => {
       while (tableContent.hasChildNodes()) {
         tableContent.removeChild(tableContent.firstChild);
       }
-      // getCandidates();
+      getCandidates();
     })
     .catch((err) => {
       console.log(err);
@@ -37,7 +37,7 @@ const deleteCandidate = (candidateID) => {
 
 const openDeleteModal = (candidates) => {
   const dataModal = document.getElementById('data-modal');
-  dataModal.textContent = `First Name: ${candidates.firstName}, Last Name: ${candidates.lastName}, Phone: ${candidates.phone}.`;
+  dataModal.textContent = `First Name: ${candidates.firstName}, Last Name: ${candidates.lastName}, Phone: ${candidates.phone}. Email: ${candidates.email}, Country: ${candidates.country}, Province: ${candidates.province}, City: ${candidates.city}, Postal code: ${candidates.postalCode}, Address: ${candidates.address.street} ${candidates.address.number}`;
   modal.classList.remove('hide');
   confirmDeleteButton.onclick = () => deleteCandidate(candidates._id);
 };
@@ -65,13 +65,8 @@ const createSearchButton = (candidates) => {
   return buttonSearch;
 };
 
-const openUpdateCandidate = (candidates) => { 
-  window.location.href = `${window.location.origin}/mindset-2021/public/views/candidates/formCandidates.html?_id=${candidates._id}`;
-  window.onload = ( ${candidates._id} ) => {
-    const firstName = document.getElementById('firstname');
-    firstName.nodeValue = candidates.firstName;
-  };
-
+const openUpdateCandidate = (candidates) => {
+  window.location.href = `${window.location.origin}/api/views/candidates/formCandidates.html?_id=${candidates._id}`;
 };
 
 const createUpdateButton = (candidate) => {
@@ -87,7 +82,7 @@ const createUpdateButton = (candidate) => {
 };
 
 const getCandidates = () => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates')
+  fetch(`${window.location.origin}/api/candidates`)
     .then((response) => response.json())
     .then((response) => {
       const tableCandidates = document.getElementById('table-candidates');
@@ -121,7 +116,7 @@ const getCandidates = () => {
           city.innerText = candidates.city;
           postalCode.innerText = candidates.postalCode;
           address.innerText = `${candidates.address.street} ${candidates.address.number}`;
-          birthday.innerText = candidates.birthday;
+          birthday.innerText = candidates.birthday.split('T')[0];
           // eslint-disable-next-line max-len
           tr.append(firstName, lastName, phone, email, country, province, city, postalCode, address, birthday, deleteIcon, searchIcon, updateIcon);
           tableContent.append(tr);
