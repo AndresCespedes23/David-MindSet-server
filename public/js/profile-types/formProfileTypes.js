@@ -19,6 +19,7 @@ const openOkModal = (response) => {
   const modalOkData = document.getElementById('modal-ok-data');
   modalOkData.textContent = `Name: ${response.name}.`;
 };
+
 const addProfile = (profile) => {
   fetch(`${window.location.origin}/api/profile-types`, {
     method: 'POST',
