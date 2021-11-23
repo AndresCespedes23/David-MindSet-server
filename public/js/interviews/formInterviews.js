@@ -18,7 +18,7 @@ modalOkConfirm.addEventListener('click', () => {
 
 // Busco las empresas para llenar el select
 const getCompanies = () => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/companies')
+  fetch(`${window.location.origin}/api/companies`)
     .then((response) => response.json())
     .then((response) => {
       if (response.data.length > 0) {
@@ -34,7 +34,7 @@ const getCompanies = () => {
 
 // Busco los candidatos para llenar el select
 const getCandidates = () => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates')
+  fetch(`${window.location.origin}/api/candidates`)
     .then((response) => response.json())
     .then((response) => {
       response.candidates.forEach((candidate) => {
@@ -48,7 +48,7 @@ const getCandidates = () => {
 
 // Busco la interview para que al editar ya me muestre los datos de esa interview
 const getInterview = () => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/interviews/${params.get('_id')}`)
+  fetch(`${window.location.origin}/api/interviews/${params.get('_id')}`)
     .then((response) => response.json())
     .then((response) => {
       companySelect.value = response.data.idCompany._id;
@@ -73,7 +73,7 @@ const openOkModal = (response) => {
 };
 
 const addInterview = (data) => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/interviews', {
+  fetch(`${window.location.origin}/api/interviews`, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -91,7 +91,7 @@ const addInterview = (data) => {
 };
 
 const updateInterview = (data) => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/interviews/${params.get('_id')}`, {
+  fetch(`${window.location.origin}/api/interviews/${params.get('_id')}`, {
     method: 'PUT',
     mode: 'cors',
     headers: {
