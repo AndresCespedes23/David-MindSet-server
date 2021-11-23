@@ -7,28 +7,28 @@ const modalDeleteContent = document.getElementById('modal-delete-content');
 const modalDeleteConfirm = document.getElementById('modal-delete-confirm');
 const tableContent = document.getElementById('table-content');
 const modalData = document.getElementById('modal-data');
+const modalDataTitle = document.getElementById('modal-data-title');
 const modalDataContent = document.getElementById('modal-data-content');
 const modalDataConfirm = document.getElementById('modal-data-confirm');
+const { origin } = window.location;
 
 modalDataConfirm.onclick = () => modalData.classList.toggle('modal-hide'); // 2) 0 -> 1 (oculta)
 
 const errorHandler = (response) => {
   // las responses de error tienen que devolver -> { msg }
   modalData.classList.toggle('modal-hide');
+  modalDataTitle.textContent = 'Error';
   if (response.msg) modalDataContent.textContent = response;
   else modalDataContent.textContent = `${response.name}: ${response.message}`;
 };
 
 const deleteApplication = (applicationId) => {
-  fetch(
-    `http://localhost:8000/api/applications/${applicationId}` /* `https://basd-2021-david-mindset-dev.herokuapp.com/api/applications/${ApplicationId} `*/,
-    {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
+  fetch(`${origin}/api/applications/${applicationId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
     },
-  )
+  })
     .then((response) => response.json())
     .then((response) => {
       modalDelete.classList.toggle('modal-hide'); // 2b) 0 -> 1 (oculta)
@@ -39,6 +39,7 @@ const deleteApplication = (applicationId) => {
       }
       getApplications();
       modalData.classList.toggle('modal-hide'); // 1) 1 -> 0 (muestra)
+      modalDataTitle.textContent = 'Deleted';
       modalDataContent.textContent = 'Application deleted successfully';
     })
     .catch((err) => errorHandler(err));
@@ -76,15 +77,13 @@ const createEditButton = (application) => {
   updateLogo.textContent = 'edit'; // selects the appropiate icon through text
   buttonUpdate.innerHTML = updateLogo.outerHTML;
   buttonUpdate.addEventListener('click', () => {
-    window.location.href = `http://localhost:8000/api/views/applications/form-applications.html?id=${application._id}` /* `${window.location.origin}/public/views/applications/form-applications.html?_id=${application._id}` */;
+    window.location.href = `${origin}/api/views/applications/form-applications.html?id=${application._id}`;
   });
   return buttonUpdate;
 };
 
 const getApplications = () => {
-  fetch(
-    `http://localhost:8000/api/appslications` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/applications' */,
-  )
+  fetch(`${origin}/api/applications`)
     .then((response) => response.json())
     .then((response) => {
       if (response.msg) throw new Error(response.msg);

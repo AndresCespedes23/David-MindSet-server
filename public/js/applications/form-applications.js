@@ -7,28 +7,27 @@ const isActiveLiElement = document.getElementById('is-active-entry');
 const saveButton = document.getElementById('save-button');
 const modalData = document.getElementById('modal-data');
 const modalDataTitle = document.getElementById('modal-data-title');
-modalDataTitle.textContent = 'Error';
 const modalDataContent = document.getElementById('modal-data-content');
 const modalOkConfirm = document.getElementById('modal-ok-confirm');
 const params = new URLSearchParams(window.location.search);
+const { origin } = window.location;
 
 modalOkConfirm.addEventListener('click', () => {
   modalData.classList.toggle('modal-hide'); // 2) 0 -> 1 (oculta)
-  window.location.href = `http://localhost:8000/api/views/applications/list-applications.html` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/views/applications/list-applications.html' */;
+  window.location.href = `${origin}/api/views/applications/list-applications.html`; // redirects to list
 });
 
 const errorHandler = (response) => {
   // las responses del controller tienen que devolver -> { err }
   modalData.classList.toggle('modal-hide'); // 1a) 1 -> 0 (muestra)
+  modalDataTitle.textContent = 'Error';
   if (response.msg) modalDataContent.textContent = response;
   else modalDataContent.textContent = `${response.name}: ${response.message}`;
 };
 
 // popula el dropdown de candidates
 const getCandidates = () => {
-  fetch(
-    `http://localhost:8000/api/candidates` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/candidates' */,
-  )
+  fetch(`${origin}/api/candidates`)
     .then((response) => response.json())
     .then((response) => {
       if (response.msg) throw new Error(response.msg);
@@ -44,9 +43,7 @@ const getCandidates = () => {
 
 // popula el dropdown de open positions
 const getOpenPositions = () => {
-  fetch(
-    `http://localhost:8000/api/open-positions` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/open-positions' */,
-  )
+  fetch(`${origin}/api/open-positions`)
     .then((response) => response.json())
     .then((response) => {
       if (response.msg) throw new Error(response.msg);
@@ -67,17 +64,14 @@ const openOkModal = (response) => {
 };
 
 const addApplication = (data) => {
-  fetch(
-    `http://localhost:8000/api/applications` /* 'https://basd-2021-david-mindset-dev.herokuapp.com/api/applications' */,
-    {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+  fetch(`${origin}/api/applications`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  )
+    body: JSON.stringify(data),
+  })
     .then((response) => response.json())
     .then((response) => {
       if (response.msg) throw new Error(response.msg);
@@ -87,19 +81,14 @@ const addApplication = (data) => {
 };
 
 const updateApplication = (data) => {
-  fetch(
-    `http://localhost:8000/api/applications/${params.get(
-      'id',
-    )}` /* `https://basd-2021-david-mindset-dev.herokuapp.com/api/applications/${params.get('id')}` */,
-    {
-      method: 'PUT',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+  fetch(`${origin}/api/applications/${params.get('id')}`, {
+    method: 'PUT',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  )
+    body: JSON.stringify(data),
+  })
     .then((response) => response.json())
     .then((response) => {
       if (response.msg) throw new Error(response.msg);
@@ -120,11 +109,7 @@ const saveApplication = () => {
 
 // popula los inputs en caso de edit
 const getApplication = () => {
-  fetch(
-    `http://localhost:8000/api/applications/${params.get(
-      'id',
-    )}` /* `https://basd-2021-david-mindset-dev.herokuapp.com/api/applications/${params.get('id')}` */,
-  )
+  fetch(`${origin}/api/applications/${params.get('id')}`)
     .then((response) => {
       console.log(response);
       return response.json();

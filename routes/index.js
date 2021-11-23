@@ -30,9 +30,5 @@ router.use('/candidates', candidates);
 router.use('/open-positions', openPositions);
 router.use('/profile-types', profileTypes);
 router.use('/sessions', sessions);
-router.use((req, res) =>
-  res.json({
-    msg: `${req.url}/ : Error 400 Bad request`,
-  }),
-);
+
 module.exports = router;
