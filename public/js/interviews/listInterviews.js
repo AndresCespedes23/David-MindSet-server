@@ -20,7 +20,7 @@ cancelButton.addEventListener('click', () => {
 });
 
 const deleteSession = (interviewId) => {
-  fetch(`https://basd-2021-david-mindset-dev.herokuapp.com/api/interviews/${interviewId}`, {
+  fetch(`${window.location.origin}/api/interviews/${interviewId}`, {
     method: 'DELETE',
   })
     .then((response) => response.json())
@@ -81,7 +81,7 @@ const createUpdateButton = (interview) => {
 
 // Función para obtener las sesiones y luego llenar la tabla
 const getInterviews = () => {
-  fetch('https://basd-2021-david-mindset-dev.herokuapp.com/api/interviews')
+  fetch(`${window.location.origin}/api/interviews`)
     .then((response) => response.json())
     .then((response) => {
       const tableSession = document.getElementById('table-session');
