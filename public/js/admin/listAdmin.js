@@ -12,7 +12,7 @@ cancelButton.addEventListener("click", () => modal.classList.toggle("hide"));
 
 const deleteAdmin = (adminId) => {
   fetch(
-    `https://basd-2021-david-mindset-dev.herokuapp.com/api/administrators/${adminId}`,
+    `${window.location.origin}/api/administrators/${adminId}`,
     {
       method: "DELETE",
     }
@@ -65,7 +65,7 @@ const createUpdateButton = (administrator) => {
 };
 
 const getAdmins = () => {
-  fetch("https://basd-2021-david-mindset-dev.herokuapp.com/api/administrators")
+  fetch(`${window.location.origin}/api/administrators`)
     .then((response) => response.json())
     .then((response) => {
       if (response.length === 0) {
