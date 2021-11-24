@@ -78,7 +78,8 @@
   border-collapse: collapse;
 }
 
-.list td, th {
+.list td,
+th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
@@ -111,7 +112,7 @@
 }
 
 .button-add {
-  display: flex;
+  display: inline-flex;
   text-decoration: none;
 }
 

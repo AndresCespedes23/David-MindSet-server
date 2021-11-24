@@ -6,12 +6,12 @@ const IntervewsSchema = new Schema({
   id: Schema.Types.ObjectId,
   idCompany: {
     type: Schema.Types.ObjectId,
-    ref: 'Company',
+    ref: 'Companies',
     required: true,
   },
   idCandidate: {
     type: Schema.Types.ObjectId,
-    ref: 'Candidate',
+    ref: 'Candidates',
     required: true,
   },
   date: {
