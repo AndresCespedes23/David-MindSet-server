@@ -6,12 +6,12 @@ const ApplicationsSchema = new Schema({
   id: Schema.Types.ObjectId,
   idCandidate: {
     type: Schema.Types.ObjectId,
-    ref: 'Candidate',
+    ref: 'Candidates',
     required: true,
   },
   idOpenPosition: {
     type: Schema.Types.ObjectId,
-    ref: 'Open Position',
+    ref: 'OpenPositions',
     required: true,
   },
   isActive: { type: Boolean, default: true },

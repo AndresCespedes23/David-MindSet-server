@@ -1,4 +1,5 @@
 const express = require('express');
+
 const path = require('path');
 const profileTypes = require('./profile-types');
 const administrators = require('./administrators');
@@ -11,8 +12,6 @@ const openPositions = require('./open-position');
 const sessions = require('./sessions');
 
 const router = express.Router();
-router.use(express.static('public'));
-
 router.use(express.static('public'));
 
 router.get('/api', (req, res) => {

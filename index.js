@@ -4,6 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const routes = require('./routes');
 
+const PORT = process.env.PORT || 8000;
 const app = express();
 
 mongoose.connect(process.env.DATABASE_URL, (err) => {
@@ -22,6 +23,6 @@ app.use(cors());
 
 app.use('/api', routes);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Open your browser in http://localhost:${process.env.PORT}`);
+app.listen(PORT, () => {
+  console.log(`Open your browser in http://localhost:${PORT}`);
 });
