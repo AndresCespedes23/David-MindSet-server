@@ -35,18 +35,18 @@ const validateEmail = (req, res, next) => {
 
 const validateLength = (req, res, next) => {
   if (req.body.firstName
-    && (req.body.firstName.length >= 2
-    || req.body.firstName.length <= 40)) {
+    && (req.body.firstName.length <= 2
+    || req.body.firstName.length >= 40)) {
     return res.status(400).json({ msg: 'First name should be beetween 2 and 40 characters' });
   }
   if (req.body.lastName
-    && (req.body.lastName.length >= 2
-    || req.body.lastName.length <= 40)) {
+    && (req.body.lastName.length <= 2
+    || req.body.lastName.length >= 40)) {
     return res.status(400).json({ msg: 'Last name should be beetween 2 and 40 characters' });
   }
   if (req.body.email
-    && (req.body.email.length >= 5
-    || req.body.email.length <= 40)) {
+    && (req.body.email.length <= 5
+    || req.body.email.length >= 40)) {
     return res.status(400).json({ msg: 'Email should be beetween 5 and 40 characters' });
   }
   if (req.body.password !== undefined) {
