@@ -4,30 +4,30 @@ const notFoundText = 'Candidate not found by';
 
 const getAll = (req, res) => {
   Candidates.find()
-    .then((candidates) => res.json({ candidates }))
-    .catch((error) => res.status(500).json({ msg: `Error: ${error}` }));
+    .then((data) => res.status(200).json(data))
+    .catch((error) => res.status(500).json({ msg: `Error: ${error}`, error: true }));
 };
 
 const getById = (req, res) => {
   const { id } = req.params;
   Candidates.findById(id)
     .then((data) => {
-      if (!data) return res.status(404).json({ msg: `${notFoundText} ID: ${id}` });
-      return res.json({ data });
+      if (!data) return res.status(404).json({ msg: `${notFoundText} ID: ${id}`, error: true });
+      return res.status(200).json(data);
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const search = (req, res) => {
   const queryParam = req.query;
   const firstName = queryParam.name.toLowerCase() || null;
-  if (!firstName) return res.status(400).json({ msg: 'Missing query param: name' });
+  if (!firstName) return res.status(400).json({ msg: 'Missing query param: name', error: true });
   return Candidates.find({ firstName })
     .then((data) => {
-      if (data.length === 0) return res.status(404).json({ msg: `${notFoundText} name: ${firstName}` });
-      return res.json({ data });
+      if (data.length === 0) return res.status(404).json({ msg: `${notFoundText} name: ${firstName}`, error: true });
+      return res.status(200).json(data);
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const add = (req, res) => {
@@ -49,8 +49,8 @@ const add = (req, res) => {
   });
   newCandidate
     .save()
-    .then((candidate) => res.json({ msg: 'Candidate created', candidate }))
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .then((data) => res.status(201).json({ msg: 'Candidate created', data }))
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const edit = (req, res) => {
@@ -59,21 +59,21 @@ const edit = (req, res) => {
     req.body.firstName = req.body.firstName.toLowerCase();
   }
   Candidates.findByIdAndUpdate(id, req.body, { new: true })
-    .then((newCandidate) => {
-      if (!newCandidate) return res.status(404).json({ msg: `${notFoundText} ID: ${id}` });
-      return res.json({ msg: 'Candidate updated', newCandidate });
+    .then((data) => {
+      if (!data) return res.status(404).json({ msg: `${notFoundText} ID: ${id}`, error: true });
+      return res.status(200).json({ msg: 'Candidate updated', data });
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const remove = (req, res) => {
   const { id } = req.params;
   Candidates.findByIdAndRemove(id)
-    .then((removedCandidate) => {
-      if (!removedCandidate) return res.status(404).json({ msg: `${notFoundText} ID: ${id}` });
-      return res.json({ msg: 'Candidate removed', removedCandidate });
+    .then((data) => {
+      if (!data) return res.status(404).json({ msg: `${notFoundText} ID: ${id}`, error: true });
+      return res.status(200).json({ msg: 'Candidate deleted', data });
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 module.exports = {

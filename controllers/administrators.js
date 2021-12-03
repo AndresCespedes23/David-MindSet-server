@@ -4,30 +4,30 @@ const notFoundTxt = 'Administrator not found by';
 
 const getAll = (req, res) => {
   Administrators.find() // find() is from Moongose documentation
-    .then((data) => res.json({ data }))
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .then((data) => res.status(200).json(data))
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const getById = (req, res) => {
   const { id } = req.params;
   Administrators.findById(id)
     .then((data) => {
-      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-      return res.json({ data });
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}`, error: true });
+      return res.status(200).json(data);
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const search = (req, res) => {
   const queryParam = req.query;
   const firstName = queryParam.name.toLowerCase() || null;
-  if (!firstName) return res.status(400).json({ msg: 'Missing query param: name' });
+  if (!firstName) return res.status(400).json({ msg: 'Missing query param: name', error: true });
   return Administrators.find({ firstName })
     .then((data) => {
-      if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} name: ${firstName}` });
-      return res.json({ data });
+      if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} name: ${firstName}`, error: true });
+      return res.status(200).json(data);
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const add = (req, res) => {
@@ -40,8 +40,8 @@ const add = (req, res) => {
   });
   newAdministrator
     .save()
-    .then((data) => res.json({ msg: 'Administrator created', data }))
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .then((data) => res.status(201).json({ msg: 'Administrator created', data }))
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const edit = (req, res) => {
@@ -51,20 +51,20 @@ const edit = (req, res) => {
   }
   Administrators.findByIdAndUpdate(id, req.body, { new: true })
     .then((data) => {
-      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-      return res.json({ msg: 'Administrator updated', data });
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}`, error: true });
+      return res.status(200).json({ msg: 'Administrator updated', data });
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const remove = (req, res) => {
   const { id } = req.params;
   Administrators.findByIdAndRemove(id)
     .then((data) => {
-      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-      return res.json({ msg: 'Administrator removed', data });
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}`, error: true });
+      return res.status(200).json({ msg: 'Administrator deleted', data });
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 module.exports = {

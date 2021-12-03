@@ -6,8 +6,8 @@ const getAll = (req, res) => {
   Interviews.find()
     .populate('idCompany', 'name')
     .populate('idCandidate', 'firstName lastName')
-    .then((data) => res.json({ data }))
-    .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
+    .then((data) => res.status(200).json(data))
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const getById = (req, res) => {
@@ -16,24 +16,24 @@ const getById = (req, res) => {
     .populate('idCompany', 'name')
     .populate('idCandidate', 'firstName lastName')
     .then((data) => {
-      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-      return res.json({ data });
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}`, error: true });
+      return res.status(200).json(data);
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const search = (req, res) => {
   const queryParam = req.query;
   const idCompany = queryParam.company || null;
-  if (!idCompany) return res.status(400).json({ msg: 'Missing query param: company' });
+  if (!idCompany) return res.status(400).json({ msg: 'Missing query param: company', error: true });
   return Interviews.find({ idCompany })
     .populate('idCompany', 'name')
     .populate('idCandidate', 'firstName lastName')
     .then((data) => {
-      if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} Company ID: ${idCompany}` });
-      return res.json({ data });
+      if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} Company ID: ${idCompany}`, error: true });
+      return res.status(200).json(data);
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const add = (req, res) => {
@@ -46,8 +46,8 @@ const add = (req, res) => {
   });
   newInterview
     .save()
-    .then((data) => res.json({ msg: 'New interview added', data }))
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .then((data) => res.status(200).json({ msg: 'Interview created', data }))
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const edit = (req, res) => {
@@ -56,10 +56,10 @@ const edit = (req, res) => {
     .populate('idCompany', 'name')
     .populate('idCandidate', 'firstName lastName')
     .then((data) => {
-      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-      return res.json({ msg: 'Interview updated', data });
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}`, error: true });
+      return res.status(200).json({ msg: 'Interview updated', data });
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const remove = (req, res) => {
@@ -68,10 +68,10 @@ const remove = (req, res) => {
     .populate('idCompany', 'name')
     .populate('idCandidate', 'firstName lastName')
     .then((data) => {
-      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-      return res.json({ msg: 'Interview removed', data });
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}`, error: true });
+      return res.status(200).json({ msg: 'Interview deleted', data });
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 module.exports = {

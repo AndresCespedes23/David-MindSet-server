@@ -6,8 +6,8 @@ const getAll = (req, res) => {
   Sessions.find()
     .populate('idPsychologists', 'firstName lastName')
     .populate('idCandidate', 'firstName lastName')
-    .then((data) => res.json({ data }))
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .then((data) => res.status(200).json(data))
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const getById = (req, res) => {
@@ -16,22 +16,24 @@ const getById = (req, res) => {
     .populate('idPsychologists', 'firstName lastName')
     .populate('idCandidate', 'firstName lastName')
     .then((data) => {
-      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}` });
-      return res.json({ data });
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}`, error: true });
+      return res.status(200).json(data);
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const search = (req, res) => {
   const queryParam = req.query;
   const idCandidate = queryParam.idCandidate || null;
-  if (!idCandidate) return res.status(400).json({ msg: 'Missing query param: candidate' });
+  if (!idCandidate) return res.status(400).json({ msg: 'Missing query param: candidate', error: true });
   return Sessions.find({ idCandidate })
     .then((data) => {
-      if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} session ID: ${idCandidate}` });
-      return res.json({ data });
+      if (data.length === 0) {
+        return res.status(404).json({ msg: `${notFoundTxt} session ID: ${idCandidate}`, error: true });
+      }
+      return res.status(200).json(data);
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const add = (req, res) => {
@@ -43,8 +45,8 @@ const add = (req, res) => {
   });
   newSession
     .save()
-    .then((data) => res.json({ msg: 'Session added', data }))
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .then((data) => res.status(201).json({ msg: 'Session created', data }))
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const edit = (req, res) => {
@@ -53,10 +55,10 @@ const edit = (req, res) => {
     .populate('idPsychologists', 'firstName lastName')
     .populate('idCandidate', 'firstName lastName')
     .then((data) => {
-      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}` });
-      return res.json({ msg: 'Session updated', data });
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}`, error: true });
+      return res.status(200).json({ msg: 'Session updated', data });
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const remove = (req, res) => {
@@ -65,10 +67,10 @@ const remove = (req, res) => {
     .populate('idPsychologists', 'firstName lastName')
     .populate('idCandidate', 'firstName lastName')
     .then((data) => {
-      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}` });
-      return res.json({ msg: 'Session removed', data });
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}`, error: true });
+      return res.status(200).json({ msg: 'Session deleted', data });
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 module.exports = {
