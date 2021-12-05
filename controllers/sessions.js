@@ -4,7 +4,7 @@ const notFoundTxt = 'Session not found with ID:';
 
 const getAll = (req, res) => {
   Sessions.find()
-    .populate('idPsychologists', 'firstName lastName')
+    .populate('idPsychologist', 'firstName lastName')
     .populate('idCandidate', 'firstName lastName')
     .then((data) => res.status(200).json(data))
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
@@ -13,7 +13,7 @@ const getAll = (req, res) => {
 const getById = (req, res) => {
   const { id } = req.params;
   Sessions.findById(id)
-    .populate('idPsychologists', 'firstName lastName')
+    .populate('idPsychologist', 'firstName lastName')
     .populate('idCandidate', 'firstName lastName')
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}`, error: true });
@@ -38,7 +38,7 @@ const search = (req, res) => {
 
 const add = (req, res) => {
   const newSession = new Sessions({
-    idPsychologists: req.body.idPsychologists,
+    idPsychologist: req.body.idPsychologist,
     idCandidate: req.body.idCandidate,
     date: req.body.date,
     isActive: true,
@@ -52,7 +52,7 @@ const add = (req, res) => {
 const edit = (req, res) => {
   const { id } = req.params;
   Sessions.findByIdAndUpdate(id, req.body, { new: true })
-    .populate('idPsychologists', 'firstName lastName')
+    .populate('idPsychologist', 'firstName lastName')
     .populate('idCandidate', 'firstName lastName')
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}`, error: true });
@@ -64,7 +64,7 @@ const edit = (req, res) => {
 const remove = (req, res) => {
   const { id } = req.params;
   Sessions.findByIdAndDelete(id)
-    .populate('idPsychologists', 'firstName lastName')
+    .populate('idPsychologist', 'firstName lastName')
     .populate('idCandidate', 'firstName lastName')
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}`, error: true });

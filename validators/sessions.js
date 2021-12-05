@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 const isNotEmpty = (req, res, next) => {
-  if (!req.body.idPsychologists) {
+  if (!req.body.idPsychologist) {
     return res.status(400).json({ msg: 'You must complete the psychologist ID' });
   }
   if (!req.body.idCandidate) {
@@ -24,7 +24,7 @@ const validateLength = (req, res, next) => {
 };
 
 const validateFormat = (req, res, next) => {
-  if (req.body.idPsychologists && !mongoose.Types.ObjectId.isValid(req.body.idPsychologists)) {
+  if (req.body.idPsychologist && !mongoose.Types.ObjectId.isValid(req.body.idPsychologist)) {
     return res.status(400).json({ msg: 'Invalid psychologist id' });
   }
   if (req.body.idCandidate && !mongoose.Types.ObjectId.isValid(req.body.idCandidate)) {
