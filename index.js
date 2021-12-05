@@ -14,6 +14,7 @@ mongoose.connect(process.env.DATABASE_URL, (err) => {
     console.log('database connected');
   }
 });
+app.set('json spaces', 2);
 
 app.use(express.json());
 

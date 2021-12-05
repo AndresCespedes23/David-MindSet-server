@@ -4,28 +4,28 @@ const notFoundTxt = 'Profile type not found by';
 
 const getAll = (req, res) => {
   ProfileTypes.find()
-    .then((profileType) => res.json(profileType))
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .then((data) => res.status(200).json(data))
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const getById = (req, res) => {
   const { id } = req.params;
   ProfileTypes.findById(id)
     .then((data) => {
-      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-      return res.json({ data });
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}`, error: true });
+      return res.status(200).json(data);
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const search = (req, res) => {
   const { name } = req.query;
   ProfileTypes.find({ name })
     .then((data) => {
-      if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} name: ${name}` });
-      return res.json({ data });
+      if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} name: ${name}`, error: true });
+      return res.status(200).json(data);
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const add = (req, res) => {
@@ -35,28 +35,28 @@ const add = (req, res) => {
   });
   newProfileType
     .save()
-    .then((data) => res.json({ msg: 'New profile added: ', data }))
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .then((data) => res.status(201).json({ msg: 'Profile created: ', data }))
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const edit = (req, res) => {
   const { id } = req.params;
   ProfileTypes.findByIdAndUpdate(id, req.body, { new: true })
-    .then((newProfileType) => {
-      if (!newProfileType) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-      return res.json({ msg: 'Profile type updated', newProfileType });
+    .then((data) => {
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}`, error: true });
+      return res.status(200).json({ msg: 'Profile type updated', data });
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const remove = (req, res) => {
   const { id } = req.params;
   ProfileTypes.findByIdAndRemove(id)
     .then((data) => {
-      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}` });
-      return res.json({ msg: 'Profile type removed', data });
+      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}`, error: true });
+      return res.status(200).json({ msg: 'Profile type deleted', data });
     })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 module.exports = {
