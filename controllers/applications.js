@@ -42,6 +42,7 @@ const add = (req, res) => {
   const newApplication = new Applications({
     idOpenPosition: req.body.idOpenPosition,
     idCandidate: req.body.idCandidate,
+    status: true,
     isActive: true,
   });
   newApplication

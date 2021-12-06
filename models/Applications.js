@@ -14,6 +14,7 @@ const ApplicationsSchema = new Schema({
     ref: 'OpenPositions',
     required: true,
   },
+  status: { type: Boolean, default: true },
   isActive: { type: Boolean, default: true },
 });
 
