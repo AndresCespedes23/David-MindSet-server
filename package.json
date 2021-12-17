@@ -18,7 +18,7 @@
     "url": "https://github.com/davidcurras/mindset-2021/issues"
   },
   "engines": {
-    "node": "16.8.0"
+    "node": "14.x"
   },
   "homepage": "https://github.com/davidcurras/mindset-2021#readme",
   "dependencies": {
