@@ -46,6 +46,7 @@ const add = (req, res) => {
     country: req.body.country,
     postalCode: req.body.postalCode,
     birthday: req.body.birthday,
+    pictureUrl: req.body.pictureUrl,
   });
   newCandidate
     .save()
