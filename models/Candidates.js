@@ -83,6 +83,10 @@ const CandidatesSchema = new Schema({
     maxlength: 10,
   },
   education: [{
+    type: {
+      type: String,
+      enum: ['elementary', 'high', 'middle', 'college'],
+    },
     institution: {
       type: String,
       minlength: 3,
@@ -99,9 +103,9 @@ const CandidatesSchema = new Schema({
       maxlength: 40,
     },
     graduationYear: {
-      type: Number,
-      min: 1,
-      max: 10000,
+      type: Date,
+      min: 10,
+      max: 10,
     },
     description: {
       type: String,
