@@ -55,6 +55,7 @@ const getCandidates = () => {
       candidateAddressNumber.value = response.data.address.number;
       candidateBirthday.value = response.data.birthday.split('T')[0];
       candidatePhone.value = response.data.phone;
+      candidatePictureUrl.value = response.data.pictureUrl;
     })
     .catch((err) => {
       console.log(err);
@@ -115,6 +116,7 @@ const saveCandidates = () => {
     postalCode: candidatePostalCode.value,
     birthday: candidateBirthday.value,
     phone: parseInt(candidatePhone.value, 10),
+    pictureUrl: candidatePictureUrl.value,
     address: {
       street: candidateAddress.value,
       number: candidateAddressNumber.value,

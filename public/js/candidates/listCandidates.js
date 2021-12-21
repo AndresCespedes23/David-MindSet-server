@@ -105,6 +105,7 @@ const getCandidates = () => {
           const address = document.createElement('td');
           const birthday = document.createElement('td');
           const deleteIcon = createDeleteButton(candidates);
+          const pictureUrl = document.createElement('td');
           const searchIcon = createSearchButton(candidates);
           const updateIcon = createUpdateButton(candidates);
           firstName.innerText = candidates.firstName;
@@ -117,6 +118,7 @@ const getCandidates = () => {
           postalCode.innerText = candidates.postalCode;
           address.innerText = `${candidates.address.street} ${candidates.address.number}`;
           birthday.innerText = candidates.birthday.split('T')[0];
+          pictureUrl.innerText = candidates.pictureUrl;
           // eslint-disable-next-line max-len
           tr.append(firstName, lastName, phone, email, country, province, city, postalCode, address, birthday, deleteIcon, searchIcon, updateIcon);
           tableContent.append(tr);
