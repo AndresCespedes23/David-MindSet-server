@@ -1,4 +1,5 @@
 const express = require('express');
+const authMiddleware = require('../middleware/authMiddleware');
 
 const router = express.Router();
 const companies = require('../controllers/companies');
@@ -9,13 +10,30 @@ const {
   validateDataTypeAndFormat,
 } = require('../validators/companies');
 
-const { getAll, add, edit, remove, search, getById } = companies;
+const {
+  getAll, add, edit, remove, search, getById,
+} = companies;
 
-router.get('/', getAll);
-router.post('/', bodyNotEmpty, required, validateDataTypeAndFormat, validateLength, add);
-router.put('/:id', bodyNotEmpty, validateDataTypeAndFormat, validateLength, edit);
-router.delete('/:id', remove);
-router.get('/search', search);
-router.get('/:id', getById);
+router.get('/', authMiddleware, getAll);
+router.post(
+  '/',
+  authMiddleware,
+  bodyNotEmpty,
+  required,
+  validateDataTypeAndFormat,
+  validateLength,
+  add,
+);
+router.put(
+  '/:id',
+  authMiddleware,
+  bodyNotEmpty,
+  validateDataTypeAndFormat,
+  validateLength,
+  edit,
+);
+router.delete('/:id', authMiddleware, remove);
+router.get('/search', authMiddleware, search);
+router.get('/:id', authMiddleware, getById);
 
 module.exports = router;

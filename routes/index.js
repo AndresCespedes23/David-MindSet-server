@@ -1,6 +1,7 @@
 const express = require('express');
 
 const path = require('path');
+const auth = require('./auth');
 const profileTypes = require('./profile-types');
 const administrators = require('./administrators');
 const applications = require('./applications');
@@ -20,6 +21,7 @@ router.get('/api', (req, res) => {
 
 router.get('/server-status', (req, res) => res.send({ status: 'Server OK' }));
 
+router.use('/auth', auth);
 router.use('/administrators', administrators);
 router.use('/applications', applications);
 router.use('/companies', companies);
