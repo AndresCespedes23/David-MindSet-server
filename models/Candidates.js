@@ -22,12 +22,6 @@ const CandidatesSchema = new Schema({
     minLenght: 5,
     maxLength: 40,
   },
-  password: {
-    type: String,
-    required: true,
-    minLenght: 8,
-    maxLength: 16,
-  },
   pictureUrl: {
     type: String,
     default: null,
@@ -82,81 +76,87 @@ const CandidatesSchema = new Schema({
     minlength: 10,
     maxlength: 10,
   },
-  education: [{
-    type: {
-      type: String,
-      enum: ['elementary', 'high', 'middle', 'college'],
+  education: [
+    {
+      type: {
+        type: String,
+        enum: ['elementary', 'high', 'middle', 'college'],
+      },
+      institution: {
+        type: String,
+        minlength: 3,
+        maxlength: 40,
+      },
+      city: {
+        type: String,
+        minlength: 3,
+        maxlength: 40,
+      },
+      state: {
+        type: String,
+        minlength: 3,
+        maxlength: 40,
+      },
+      graduationYear: {
+        type: Date,
+        min: 10,
+        max: 10,
+      },
+      description: {
+        type: String,
+        minlength: 3,
+        maxlength: 40,
+      },
     },
-    institution: {
-      type: String,
-      minlength: 3,
-      maxlength: 40,
+  ],
+  experiences: [
+    {
+      position: {
+        type: String,
+        minlength: 3,
+        maxlength: 40,
+      },
+      company: {
+        type: String,
+        minlength: 3,
+        maxlength: 40,
+      },
+      since: {
+        type: Date,
+        minlength: 8,
+        maxlength: 8,
+      },
+      until: {
+        type: Date,
+        minlength: 8,
+        maxlength: 8,
+      },
+      jobDescription: {
+        type: String,
+        minlength: 3,
+        maxlength: 40,
+      },
     },
-    city: {
-      type: String,
-      minlength: 3,
-      maxlength: 40,
+  ],
+  courses: [
+    {
+      tittle: {
+        type: String,
+        minlength: 3,
+        maxlength: 40,
+      },
+      institution: {
+        type: String,
+        minlength: 3,
+        maxlength: 40,
+      },
+      year: {
+        type: Number,
+        min: 1,
+        max: 10000,
+      },
     },
-    state: {
-      type: String,
-      minlength: 3,
-      maxlength: 40,
-    },
-    graduationYear: {
-      type: Date,
-      min: 10,
-      max: 10,
-    },
-    description: {
-      type: String,
-      minlength: 3,
-      maxlength: 40,
-    },
-  }],
-  experiences: [{
-    position: {
-      type: String,
-      minlength: 3,
-      maxlength: 40,
-    },
-    company: {
-      type: String,
-      minlength: 3,
-      maxlength: 40,
-    },
-    since: {
-      type: Date,
-      minlength: 8,
-      maxlength: 8,
-    },
-    until: {
-      type: Date,
-      minlength: 8,
-      maxlength: 8,
-    },
-    jobDescription: {
-      type: String,
-      minlength: 3,
-      maxlength: 40,
-    },
-  }],
-  courses: [{
-    tittle: {
-      type: String,
-      minlength: 3,
-      maxlength: 40,
-    },
-    institution: {
-      type: String,
-      minlength: 3,
-      maxlength: 40,
-    },
-    year: {
-      type: Number,
-      min: 1,
-      max: 10000,
-    },
-  }],
+  ],
   hobbies: [
     {
       type: String,

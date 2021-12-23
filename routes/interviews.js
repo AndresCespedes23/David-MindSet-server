@@ -1,15 +1,16 @@
 const express = require('express');
+const authMiddleware = require('../middleware/authMiddleware');
 
 const router = express.Router();
 const interviews = require('../controllers/interviews');
 
 const { validateFormat, isNotEmpty } = require('../validators/interviews');
 
-router.get('/', interviews.getAll);
-router.get('/search', validateFormat, interviews.search);
-router.get('/:id', validateFormat, interviews.getById);
-router.post('/', validateFormat, isNotEmpty, interviews.add);
-router.put('/:id', validateFormat, interviews.edit);
-router.delete('/:id', validateFormat, interviews.remove);
+router.get('/', authMiddleware, interviews.getAll);
+router.get('/search', authMiddleware, validateFormat, interviews.search);
+router.get('/:id', authMiddleware, validateFormat, interviews.getById);
+router.post('/', authMiddleware, validateFormat, isNotEmpty, interviews.add);
+router.put('/:id', authMiddleware, validateFormat, interviews.edit);
+router.delete('/:id', authMiddleware, validateFormat, interviews.remove);
 
 module.exports = router;
