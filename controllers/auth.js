@@ -19,12 +19,30 @@ const register = async (req, res) => {
       email: req.body.email,
       firebaseUid: newFirebaseUser.uid,
     });
+    // add to the candidates collection too
+    const newCandidate = new Candidates({
+      firstName: req.body.firstName.toLowerCase(),
+      lastName: req.body.lastName,
+      email: req.body.email,
+      phone: req.body.phone,
+      address: {
+        street: req.body.address.street,
+        number: req.body.address.number,
+      },
+      city: req.body.city,
+      province: req.body.province,
+      country: req.body.country,
+      postalCode: req.body.postalCode,
+      birthday: req.body.birthday,
+      pictureUrl: req.body.pictureUrl,
+    });
+    const ouser = await newCandidate.save();
     // Save the new user on DB
     const userSaved = await userCreated.save();
     // Response with the new user created
     return res.status(201).json({
       message: 'User created',
-      data: userSaved,
+      data: ouser,
     });
   } catch (error) {
     // Return error

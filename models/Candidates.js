@@ -29,8 +29,8 @@ const CandidatesSchema = new Schema({
   phone: {
     type: Number,
     required: true,
-    min: 1000000,
-    max: 10000000,
+    min: 0,
+    max: 999999999999,
   },
   address: {
     street: {
