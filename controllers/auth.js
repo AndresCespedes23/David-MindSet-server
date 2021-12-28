@@ -50,24 +50,18 @@ const register = async (req, res) => {
   }
 };
 
-// PARA QUE EL SERVER ME DEVUELVA EL TIPO DE ROL
 const loginServer = (req, res, next) => {
-  const authHeader = req.headers.token;
-  // NECESITO DECODIFICAR EL TOKEN QUE VIENE EN EL HEADER Y AGARRAR EL ID DE FIREBASE
-  // ACÁ HARDCODEADO
-  const idToken = 'nqij15pTQtVSRaTh4GyQ45wO7R03';
-  Users.find({ firebaseUid: idToken })
+  const emailFE = req.params.email;
+  Users.find({ email: emailFE })
     .then((data) => {
       if (data.length === 0) {
         throw new Error(
-          res.status(401).json({ msg: 'Firebase Id unknown' }),
+          res.status(401).json({ msg: 'Email unknown' }),
         );
       }
       return data[0].email;
     })
     .then((email) => {
-      // eslint-disable-next-line max-len
-      // PROBLEMA: EJECUTA LAS 3 BÚSQUEDAS POR MÁS QUE YA ENCUENTRE EN UNO. NO SE COMO ROMPER EL CICLO
       Candidates.find({ email })
         .then((data) => {
           if (data.length > 0) res.status(200).json({ role: 'candidate' });
@@ -80,6 +74,7 @@ const loginServer = (req, res, next) => {
         .then((data) => {
           if (data.length > 0) res.status(200).json({ role: 'psychologist' });
         });
+      return res.status(401).json({ message: 'not role found' });
     })
     .catch((error) => {
       res.status(401).json({ message: error.toString() });
