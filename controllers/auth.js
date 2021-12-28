@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 // const jwt = require('jsonwebtoken');
 const Users = require('../models/Users');
@@ -18,6 +19,7 @@ const register = async (req, res) => {
     const userCreated = new Users({
       email: req.body.email,
       firebaseUid: newFirebaseUser.uid,
+      role: 'candidate',
     });
     // add to the candidates collection too
     const newCandidate = new Candidates({
@@ -54,27 +56,14 @@ const loginServer = (req, res, next) => {
   const emailFE = req.params.email;
   Users.find({ email: emailFE })
     .then((data) => {
+      // CUANDO DECODIFIQUEMOS EL TOKEN, SI O SI DEBERÍA ENCONTRAR 1 POR LO QUE EL IF SIGUIENTE ESTARÍA DE MÁS
       if (data.length === 0) {
         throw new Error(
           res.status(401).json({ msg: 'Email unknown' }),
         );
       }
-      return data[0].email;
-    })
-    .then((email) => {
-      Candidates.find({ email })
-        .then((data) => {
-          if (data.length > 0) res.status(200).json({ role: 'candidate' });
-        });
-      Admins.find({ email })
-        .then((data) => {
-          if (data.length > 0) res.status(200).json({ role: 'admin' });
-        });
-      Psychologists.find({ email })
-        .then((data) => {
-          if (data.length > 0) res.status(200).json({ role: 'psychologist' });
-        });
-      return res.status(401).json({ message: 'not role found' });
+      if (!data[0].role) return res.status(401).json({ message: 'not role found' });
+      return res.status(200).json({ role: data[0].role });
     })
     .catch((error) => {
       res.status(401).json({ message: error.toString() });
