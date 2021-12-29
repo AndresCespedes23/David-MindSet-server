@@ -1,6 +1,10 @@
+/* eslint-disable no-case-declarations */
+/* eslint-disable max-len */
 const Users = require('../models/Users');
 const Firebase = require('../helpers/firebase');
 const Candidates = require('../models/Candidates');
+const Admins = require('../models/Administrators');
+const Psychologists = require('../models/Psychologists');
 
 const register = async (req, res) => {
   try {
@@ -51,9 +55,23 @@ const loginServer = (req, res) => {
     .then((decodedToken) => {
       const { email } = decodedToken;
       Users.find({ email })
-        .then((data) => {
-          if (!data[0].role) return res.status(401).json({ message: 'not role found' });
-          return res.status(200).json({ role: data[0].role });
+        .then(async (data) => {
+          try {
+            switch (data[0].role) {
+              case 'candidate':
+                const candidate = await Candidates.find({ email });
+                return res.status(200).json({ role: 'candidate', user: candidate[0] });
+              case 'admin':
+                const admin = await Admins.find({ email });
+                return res.status(200).json({ role: 'admin', user: admin[0] });
+              case 'psychologist':
+                const psychologist = await Psychologists.find({ email });
+                return res.status(200).json({ role: 'psychologist', user: psychologist[0] });
+              default: return res.status(401).json({ message: 'not role found' });
+            }
+          } catch (error) {
+            return res.status(401).json({ message: error.toString() });
+          }
         })
         .catch((error) => {
           res.status(401).json({ message: error.toString() });
