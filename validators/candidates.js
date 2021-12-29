@@ -7,12 +7,6 @@ const isNotEmpty = (req, res, next) => {
   if (!req.body.lastName) {
     return res.status(400).json({ msg: 'Last Name is required' });
   }
-  // if (!req.body.email) {
-  //   return res.status(400).json({ msg: 'Email is required' });
-  // }
-  // if (!req.body.password) {
-  //   return res.status(400).json({ msg: 'Password is required' });
-  // }
   if (!req.body.phone) {
     return res.status(400).json({ msg: 'Phone is required' });
   }
@@ -44,9 +38,6 @@ const validateFormat = (req, res, next) => {
   if (req.params.id && !mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).json({ msg: 'Invalid id' });
   }
-  // if (req.body.email && !req.body.email.includes('@')) {
-  //   return res.status(400).json({ msg: 'Invalid email' });
-  // }
   return next();
 };
 
