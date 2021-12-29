@@ -35,7 +35,6 @@ const add = (req, res) => {
     firstName: req.body.firstName.toLowerCase(),
     lastName: req.body.lastName,
     email: req.body.email,
-    password: req.body.password,
     phone: req.body.phone,
     address: {
       street: req.body.address.street,
