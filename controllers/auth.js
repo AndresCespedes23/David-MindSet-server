@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable max-len */
 const Users = require('../models/Users');
 const Firebase = require('../helpers/firebase');
@@ -16,6 +17,7 @@ const register = async (req, res) => {
     const userCreated = new Users({
       email: req.body.email,
       firebaseUid: newFirebaseUser.uid,
+      role: 'candidate',
     });
     // add to the candidates collection too
     const newCandidate = new Candidates({
@@ -53,15 +55,20 @@ const loginServer = (req, res) => {
     .then((decodedToken) => {
       const { email } = decodedToken;
       Users.find({ email })
-        .then(async () => {
+        .then(async (data) => {
           try {
-            const candidate = await Candidates.find({ email });
-            if (candidate) return res.status(200).json({ role: 'candidate', user: candidate[0] });
-            const admin = await Admins.find({ email });
-            if (admin) return res.status(200).json({ role: 'admin', user: admin[0] });
-            const psychologist = await Psychologists.find({ email });
-            if (psychologist) return res.status(200).json({ role: 'psychologist', user: psychologist[0] });
-            return res.status(401).json({ message: 'not role found' });
+            switch (data[0].role) {
+              case 'candidate':
+                const candidate = await Candidates.find({ email });
+                return res.status(200).json({ role: 'candidate', user: candidate[0] });
+              case 'admin':
+                const admin = await Admins.find({ email });
+                return res.status(200).json({ role: 'admin', user: admin[0] });
+              case 'psychologist':
+                const psychologist = await Psychologists.find({ email });
+                return res.status(200).json({ role: 'psychologist', user: psychologist[0] });
+              default: return res.status(401).json({ message: 'not role found' });
+            }
           } catch (error) {
             return res.status(401).json({ message: error.toString() });
           }
