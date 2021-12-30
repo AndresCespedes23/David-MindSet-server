@@ -181,7 +181,68 @@ const CandidatesSchema = new Schema({
     type: Boolean,
     default: false,
   },
-
+  timeRange: {
+    mon: {
+      startTime: {
+        type: Number,
+        min: 0,
+        max: 23,
+      },
+      endTime: {
+        type: Number,
+        min: 1,
+        max: 24,
+      },
+    },
+    tue: {
+      startTime: {
+        type: Number,
+        min: 0,
+        max: 23,
+      },
+      endTime: {
+        type: Number,
+        min: 1,
+        max: 24,
+      },
+    },
+    wed: {
+      startTime: {
+        type: Number,
+        min: 0,
+        max: 23,
+      },
+      endTime: {
+        type: Number,
+        min: 1,
+        max: 24,
+      },
+    },
+    thu: {
+      startTime: {
+        type: Number,
+        min: 0,
+        max: 23,
+      },
+      endTime: {
+        type: Number,
+        min: 1,
+        max: 24,
+      },
+    },
+    fri: {
+      startTime: {
+        type: Number,
+        min: 0,
+        max: 23,
+      },
+      endTime: {
+        type: Number,
+        min: 1,
+        max: 24,
+      },
+    },
+  },
   isActive: {
     type: Boolean,
     default: true,
