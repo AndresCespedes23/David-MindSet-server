@@ -9,32 +9,47 @@ const PsychologistSchema = new Schema({
   firstName: {
     type: String,
     required: true,
-    minLenght: 2,
+    minLength: 2,
     maxLength: 40,
   },
   lastName: {
     type: String,
     required: true,
-    minLenght: 2,
+    minLength: 2,
     maxLength: 40,
   },
   email: {
     type: String,
     required: true,
-    minLenght: 5,
+    minLength: 5,
     maxLength: 40,
   },
   pictureUrl: {
     type: String,
     default: null,
   },
-  turns: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Session',
-      default: [],
+  timeRange: {
+    monday: {
+      from: { type: Number, min: 0, max: 23 },
+      to: { type: Number, min: 1, max: 24 },
     },
-  ],
+    tuesday: {
+      from: { type: Number, min: 0, max: 23 },
+      to: { type: Number, min: 1, max: 24 },
+    },
+    wednesday: {
+      from: { type: Number, min: 0, max: 23 },
+      to: { type: Number, min: 1, max: 24 },
+    },
+    thursday: {
+      from: { type: Number, min: 0, max: 23 },
+      to: { type: Number, min: 1, max: 24 },
+    },
+    friday: {
+      from: { type: Number, min: 0, max: 23 },
+      to: { type: Number, min: 1, max: 24 },
+    },
+  },
   isActive: {
     type: Boolean,
     default: true,

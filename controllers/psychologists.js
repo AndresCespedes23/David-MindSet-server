@@ -33,12 +33,12 @@ const add = (req, res) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
-    password: req.body.password,
     pictureUrl: req.body.pictureUrl,
-    turns: [],
+    timeRange: req.body.timeRange,
     isActive: true,
   });
-  newPsychologist.save()
+  newPsychologist
+    .save()
     .then((data) => res.status(201).json({ msg: 'Psychologist created', data }))
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };

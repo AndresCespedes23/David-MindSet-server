@@ -3,13 +3,16 @@ const mongoose = require('mongoose');
 
 const isNotEmpty = (req, res, next) => {
   if (!req.body.idPsychologist) {
-    return res.status(400).json({ msg: 'You must complete the psychologist ID' });
+    return res.status(400).json({ msg: 'Psychologist ID is required' });
   }
   if (!req.body.idCandidate) {
-    return res.status(400).json({ msg: 'You must complete the candidate ID' });
+    return res.status(400).json({ msg: 'Candidate ID is required' });
   }
   if (!req.body.date) {
-    return res.status(400).json({ msg: 'You must complete the session date' });
+    return res.status(400).json({ msg: 'Date is required' });
+  }
+  if (!req.body.time) {
+    return res.status(400).json({ msg: 'Time is required' });
   }
   return next();
 };
@@ -17,7 +20,7 @@ const isNotEmpty = (req, res, next) => {
 const isObjectID = (id) => mongoose.Types.ObjectId.isValid(id);
 
 const validateLength = (req, res, next) => {
-  if (!req.body.date.lenght === 10) {
+  if (!req.body.date.length === 10) {
     return res.status(400).json({ msg: 'Date should have 10 characters' });
   }
   return next();

@@ -41,6 +41,8 @@ const add = (req, res) => {
     idPsychologist: req.body.idPsychologist,
     idCandidate: req.body.idCandidate,
     date: req.body.date,
+    time: req.body.time,
+    status: 'pending',
     isActive: true,
   });
   newSession
