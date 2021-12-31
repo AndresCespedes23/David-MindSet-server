@@ -151,7 +151,7 @@ const CandidatesSchema = new Schema({
         maxlength: 40,
       },
       year: {
-        type: Number,
+        type: Date,
         min: 1,
         max: 10000,
       },

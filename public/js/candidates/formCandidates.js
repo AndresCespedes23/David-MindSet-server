@@ -42,7 +42,6 @@ const getCandidates = () => {
   fetch(`${window.location.origin}/api/candidates/${params.get('_id')}`)
     .then((response) => response.json())
     .then((response) => {
-      console.log(response);
       firstName.value = response.data.firstName;
       lastName.value = response.data.lastName;
       candidateEmail.value = response.data.email;
@@ -53,11 +52,14 @@ const getCandidates = () => {
       candidatePostalCode.value = response.data.postalCode;
       candidateAddress.value = response.data.address.street;
       candidateAddressNumber.value = response.data.address.number;
+      // eslint-disable-next-line prefer-destructuring
       candidateBirthday.value = response.data.birthday.split('T')[0];
       candidatePhone.value = response.data.phone;
+      // eslint-disable-next-line no-undef
       candidatePictureUrl.value = response.data.pictureUrl;
     })
     .catch((err) => {
+      // eslint-disable-next-line no-console
       console.log(err);
     });
 };
@@ -79,6 +81,7 @@ const addCandidates = (data) => {
       openOkModal(response);
     })
     .catch((err) => {
+      // eslint-disable-next-line no-console
       console.log(err);
     });
 };
@@ -100,6 +103,7 @@ const updateCandidates = (data) => {
       openOkModal(response);
     })
     .catch((err) => {
+      // eslint-disable-next-line no-console
       console.log(err);
     });
 };
@@ -116,6 +120,7 @@ const saveCandidates = () => {
     postalCode: candidatePostalCode.value,
     birthday: candidateBirthday.value,
     phone: parseInt(candidatePhone.value, 10),
+    // eslint-disable-next-line no-undef
     pictureUrl: candidatePictureUrl.value,
     address: {
       street: candidateAddress.value,
