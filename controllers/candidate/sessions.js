@@ -1,6 +1,7 @@
 const Sessions = require('../../models/Sessions');
 const Psychologists = require('../../models/Psychologists');
-const { checkEmptyTimeRange, getAvailability } = require('../../helpers');
+const { checkEmptyTimeRange, getAvailability, getCurrentWeek } = require('../../helpers');
+const { weekDays } = require('../../helpers');
 
 const notFoundTxt = 'Session not found with ID:';
 
@@ -55,21 +56,39 @@ const remove = (req, res) => {
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
-const getAvailableDates = (req, res) => {
+const getAvailableDates = async (req, res) => {
   const availableDates = [];
-  Psychologists.find().then((psychologists) => {
-    psychologists.forEach((psychologist) => {
+  const currentWeek = getCurrentWeek();
+  const psychologists = await Psychologists.find();
+  await Promise.all(
+    psychologists.map(async (psychologist) => {
       if (checkEmptyTimeRange(psychologist.timeRange)) {
+        const availableTimeRange = getAvailability(psychologist.timeRange);
+        const availability = [];
+        const sessions = await Sessions.find({
+          idPsychologist: psychologist._id,
+          status: 'pending',
+        });
+        currentWeek.forEach((day) => {
+          const existingSessions = sessions.filter(
+            (session) => weekDays[session.date.getDay()] === day.day,
+          );
+          let availableHours = availableTimeRange[day.day];
+          existingSessions.forEach((session) => {
+            availableHours = availableHours.filter((hour) => hour !== session.time);
+          });
+          availability.push({ day: day.day, hours: availableHours });
+        });
         const element = {
           id: psychologist._id,
           name: `${psychologist.firstName} ${psychologist.lastName}`,
-          availability: getAvailability(psychologist.timeRange),
+          availability,
         };
         availableDates.push(element);
       }
-    });
-    res.json(availableDates);
-  });
+    }),
+  );
+  res.status(200).json(availableDates);
 };
 
 module.exports = {

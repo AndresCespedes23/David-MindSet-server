@@ -1,3 +1,5 @@
+const weekDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+
 const getAvailableHours = (from, to) => {
   const hours = [];
   for (let i = from; i < to; i++) {
@@ -16,9 +18,8 @@ const checkEmptyTimeRange = (timeRange) => (
 );
 
 const getAvailability = (timeRange) => {
-  const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
   const availability = {};
-  days.forEach((day) => {
+  weekDays.forEach((day) => {
     // prettier-ignore
     availability[day] = timeRange[day].from
       ? getAvailableHours(timeRange[day].from, timeRange[day].to)
@@ -27,8 +28,28 @@ const getAvailability = (timeRange) => {
   return availability;
 };
 
+const getCurrentWeek = () => {
+  const currentDay = new Date();
+  let newDay;
+  const currentWeek = [];
+  for (let i = 0; i < 5; i++) {
+    if (currentWeek.length) {
+      if (newDay.day === 'friday') currentDay.setDate(currentDay.getDate() + 3);
+      else currentDay.setDate(currentDay.getDate() + 1);
+    }
+    newDay = {
+      day: weekDays[currentDay.getDay() - 1],
+      number: currentDay.getDate(),
+    };
+    currentWeek.push(newDay);
+  }
+  return currentWeek;
+};
+
 module.exports = {
+  weekDays,
   getAvailableHours,
   checkEmptyTimeRange,
   getAvailability,
+  getCurrentWeek,
 };
