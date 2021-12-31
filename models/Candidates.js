@@ -179,7 +179,7 @@ const CandidatesSchema = new Schema({
   ],
   isOpenToWork: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   timeRange: {
     mon: {
