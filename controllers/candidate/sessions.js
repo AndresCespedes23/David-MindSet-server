@@ -77,7 +77,7 @@ const getAvailableDates = async (req, res) => {
           existingSessions.forEach((session) => {
             availableHours = availableHours.filter((hour) => hour !== session.time);
           });
-          availability.push({ day: day.day, hours: availableHours });
+          availability.push({ day: day.day, number: day.number, hours: availableHours });
         });
         const element = {
           id: psychologist._id,
@@ -88,7 +88,7 @@ const getAvailableDates = async (req, res) => {
       }
     }),
   );
-  res.status(200).json(availableDates);
+  res.status(200).json({ availableDates, currentWeek });
 };
 
 module.exports = {

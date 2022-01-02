@@ -32,6 +32,10 @@ const getCurrentWeek = () => {
   const currentDay = new Date();
   let newDay;
   const currentWeek = [];
+
+  if (currentDay.getDay() === 0) currentDay.setDate(currentDay.getDate() + 1);
+  else if (currentDay.getDay() === 6) currentDay.setDate(currentDay.getDate() + 2);
+
   for (let i = 0; i < 5; i++) {
     if (currentWeek.length) {
       if (newDay.day === 'friday') currentDay.setDate(currentDay.getDate() + 3);
