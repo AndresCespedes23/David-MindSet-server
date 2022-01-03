@@ -1,5 +1,6 @@
 /* eslint-disable linebreak-style */
 const mongoose = require('mongoose');
+const { getAvailableDates } = require('../helpers/index');
 
 const isNotEmpty = (req, res, next) => {
   if (!req.body.idPsychologist) {
@@ -39,9 +40,23 @@ const validateFormat = (req, res, next) => {
   return next();
 };
 
+const sessionStillAvailable = async (req, res, next) => {
+  const availableDates = await getAvailableDates();
+  const { availability } = availableDates.find(
+    (psychologist) => psychologist.id === req.body.idPsychologist,
+  );
+  if (!availability) return res.status(400).json({ msg: 'Session is no longer available.' });
+  const sessionDay = availability.find((day) => day.day === req.body.date.getDate());
+  if (!sessionDay) return res.status(400).json({ msg: 'Session is no longer available.' });
+  const sessionHour = sessionDay.find((hour) => hour === req.body.hour);
+  if (!sessionHour) return res.status(400).json({ msg: 'Session is no longer available.' });
+  return next();
+};
+
 module.exports = {
   isNotEmpty,
   isObjectID,
   validateLength,
   validateFormat,
+  sessionStillAvailable,
 };

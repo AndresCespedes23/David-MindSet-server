@@ -1,3 +1,6 @@
+const Psychologists = require('../models/Psychologists');
+const Sessions = require('../models/Sessions');
+
 const weekDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
 
 const getAvailableHours = (from, to) => {
@@ -50,10 +53,42 @@ const getCurrentWeek = () => {
   return currentWeek;
 };
 
+const getAvailableDates = async () => {
+  const availableDates = [];
+  const currentWeek = getCurrentWeek();
+  const psychologists = await Psychologists.find();
+  await Promise.all(
+    psychologists.map(async (psychologist) => {
+      if (checkEmptyTimeRange(psychologist.timeRange)) {
+        const availableTimeRange = getAvailability(psychologist.timeRange);
+        const availability = [];
+        const sessions = await Sessions.find({
+          idPsychologist: psychologist._id,
+          status: 'pending',
+        });
+        currentWeek.forEach((day) => {
+          const existingSessions = sessions.filter(
+            (session) => weekDays[session.date.getDay()] === day.day,
+          );
+          let availableHours = availableTimeRange[day.day];
+          existingSessions.forEach((session) => {
+            availableHours = availableHours.filter((hour) => hour !== session.time);
+          });
+          availability.push({ day: day.day, number: day.number, hours: availableHours });
+        });
+        const element = {
+          id: psychologist._id,
+          name: `${psychologist.firstName} ${psychologist.lastName}`,
+          availability,
+        };
+        availableDates.push(element);
+      }
+    }),
+  );
+  return availableDates;
+};
+
 module.exports = {
-  weekDays,
-  getAvailableHours,
-  checkEmptyTimeRange,
-  getAvailability,
   getCurrentWeek,
+  getAvailableDates,
 };

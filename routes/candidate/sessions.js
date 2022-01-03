@@ -3,9 +3,14 @@ const authMiddleware = require('../../middleware/authMiddleware');
 
 const router = express.Router();
 const sessions = require('../../controllers/candidate/sessions');
-const { validateFormat, isNotEmpty, validateLength } = require('../../validators/sessions');
+const {
+  validateFormat,
+  isNotEmpty,
+  validateLength,
+  sessionStillAvailable,
+} = require('../../validators/sessions');
 
-router.get('/availableDates', sessions.getAvailableDates);
+router.get('/availableDates', sessions.getAvailableSessions);
 router.get('/:id', authMiddleware, validateFormat, sessions.getById);
 router.post('/', isNotEmpty, validateLength, validateFormat, sessions.add);
 router.put('/:id', authMiddleware, validateFormat, sessions.edit);
