@@ -14,9 +14,20 @@ const IntervewsSchema = new Schema({
     ref: 'Candidates',
     required: true,
   },
+  idOpenPosition: {
+    type: Schema.Types.ObjectId,
+    ref: 'OpenPositions',
+    required: true,
+  },
   date: {
     type: Date,
     required: true,
+  },
+  time: {
+    type: Number,
+    required: true,
+    min: 0,
+    max: 23,
   },
   status: {
     type: Boolean,
