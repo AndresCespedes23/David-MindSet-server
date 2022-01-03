@@ -7,6 +7,7 @@ const {
   isNotEmpty,
   validateFormat,
   validateLength,
+  validateTimeRange,
 } = require('../validators/candidates');
 
 router.get('/', authMiddleware, candidates.getAll);
@@ -25,6 +26,7 @@ router.put(
   authMiddleware,
   validateFormat,
   validateLength,
+  validateTimeRange,
   candidates.edit,
 );
 router.delete('/:id', authMiddleware, validateFormat, candidates.remove);

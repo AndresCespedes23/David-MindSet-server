@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const mongoose = require('mongoose');
 
 const isNotEmpty = (req, res, next) => {
@@ -85,12 +86,37 @@ const validateLength = (req, res, next) => {
   if (req.body.birthday && req.body.birthday.length !== 10) {
     return res.status(400).json({ msg: 'Birthday must have 10 characters' });
   }
-
   return next();
+};
+
+const validateTimeRange = (req, res, next) => {
+  const { timeRange } = req.body;
+  if (timeRange?.mon && validateTime(timeRange?.mon?.startTime, timeRange?.mon?.endTime))
+    return res.status(400).json({ msg: `TimeRange Monday: ${validateTime(timeRange.mon?.startTime, timeRange.mon?.endTime)}` });
+  if (timeRange?.tue && validateTime(timeRange?.tue?.startTime, timeRange?.tue?.endTime))
+    return res.status(400).json({ msg: `TimeRange Tuesday: ${validateTime(timeRange.tue?.startTime, timeRange.tue?.endTime)}` });
+  if (timeRange?.wed && validateTime(timeRange?.wed?.startTime, timeRange?.wed?.endTime))
+    return res.status(400).json({ msg: `TimeRange Wednesday: ${validateTime(timeRange.wed?.startTime, timeRange.wed?.endTime)}` });
+  if (timeRange?.thu && validateTime(timeRange?.thu?.startTime, timeRange?.thu?.endTime))
+    return res.status(400).json({ msg: `TimeRange Thursday: ${validateTime(timeRange.thu?.startTime, timeRange.thu?.endTime)}` });
+  if (timeRange?.fri && validateTime(timeRange?.fri?.startTime, timeRange?.fri?.endTime))
+    return res.status(400).json({ msg: `TimeRange Friday: ${validateTime(timeRange.fri?.startTime, timeRange.fri?.endTime)}` });
+  next();
 };
 
 module.exports = {
   isNotEmpty,
   validateFormat,
   validateLength,
+  validateTimeRange,
+};
+
+// eslint-disable-next-line consistent-return
+const validateTime = (startTime, endTime) => {
+  if ((!startTime && endTime) || (startTime && !endTime)) return 'Must complete the both fields';
+  if (startTime % 1 !== 0) return 'Since hour must be a whole number';
+  if (endTime % 1 !== 0) return 'Until hour must be a whole number';
+  if (startTime > 23 || startTime < 0) return 'Since Hour must be between 0 and 23';
+  if (endTime > 24 || endTime < 1) return 'Until Hour must be between 1 and 24';
+  if (startTime >= endTime) return 'End must to be later than Start';
 };
