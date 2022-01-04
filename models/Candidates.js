@@ -159,9 +159,11 @@ const CandidatesSchema = new Schema({
   ],
   hobbies: [
     {
-      type: String,
-      minlength: 3,
-      maxlength: 40,
+      hobbies: {
+        type: String,
+        minlength: 3,
+        maxlength: 40,
+      },
     },
   ],
   mainSkills: [
