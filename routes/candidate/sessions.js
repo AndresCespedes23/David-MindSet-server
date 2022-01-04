@@ -12,7 +12,7 @@ const {
 
 router.get('/availableDates', sessions.getAvailableSessions);
 router.get('/:id', authMiddleware, validateFormat, sessions.getById);
-router.post('/', isNotEmpty, validateLength, validateFormat, sessions.add);
+router.post('/', isNotEmpty, validateLength, validateFormat, sessionStillAvailable, sessions.add);
 router.put('/:id', authMiddleware, validateFormat, sessions.edit);
 router.delete('/:id', authMiddleware, validateFormat, sessions.remove);
 

@@ -43,12 +43,14 @@ const validateFormat = (req, res, next) => {
 const sessionStillAvailable = async (req, res, next) => {
   const availableDates = await getAvailableDates();
   const { availability } = availableDates.find(
-    (psychologist) => psychologist.id === req.body.idPsychologist,
+    (psychologist) => psychologist.id.toString() === req.body.idPsychologist,
   );
   if (!availability) return res.status(400).json({ msg: 'Session is no longer available.' });
-  const sessionDay = availability.find((day) => day.day === req.body.date.getDate());
+  const sessionDay = availability.find(
+    (day) => day.number === new Date(req.body.date).getDate() + 1,
+  );
   if (!sessionDay) return res.status(400).json({ msg: 'Session is no longer available.' });
-  const sessionHour = sessionDay.find((hour) => hour === req.body.hour);
+  const sessionHour = sessionDay.hours.find((hour) => hour === req.body.time);
   if (!sessionHour) return res.status(400).json({ msg: 'Session is no longer available.' });
   return next();
 };
