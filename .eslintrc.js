@@ -10,5 +10,8 @@ module.exports = {
   },
   rules: {
     'linebreak-style': 0,
+    'no-unused-vars': 'warn',
+    'no-plusplus': 0,
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
   },
 };

@@ -1,14 +1,7 @@
-const Sessions = require('../models/Sessions');
+const Sessions = require('../../models/Sessions');
+const { getCurrentWeek, getAvailableDates } = require('../../helpers');
 
 const notFoundTxt = 'Session not found with ID:';
-
-const getAll = (req, res) => {
-  Sessions.find()
-    .populate('idPsychologist', 'firstName lastName')
-    .populate('idCandidate', 'firstName lastName')
-    .then((data) => res.status(200).json(data))
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
-};
 
 const getById = (req, res) => {
   const { id } = req.params;
@@ -17,20 +10,6 @@ const getById = (req, res) => {
     .populate('idCandidate', 'firstName lastName')
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}`, error: true });
-      return res.status(200).json(data);
-    })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
-};
-
-const search = (req, res) => {
-  const queryParam = req.query;
-  const idCandidate = queryParam.idCandidate || null;
-  if (!idCandidate) return res.status(400).json({ msg: 'Missing query param: candidate', error: true });
-  return Sessions.find({ idCandidate })
-    .then((data) => {
-      if (data.length === 0) {
-        return res.status(404).json({ msg: `${notFoundTxt} session ID: ${idCandidate}`, error: true });
-      }
       return res.status(200).json(data);
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
@@ -75,11 +54,16 @@ const remove = (req, res) => {
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
+const getAvailableSessions = async (req, res) => {
+  const availableDates = await getAvailableDates();
+  const currentWeek = getCurrentWeek();
+  return res.status(200).json({ availableDates, currentWeek });
+};
+
 module.exports = {
-  getAll,
-  search,
   add,
   getById,
   edit,
   remove,
+  getAvailableSessions,
 };

@@ -12,6 +12,8 @@ const candidates = require('./candidates');
 const openPositions = require('./open-position');
 const sessions = require('./sessions');
 
+const candidate = require('./candidate');
+
 const router = express.Router();
 router.use(express.static('public'));
 
@@ -31,5 +33,7 @@ router.use('/candidates', candidates);
 router.use('/open-positions', openPositions);
 router.use('/profile-types', profileTypes);
 router.use('/sessions', sessions);
+
+router.use('/candidate', candidate);
 
 module.exports = router;

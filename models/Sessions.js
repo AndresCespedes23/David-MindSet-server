@@ -15,6 +15,16 @@ const sessionsSchema = new Schema({
     required: true,
   },
   date: { type: Date, required: true },
+  time: {
+    type: Number,
+    required: true,
+    min: 0,
+    max: 23,
+  },
+  status: {
+    type: String,
+    enum: ['pending', 'done', 'closed', 'cancelled'],
+  },
   isActive: { type: Boolean, default: true },
 });
 
