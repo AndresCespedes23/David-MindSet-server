@@ -3,15 +3,12 @@ const { getCurrentWeek, getAvailableDates } = require('../../helpers');
 
 const notFoundTxt = 'Session not found with ID:';
 
-const getById = (req, res) => {
+const getSession = (req, res) => {
   const { id } = req.params;
-  Sessions.findById(id)
+  Sessions.find({ idCandidate: id, status: 'pending' })
     .populate('idPsychologist', 'firstName lastName')
     .populate('idCandidate', 'firstName lastName')
-    .then((data) => {
-      if (!data) return res.status(404).json({ msg: `${notFoundTxt} ${id}`, error: true });
-      return res.status(200).json(data);
-    })
+    .then((data) => res.status(200).json(data))
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
@@ -62,7 +59,7 @@ const getAvailableSessions = async (req, res) => {
 
 module.exports = {
   add,
-  getById,
+  getSession,
   edit,
   remove,
   getAvailableSessions,

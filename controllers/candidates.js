@@ -24,7 +24,9 @@ const search = (req, res) => {
   if (!firstName) return res.status(400).json({ msg: 'Missing query param: name', error: true });
   return Candidates.find({ firstName })
     .then((data) => {
-      if (data.length === 0) return res.status(404).json({ msg: `${notFoundText} name: ${firstName}`, error: true });
+      if (data.length === 0) {
+        return res.status(404).json({ msg: `${notFoundText} name: ${firstName}`, error: true });
+      }
       return res.status(200).json(data);
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
@@ -32,7 +34,7 @@ const search = (req, res) => {
 
 const add = (req, res) => {
   const newCandidate = new Candidates({
-    firstName: req.body.firstName.toLowerCase(),
+    firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
     phone: req.body.phone,
@@ -55,9 +57,6 @@ const add = (req, res) => {
 
 const edit = (req, res) => {
   const { id } = req.params;
-  if (req.body.firstName) {
-    req.body.firstName = req.body.firstName.toLowerCase();
-  }
   Candidates.findByIdAndUpdate(id, req.body, { new: true })
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundText} ID: ${id}`, error: true });
