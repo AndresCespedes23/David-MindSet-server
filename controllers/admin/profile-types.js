@@ -1,4 +1,4 @@
-const ProfileTypes = require('../models/ProfileTypes');
+const ProfileTypes = require('../../models/ProfileTypes');
 
 const notFoundTxt = 'Profile type not found by';
 

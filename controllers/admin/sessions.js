@@ -1,4 +1,4 @@
-const Sessions = require('../models/Sessions');
+const Sessions = require('../../models/Sessions');
 
 const notFoundTxt = 'Session not found with ID:';
 

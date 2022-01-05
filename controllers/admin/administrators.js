@@ -1,4 +1,4 @@
-const Administrators = require('../models/Administrators'); // insted of re-write json we reach /models/Administrators where is the conection with Moongose and it's Schema
+const Administrators = require('../../models/Administrators'); // insted of re-write json we reach /models/Administrators where is the conection with Moongose and it's Schema
 
 const notFoundTxt = 'Administrator not found by';
 

@@ -1,4 +1,4 @@
-const Applications = require('../models/Applications');
+const Applications = require('../../models/Applications');
 
 const notFoundTxt = 'Application not found by';
 

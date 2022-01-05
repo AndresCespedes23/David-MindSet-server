@@ -1,14 +1,14 @@
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware');
+const authMiddleware = require('../../middleware/authMiddleware');
 
 const router = express.Router();
-const companies = require('../controllers/companies');
+const companies = require('../../controllers/admin/companies');
 const {
   required,
   bodyNotEmpty,
   validateLength,
   validateDataTypeAndFormat,
-} = require('../validators/companies');
+} = require('../../validators/companies');
 
 const {
   getAll, add, edit, remove, search, getById,

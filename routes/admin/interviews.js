@@ -1,10 +1,10 @@
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware');
+const authMiddleware = require('../../middleware/authMiddleware');
 
 const router = express.Router();
-const interviews = require('../controllers/interviews');
+const interviews = require('../../controllers/admin/interviews');
 
-const { validateFormat, isNotEmpty } = require('../validators/interviews');
+const { validateFormat, isNotEmpty } = require('../../validators/interviews');
 
 router.get('/', authMiddleware, interviews.getAll);
 router.get('/search', authMiddleware, validateFormat, interviews.search);

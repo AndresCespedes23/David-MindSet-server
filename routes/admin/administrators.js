@@ -1,14 +1,14 @@
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware');
+const authMiddleware = require('../../middleware/authMiddleware');
 
 const router = express.Router();
-const administrators = require('../controllers/administrators');
+const administrators = require('../../controllers/admin/administrators');
 const {
   isNotEmpty,
   validateId,
   validateEmail,
   validateLength,
-} = require('../validators/administrators');
+} = require('../../validators/administrators');
 
 router.get('/', administrators.getAll);
 router.get('/search', authMiddleware, validateId, administrators.search);
