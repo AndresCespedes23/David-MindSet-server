@@ -10,8 +10,8 @@ const {
   sessionStillAvailable,
 } = require('../../validators/sessions');
 
-router.get('/availableDates', sessions.getAvailableSessions);
-router.get('/:id', authMiddleware, validateFormat, sessions.getById);
+router.get('/availableDates', authMiddleware, sessions.getAvailableSessions);
+router.get('/:id', authMiddleware, validateFormat, sessions.getSession);
 router.post('/', isNotEmpty, validateLength, validateFormat, sessionStillAvailable, sessions.add);
 router.put('/:id', authMiddleware, validateFormat, sessions.edit);
 router.delete('/:id', authMiddleware, validateFormat, sessions.remove);
