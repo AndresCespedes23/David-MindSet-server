@@ -1,9 +1,9 @@
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware');
+const authMiddleware = require('../../middleware/authMiddleware');
 
 const router = express.Router();
-const applications = require('../controllers/applications');
-const { validateFormat, isNotEmpty } = require('../validators/applications');
+const applications = require('../../controllers/admin/applications');
+const { validateFormat, isNotEmpty } = require('../../validators/applications');
 
 router.get('/', authMiddleware, applications.getAll);
 router.get('/search', authMiddleware, validateFormat, applications.search);

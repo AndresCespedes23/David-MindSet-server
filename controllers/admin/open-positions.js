@@ -1,16 +1,18 @@
-const Psychologist = require('../models/Psychologists');
+const OpenPosition = require('../../models/OpenPosition');
 
-const notFoundTxt = 'Psychologist not found by';
+const notFoundTxt = 'Open Position not found by';
 
 const getAll = (req, res) => {
-  Psychologist.find()
+  OpenPosition.find()
+    .populate('idCompany', 'name')
     .then((data) => res.status(200).json(data))
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const getById = (req, res) => {
   const { id } = req.params;
-  Psychologist.findById(id)
+  OpenPosition.findById(id)
+    .populate('idCompany', 'name')
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}`, error: true });
       return res.status(200).json(data);
@@ -19,46 +21,46 @@ const getById = (req, res) => {
 };
 
 const search = (req, res) => {
-  const { text } = req.query;
-  Psychologist.find({ firstName: text })
+  const queryParam = req.query;
+  const idCompany = queryParam.company || null;
+  if (!idCompany) return res.status(400).json({ msg: 'Missing query param: company', error: true });
+  return OpenPosition.find({ idCompany })
     .then((data) => {
-      if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} Name: ${text}`, error: true });
+      if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} Company ID: ${idCompany}`, error: true });
       return res.status(200).json(data);
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const add = (req, res) => {
-  const newPsychologist = new Psychologist({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    pictureUrl: req.body.pictureUrl,
-    timeRange: req.body.timeRange,
-    isActive: true,
+  const newOpenPosition = new OpenPosition({
+    idCompany: req.body.idCompany,
+    startDate: req.body.startDate,
+    endDate: req.body.endDate,
+    jobDescription: req.body.jobDescription,
   });
-  newPsychologist
+  newOpenPosition
     .save()
-    .then((data) => res.status(201).json({ msg: 'Psychologist created', data }))
+    .then((data) => res.status(201).json({ msg: 'Position created', data }))
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const edit = (req, res) => {
   const { id } = req.params;
-  Psychologist.findByIdAndUpdate(id, req.body, { new: true })
+  OpenPosition.findByIdAndUpdate(id, req.body, { new: true })
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}`, error: true });
-      return res.status(200).json({ msg: 'Psychologist updated', data });
+      return res.status(200).json({ msg: 'Position updated', data });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const remove = (req, res) => {
   const { id } = req.params;
-  Psychologist.findByIdAndRemove(id)
+  OpenPosition.findByIdAndRemove(id)
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}`, error: true });
-      return res.status(200).json({ msg: 'Psychologist deleted', data });
+      return res.status(200).json({ msg: 'Position deleted', data });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };

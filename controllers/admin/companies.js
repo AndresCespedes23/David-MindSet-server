@@ -1,5 +1,5 @@
 /* easdslint-disable consistent-return */
-const Companies = require('../models/Companies');
+const Companies = require('../../models/Companies');
 
 const idNotFoundString = 'Company not found with ID:';
 

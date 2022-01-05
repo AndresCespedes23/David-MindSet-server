@@ -1,14 +1,14 @@
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware');
+const authMiddleware = require('../../middleware/authMiddleware');
 
 const router = express.Router();
-const candidates = require('../controllers/candidates');
+const candidates = require('../../controllers/admin/candidates');
 const {
   isNotEmpty,
   validateFormat,
   validateLength,
   validateTimeRange,
-} = require('../validators/candidates');
+} = require('../../validators/candidates');
 
 router.get('/', authMiddleware, candidates.getAll);
 router.get('/search', authMiddleware, candidates.search);

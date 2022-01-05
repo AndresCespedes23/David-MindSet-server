@@ -1,4 +1,4 @@
-const Candidates = require('../models/Candidates');
+const Candidates = require('../../models/Candidates');
 
 const notFoundText = 'Candidate not found by';
 

@@ -1,13 +1,13 @@
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware');
+const authMiddleware = require('../../middleware/authMiddleware');
 
 const router = express.Router();
-const sessions = require('../controllers/sessions');
+const sessions = require('../../controllers/admin/sessions');
 const {
   validateFormat,
   isNotEmpty,
   validateLength,
-} = require('../validators/sessions');
+} = require('../../validators/sessions');
 
 router.get('/', sessions.getAll);
 router.post('/', isNotEmpty, validateLength, validateFormat, sessions.add);

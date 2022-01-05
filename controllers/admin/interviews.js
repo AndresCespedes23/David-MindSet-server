@@ -1,18 +1,20 @@
-const OpenPosition = require('../models/OpenPosition');
+const Interviews = require('../../models/Interviews');
 
-const notFoundTxt = 'Open Position not found by';
+const notFoundTxt = 'Interview not found by';
 
 const getAll = (req, res) => {
-  OpenPosition.find()
+  Interviews.find()
     .populate('idCompany', 'name')
+    .populate('idCandidate', 'firstName lastName')
     .then((data) => res.status(200).json(data))
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const getById = (req, res) => {
   const { id } = req.params;
-  OpenPosition.findById(id)
+  Interviews.findById(id)
     .populate('idCompany', 'name')
+    .populate('idCandidate', 'firstName lastName')
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}`, error: true });
       return res.status(200).json(data);
@@ -24,7 +26,9 @@ const search = (req, res) => {
   const queryParam = req.query;
   const idCompany = queryParam.company || null;
   if (!idCompany) return res.status(400).json({ msg: 'Missing query param: company', error: true });
-  return OpenPosition.find({ idCompany })
+  return Interviews.find({ idCompany })
+    .populate('idCompany', 'name')
+    .populate('idCandidate', 'firstName lastName')
     .then((data) => {
       if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} Company ID: ${idCompany}`, error: true });
       return res.status(200).json(data);
@@ -33,34 +37,39 @@ const search = (req, res) => {
 };
 
 const add = (req, res) => {
-  const newOpenPosition = new OpenPosition({
+  const newInterview = new Interviews({
     idCompany: req.body.idCompany,
-    startDate: req.body.startDate,
-    endDate: req.body.endDate,
-    jobDescription: req.body.jobDescription,
+    idCandidate: req.body.idCandidate,
+    date: req.body.date,
+    status: req.body.status,
+    isActive: true,
   });
-  newOpenPosition
+  newInterview
     .save()
-    .then((data) => res.status(201).json({ msg: 'Position created', data }))
+    .then((data) => res.status(200).json({ msg: 'Interview created', data }))
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const edit = (req, res) => {
   const { id } = req.params;
-  OpenPosition.findByIdAndUpdate(id, req.body, { new: true })
+  Interviews.findByIdAndUpdate(id, req.body, { new: true })
+    .populate('idCompany', 'name')
+    .populate('idCandidate', 'firstName lastName')
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}`, error: true });
-      return res.status(200).json({ msg: 'Position updated', data });
+      return res.status(200).json({ msg: 'Interview updated', data });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
 const remove = (req, res) => {
   const { id } = req.params;
-  OpenPosition.findByIdAndRemove(id)
+  Interviews.findByIdAndRemove(id)
+    .populate('idCompany', 'name')
+    .populate('idCandidate', 'firstName lastName')
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}`, error: true });
-      return res.status(200).json({ msg: 'Position deleted', data });
+      return res.status(200).json({ msg: 'Interview deleted', data });
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };

@@ -1,13 +1,13 @@
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware');
+const authMiddleware = require('../../middleware/authMiddleware');
 
 const router = express.Router();
-const psychologists = require('../controllers/psychologists');
+const psychologists = require('../../controllers/psychologist/psychologists');
 const {
   isNotEmpty,
   validateLength,
   validateFormat,
-} = require('../validators/psychologists');
+} = require('../../validators/psychologists');
 
 router.get('/', authMiddleware, psychologists.getAll);
 router.get('/search', authMiddleware, psychologists.search);
