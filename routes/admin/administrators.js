@@ -4,24 +4,24 @@ const authMiddleware = require('../../middleware/authMiddleware');
 const router = express.Router();
 const administrators = require('../../controllers/admin/administrators');
 const {
-  isNotEmpty,
+  // isNotEmpty,
   validateId,
   validateEmail,
   validateLength,
 } = require('../../validators/administrators');
 
-router.get('/', administrators.getAll);
-router.get('/search', authMiddleware, validateId, administrators.search);
+router.get('/', authMiddleware, administrators.getAll);
+// router.get('/search', authMiddleware, validateId, administrators.search);
 router.get('/:id', authMiddleware, validateId, administrators.getById);
-router.post(
-  '/',
-  authMiddleware,
-  isNotEmpty,
-  validateId,
-  validateEmail,
-  validateLength,
-  administrators.add,
-);
+// router.post(
+//   '/',
+//   authMiddleware,
+//   isNotEmpty,
+//   validateId,
+//   validateEmail,
+//   validateLength,
+//   administrators.add,
+// );
 router.put(
   '/:id',
   authMiddleware,
