@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongoose').Types;
 const Psychologist = require('../../models/Psychologists');
 const Users = require('../../models/Users');
 const Firebase = require('../../helpers/firebase');
@@ -75,9 +76,8 @@ const edit = (req, res) => {
 const remove = async (req, res) => {
   try {
     const { id } = req.params;
-    // ¿¿¿¿COMO HAGO PARA AGARRAR PARA SABER SI NO LO ENCUENTRA SIN SER UN ERROR????
-    // SALE POR EL CATCH EN VEZ DE DEVOLVERME VACIO
-    const psychologist = await Psychologist.findById(id);
+    const psychologist = await Psychologist.findById({ _id: new ObjectId(id) });
+    if (!psychologist) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}`, error: true });
     const { email } = psychologist;
     await Psychologist.findByIdAndRemove(id);
     await Users.findOneAndRemove({ email });
@@ -86,20 +86,6 @@ const remove = async (req, res) => {
     return res.status(500).json({ msg: `Error: ${err}`, error: true });
   }
 };
-
-// const { id } = req.params;
-// Psychologist.findByIdAndRemove(id)
-//   .then((data) => {
-//     if (!data) return res.status(404).json({ msg: `${notFoundTxt} ID: ${id}`, error: true });
-//     return res.status(200).json({ msg: 'Psychologist deleted', data });
-//   })
-//   .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
-
-/*
-const auth = getAuth();
-const user = auth.currentUser;
-// await Firebase.auth().deleteUser(user);
-*/
 
 module.exports = {
   getAll,
