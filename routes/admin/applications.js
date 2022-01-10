@@ -7,14 +7,10 @@ const { validateFormat, isNotEmpty } = require('../../validators/applications');
 
 router.get('/', authMiddleware, applications.getAll);
 router.get('/search', authMiddleware, validateFormat, applications.search);
+router.get('/report', authMiddleware, applications.getReport);
+router.get('/filtered-report', authMiddleware, applications.getFilteredReport);
 router.post('/', authMiddleware, isNotEmpty, validateFormat, applications.add);
-router.put(
-  '/:id',
-  authMiddleware,
-  isNotEmpty,
-  validateFormat,
-  applications.edit,
-);
+router.put('/:id', authMiddleware, isNotEmpty, validateFormat, applications.edit);
 router.delete('/:id', authMiddleware, validateFormat, applications.remove);
 router.get('/:id', authMiddleware, validateFormat, applications.getById);
 module.exports = router;

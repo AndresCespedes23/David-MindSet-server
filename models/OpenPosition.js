@@ -9,6 +9,11 @@ const OpenPositionstSchema = new Schema({
     ref: 'Companies',
     required: true,
   },
+  idProfile: {
+    type: Schema.Types.ObjectId,
+    ref: 'ProfileTypes',
+    required: true,
+  },
   startDate: {
     type: Date,
     minlength: 10,
