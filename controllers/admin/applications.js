@@ -1,4 +1,5 @@
 const Applications = require('../../models/Applications');
+const Profiles = require('../../models/ProfileTypes');
 
 const notFoundTxt = 'Application not found by';
 
@@ -25,13 +26,17 @@ const getById = (req, res) => {
 const search = (req, res) => {
   const queryParam = req.query;
   const idOpenPosition = queryParam.idOpenPosition || null;
-  if (!idOpenPosition) return res.status(400).json({ msg: 'Missing query param: Position', error: true });
+  if (!idOpenPosition) {
+    return res.status(400).json({ msg: 'Missing query param: Position', error: true });
+  }
   return Applications.find({ idOpenPosition })
     .populate('idCandidate', 'firstName lastName')
     .populate('idOpenPosition', 'jobDescription')
     .then((data) => {
       if (data.length === 0) {
-        return res.status(404).json({ msg: `Position not found ID: ${idOpenPosition}`, error: true });
+        return res
+          .status(404)
+          .json({ msg: `Position not found ID: ${idOpenPosition}`, error: true });
       }
       return res.status(200).json(data);
     })
@@ -71,6 +76,62 @@ const remove = (req, res) => {
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
+const getReport = async (req, res) => {
+  try {
+    const profiles = await Profiles.find({ isActive: true });
+    const applications = await Applications.find({ isActive: true }).populate(
+      'idOpenPosition',
+      'idProfile',
+    );
+    const reportResults = [];
+    profiles.forEach((profile) => {
+      const filteredApplications = applications.filter(
+        (application) => application.idOpenPosition.idProfile.toString() === profile._id.toString(),
+      );
+      reportResults.push({
+        id: profile._id,
+        name: profile.name,
+        applications: filteredApplications,
+      });
+    });
+    res.status(200).json(reportResults);
+  } catch (err) {
+    res.status(500).json({ msg: `Error: ${err}`, error: true });
+  }
+};
+
+const getFilteredReport = async (req, res) => {
+  try {
+    let profiles;
+    if (req.query.profile) {
+      profiles = await Profiles.find({ isActive: true, _id: req.query.profile });
+    } else profiles = await Profiles.find({ isActive: true });
+    const applications = await Applications.find({ isActive: true }).populate(
+      'idOpenPosition',
+      'idProfile',
+    );
+    const reportResults = [];
+    profiles.forEach((profile) => {
+      // prettier-ignore
+      const filteredApplications = applications.filter(
+        (application) => (
+          application.idOpenPosition.idProfile.toString() === profile._id.toString()
+          && application.createdAt >= new Date(`${req.query.from}T00:00`)
+          && application.createdAt <= new Date(`${req.query.to}T23:59`)
+        ),
+      );
+      reportResults.push({
+        id: profile._id,
+        name: profile.name,
+        applications: filteredApplications,
+      });
+    });
+    res.status(200).json(reportResults);
+  } catch (err) {
+    res.status(500).json({ msg: `Error: ${err}`, error: true });
+  }
+};
+
 module.exports = {
   getAll,
   search,
@@ -78,4 +139,6 @@ module.exports = {
   edit,
   remove,
   getById,
+  getReport,
+  getFilteredReport,
 };
