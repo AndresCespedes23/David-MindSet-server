@@ -13,6 +13,7 @@ const getAll = (req, res) => {
 const getById = (req, res) => {
   const { id } = req.params;
   Candidates.findById(id)
+    .populate('profileTypes', 'name')
     .then((data) => {
       if (!data) return res.status(404).json({ msg: `${notFoundText} ID: ${id}`, error: true });
       return res.status(200).json(data);

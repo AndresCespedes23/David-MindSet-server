@@ -173,12 +173,11 @@ const CandidatesSchema = new Schema({
       maxlength: 40,
     },
   ],
-  profileTypes: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'profileTypesSchema',
-    },
-  ],
+  profileTypes: {
+    type: Schema.Types.ObjectId,
+    ref: 'ProfileTypes',
+    default: null,
+  },
   isOpenToWork: {
     type: Boolean,
     default: true,
