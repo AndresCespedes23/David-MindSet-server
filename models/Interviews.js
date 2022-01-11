@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema, model } = mongoose;
 
-const IntervewsSchema = new Schema({
+const InterviewsSchema = new Schema({
   id: Schema.Types.ObjectId,
   idCompany: {
     type: Schema.Types.ObjectId,
@@ -19,8 +19,13 @@ const IntervewsSchema = new Schema({
     required: true,
   },
   status: {
-    type: Boolean,
+    type: String,
+    enum: ['pending', 'accepted', 'declined', 'rescheduled', 'done'],
     required: true,
+  },
+  result: {
+    type: String,
+    enum: ['passed', 'failed', 'absent'],
   },
   isActive: {
     type: Boolean,
@@ -28,4 +33,4 @@ const IntervewsSchema = new Schema({
   },
 });
 
-module.exports = model('Interviews', IntervewsSchema);
+module.exports = model('Interviews', InterviewsSchema);

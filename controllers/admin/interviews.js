@@ -30,7 +30,11 @@ const search = (req, res) => {
     .populate('idCompany', 'name')
     .populate('idCandidate', 'firstName lastName')
     .then((data) => {
-      if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} Company ID: ${idCompany}`, error: true });
+      if (data.length === 0) {
+        return res
+          .status(404)
+          .json({ msg: `${notFoundTxt} Company ID: ${idCompany}`, error: true });
+      }
       return res.status(200).json(data);
     })
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
@@ -41,7 +45,7 @@ const add = (req, res) => {
     idCompany: req.body.idCompany,
     idCandidate: req.body.idCandidate,
     date: req.body.date,
-    status: req.body.status,
+    status: 'pending',
     isActive: true,
   });
   newInterview
