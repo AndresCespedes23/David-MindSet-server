@@ -56,7 +56,7 @@ const getCurrentWeek = () => {
 const getAvailableDates = async () => {
   const availableDates = [];
   const currentWeek = getCurrentWeek();
-  const psychologists = await Psychologists.find();
+  const psychologists = await Psychologists.find({ isActive: true });
   await Promise.all(
     psychologists.map(async (psychologist) => {
       if (checkEmptyTimeRange(psychologist.timeRange)) {

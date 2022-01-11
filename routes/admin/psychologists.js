@@ -10,7 +10,7 @@ const {
 } = require('../../validators/psychologists');
 
 router.get('/', authMiddleware, psychologists.getAll);
-router.get('/search', authMiddleware, psychologists.search);
+// router.get('/search', authMiddleware, psychologists.search);
 router.get('/:id', authMiddleware, validateFormat, psychologists.getById);
 router.post(
   '/',

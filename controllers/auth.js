@@ -21,7 +21,7 @@ const register = async (req, res) => {
     });
     // add to the candidates collection too
     const newCandidate = new Candidates({
-      firstName: req.body.firstName.toLowerCase(),
+      firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
       phone: req.body.phone,

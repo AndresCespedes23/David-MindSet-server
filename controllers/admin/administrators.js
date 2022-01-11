@@ -18,31 +18,31 @@ const getById = (req, res) => {
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
-const search = (req, res) => {
-  const queryParam = req.query;
-  const firstName = queryParam.name.toLowerCase() || null;
-  if (!firstName) return res.status(400).json({ msg: 'Missing query param: name', error: true });
-  return Administrators.find({ firstName })
-    .then((data) => {
-      if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} name: ${firstName}`, error: true });
-      return res.status(200).json(data);
-    })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
-};
+// const search = (req, res) => {
+//   const queryParam = req.query;
+//   const firstName = queryParam.name.toLowerCase() || null;
+//   if (!firstName) return res.status(400).json({ msg: 'Missing query param: name', error: true });
+//   return Administrators.find({ firstName })
+//     .then((data) => {
+// eslint-disable-next-line max-len
+//       if (data.length === 0) return res.status(404).json({ msg: `${notFoundTxt} name: ${firstName}`, error: true });
+//       return res.status(200).json(data);
+//     })
+//     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
+// };
 
-const add = (req, res) => {
-  const newAdministrator = new Administrators({
-    firstName: req.body.firstName.toLowerCase(),
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password,
-    isActive: true,
-  });
-  newAdministrator
-    .save()
-    .then((data) => res.status(201).json({ msg: 'Administrator created', data }))
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
-};
+// const add = (req, res) => {
+//   const newAdministrator = new Administrators({
+//     firstName: req.body.firstName.toLowerCase(),
+//     lastName: req.body.lastName,
+//     email: req.body.email,
+//     isActive: true,
+//   });
+//   newAdministrator
+//     .save()
+//     .then((data) => res.status(201).json({ msg: 'Administrator created', data }))
+//     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
+// };
 
 const edit = (req, res) => {
   const { id } = req.params;
@@ -70,8 +70,8 @@ const remove = (req, res) => {
 module.exports = {
   getAll,
   getById,
-  search,
-  add,
+  // search,
+  // add,
   edit,
   remove,
 };
