@@ -1,19 +1,10 @@
 const express = require('express');
-const authMiddleware = require('../../middleware/authMiddleware');
 
 const router = express.Router();
-const sessions = require('../../controllers/candidate/sessions');
-const {
-  validateFormat,
-  isNotEmpty,
-  validateLength,
-  sessionStillAvailable,
-} = require('../../validators/sessions');
+const interviews = require('../../controllers/candidate/interviews');
+const { validateFormat } = require('../../validators/interviews');
 
-router.get('/availableDates', authMiddleware, sessions.getAvailableSessions);
-router.get('/:id', authMiddleware, validateFormat, sessions.getSession);
-router.post('/', isNotEmpty, validateLength, validateFormat, sessionStillAvailable, sessions.add);
-router.put('/:id', authMiddleware, validateFormat, sessions.edit);
-router.delete('/:id', authMiddleware, validateFormat, sessions.remove);
+router.get('/:id', validateFormat, interviews.getPending);
+router.patch('/:id', validateFormat, interviews.changeStatus);
 
 module.exports = router;
