@@ -2,12 +2,6 @@ const Psychologist = require('../../models/Psychologists');
 
 const notFoundTxt = 'Psychologist not found by';
 
-const getAll = (req, res) => {
-  Psychologist.find()
-    .then((data) => res.status(200).json(data))
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
-};
-
 const getById = (req, res) => {
   const { id } = req.params;
   Psychologist.findById(id)
@@ -29,7 +23,6 @@ const edit = (req, res) => {
 };
 
 module.exports = {
-  getAll,
   getById,
   edit,
 };

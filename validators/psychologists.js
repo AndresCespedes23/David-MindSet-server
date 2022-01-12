@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const mongoose = require('mongoose');
 
 const isNotEmpty = (req, res, next) => {
@@ -56,8 +57,34 @@ const validateLength = (req, res, next) => {
   return next();
 };
 
+const validateTimeRange = (req, res, next) => {
+  const { timeRange } = req.body;
+  if (timeRange?.monday && validateTime(timeRange?.monday?.from, timeRange?.monday?.to))
+    return res.status(400).json({ msg: `TimeRange Monday: ${validateTime(timeRange.monday?.from, timeRange.monday?.to)}` });
+  if (timeRange?.tuesday && validateTime(timeRange?.tuesday?.from, timeRange?.tuesday?.to))
+    return res.status(400).json({ msg: `TimeRange Tuesday: ${validateTime(timeRange.tue?.from, timeRange.tuesday?.to)}` });
+  if (timeRange?.wednesday && validateTime(timeRange?.wednesday?.from, timeRange?.wednesday?.to))
+    return res.status(400).json({ msg: `TimeRange Wednesday: ${validateTime(timeRange.wednesday?.from, timeRange.wednesday?.to)}` });
+  if (timeRange?.thursday && validateTime(timeRange?.thursday?.from, timeRange?.thursday?.to))
+    return res.status(400).json({ msg: `TimeRange Thursday: ${validateTime(timeRange.thursday?.from, timeRange.thursday?.to)}` });
+  if (timeRange?.friday && validateTime(timeRange?.friday?.from, timeRange?.friday?.to))
+    return res.status(400).json({ msg: `TimeRange Friday: ${validateTime(timeRange.friday?.from, timeRange.friday?.to)}` });
+  next();
+};
+
 module.exports = {
   isNotEmpty,
   validateFormat,
   validateLength,
+  validateTimeRange,
+};
+
+// eslint-disable-next-line consistent-return
+const validateTime = (from, to) => {
+  if ((!from && to) || (from && !to)) return 'Must complete the both fields';
+  if (from % 1 !== 0) return 'Since hour must be a whole number';
+  if (to % 1 !== 0) return 'Until hour must be a whole number';
+  if (from > 23 || from < 0) return 'Since Hour must be between 0 and 23';
+  if (to > 24 || to < 1) return 'Until Hour must be between 1 and 24';
+  if (from >= to) return 'End must to be later than Start';
 };
