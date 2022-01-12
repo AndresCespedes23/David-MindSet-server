@@ -3,7 +3,7 @@ const Candidates = require('../../models/Candidates');
 const notFoundText = 'Candidate not found by';
 
 const getAll = (req, res) => {
-  Candidates.find()
+  Candidates.find().populate('profileTypes', 'name')
     .then((data) => res.status(200).json(data))
     .catch((error) => res.status(500).json({ msg: `Error: ${error}`, error: true }));
 };

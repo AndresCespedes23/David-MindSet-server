@@ -174,7 +174,7 @@ const CandidatesSchema = new Schema({
     },
   ],
   profileTypes: {
-    type: String,
+    type: Schema.Types.ObjectId,
     ref: 'ProfileTypes',
     default: null,
   },
