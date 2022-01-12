@@ -1,7 +1,10 @@
 const Psychologists = require('../models/Psychologists');
+const Candidates = require('../models/Candidates');
 const Sessions = require('../models/Sessions');
+const Interviews = require('../models/Interviews');
 
 const weekDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+const weekDaysCandidate = ['mon', 'tue', 'wed', 'thu', 'fri'];
 
 const getAvailableHours = (from, to) => {
   const hours = [];
@@ -19,6 +22,13 @@ const checkEmptyTimeRange = (timeRange) => (
   || timeRange.thursday.from
   || timeRange.friday.from
 );
+const checkEmptyTimeRangeCandidates = (timeRange) => (
+  timeRange.mon.startTime
+  || timeRange.tue.startTime
+  || timeRange.wed.startTime
+  || timeRange.thu.startTime
+  || timeRange.fri.startTime
+);
 
 const getAvailability = (timeRange) => {
   const availability = {};
@@ -26,6 +36,16 @@ const getAvailability = (timeRange) => {
     // prettier-ignore
     availability[day] = timeRange[day].from
       ? getAvailableHours(timeRange[day].from, timeRange[day].to)
+      : [];
+  });
+  return availability;
+};
+const getAvailabilityCandidate = (timeRange) => {
+  const availability = {};
+  weekDaysCandidate.forEach((day) => {
+    // prettier-ignore
+    availability[day] = timeRange[day].startTime
+      ? getAvailableHours(timeRange[day].startTime, timeRange[day].endTime)
       : [];
   });
   return availability;
@@ -46,6 +66,27 @@ const getCurrentWeek = () => {
     }
     newDay = {
       day: weekDays[currentDay.getDay() - 1],
+      number: currentDay.getDate(),
+    };
+    currentWeek.push(newDay);
+  }
+  return currentWeek;
+};
+const getCurrentWeekCandidate = () => {
+  const currentDay = new Date();
+  let newDay;
+  const currentWeek = [];
+
+  if (currentDay.getDay() === 0) currentDay.setDate(currentDay.getDate() + 1);
+  else if (currentDay.getDay() === 6) currentDay.setDate(currentDay.getDate() + 2);
+
+  for (let i = 0; i < 5; i++) {
+    if (currentWeek.length) {
+      if (newDay.day === 'fri') currentDay.setDate(currentDay.getDate() + 3);
+      else currentDay.setDate(currentDay.getDate() + 1);
+    }
+    newDay = {
+      day: weekDaysCandidate[currentDay.getDay() - 1],
       number: currentDay.getDate(),
     };
     currentWeek.push(newDay);
@@ -88,7 +129,47 @@ const getAvailableDates = async () => {
   return availableDates;
 };
 
+/// ////////////////////////////
+
+const getAvailableDatesCandidate = async (idCandidate) => {
+  const availableDates = [];
+  const currentWeek = getCurrentWeekCandidate();
+  const candidate = await Candidates.findById(idCandidate);
+  if (candidate.isActive === false) return 'Candidate not active';
+  // await Promise.all(
+  //   Candidates.map(async (psychologist) => {
+  if (checkEmptyTimeRangeCandidates(candidate.timeRange)) {
+    const availableTimeRange = getAvailabilityCandidate(candidate.timeRange);
+    const availability = [];
+    const interviews = await Interviews.find({
+      idCandidate: candidate._id,
+      status: 'Pending',
+    });
+    currentWeek.forEach((day) => {
+      const existingInterviews = interviews.filter(
+        (interview) => weekDaysCandidate[interview.date.getDay()] === day.day,
+      );
+      let availableHours = availableTimeRange[day.day];
+      existingInterviews.forEach((interview) => {
+        availableHours = availableHours.filter((hour) => hour !== interview.time);
+      });
+      availability.push({ day: day.day, number: day.number, hours: availableHours });
+    });
+    const element = {
+      id: candidate._id,
+      name: `${candidate.firstName} ${candidate.lastName}`,
+      availability,
+    };
+    availableDates.push(element);
+  }
+  //   }),
+  // );
+  return availableDates;
+};
+
 module.exports = {
   getCurrentWeek,
   getAvailableDates,
+  getCurrentWeekCandidate,
+  getAvailableDatesCandidate,
 };

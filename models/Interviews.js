@@ -18,9 +18,21 @@ const IntervewsSchema = new Schema({
     type: Date,
     required: true,
   },
-  status: {
-    type: Boolean,
+  time: {
+    type: Number,
     required: true,
+    min: 0,
+    max: 23,
+  },
+  status: {
+    type: String,
+    enum: ['Pending', 'Accepted', 'Declined', 'Reschedule', 'Done'],
+    default: 'Pending',
+  },
+  result: {
+    type: String,
+    enum: ['Passed', 'Failed', 'Absent', null],
+    default: null,
   },
   isActive: {
     type: Boolean,
