@@ -8,6 +8,7 @@ const getPending = (req, res) => {
   Interviews.find({ idCandidate: id, status: 'pending', isActive: true })
     .populate('idCompany', 'name')
     .populate('idCandidate', 'firstName lastName')
+    .populate('idOpenPosition', 'jobDescription')
     .then((data) => res.status(200).json(data))
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };

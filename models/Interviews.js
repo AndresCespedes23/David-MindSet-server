@@ -4,6 +4,11 @@ const { Schema, model } = mongoose;
 
 const InterviewsSchema = new Schema({
   id: Schema.Types.ObjectId,
+  idOpenPosition: {
+    type: Schema.Types.ObjectId,
+    ref: 'OpenPositions',
+    required: true,
+  },
   idCompany: {
     type: Schema.Types.ObjectId,
     ref: 'Companies',
@@ -18,9 +23,15 @@ const InterviewsSchema = new Schema({
     type: Date,
     required: true,
   },
+  time: {
+    type: Number,
+    required: true,
+    min: 0,
+    max: 23,
+  },
   status: {
     type: String,
-    enum: ['pending', 'accepted', 'declined', 'rescheduled', 'done'],
+    enum: ['pending', 'accepted', 'declined', 'reschedule', 'done'],
     required: true,
   },
   result: {
