@@ -17,12 +17,11 @@ const ApplicationsSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ['Pending', 'Discarded', 'Assigned'],
-      default: 'Pending',
+      enum: ['pending', 'discarded', 'assigned'],
+      default: 'pending',
     },
-    // isActive: { type: Boolean, default: true },
+    isActive: { type: Boolean, default: true },
   },
-  // { timestamps: true },
 );
 
 module.exports = model('Applications', ApplicationsSchema);

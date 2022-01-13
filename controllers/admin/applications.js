@@ -8,7 +8,7 @@ const notFoundTxt = 'Application not found by';
 const getAll = (req, res) => {
   Applications.find()
     .populate('idCandidate', 'firstName lastName')
-    .populate('idOpenPosition', 'jobDescription idCompany idProfile')
+    .populate('idOpenPosition', 'jobDescription idCompany idProfile startDate endDate')
     .then((data) => res.status(200).json(data))
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };

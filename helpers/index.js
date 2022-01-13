@@ -129,21 +129,17 @@ const getAvailableDates = async () => {
   return availableDates;
 };
 
-/// ////////////////////////////
-
 const getAvailableDatesCandidate = async (idCandidate) => {
   const availableDates = [];
   const currentWeek = getCurrentWeekCandidate();
   const candidate = await Candidates.findById(idCandidate);
   if (candidate.isActive === false) return 'Candidate not active';
-  // await Promise.all(
-  //   Candidates.map(async (psychologist) => {
   if (checkEmptyTimeRangeCandidates(candidate.timeRange)) {
     const availableTimeRange = getAvailabilityCandidate(candidate.timeRange);
     const availability = [];
     const interviews = await Interviews.find({
       idCandidate: candidate._id,
-      status: 'Pending',
+      status: 'pending',
     });
     currentWeek.forEach((day) => {
       const existingInterviews = interviews.filter(
@@ -162,8 +158,6 @@ const getAvailableDatesCandidate = async (idCandidate) => {
     };
     availableDates.push(element);
   }
-  //   }),
-  // );
   return availableDates;
 };
 

@@ -26,10 +26,11 @@ const getById = (req, res) => {
 const add = (req, res) => {
   const newInterview = new Interviews({
     idCompany: req.body.idCompany,
+    idOpenPosition: req.body.idOpenPosition,
     idCandidate: req.body.idCandidate,
     date: req.body.date,
     time: req.body.time,
-    status: 'Pending',
+    status: 'pending',
     isActive: true,
   });
   newInterview

@@ -9,6 +9,11 @@ const IntervewsSchema = new Schema({
     ref: 'Companies',
     required: true,
   },
+  idOpenPosition: {
+    type: Schema.Types.ObjectId,
+    ref: 'OpenPositions',
+    required: true,
+  },
   idCandidate: {
     type: Schema.Types.ObjectId,
     ref: 'Candidates',
@@ -26,13 +31,12 @@ const IntervewsSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['Pending', 'Accepted', 'Declined', 'Reschedule', 'Done'],
+    enum: ['pending', 'accepted', 'declined', 'reschedule', 'done'],
     default: 'Pending',
   },
   result: {
     type: String,
-    enum: ['Passed', 'Failed', 'Absent', null],
-    default: null,
+    enum: ['passed', 'failed', 'absent'],
   },
   isActive: {
     type: Boolean,
