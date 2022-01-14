@@ -9,7 +9,7 @@ const {
   validateLength,
 } = require('../../validators/sessions');
 
-router.get('/', sessions.getAll);
+router.get('/all/:id', sessions.getAll);
 router.post('/', isNotEmpty, validateLength, validateFormat, sessions.add);
 router.get('/search', authMiddleware, validateFormat, sessions.search);
 router.put('/:id', authMiddleware, validateFormat, sessions.edit);

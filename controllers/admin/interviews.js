@@ -30,7 +30,6 @@ const add = (req, res) => {
     idCandidate: req.body.idCandidate,
     date: req.body.date,
     time: req.body.time,
-    status: 'pending',
     isActive: true,
   });
   newInterview
