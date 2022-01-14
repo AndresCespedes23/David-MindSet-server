@@ -25,19 +25,6 @@ const getById = (req, res) => {
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
-// const add = (req, res) => {
-//   const newApplication = new Applications({
-//     idOpenPosition: req.body.idOpenPosition,
-//     idCandidate: req.body.idCandidate,
-//     status: true,
-//     isActive: true,
-//   });
-//   newApplication
-//     .save()
-//     .then((data) => res.status(201).json({ msg: 'Application created', data }))
-//     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
-// };
-
 const edit = async (req, res) => {
   try {
     const { id } = req.params;
@@ -109,7 +96,6 @@ const getFilteredReport = async (req, res) => {
 
 module.exports = {
   getAll,
-  // add,
   edit,
   getById,
   getReport,
