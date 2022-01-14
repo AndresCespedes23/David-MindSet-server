@@ -30,7 +30,7 @@ const edit = async (req, res) => {
       const newApplication = new Applications({
         idOpenPosition: openPosition._id,
         idCandidate: id,
-        status: true,
+        status: 'pending',
         isActive: true,
       });
       newApplication

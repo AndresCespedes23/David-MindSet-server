@@ -57,7 +57,7 @@ const add = async (req, res) => {
       const newApplication = new Applications({
         idOpenPosition: newOpenPosition._id,
         idCandidate: candidate._id,
-        status: true,
+        status: 'pending',
         isActive: true,
       });
       newApplication

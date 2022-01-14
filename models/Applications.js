@@ -15,10 +15,13 @@ const ApplicationsSchema = new Schema(
       ref: 'OpenPositions',
       required: true,
     },
-    status: { type: Boolean, default: true },
+    status: {
+      type: String,
+      enum: ['pending', 'discarded', 'assigned'],
+      default: 'pending',
+    },
     isActive: { type: Boolean, default: true },
   },
-  { timestamps: true },
 );
 
 module.exports = model('Applications', ApplicationsSchema);
