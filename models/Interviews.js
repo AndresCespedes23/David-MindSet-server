@@ -2,8 +2,13 @@ const mongoose = require('mongoose');
 
 const { Schema, model } = mongoose;
 
-const IntervewsSchema = new Schema({
+const InterviewsSchema = new Schema({
   id: Schema.Types.ObjectId,
+  idOpenPosition: {
+    type: Schema.Types.ObjectId,
+    ref: 'OpenPositions',
+    required: true,
+  },
   idCompany: {
     type: Schema.Types.ObjectId,
     ref: 'Companies',
@@ -18,9 +23,20 @@ const IntervewsSchema = new Schema({
     type: Date,
     required: true,
   },
-  status: {
-    type: Boolean,
+  time: {
+    type: Number,
     required: true,
+    min: 0,
+    max: 23,
+  },
+  status: {
+    type: String,
+    enum: ['pending', 'accepted', 'declined', 'reschedule', 'done'],
+    required: true,
+  },
+  result: {
+    type: String,
+    enum: ['passed', 'failed', 'absent'],
   },
   isActive: {
     type: Boolean,
@@ -28,4 +44,4 @@ const IntervewsSchema = new Schema({
   },
 });
 
-module.exports = model('Interviews', IntervewsSchema);
+module.exports = model('Interviews', InterviewsSchema);
