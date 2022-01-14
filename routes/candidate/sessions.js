@@ -8,11 +8,20 @@ const {
   isNotEmpty,
   validateLength,
   sessionStillAvailable,
+  checkForExistingSession,
 } = require('../../validators/sessions');
 
 router.get('/availableDates', authMiddleware, sessions.getAvailableSessions);
 router.get('/:id', authMiddleware, validateFormat, sessions.getSession);
-router.post('/', isNotEmpty, validateLength, validateFormat, sessionStillAvailable, sessions.add);
+router.post(
+  '/',
+  isNotEmpty,
+  validateLength,
+  validateFormat,
+  sessionStillAvailable,
+  checkForExistingSession,
+  sessions.add,
+);
 router.put('/:id', authMiddleware, validateFormat, sessions.edit);
 router.delete('/:id', authMiddleware, validateFormat, sessions.remove);
 

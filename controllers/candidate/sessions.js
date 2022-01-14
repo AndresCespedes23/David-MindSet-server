@@ -5,7 +5,7 @@ const notFoundTxt = 'Session not found with ID:';
 
 const getSession = (req, res) => {
   const { id } = req.params;
-  Sessions.find({ idCandidate: id, status: 'pending' })
+  Sessions.find({ idCandidate: id, $or: [{ status: 'pending' }, { status: 'done' }] })
     .populate('idPsychologist', 'firstName lastName')
     .populate('idCandidate', 'firstName lastName')
     .then((data) => res.status(200).json(data))
@@ -18,8 +18,6 @@ const add = (req, res) => {
     idCandidate: req.body.idCandidate,
     date: req.body.date,
     time: req.body.time,
-    status: 'pending',
-    isActive: true,
   });
   newSession
     .save()

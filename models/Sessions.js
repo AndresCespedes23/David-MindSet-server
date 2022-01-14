@@ -24,6 +24,7 @@ const sessionsSchema = new Schema({
   status: {
     type: String,
     enum: ['pending', 'done', 'closed', 'cancelled'],
+    default: 'pending',
   },
   isActive: { type: Boolean, default: true },
 });
