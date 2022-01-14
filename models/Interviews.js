@@ -32,6 +32,7 @@ const InterviewsSchema = new Schema({
   status: {
     type: String,
     enum: ['pending', 'accepted', 'declined', 'reschedule', 'done'],
+    default: 'pending',
     required: true,
   },
   result: {
