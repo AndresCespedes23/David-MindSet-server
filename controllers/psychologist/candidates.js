@@ -1,4 +1,6 @@
 const Candidates = require('../../models/Candidates');
+const OpenPosition = require('../../models/OpenPosition');
+const Applications = require('../../models/Applications');
 
 const notFoundText = 'Candidate not found by';
 
@@ -18,14 +20,26 @@ const getById = (req, res) => {
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
 };
 
-const edit = (req, res) => {
+const edit = async (req, res) => {
   const { id } = req.params;
-  Candidates.findByIdAndUpdate(id, req.body, { new: true })
-    .then((data) => {
-      if (!data) return res.status(404).json({ msg: `${notFoundText} ID: ${id}`, error: true });
-      return res.status(200).json({ msg: 'Candidate updated', data });
-    })
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
+  const infoCandidate = await Candidates.findByIdAndUpdate(id, req.body, { new: true });
+  if (!infoCandidate) return res.status(404).json({ msg: `${notFoundText} ID: ${id}`, error: true });
+  const openPositions = await OpenPosition.find({ idProfile: req.body.profileTypes });
+  if (openPositions.length !== 0) {
+    openPositions.forEach((openPosition) => {
+      const newApplication = new Applications({
+        idOpenPosition: openPosition._id,
+        idCandidate: id,
+        status: 'pending',
+        isActive: true,
+      });
+      newApplication
+        .save()
+        .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
+    });
+    return res.status(201).json({ msg: `Candidate updated and ${openPositions.length} applications created`, infoCandidate });
+  }
+  return res.status(201).json({ msg: 'Candidate updated but there is no applicants for this position', infoCandidate });
 };
 
 module.exports = {
