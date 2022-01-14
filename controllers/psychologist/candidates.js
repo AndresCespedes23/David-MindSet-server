@@ -24,7 +24,7 @@ const edit = async (req, res) => {
   const { id } = req.params;
   const infoCandidate = await Candidates.findByIdAndUpdate(id, req.body, { new: true });
   if (!infoCandidate) return res.status(404).json({ msg: `${notFoundText} ID: ${id}`, error: true });
-  const openPositions = await OpenPosition.find({ idProfile: req.body.idProfile });
+  const openPositions = await OpenPosition.find({ idProfile: req.body.profileTypes });
   if (openPositions.length !== 0) {
     openPositions.forEach((openPosition) => {
       const newApplication = new Applications({

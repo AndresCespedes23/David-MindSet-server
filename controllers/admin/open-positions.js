@@ -51,7 +51,7 @@ const add = async (req, res) => {
   newOpenPosition
     .save()
     .catch((err) => res.status(500).json({ msg: `Error: ${err}`, error: true }));
-  const candidates = await Candidates.find({ profileTypes: req.body.idProfile });
+  const candidates = await Candidates.find({ profileTypes: req.body.idProfile, isActive: true });
   if (candidates.length !== 0) {
     candidates.forEach((candidate) => {
       const newApplication = new Applications({
