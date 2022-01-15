@@ -3,7 +3,7 @@ const Sessions = require('../../models/Sessions');
 const notFoundTxt = 'Session not found with ID:';
 
 const getAll = (req, res) => {
-  Sessions.find()
+  Sessions.find({ $or: [{ status: 'pending' }, { status: 'done' }] })
     .populate('idPsychologist', 'firstName lastName')
     .populate('idCandidate', 'firstName lastName')
     .then((data) => res.status(200).json(data))
@@ -25,11 +25,15 @@ const getById = (req, res) => {
 const search = (req, res) => {
   const queryParam = req.query;
   const idCandidate = queryParam.idCandidate || null;
-  if (!idCandidate) return res.status(400).json({ msg: 'Missing query param: candidate', error: true });
+  if (!idCandidate) {
+    return res.status(400).json({ msg: 'Missing query param: candidate', error: true });
+  }
   return Sessions.find({ idCandidate })
     .then((data) => {
       if (data.length === 0) {
-        return res.status(404).json({ msg: `${notFoundTxt} session ID: ${idCandidate}`, error: true });
+        return res
+          .status(404)
+          .json({ msg: `${notFoundTxt} session ID: ${idCandidate}`, error: true });
       }
       return res.status(200).json(data);
     })

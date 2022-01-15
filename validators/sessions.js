@@ -1,6 +1,7 @@
 /* eslint-disable linebreak-style */
 const mongoose = require('mongoose');
 const { getAvailableDates } = require('../helpers/index');
+const Sessions = require('../models/Sessions');
 
 const isNotEmpty = (req, res, next) => {
   if (!req.body.idPsychologist) {
@@ -55,10 +56,22 @@ const sessionStillAvailable = async (req, res, next) => {
   return next();
 };
 
+const checkForExistingSession = async (req, res, next) => {
+  const existingSession = await Sessions.find({
+    idCandidate: req.body.idCandidate,
+    $or: [{ status: 'pending' }, { status: 'done' }, { status: 'closed' }],
+  });
+  if (existingSession.length) {
+    return res.status(400).json({ msg: 'Candidate already has a session scheduled.' });
+  }
+  return next();
+};
+
 module.exports = {
   isNotEmpty,
   isObjectID,
   validateLength,
   validateFormat,
   sessionStillAvailable,
+  checkForExistingSession,
 };

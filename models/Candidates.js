@@ -244,10 +244,6 @@ const CandidatesSchema = new Schema({
       },
     },
   },
-  hasPendingSession: {
-    type: Boolean,
-    default: true,
-  },
   isActive: {
     type: Boolean,
     default: true,
