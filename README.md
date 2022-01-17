@@ -42,3 +42,8 @@ Mindset allows this with the following interactions:
 | Pablo Bernal | semperfi1992.pb@gmail.com | [@PabloMBernal](https://github.com/PabloMBernal)
 | Sofía Pagura | sofiapagura@gmail.com | [@sofpag](https://github.com/sofpag/sofpag)
 | Valentín Feraudo | valentinferaudo@gmail.com | [@valeferaudo](https://github.com/valeferaudo)
+| Sabrina Pereira | pereira.tsabrina@gmail.com | [@Sabrucita](https://github.com/Sabrucita)
+| Baltazar Cortina | baltazarcortina@gmail.com | [@BaltazarCortina](https://github.com/BaltazarCortina)
+| Juan Andrés Menchaca | juanmenchaca7698@gmail.com | [@juanandres7698](https://github.com/juanandres7698)
+| Jamir Mansilla | davidjamirmansilla@gmail.com | [@JamirMansilla](https://github.com/JamirMansilla)
+| Eugenio Ponzone | eugenioponzone@gmail.com | [@EugenioPonzone](https://github.com/EugenioPonzone)
