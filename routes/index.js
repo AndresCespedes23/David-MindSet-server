@@ -8,7 +8,11 @@ const admin = require('./admin');
 const candidate = require('./candidate');
 const psychologist = require('./psychologist');
 
-const authMiddleware = require('../middleware/authMiddleware');
+const {
+  authMiddlewareCandidate,
+  authMiddlewareAdmin,
+  authMiddlewarePsychologist,
+} = require('../middleware/authMiddleware');
 
 const router = express.Router();
 router.use(express.static('public'));
@@ -22,8 +26,8 @@ router.get('/server-status', (req, res) => res.send({ status: 'Server OK' }));
 router.use('/auth', auth);
 
 router.use('/', home);
-router.use('/admin', authMiddleware, admin);
-router.use('/candidate', authMiddleware, candidate);
-router.use('/psychologist', authMiddleware, psychologist);
+router.use('/admin', authMiddlewareAdmin, admin);
+router.use('/candidate', authMiddlewareCandidate, candidate);
+router.use('/psychologist', authMiddlewarePsychologist, psychologist);
 
 module.exports = router;
