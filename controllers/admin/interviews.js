@@ -66,10 +66,36 @@ const getAvailableInterviews = async (req, res) => {
   return res.status(200).json({ availableDates, currentWeek });
 };
 
+const cancelOutdatedInterviews = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const interviews = await Interviews.find({
+      $and: [
+        { idCandidate: id },
+        { $or: [{ status: 'pending' }, { status: 'accepted' }, { status: 'reschedule' }] },
+      ],
+    });
+    if (!interviews.length) {
+      return res.status(200).json({ msg: `No interviews found for id: ${id}` });
+    }
+    await Promise.all(
+      interviews.map(async (interview) => {
+        const newInterview = interview;
+        newInterview.status = 'declined';
+        await Interviews.findByIdAndUpdate(interview._id, newInterview, { new: true });
+      }),
+    );
+  } catch (err) {
+    res.status(500).json({ msg: `Error: ${err}`, error: true });
+  }
+  return res.status(200).json({ msg: 'Interview(s) cancelled' });
+};
+
 module.exports = {
   getAll,
   getById,
   add,
   edit,
   getAvailableInterviews,
+  cancelOutdatedInterviews,
 };

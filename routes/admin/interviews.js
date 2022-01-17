@@ -22,5 +22,6 @@ router.post(
 );
 router.put('/:id', validateFormat, interviews.edit);
 router.get('/availableDates/:id', interviews.getAvailableInterviews);
+router.patch('/:id', validateFormat, interviews.cancelOutdatedInterviews);
 
 module.exports = router;
