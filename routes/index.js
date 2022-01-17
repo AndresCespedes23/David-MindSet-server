@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const auth = require('./auth');
 
+// const public = require('./');
 const admin = require('./admin');
 const candidate = require('./candidate');
 const psychologist = require('./psychologist');
@@ -20,6 +21,7 @@ router.get('/server-status', (req, res) => res.send({ status: 'Server OK' }));
 
 router.use('/auth', auth);
 
+// router.use('/', authMiddleware, public);
 router.use('/admin', authMiddleware, admin);
 router.use('/candidate', authMiddleware, candidate);
 router.use('/psychologist', authMiddleware, psychologist);

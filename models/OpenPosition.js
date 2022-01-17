@@ -36,6 +36,38 @@ const OpenPositionstSchema = new Schema({
     type: Boolean,
     default: true,
   },
+  positionsArray: [
+    {
+      idCompany: {
+        type: Schema.Types.ObjectId,
+        ref: 'Companies',
+        required: true,
+      },
+      idProfile: {
+        type: Schema.Types.ObjectId,
+        ref: 'ProfileTypes',
+        required: true,
+      },
+      startDate: {
+        type: Date,
+        minlength: 10,
+        maxlength: 10,
+        required: true,
+      },
+      endDate: {
+        type: Date,
+        minlength: 10,
+        maxlength: 10,
+        default: null,
+      },
+      jobDescription: {
+        type: String,
+        minlength: 10,
+        maxlength: 500,
+        required: true,
+      },
+    },
+  ],
 });
 
 module.exports = model('OpenPositions', OpenPositionstSchema);
