@@ -58,26 +58,27 @@ const sessionStillAvailable = async (req, res, next) => {
         req.body.time
       }`,
     });
-  const sessionDay = availability.find((day) => day.number === new Date(req.body.date).getDate());
+  const reqDate = new Date(req.body.date);
+  const timezoneOffset = reqDate.getTimezoneOffset();
+  reqDate.setHours(reqDate.getHours() + timezoneOffset / 60);
+  console.log(new Date(reqDate));
+  const sessionDay = availability.find((day) => day.number === reqDate.getDate());
   if (!sessionDay)
-    return res
-      .status(400)
-      .json({
-        msg: 'Session is no longer available. 2',
-        info: `${req.body.date}|${new Date(req.body.date)}|${new Date(req.body.date).getDate()}|${
-          req.body.time
-        }`,
-      });
+    return res.status(400).json({
+      msg: 'Session is no longer available. 2',
+      info: `${req.body.date}|${new Date(req.body.date)}|${new Date(req.body.date).getDate()}|${
+        req.body.time
+      }`,
+    });
   const sessionHour = sessionDay.hours.find((hour) => hour === req.body.time);
   if (!sessionHour)
-    return res
-      .status(400)
-      .json({
-        msg: 'Session is no longer available. 3',
-        info: `${req.body.date}|${new Date(req.body.date)}|${new Date(req.body.date).getDate()}|${
-          req.body.time
-        }`,
-      });
+    return res.status(400).json({
+      msg: 'Session is no longer available. 3',
+      info: `${req.body.date}|${new Date(req.body.date)}|${new Date(req.body.date).getDate()}|${
+        req.body.time
+      }`,
+      sessionHour,
+    });
   return next();
 };
 
