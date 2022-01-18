@@ -46,11 +46,22 @@ const sessionStillAvailable = async (req, res, next) => {
   const { availability } = availableDates.find(
     (psychologist) => psychologist.id.toString() === req.body.idPsychologist,
   );
-  if (!availability) return res.status(400).json({ msg: 'Session is no longer available.' });
+  console.log(
+    `${req.body.date}|${new Date(req.body.date)}|${new Date(req.body.date).getDate()}|${
+      req.body.time
+    }`,
+  );
+  if (!availability)
+    return res.status(400).json({
+      msg: 'Session is no longer available. 1',
+      info: `${req.body.date}|${new Date(req.body.date)}|${new Date(req.body.date).getDate()}|${
+        req.body.time
+      }`,
+    });
   const sessionDay = availability.find((day) => day.number === new Date(req.body.date).getDate());
-  if (!sessionDay) return res.status(400).json({ msg: 'Session is no longer available.' });
+  if (!sessionDay) return res.status(400).json({ msg: 'Session is no longer available. 2' });
   const sessionHour = sessionDay.hours.find((hour) => hour === req.body.time);
-  if (!sessionHour) return res.status(400).json({ msg: 'Session is no longer available.' });
+  if (!sessionHour) return res.status(400).json({ msg: 'Session is no longer available. 3' });
   return next();
 };
 
