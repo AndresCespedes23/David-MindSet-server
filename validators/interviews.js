@@ -36,9 +36,10 @@ const interviewStillAvailable = async (req, res, next) => {
     (candidate) => candidate.id.toString() === req.body.idCandidate,
   );
   if (!availability) return res.status(400).json({ msg: 'Interview is no longer available.' });
-  const interviewDay = availability.find(
-    (day) => day.number === new Date(req.body.date).getDate() + 1,
-  );
+  const reqDate = new Date(req.body.date);
+  const timezoneOffset = reqDate.getTimezoneOffset();
+  reqDate.setHours(reqDate.getHours() + timezoneOffset / 60);
+  const interviewDay = availability.find((day) => day.number === reqDate.getDate());
   if (!interviewDay) return res.status(400).json({ msg: 'Interview is no longer available.' });
   const interviewHour = interviewDay.hours.find((hour) => hour === req.body.time);
   if (!interviewHour) return res.status(400).json({ msg: 'Interview is no longer available.' });
@@ -47,11 +48,17 @@ const interviewStillAvailable = async (req, res, next) => {
 
 const interviewBetweenDates = async (req, res, next) => {
   const openPosition = await OpenPositions.findById(req.body.idOpenPosition);
-  if (!openPosition) return res.status(404).json({ msg: `${notFoundTxt} ID: ${req.body.idOpenPosition}`, error: true });
+  if (!openPosition) {
+    return res
+      .status(404)
+      .json({ msg: `${notFoundTxt} ID: ${req.body.idOpenPosition}`, error: true });
+  }
   const { startDate } = openPosition;
   const { endDate } = openPosition;
   const interviewDate = new Date(req.body.date);
-  if (interviewDate < startDate || interviewDate > endDate) return res.status(400).json({ msg: 'Open Position is not longer available this day.' });
+  if (interviewDate < startDate || interviewDate > endDate) {
+    return res.status(400).json({ msg: 'Open Position is not longer available this day.' });
+  }
   return next();
 };
 
